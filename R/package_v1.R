@@ -56,5 +56,5 @@ check()
 use_mit_license()
 
 # trigger the conversion of roxygen code in the functions by using
-document("~/Box/Mine/Crespi_GSR/")
+document()
 
