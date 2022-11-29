@@ -6,8 +6,9 @@
 <!-- badges: start -->
 <!-- badges: end -->
 
-The goal of PSSTools is to provide Power and Sample Size Tools in R for
-researchers.
+The goal of PSSTools is to provide Power and Sample Size Tools in R for researchers. This package accompanies the text "Power and Sample Size in R" by Catherine M. Crespi. 
+
+This package loads all R packages that are used in the textbook and provides new functions for sample size and power calculations that did not previously exist.
 
 ## Installation
 
@@ -20,40 +21,15 @@ devtools::install_github("kristenmcgreevy/PSSTools")
 
 ## Example
 
-This is a basic example which shows you how to solve a common problem:
+This is a basic example which calculates the sample size needed to adequately power a study hoping to show that a new experimental therapy is promising based on the proportion of participants expected to respond to treatment. The treatment is considered promising if at least 20% of participants respond well, and the researchers believe the true response proportion is 30%. 
+
+This example follows Example 5.1 in the textbook. 
 
 ``` r
 library(PSSTools)
-(x <- "alfa,bravo,charlie,delta")
-#> [1] "alfa,bravo,charlie,delta"
-str_split_one(x, pattern = ",")
-#> [1] "alfa"    "bravo"   "charlie" "delta"
+oneprop_ss(p0 = 0.2, pA = 0.3, alpha = 0.05, power = 0.8,
+           method = "conditional", one.or.two.sided = "one")
+#> [1] 109
 ```
 
-Use `str_split_one()` when the input is known to be a single string. For
-safety, it will error if its input has length greater than one.
-
-`str_split_one()` is built on `stringr::str_split()`, so you can use its
-`n` argument and stringr’s general interface for describing the
-`pattern` to be matched.
-
-``` r
-str_split_one(x, pattern = ",", n = 2)
-#> [1] "alfa"                "bravo,charlie,delta"
-
-y <- "192.168.0.1"
-str_split_one(y, pattern = stringr::fixed("."))
-#> [1] "192" "168" "0"   "1"
-```
-
-What is special about using `README.Rmd` instead of just `README.md`?
-You can include R chunks like so:
-
-You’ll still need to render `README.Rmd` regularly, to keep `README.md`
-up-to-date. `devtools::build_readme()` is handy for this. You could also
-use GitHub Actions to re-render `README.Rmd` every time you push. An
-example workflow can be found here:
-<https://github.com/r-lib/actions/tree/v1/examples>.
-
-In that case, don’t forget to commit and push the resulting figure
-files, so they display on GitHub and CRAN.
+`oneprop_ss` returns n, the required sample size for a one proportion test. 
