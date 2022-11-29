@@ -1,26 +1,43 @@
 Package: PSSTools
 Type: Package
-Title: What the Package Does (Title Case)
+Title: PSSTools: Power and Sample Size Tools
 Version: 0.1.0
 Authors@R: 
-    person("Kristen", "McGreevy", , "kristenmae@ucla.edu", role = c("aut", "cre"),
+    person("Kristen", "McGreevy", "M", "kristenmae@ucla.edu", role = c("aut", "cre"),
            comment = c(ORCID = "YOUR-ORCID-ID"))
-Description: More about what it does (maybe more than one line)
-    Use four spaces when indenting paragraphs within the Description.
+    person("Catherine", "Crespi", "M", "ccrespi@ucla.edu", role = c("aut", "cre"),
+           comment = c(ORCID = "YOUR-ORCID-ID"))
+Description: This package accompanies the textbook "Power and Sample Size in R" by 
+    Catherine M. Crespi for calculating power and sample size requirements for designing studies.
 License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
 RoxygenNote: 7.1.2
 Suggests: 
+    designsize,
+    longpower,
+    npsurvSS,
+    powerSurvEpi,
+    ssanv,
     testthat (>= 3.0.0)
 Config/testthat/edition: 3
 Imports: 
+    clusterPower,
     dplyr,
+    exact2x2,
     magrittr,
+    MESS,
+    MKmisc,
+    PowerTOST,
+    precisely,
+    presize,
     purrr,
+    pwr,
     pwr2,
     pwr2ppl,
     pwrAB,
+    SampleSize4ClinicalTrials,
     stats,
-    stringr,
     Superpower
+Depends: 
+    R (>= 2.10)
