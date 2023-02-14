@@ -2,11 +2,11 @@ Package: PSSTools
 Type: Package
 Title: PSSTools: Power and Sample Size Tools
 Version: 0.1.0
-Authors@R: 
-    person("Kristen", "McGreevy", "M", "kristenmae@ucla.edu", role = c("aut", "cre"),
-           comment = c(ORCID = "YOUR-ORCID-ID"))
-    person("Catherine", "Crespi", "M", "ccrespi@ucla.edu", role = c("aut", "cre"),
-           comment = c(ORCID = "YOUR-ORCID-ID"))
+Authors@R: c(
+    person("Catherine", "Crespi", "M", "ccrespi@ucla.edu", role = "cre"),
+    person("Kristen", "McGreevy", "M", "kristenmae@ucla.edu", role = "aut"),
+    person("Yixuan", "Zhou", "", "jyixzhou@g.ucla.edu", role = "aut"),
+    person("Sundin", "Phillip", role = "aut"))
 Description: This package accompanies the textbook "Power and Sample Size in R" by 
     Catherine M. Crespi for calculating power and sample size requirements for designing studies.
 License: MIT + file LICENSE
@@ -28,6 +28,7 @@ Imports:
     magrittr,
     MESS,
     MKmisc,
+    plyr,
     PowerTOST,
     precisely,
     presize,
