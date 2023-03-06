@@ -421,3 +421,9 @@ use_r("swd_2trt_additive_power")
 
 
 use_package("rPowerSampleSize", "Suggests")
+
+use_r("multendpoints_Ck_ss")
+
+
+use_package("mvtnorm")
+check()

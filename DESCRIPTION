@@ -29,6 +29,7 @@ Imports:
     magrittr,
     MESS,
     MKmisc,
+    mvtnorm,
     plyr,
     PowerTOST,
     precisely,
