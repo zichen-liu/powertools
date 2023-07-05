@@ -60,12 +60,12 @@ power_z_test <- function(n = NULL, d = NULL, delta = NULL, sigma = 1,
   # For 2 sample, power = z + d / sqrt(1/n + s2^2/n2)
   p.body <- quote({
     sd <- switch(sample, 1/sqrt(n), sqrt((sd.ratio)^2/(n * n.ratio) + 1/n))
-    stats::pnorm(stats::qnorm(alpha/side) + d/sd, lower.tail = F)})
+    stats::pnorm(stats::qnorm(alpha/side) + d/sd)})
   if (strict & side == 2)
     p.body <- quote({
       sd <- switch(sample, 1/sqrt(n), sqrt((sd.ratio)^2/(n * n.ratio) + 1/n))
-      stats::pnorm(stats::qnorm(alpha/side) + d/sigma, lower.tail = F) +
-      stats::pnorm(stats::qnorm(alpha/side) - d/sigma, lower.tail = F)
+      stats::pnorm(stats::qnorm(alpha/side) + d/sd) +
+      stats::pnorm(stats::qnorm(alpha/side) - d/sd)
     })
 
   # Use uniroot function to calculate missing argument
@@ -88,6 +88,6 @@ power_z_test <- function(n = NULL, d = NULL, delta = NULL, sigma = 1,
     sigma <- c(1, sd.ratio)
   }
 
-  return(data.frame(n = n, d = d, sigma = sigma, alpha = alpha,
+  return(data.frame(n = n, d = d, sigma = sigma, alpha = alpha, power = power,
               one.or.two.sided = one.or.two.sided))
 }
