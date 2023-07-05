@@ -15,18 +15,18 @@
 #' @return A list of the arguments (including the computed one)
 #' @export
 #'
-#' @examples power_z_test(d=300, sd=450, power=.8, sd.ratio=2)
+#' @examples power_z_test(d=300, power=.8, sd.ratio=2)
 #'
-power_z_test <- function(n = NULL, d = NULL, delta = NULL, sigma = NULL,
+power_z_test <- function(n = NULL, d = NULL, delta = NULL, sigma = 1,
                          alpha = 0.05, power = NULL, n.ratio = 1, sd.ratio = 1,
           type = c("two.sample", "one.sample", "paired"),
           one.or.two.sided = c("two", "one"), strict = TRUE){
 
   # Calculate d based on delta/sigma if necessary
-  if(is.null(d) & (is.null(delta) | is.null(sigma))){
+  if(is.null(d) & is.null(delta)){
     print(paste0("Either d (delta/sigma) OR delta and sigma need to be specified"))
     stop()}
-  if(!is.null(d) & !is.null(delta) & !is.null(sigma)){
+  if(!is.null(d) & !is.null(delta)){
     print(paste0("Either d (delta/sigma) OR delta and sigma need to be specified"))
     stop()}
   if(!is.null(delta) & !is.null(sigma)){
@@ -57,7 +57,7 @@ power_z_test <- function(n = NULL, d = NULL, delta = NULL, sigma = NULL,
     d <- abs(d)
 
   # For 1 sample, power = z + d / (1/sqrt(n))
-  # For 2 sample,
+  # For 2 sample, power = z + d / sqrt(1/n + s2^2/n2)
   p.body <- quote({
     sd <- switch(sample, 1/sqrt(n), sqrt((sd.ratio)^2/(n * n.ratio) + 1/n))
     stats::pnorm(stats::qnorm(alpha/side) + d/sd, lower.tail = F)})
@@ -82,21 +82,12 @@ power_z_test <- function(n = NULL, d = NULL, delta = NULL, sigma = NULL,
   else if (is.null(sd.ratio))
     sd.ratio <- uniroot(function(sd.ratio) eval(p.body) - power, c(1e-07, 1e+07))$root
   else stop("internal error")
-  NOTE <- switch(type, paired = "n is number of *pairs*, sigma is std.dev. of *differences* within pairs",
-                 two.sample = ifelse(n.ratio == 1, "n is number in *each* group",
-                                     "n is vector of number in each group"), NULL)
+
   if (type == "two.sample" & (n.ratio != 1 | sd.ratio != 1)) {
     n <- c(n, n * n.ratio)
-    sd <- c(1, sd.ratio)
-  }
-  METHOD <- paste(switch(type, one.sample = "One-sample z test power calculation",
-                         two.sample = ifelse(n.ratio == 1, "Two-sample z test power calculation",
-                         "Two-sample z test power calculation with unequal sample sizes"),
-                         paired = "Paired z test power calculation"))
-  if (type == "two.sample" & sd.ratio != 1) {
-    METHOD <- paste0(METHOD, ifelse(n.ratio == 1, " with", " and"), " unequal variances")
+    sigma <- c(1, sd.ratio)
   }
 
-  return(list(n = n, d = d, sd = sd, alpha = alpha, power = power,
-              one.or.two = one.or.two, note = NOTE, method = METHOD))
+  return(data.frame(n = n, d = d, sigma = sigma, alpha = alpha,
+              one.or.two.sided = one.or.two.sided))
 }
