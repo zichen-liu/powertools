@@ -1,7 +1,7 @@
 #' Power calculations for one and two sample z tests with unequal sample size
 #'
 #' @param n The sample size (in the smallest group if two groups).
-#' @param d The standardized effect size (delta/sigma). Either d OR delta and sigma need specified.
+#' @param d The standardized effect size (delta/sigma). Either d OR delta and sigma need to be specified.
 #' @param delta The true difference between means. If delta is specified, sigma needs to be specified too.
 #' @param sigma The estimated standard deviation. If sigma is specified, delta needs to be specified too. For a paired test, sigma is the std.dev. of *differences* within pairs.
 #' @param alpha The significance level or type 1 error rate.
@@ -12,10 +12,11 @@
 #' @param one.or.two.sided Either "one" or "two" to specify a one or two sided hypothesis test. Default is two-sided.
 #' @param strict Use strict interpretation in two-sided case. Defaults to TRUE.
 #'
-#' @return A list of the arguments (including the computed one)
+#' @return A dataframe of the arguments (including the computed one)
 #' @export
 #'
-#' @examples power_z_test(d=300, power=.8, sd.ratio=2)
+#' @examples power_z_test(d = 0.5, alpha = 0.05, power = 0.8, type = "one.sample", one.or.two.sided = "two")
+#' power_z_test(n = 40, delta = 2, sigma = 5, sd.ratio = 2, n.ratio = 1.5, alpha = 0.05, type = "two.sample", one.or.two.sided = "one")
 #'
 power_z_test <- function(n = NULL, d = NULL, delta = NULL, sigma = 1,
                          alpha = 0.05, power = NULL, n.ratio = 1, sd.ratio = 1,
