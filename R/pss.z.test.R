@@ -82,7 +82,20 @@ power_z_test <- function(n = NULL, delta = NULL, sigma = 1,
     sigma <- c(sigma, sd.ratio)
   }
 
-  return(data.frame(n = n, delta = delta, sigma = sigma,
-                    alpha = alpha, power = power,
-                    one.or.two.sided = one.or.two.sided))
+  METHOD <- paste(switch(type, one.sample = "One-sample z test power calculation",
+                         two.sample = ifelse(n.ratio == 1, "Two-sample z test power calculation",
+                                             "Two-sample z test power calculation with unequal sample sizes"),
+                         paired = "Paired z test power calculation"))
+  if (type == "two.sample" & sd.ratio != 1) {
+    METHOD <- paste0(METHOD, ifelse(n.ratio == 1, " with",
+                                    " and"), " unequal variances")
+  }
+
+  # return(data.frame(n = n, delta = delta, sigma = sigma,
+  #                   alpha = alpha, power = power,
+  #                   one.or.two.sided = one.or.two.sided))
+
+  structure(list(n = n, delta = delta, sigma = sigma, alpha = alpha,
+                 power = power, one.or.two.sided = one.or.two.sided,
+                 method = METHOD), class = "power.htest")
 }
