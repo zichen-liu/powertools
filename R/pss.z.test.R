@@ -77,21 +77,23 @@ pss.z.test <- function(n = NULL, delta = NULL, sigma = 1,
     sd.ratio <- uniroot(function(sd.ratio) eval(p.body)-power, c(1e-07, 1e+07))$root
   else stop("internal error")
 
+  # For unequal allocation or sd, get both n and/or sd
   if (type == "two.sample" & (n.ratio != 1 | sd.ratio != 1)) {
     n <- c(n, n * n.ratio)
     sigma <- c(sigma, sigma * sd.ratio)
   }
 
-  METHOD <- paste(switch(type, one.sample = "One-sample z test power calculation",
-                         two.sample = ifelse(n.ratio == 1, "Two-sample z test power calculation",
-                                             "Two-sample z test power calculation with unequal sample sizes"),
-                         paired = "Paired z test power calculation"))
+  # Generate output text
+  method <- paste(switch(type, one.sample = "One-sample z test power calculation",
+            two.sample = ifelse(n.ratio == 1, "Two-sample z test power calculation",
+            "Two-sample z test power calculation with unequal sample sizes"),
+            paired = "Paired z test power calculation"))
   if (type == "two.sample" & sd.ratio != 1) {
-    METHOD <- paste0(METHOD, ifelse(n.ratio == 1, " with",
-                                    " and"), " unequal variances")
+    method <- paste0(method, ifelse(n.ratio == 1, " with", " and"), " unequal variances")
   }
 
+  # Print output as a power.htest object
   structure(list(n = n, delta = delta, sigma = sigma, alpha = alpha,
                  power = power, one.or.two.sided = one.or.two.sided,
-                 method = METHOD), class = "power.htest")
+                 method = method), class = "power.htest")
 }
