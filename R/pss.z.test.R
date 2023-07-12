@@ -1,8 +1,8 @@
 #' Power calculations for one and two sample z tests with unequal sample size
 #'
 #' @param n The sample size (in the smallest group if two groups).
-#' @param delta For a two-sample test, the true difference deltaA - delta0. For a one-sample test, the true difference meanA-mean0.
-#' @param sigma The estimated standard deviation. Defaults to 1. For a paired test, sigma is the std.dev. of *differences* within pairs.
+#' @param delta For a two-sample test, the true difference deltaA-delta0. For a one-sample test, the true difference meanA-mean0.
+#' @param sigma The estimated standard deviation. Defaults to 1. For a paired test, sigma is the standard deviation of *differences* within pairs.
 #' @param alpha The significance level or type 1 error rate.
 #' @param power The specified level of power.
 #' @param n.ratio The ratio n2/n1 between the larger group and the smaller group. Should be a value equal to or greater than 1 since n2 is the larger group. Defaults to 1 (equal group sizes).
@@ -11,7 +11,7 @@
 #' @param one.or.two.sided Either "one" or "two" to specify a one- or two- sided hypothesis test.
 #' @param strict Use strict interpretation in two-sided case. Defaults to TRUE.
 #'
-#' @return A dataframe of the arguments (including the computed one).
+#' @return A list of the arguments (including the computed one).
 #' @export
 #'
 #' @examples power_z_test(delta = 6.3-5.7, sigma = 2, alpha = 0.05, power = 0.8, type = "one.sample", one.or.two.sided = "one")
