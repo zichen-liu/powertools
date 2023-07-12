@@ -427,3 +427,6 @@ use_r("multendpoints_Ck_ss")
 
 use_package("mvtnorm")
 check()
+
+use_r("pss.z.test.R")
+check()

@@ -14,10 +14,10 @@
 #' @return A list of the arguments (including the computed one).
 #' @export
 #'
-#' @examples power_z_test(delta = 6.3-5.7, sigma = 2, alpha = 0.05, power = 0.8, type = "one.sample", one.or.two.sided = "one")
-#' power_z_test(n = 40, delta = 2, sigma = 5, sd.ratio = 2, n.ratio = 1.5, alpha = 0.05, type = "two.sample", one.or.two.sided = "two")
+#' @examples pss.z.test(delta = 6.3-5.7, sigma = 2, alpha = 0.05, power = 0.8, type = "one.sample", one.or.two.sided = "one")
+#' pss.z.test(n = 40, delta = 2, sigma = 5, sd.ratio = 2, n.ratio = 1.5, alpha = 0.05, type = "two.sample", one.or.two.sided = "two")
 #'
-power_z_test <- function(n = NULL, delta = NULL, sigma = 1,
+pss.z.test <- function(n = NULL, delta = NULL, sigma = 1,
                          alpha = 0.05, power = NULL, n.ratio = 1, sd.ratio = 1,
                          type = c("two.sample", "one.sample", "paired"),
                          one.or.two.sided = c("two", "one"), strict = TRUE){
