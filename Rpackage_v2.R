@@ -430,3 +430,6 @@ check()
 
 use_r("pss.z.test.R")
 check()
+
+use_r("pss.t.test.R")
+check()

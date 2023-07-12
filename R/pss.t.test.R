@@ -1,4 +1,4 @@
-#' Power calculations for one and two sample z tests with unequal sample size
+#' Power calculations for one and two sample t tests with unequal sample size
 #'
 #' @param n The sample size (in the smallest group if two groups).
 #' @param delta For a two-sample test, the true difference DeltaA-Delta0. For a one-sample test, the true difference meanA-mean0.
@@ -7,7 +7,7 @@
 #' @param power The specified level of power.
 #' @param n.ratio The ratio n2/n1 between the larger group and the smaller group. Should be a value equal to or greater than 1 since n2 is the larger group. Defaults to 1 (equal group sizes).
 #' @param sd.ratio The ratio sd2/sd1 between the standard deviations in the larger group and the smaller group. Defaults to 1 (equal standard deviations in the two groups).
-#' @param type Type of z test: "one.sample", "two.sample", or "paired".
+#' @param type Type of t test: "one.sample", "two.sample", or "paired".
 #' @param one.or.two.sided Either "one" or "two" to specify a one- or two- sided hypothesis test.
 #' @param strict Use strict interpretation in two-sided case. Defaults to TRUE.
 #'
@@ -18,9 +18,9 @@
 #' pss.z.test(n = 40, delta = 2, sigma = 5, sd.ratio = 2, n.ratio = 1.5, alpha = 0.05, type = "two.sample", one.or.two.sided = "two")
 #'
 pss.z.test <- function(n = NULL, delta = NULL, sigma = 1,
-                         alpha = 0.05, power = NULL, n.ratio = 1, sd.ratio = 1,
-                         type = c("two.sample", "one.sample", "paired"),
-                         one.or.two.sided = c("two", "one"), strict = TRUE){
+                       alpha = 0.05, power = NULL, n.ratio = 1, sd.ratio = 1,
+                       type = c("two.sample", "one.sample", "paired"),
+                       one.or.two.sided = c("two", "one"), strict = TRUE){
 
   # Check if the arguments are specified correctly
   type <- match.arg(type)
@@ -57,7 +57,7 @@ pss.z.test <- function(n = NULL, delta = NULL, sigma = 1,
       sd <- switch(sample, sigma/sqrt(n),
                    sqrt((sigma * sd.ratio)^2 / (n * n.ratio) + sigma^2/n))
       stats::pnorm(stats::qnorm(alpha/side) + delta/sd) +
-      stats::pnorm(stats::qnorm(alpha/side) - delta/sd)
+        stats::pnorm(stats::qnorm(alpha/side) - delta/sd)
     })
 
   # Use uniroot function to calculate missing argument
@@ -84,14 +84,10 @@ pss.z.test <- function(n = NULL, delta = NULL, sigma = 1,
   }
 
   # Generate output text
-  note <- switch(type,
-          paired = "n is the number of *pairs*; sigma is standard deviation of *differences* within pairs",
-          two.sample = "n is the number in *each* group", NULL)
-
-  method <- paste(switch(type, one.sample = "One-sample z test power calculation",
-            two.sample = ifelse(n.ratio == 1, "Two-sample z test power calculation",
-            "Two-sample z test power calculation with unequal sample sizes"),
-            paired = "Paired z test power calculation"))
+  method <- paste(switch(type, one.sample = "One-sample t test power calculation",
+                         two.sample = ifelse(n.ratio == 1, "Two-sample t test power calculation",
+                                             "Two-sample t test power calculation with unequal sample sizes"),
+                         paired = "Paired t test power calculation"))
   if (type == "two.sample" & sd.ratio != 1) {
     method <- paste0(method, ifelse(n.ratio == 1, " with", " and"), " unequal variances")
   }
@@ -99,5 +95,5 @@ pss.z.test <- function(n = NULL, delta = NULL, sigma = 1,
   # Print output as a power.htest object
   structure(list(n = n, delta = delta, sigma = sigma, alpha = alpha,
                  power = power, one.or.two.sided = one.or.two.sided,
-                 method = method, note = note), class = "power.htest")
+                 method = method), class = "power.htest")
 }
