@@ -7,20 +7,22 @@
 #' @param power The specified level of power.
 #' @param n.ratio The ratio n2/n1 between the larger group and the smaller group. Should be a value equal to or greater than 1 since n2 is the larger group. Defaults to 1 (equal group sizes).
 #' @param sd.ratio The ratio sd2/sd1 between the standard deviations in the larger group and the smaller group. Defaults to 1 (equal standard deviations in the two groups).
-#' @param type Type of t test: "one.sample", "two.sample", or "paired".
-#' @param one.or.two.sided Either "one" or "two" to specify a one- or two- sided hypothesis test.
+#' @param type Type of t test: "one.sample", "two.sample" (default), or "paired".
+#' @param one.or.two.sided Either "one" or "two" (default) to specify a one- or two- sided hypothesis test.
+#' @param df.method Method for calculating the degrees of freedom: "welch" (default) or "classical".
 #' @param strict Use strict interpretation in two-sided case. Defaults to TRUE.
 #'
 #' @return A list of the arguments (including the computed one).
 #' @export
 #'
-#' @examples pss.z.test(delta = 6.3-5.7, sigma = 2, alpha = 0.05, power = 0.8, type = "one.sample", one.or.two.sided = "one")
-#' pss.z.test(n = 40, delta = 2, sigma = 5, sd.ratio = 2, n.ratio = 1.5, alpha = 0.05, type = "two.sample", one.or.two.sided = "two")
+#' @examples pss.t.test(delta = 6.3-5.7, sigma = 2, alpha = 0.05, power = 0.8, type = "one.sample", one.or.two.sided = "one")
+#' pss.t.test(n = 40, delta = 2, sigma = 5, sd.ratio = 2, n.ratio = 1.5, alpha = 0.05, type = "two.sample", one.or.two.sided = "two", df.method = "classical")
 #'
-pss.z.test <- function(n = NULL, delta = NULL, sigma = 1,
+pss.t.test <- function(n = NULL, delta = NULL, sigma = 1,
                        alpha = 0.05, power = NULL, n.ratio = 1, sd.ratio = 1,
                        type = c("two.sample", "one.sample", "paired"),
-                       one.or.two.sided = c("two", "one"), strict = TRUE){
+                       one.or.two.sided = c("two", "one"),
+                       df.method = c("welch", "classical"), strict = TRUE) {
 
   # Check if the arguments are specified correctly
   type <- match.arg(type)
@@ -84,6 +86,10 @@ pss.z.test <- function(n = NULL, delta = NULL, sigma = 1,
   }
 
   # Generate output text
+  note <- switch(type,
+                 paired = "n is the number of *pairs*; sigma is standard deviation of *differences* within pairs",
+                 two.sample = "n is the number in *each* group", NULL)
+
   method <- paste(switch(type, one.sample = "One-sample t test power calculation",
                          two.sample = ifelse(n.ratio == 1, "Two-sample t test power calculation",
                                              "Two-sample t test power calculation with unequal sample sizes"),
@@ -95,5 +101,5 @@ pss.z.test <- function(n = NULL, delta = NULL, sigma = 1,
   # Print output as a power.htest object
   structure(list(n = n, delta = delta, sigma = sigma, alpha = alpha,
                  power = power, one.or.two.sided = one.or.two.sided,
-                 method = method), class = "power.htest")
+                 method = method, note = note), class = "power.htest")
 }

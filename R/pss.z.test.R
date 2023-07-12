@@ -7,8 +7,8 @@
 #' @param power The specified level of power.
 #' @param n.ratio The ratio n2/n1 between the larger group and the smaller group. Should be a value equal to or greater than 1 since n2 is the larger group. Defaults to 1 (equal group sizes).
 #' @param sd.ratio The ratio sd2/sd1 between the standard deviations in the larger group and the smaller group. Defaults to 1 (equal standard deviations in the two groups).
-#' @param type Type of z test: "one.sample", "two.sample", or "paired".
-#' @param one.or.two.sided Either "one" or "two" to specify a one- or two- sided hypothesis test.
+#' @param type Type of z test: "one.sample", "two.sample" (default), or "paired".
+#' @param one.or.two.sided Either "one" or "two" (default) to specify a one- or two- sided hypothesis test.
 #' @param strict Use strict interpretation in two-sided case. Defaults to TRUE.
 #'
 #' @return A list of the arguments (including the computed one).
@@ -20,7 +20,7 @@
 pss.z.test <- function(n = NULL, delta = NULL, sigma = 1,
                          alpha = 0.05, power = NULL, n.ratio = 1, sd.ratio = 1,
                          type = c("two.sample", "one.sample", "paired"),
-                         one.or.two.sided = c("two", "one"), strict = TRUE){
+                         one.or.two.sided = c("two", "one"), strict = TRUE) {
 
   # Check if the arguments are specified correctly
   type <- match.arg(type)
