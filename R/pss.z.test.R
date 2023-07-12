@@ -1,7 +1,7 @@
 #' Power calculations for one and two sample z tests with unequal sample size
 #'
 #' @param n The sample size (in the smallest group if two groups).
-#' @param delta For a two-sample test, the true difference deltaA-delta0. For a one-sample test, the true difference meanA-mean0.
+#' @param delta For a two-sample test, the true difference DeltaA-Delta0. For a one-sample test, the true difference meanA-mean0.
 #' @param sigma The estimated standard deviation. Defaults to 1. For a paired test, sigma is the standard deviation of *differences* within pairs.
 #' @param alpha The significance level or type 1 error rate.
 #' @param power The specified level of power.
@@ -90,10 +90,6 @@ power_z_test <- function(n = NULL, delta = NULL, sigma = 1,
     METHOD <- paste0(METHOD, ifelse(n.ratio == 1, " with",
                                     " and"), " unequal variances")
   }
-
-  # return(data.frame(n = n, delta = delta, sigma = sigma,
-  #                   alpha = alpha, power = power,
-  #                   one.or.two.sided = one.or.two.sided))
 
   structure(list(n = n, delta = delta, sigma = sigma, alpha = alpha,
                  power = power, one.or.two.sided = one.or.two.sided,
