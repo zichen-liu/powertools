@@ -79,7 +79,7 @@ power_z_test <- function(n = NULL, delta = NULL, sigma = 1,
 
   if (type == "two.sample" & (n.ratio != 1 | sd.ratio != 1)) {
     n <- c(n, n * n.ratio)
-    sigma <- c(sigma, sd.ratio)
+    sigma <- c(sigma, sigma * sd.ratio)
   }
 
   METHOD <- paste(switch(type, one.sample = "One-sample z test power calculation",
