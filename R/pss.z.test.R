@@ -25,8 +25,8 @@ pss.z.test <- function(n = NULL, delta = NULL, sigma = 1,
   # Check if the arguments are specified correctly
   type <- match.arg(type)
   if (type == "two.sample") {
-    if (sum(sapply(list(n, delta, sd, power, alpha, n.ratio, sd.ratio), is.null)) != 1)
-      stop("exactly one of n, d, power, alpha, n.ratio and sd.ratio must be NULL")
+    if (sum(sapply(list(n, delta, sigma, power, alpha, n.ratio, sd.ratio), is.null)) != 1)
+      stop("exactly one of n, delta, sigma, power, alpha, n.ratio and sd.ratio must be NULL")
     if (!is.null(n.ratio) && n.ratio < 1)
       stop("n.ratio between group sizes cannot be less than 1")
     if (!is.null(sd.ratio) && sd.ratio < 1)
@@ -34,8 +34,8 @@ pss.z.test <- function(n = NULL, delta = NULL, sigma = 1,
   else {
     n.ratio <- 1
     sd.ratio <- 1
-    if (sum(sapply(list(n, delta, sd, power, alpha), is.null)) != 1)
-      stop("exactly one of n, d, power, and alpha must be NULL")}
+    if (sum(sapply(list(n, delta, sigma, power, alpha), is.null)) != 1)
+      stop("exactly one of n, delta, sigma, power, and alpha must be NULL")}
 
   # Assign number of samples and sides
   one.or.two.sided <- match.arg(one.or.two.sided)
@@ -49,15 +49,15 @@ pss.z.test <- function(n = NULL, delta = NULL, sigma = 1,
   # For 1 sample, power = z + delta / (sigma/sqrt(n))
   # For 2 sample, power = z + delta / sqrt(s1^2/n1 + s2^2/n2)
   p.body <- quote({
-    sd <- switch(sample, sigma/sqrt(n),
-                 sqrt((sigma * sd.ratio)^2 / (n * n.ratio) + sigma^2/n))
-    stats::pnorm(stats::qnorm(alpha/side) + delta/sd)})
+    sd <- switch(sample, sigma / sqrt(n),
+                 sqrt((sigma * sd.ratio)^2 / (n * n.ratio) + sigma^2 / n))
+    stats::pnorm(stats::qnorm(alpha / side) + delta / sd)})
   if (strict & side == 2)
     p.body <- quote({
-      sd <- switch(sample, sigma/sqrt(n),
-                   sqrt((sigma * sd.ratio)^2 / (n * n.ratio) + sigma^2/n))
-      stats::pnorm(stats::qnorm(alpha/side) + delta/sd) +
-      stats::pnorm(stats::qnorm(alpha/side) - delta/sd)
+      sd <- switch(sample, sigma / sqrt(n),
+                   sqrt((sigma * sd.ratio)^2 / (n * n.ratio) + sigma^2 / n))
+      stats::pnorm(stats::qnorm(alpha / side) + delta / sd) +
+      stats::pnorm(stats::qnorm(alpha / side) - delta / sd)
     })
 
   # Use uniroot function to calculate missing argument

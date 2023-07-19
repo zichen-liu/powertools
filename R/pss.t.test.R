@@ -27,8 +27,8 @@ pss.t.test <- function(n = NULL, delta = NULL, sigma = 1,
   # Check if the arguments are specified correctly
   type <- match.arg(type)
   if (type == "two.sample") {
-    if (sum(sapply(list(n, delta, sd, power, alpha, n.ratio, sd.ratio), is.null)) != 1)
-      stop("exactly one of n, d, power, alpha, n.ratio and sd.ratio must be NULL")
+    if (sum(sapply(list(n, delta, sigma, power, alpha, n.ratio, sd.ratio), is.null)) != 1)
+      stop("exactly one of n, delta, sigma, power, alpha, n.ratio and sd.ratio must be NULL")
     if (!is.null(n.ratio) && n.ratio < 1)
       stop("n.ratio between group sizes cannot be less than 1")
     if (!is.null(sd.ratio) && sd.ratio < 1)
@@ -36,11 +36,12 @@ pss.t.test <- function(n = NULL, delta = NULL, sigma = 1,
   else {
     n.ratio <- 1
     sd.ratio <- 1
-    if (sum(sapply(list(n, delta, sd, power, alpha), is.null)) != 1)
-      stop("exactly one of n, d, power, and alpha must be NULL")}
+    if (sum(sapply(list(n, delta, sigma, power, alpha), is.null)) != 1)
+      stop("exactly one of n, delta, sigma, power, and alpha must be NULL")}
 
   # Assign number of samples and sides
   one.or.two.sided <- match.arg(one.or.two.sided)
+  df.method <- match.arg(df.method)
   sample <- switch(type, one.sample = 1, two.sample = 2, paired = 1)
   side <- switch(one.or.two.sided, one = 1, two = 2)
 
@@ -51,15 +52,27 @@ pss.t.test <- function(n = NULL, delta = NULL, sigma = 1,
   # For 1 sample, power = z + delta / (sigma/sqrt(n))
   # For 2 sample, power = z + delta / sqrt(s1^2/n1 + s2^2/n2)
   p.body <- quote({
-    sd <- switch(sample, sigma/sqrt(n),
-                 sqrt((sigma * sd.ratio)^2 / (n * n.ratio) + sigma^2/n))
-    stats::pnorm(stats::qnorm(alpha/side) + delta/sd)})
+    nu <- switch(sample, n - 1, switch(df.method,
+          welch = (sigma^2 / n + (sigma * sd.ratio)^2 / (n * n.ratio))^2 /
+          ((sigma^2 / n)^2 / (n - 1) + ((sigma * sd.ratio)^2 / (n.ratio * n))^2 /
+          (n * n.ratio - 1)),
+          classical = (1 + n.ratio) * n - 2))
+    stats::pt(stats::qt(alpha / side, nu, lower = FALSE), nu, ncp =
+       switch(sample, sqrt(n / sample), sqrt(n / (1 + sd.ratio^2 / n.ratio))) *
+       delta / sigma, lower = FALSE)
+  })
+
   if (strict & side == 2)
     p.body <- quote({
-      sd <- switch(sample, sigma/sqrt(n),
-                   sqrt((sigma * sd.ratio)^2 / (n * n.ratio) + sigma^2/n))
-      stats::pnorm(stats::qnorm(alpha/side) + delta/sd) +
-        stats::pnorm(stats::qnorm(alpha/side) - delta/sd)
+      nu <- switch(sample, n - 1, switch(df.method,
+            welch = (sigma^2/n + (sigma * sd.ratio)^2 / (n * n.ratio))^2 /
+            ((sigma^2 / n)^2/(n - 1) + ((sigma * sd.ratio)^2 / (n.ratio * n))^2 /
+            (n * n.ratio - 1)),
+            classical = (1 + n.ratio) * n - 2))
+      qu <- stats::qt(alpha / side, nu, lower = FALSE)
+      ncp <- switch(sample, sqrt(n / sample), sqrt(n / (1 + sd.ratio^2 / n.ratio))) *
+             delta / sigma
+      stats::pt(qu, nu, ncp = ncp, lower = FALSE) + pt(-qu, nu, ncp = ncp, lower = TRUE)
     })
 
   # Use uniroot function to calculate missing argument
