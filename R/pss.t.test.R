@@ -18,7 +18,7 @@
 #' @examples pss.t.test(n = 50, delta = 0.5, sigma = 1, n.ratio = 1.4, power = NULL, type = "two.sample", one.or.two.sided = "two")
 #' pss.t.test(n = NULL, delta = 4, sigma = 10.95445, alpha = 0.05, power = 0.8, type = "paired", one.or.two.sided = "two")
 #'
-pss.t.test <- function(n = NULL, delta = NULL, sigma = 1,
+pss.t.test <- function (n = NULL, delta = NULL, sigma = 1,
                        alpha = 0.05, power = NULL, n.ratio = 1, sd.ratio = 1,
                        type = c("two.sample", "one.sample", "paired"),
                        one.or.two.sided = c("two", "one"),
@@ -98,20 +98,20 @@ pss.t.test <- function(n = NULL, delta = NULL, sigma = 1,
   }
 
   # Generate output text
-  note <- switch(type,
+  NOTE <- switch(type,
                  paired = "n is the number of *pairs*; sigma is standard deviation of *differences* within pairs",
                  two.sample = "n is the number in *each* group", NULL)
 
-  method <- paste(switch(type, one.sample = "One-sample t test power calculation",
+  METHOD <- paste(switch(type, one.sample = "One-sample t test power calculation",
                          two.sample = ifelse(n.ratio == 1, "Two-sample t test power calculation",
                                              "Two-sample t test power calculation with unequal sample sizes"),
                          paired = "Paired t test power calculation"))
   if (type == "two.sample" & sd.ratio != 1) {
-    method <- paste0(method, ifelse(n.ratio == 1, " with", " and"), " unequal variances")
+    METHOD <- paste0(METHOD, ifelse(n.ratio == 1, " with", " and"), " unequal variances")
   }
 
   # Print output as a power.htest object
   structure(list(n = n, delta = delta, sigma = sigma, alpha = alpha,
                  power = power, one.or.two.sided = one.or.two.sided,
-                 method = method, note = note), class = "power.htest")
+                 method = METHOD, note = NOTE), class = "power.htest")
 }

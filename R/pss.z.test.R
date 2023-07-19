@@ -17,7 +17,7 @@
 #' @examples pss.z.test(delta = 6.3-5.7, sigma = 2, alpha = 0.05, power = 0.8, type = "one.sample", one.or.two.sided = "one")
 #' pss.z.test(n = 40, delta = 2, sigma = 5, sd.ratio = 2, n.ratio = 1.5, alpha = 0.05, type = "two.sample", one.or.two.sided = "two")
 #'
-pss.z.test <- function(n = NULL, delta = NULL, sigma = 1,
+pss.z.test <- function (n = NULL, delta = NULL, sigma = 1,
                          alpha = 0.05, power = NULL, n.ratio = 1, sd.ratio = 1,
                          type = c("two.sample", "one.sample", "paired"),
                          one.or.two.sided = c("two", "one"), strict = TRUE) {
@@ -84,20 +84,20 @@ pss.z.test <- function(n = NULL, delta = NULL, sigma = 1,
   }
 
   # Generate output text
-  note <- switch(type,
+  NOTE <- switch(type,
           paired = "n is the number of *pairs*; sigma is standard deviation of *differences* within pairs",
           two.sample = "n is the number in *each* group", NULL)
 
-  method <- paste(switch(type, one.sample = "One-sample z test power calculation",
+  METHOD <- paste(switch(type, one.sample = "One-sample z test power calculation",
             two.sample = ifelse(n.ratio == 1, "Two-sample z test power calculation",
             "Two-sample z test power calculation with unequal sample sizes"),
             paired = "Paired z test power calculation"))
   if (type == "two.sample" & sd.ratio != 1) {
-    method <- paste0(method, ifelse(n.ratio == 1, " with", " and"), " unequal variances")
+    METHOD <- paste0(METHOD, ifelse(n.ratio == 1, " with", " and"), " unequal variances")
   }
 
   # Print output as a power.htest object
   structure(list(n = n, delta = delta, sigma = sigma, alpha = alpha,
                  power = power, one.or.two.sided = one.or.two.sided,
-                 method = method, note = note), class = "power.htest")
+                 method = METHOD, note = NOTE), class = "power.htest")
 }
