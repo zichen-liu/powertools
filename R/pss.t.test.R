@@ -15,8 +15,8 @@
 #' @return A list of the arguments (including the computed one).
 #' @export
 #'
-#' @examples pss.t.test(delta = 6.3-5.7, sigma = 2, alpha = 0.05, power = 0.8, type = "one.sample", one.or.two.sided = "one")
-#' pss.t.test(n = 40, delta = 2, sigma = 5, sd.ratio = 2, n.ratio = 1.5, alpha = 0.05, type = "two.sample", one.or.two.sided = "two", df.method = "classical")
+#' @examples pss.t.test(n = 50, delta = 0.5, sigma = 1, n.ratio = 1.4, power = NULL, type = "two.sample", one.or.two.sided = "two")
+#' pss.t.test(n = NULL, delta = 4, sigma = 10.95445, alpha = 0.05, power = 0.8, type = "paired", one.or.two.sided = "two")
 #'
 pss.t.test <- function(n = NULL, delta = NULL, sigma = 1,
                        alpha = 0.05, power = NULL, n.ratio = 1, sd.ratio = 1,
@@ -49,8 +49,7 @@ pss.t.test <- function(n = NULL, delta = NULL, sigma = 1,
   if (!is.null(delta))
     delta <- abs(delta)
 
-  # For 1 sample, power = z + delta / (sigma/sqrt(n))
-  # For 2 sample, power = z + delta / sqrt(s1^2/n1 + s2^2/n2)
+  # Copy df calculations from MESS::power_t_test
   p.body <- quote({
     nu <- switch(sample, n - 1, switch(df.method,
           welch = (sigma^2 / n + (sigma * sd.ratio)^2 / (n * n.ratio))^2 /
