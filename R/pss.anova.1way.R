@@ -1,4 +1,4 @@
-pss.anova.1way <- function (n = NULL, means = NULL, sigma = 1,
+pss.anova.1way <- function (n = NULL, means = NULL, sigma = NULL,
                              alpha = 0.05, power = NULL) {
 
   # Check if the arguments are specified correctly
@@ -10,12 +10,13 @@ pss.anova.1way <- function (n = NULL, means = NULL, sigma = 1,
   if (!is.null(n) && n < 2)
     stop("number of observations in each group must be at least 2")
 
-  # Get between group variance; sigma is within group variance
+  # Get between group variance; sigma is within group standard deviation
+  within <- sigma^2
   between <- var(means)
 
   # Copied from power.anova.test
   p.body <- quote({
-    lambda <- (groups - 1) * n * (between / sigma)
+    lambda <- (groups - 1) * n * (between / within)
     stats::pf(stats::qf(alpha, groups - 1, (n - 1) * groups, lower.tail = FALSE),
               groups - 1, (n - 1) * groups, lambda, lower.tail = FALSE)
   })
@@ -25,10 +26,12 @@ pss.anova.1way <- function (n = NULL, means = NULL, sigma = 1,
     power <- eval(p.body)
   else if (is.null(n))
     n <- uniroot(function(n) eval(p.body) - power, c(2, 1e+05))$root
-  else if (is.null(sigma))
-    sigma <- uniroot(function(sigma) eval(p.body) - power, between * c(1e-07, 1e+07))$root
+  else if (is.null(sigma)) {
+    within <- uniroot(function(within) eval(p.body) - power, between * c(1e-07, 1e+07))$root
+    sigma <- sqrt(within)
+  }
   else if (is.null(between))
-    between <- uniroot(function(between) eval(p.body) - power, sigma * c(1e-07, 1e+07))$root
+    between <- uniroot(function(between) eval(p.body) - power, within * c(1e-07, 1e+07))$root
   else if (is.null(alpha))
     alpha <- uniroot(function(alpha) eval(p.body) - power, c(1e-10, 1 - 1e-10))$root
   else stop("internal error", domain = NA)
