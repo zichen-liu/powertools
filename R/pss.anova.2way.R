@@ -64,3 +64,5 @@ pss.anova.2way <- function (n = NULL, means = NULL, sigma = NULL,
                  powerA = powerA, powerB = powerB, power = power,
                  note = NOTE, method = METHOD), class = "power.htest")
 }
+
+# pss.anova.2way(n = 30, means = means, sigma = 2)

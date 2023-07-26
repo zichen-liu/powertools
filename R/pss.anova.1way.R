@@ -39,3 +39,5 @@ pss.anova.1way <- function (n = NULL, means = NULL, sigma = NULL,
                  sigma = sigma, alpha = alpha, power = power,
                  note = NOTE, method = METHOD), class = "power.htest")
 }
+
+# pss.anova.1way(n = 20, means = c(5, 10, 12), sigma = 10)

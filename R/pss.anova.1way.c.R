@@ -40,3 +40,4 @@ pss.anova.1way.c <- function (n = NULL, means = NULL, coeff = NULL, sigma = NULL
                  note = NOTE, method = METHOD), class = "power.htest")
 }
 
+# pss.anova.1way.c(n = 20, means = c(5, 10, 20), c = c(1, -1, 0), sigma = 10, alpha = 0.025)
