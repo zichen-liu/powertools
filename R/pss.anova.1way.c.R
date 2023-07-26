@@ -29,7 +29,7 @@ pss.anova.1way.c <- function (n = NULL, means = NULL, coeff = NULL, sigma = NULL
   if (is.null(power))
     power <- eval(p.body)
   else if (is.null(n))
-    n <- uniroot(function(n) eval(p.body) - power, c(2, 1e+05))$root
+    n <- uniroot(function(n) eval(p.body) - power, c(10, 1e+05))$root
   else if (is.null(alpha))
     alpha <- uniroot(function(alpha) eval(p.body) - power, c(1e-10, 1 - 1e-10))$root
   else stop("internal error", domain = NA)
@@ -40,4 +40,4 @@ pss.anova.1way.c <- function (n = NULL, means = NULL, coeff = NULL, sigma = NULL
                  note = NOTE, method = METHOD), class = "power.htest")
 }
 
-# pss.anova.1way.c(n = 20, means = c(5, 10, 20), c = c(1, -1, 0), sigma = 10, alpha = 0.025)
+# pss.anova.1way.c(n = 20, means = c(5, 10, 20), coeff = c(1, -1, 0), sigma = 10, alpha = 0.025)
