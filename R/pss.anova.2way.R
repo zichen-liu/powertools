@@ -29,6 +29,10 @@ pss.anova.2way <- function (n = NULL, means = NULL, sd = NULL,
   if(is.null(sd))
     stop("sd must be specified")
 
+  # Set default values if given
+  nA <- n; nB <- n
+  powerA <- power; powerB <- power
+
   # Get grand mean and marginal means
   mu <- mean(means)
   mmA <- rowMeans(means - mu)
@@ -74,11 +78,16 @@ pss.anova.2way <- function (n = NULL, means = NULL, sd = NULL,
   # Generate output text
   NOTE <- "power is the minimum power among two factors;\n      n is the maximum required n among two factors"
   METHOD <- "Balanced two-way analysis of variance power calculation"
+  row.list <- c()
+  for (i in 1:a) {
+    row.list <- c(row.list, paste(means[i,], collapse = ', '))
+  }
 
   # Print output as a power.htest object
-  structure(list(a = a, b = b, n = n, means = means,
+  structure(list(`a, b` = c(a, b), `nA, nB` = c(nA, nB), n = n,
+                 means = paste(row.list, collapse = " | "),
                  sd = sd, alpha = alpha,
-                 powerA = powerA, powerB = powerB, power = power,
+                 `powerA, powerB` = c(powerA, powerB), power = power,
                  note = NOTE, method = METHOD), class = "power.htest")
 }
 

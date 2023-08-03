@@ -38,6 +38,8 @@ pss.chisq.indep <- function (p = NULL, n = NULL, alpha = 0.05, power = NULL) {
   # Generate output text
   METHOD <- "Chi squared power calculation"
   NOTE <- "n is the number of observations"
+
+  # Print output as a power.htest object
   structure(list(p = p, effect.size = es, n = n, alpha = alpha,
                  power = power, method = METHOD, note = NOTE), class = "power.htest")
 }
