@@ -1,8 +1,8 @@
 #' # Example 8.1
 #' pss.chisq.gof(p0 = c(0.5, 0.3, 0.2), p1 = c(0.7, 0.2, 0.1), n = 50)
 
-pss.chisq.gof <- function(p0 = NULL, p1 = NULL,
-                          n = NULL, alpha = 0.05, power = NULL) {
+pss.chisq.gof <- function (p0 = NULL, p1 = NULL,
+                           n = NULL, alpha = 0.05, power = NULL) {
 
   # Check if the arguments are specified correctly
   if (sum(sapply(list(n, alpha, power), is.null)) != 1)

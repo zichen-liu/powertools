@@ -3,8 +3,7 @@
 #' # Example 8.3
 #' pss.chisq.indep(p = matrix(c(0.3, 0.2, 0.4, 0.1), nrow = 2, byrow = TRUE), n = 200)
 
-pss.chisq.indep <- function(p = NULL,
-                            n = NULL, alpha = 0.05, power = NULL) {
+pss.chisq.indep <- function (p = NULL, n = NULL, alpha = 0.05, power = NULL) {
 
   # Check if the arguments are specified correctly
   if (sum(sapply(list(n, alpha, power), is.null)) != 1)
