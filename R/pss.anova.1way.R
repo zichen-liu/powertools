@@ -2,7 +2,7 @@
 #'
 #' @param n The sample size per group.
 #' @param means A vector of group means c(mu1, mu2, ...).
-#' @param sd The estimated standard deviation within each group.
+#' @param sd The estimated standard deviation within each group; defaults to 1.
 #' @param alpha The significance level or type 1 error rate; defaults to 0.05.
 #' @param power The specified level of power.
 #'
@@ -13,7 +13,7 @@
 #' # Example 5.2
 #' pss.anova.1way(n = 20, means = c(5, 10, 12), sd = 10)
 
-pss.anova.1way <- function (n = NULL, means = NULL, sd = NULL,
+pss.anova.1way <- function (n = NULL, means = NULL, sd = 1,
                              alpha = 0.05, power = NULL) {
 
   # Check if the arguments are specified correctly

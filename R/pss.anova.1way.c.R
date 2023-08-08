@@ -3,7 +3,7 @@
 #' @param n The sample size per group.
 #' @param means A vector of group means c(mu1, mu2, ...).
 #' @param coeff A vector of contrast coefficients c(c1, c2, ...).
-#' @param sd The estimated standard deviation within each group.
+#' @param sd The estimated standard deviation within each group; defaults to 1.
 #' @param alpha The significance level or type 1 error rate; defaults to 0.05.
 #' @param power The specified level of power.
 #'
@@ -15,7 +15,7 @@
 #' pss.anova.1way.c(n = 20, means = c(5, 10, 12), coeff = c(1, -1, 0), sd = 10, alpha = 0.025)
 #' pss.anova.1way.c(n = 20, means = c(5, 10, 12), coeff = c(1, 0, -1), sd = 10, alpha = 0.025)
 
-pss.anova.1way.c <- function (n = NULL, means = NULL, coeff = NULL, sd = NULL,
+pss.anova.1way.c <- function (n = NULL, means = NULL, coeff = NULL, sd = 1,
                               alpha = 0.05, power = NULL) {
 
   # Check if the arguments are specified correctly

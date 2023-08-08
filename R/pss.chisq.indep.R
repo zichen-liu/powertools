@@ -43,4 +43,3 @@ pss.chisq.indep <- function (p = NULL, n = NULL, alpha = 0.05, power = NULL) {
   structure(list(p = p, effect.size = es, n = n, alpha = alpha,
                  power = power, method = METHOD, note = NOTE), class = "power.htest")
 }
-

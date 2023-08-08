@@ -2,7 +2,7 @@
 #'
 #' @param n The sample size per group.
 #' @param means A matrix of group means (see example).
-#' @param sd The estimated standard deviation within each group.
+#' @param sd The estimated standard deviation within each group; defaults to 1.
 #' @param alpha The significance level or type 1 error rate; defaults to 0.05.
 #' @param power The specified level of power.
 #'
@@ -14,7 +14,7 @@
 #' means <- matrix(c(9.3, 8.9, 8.5, 8.7, 8.3, 7.9), nrow = 2, byrow = TRUE)
 #' pss.anova.2way(n = 30, means = means, sd = 2, alpha = 0.05)
 
-pss.anova.2way <- function (n = NULL, means = NULL, sd = NULL,
+pss.anova.2way <- function (n = NULL, means = NULL, sd = 1,
                             alpha = 0.05, power = NULL) {
 
   # Check if the arguments are specified correctly

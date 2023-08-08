@@ -7,7 +7,7 @@
 #' @param rho The estimated correlation between pre and post measurements on the same individual.
 #' @param alpha The significance level or type 1 error rate; defaults to 0.05.
 #' @param power The specified level of power.
-#' @param one.or.two.sided Either "one" or "two" (default) to specify a one- or two- sided hypothesis test.
+#' @param sided Either "one" or "two" (default) to specify a one- or two- sided hypothesis test.
 #' @param strict Use strict interpretation in two-sided case; defaults to TRUE.
 #'
 #' @return A list of the arguments (including the computed one).
@@ -15,12 +15,12 @@
 #'
 #' @examples
 #' # Example 3.15
-#' pss.t.test.paired(n = NULL, delta = 4, sd.pre = 10, sd.post = 10, rho = 0.4, power = 0.8, one.or.two.sided = "two")
+#' pss.t.test.paired(n = NULL, delta = 4, sd.pre = 10, sd.post = 10, rho = 0.4, power = 0.8, sided = "two")
 
 pss.t.test.paired <- function (n = NULL, delta = NULL,
                                sd.pre = 1, sd.post = 1, rho = NULL,
                                alpha = 0.05, power = NULL,
-                               one.or.two.sided = c("two", "one"), strict = TRUE) {
+                               sided = c("two", "one"), strict = TRUE) {
 
   # Check if the arguments are specified correctly
   if (sum(sapply(list(n, delta, power, alpha), is.null)) != 1)
@@ -29,8 +29,8 @@ pss.t.test.paired <- function (n = NULL, delta = NULL,
     stop("please specify sd.pre, sd.post, and rho")
 
   # Assign number of sides
-  one.or.two.sided <- match.arg(one.or.two.sided)
-  side <- switch(one.or.two.sided, one = 1, two = 2)
+  sided <- match.arg(sided)
+  side <- switch(sided, one = 1, two = 2)
 
   # Use absolute value of the effect size
   if (!is.null(delta))
@@ -71,6 +71,6 @@ pss.t.test.paired <- function (n = NULL, delta = NULL,
 
   # Print output as a power.htest object
   structure(list(n = n, delta = delta, sd = sd, rho = rho,
-                 alpha = alpha, power = power, one.or.two.sided = one.or.two.sided,
+                 alpha = alpha, power = power, sided = sided,
                  method = METHOD, note = NOTE), class = "power.htest")
 }

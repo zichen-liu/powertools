@@ -5,7 +5,7 @@
 #' @param sd The estimated standard deviation; defaults to 1.
 #' @param alpha The significance level or type 1 error rate; defaults to 0.05.
 #' @param power The specified level of power.
-#' @param one.or.two.sided Either "one" or "two" (default) to specify a one- or two- sided hypothesis test.
+#' @param sided Either "one" or "two" (default) to specify a one- or two- sided hypothesis test.
 #' @param strict Use strict interpretation in two-sided case; defaults to TRUE.
 #'
 #' @return A list of the arguments (including the computed one).
@@ -13,25 +13,25 @@
 #'
 #' @examples
 #' # Example 3.2
-#' pss.t.test.1samp(n = 36, delta = 4.9 - 5.7, sd = 2, one.or.two.sided = "one")
+#' pss.t.test.1samp(n = 36, delta = 4.9 - 5.7, sd = 2, sided = "one")
 #' # Example 3.3
-#' pss.t.test.1samp(n = 36, delta = 6.3 - 5.7, sd = 2, one.or.two.sided = "one")
+#' pss.t.test.1samp(n = 36, delta = 6.3 - 5.7, sd = 2, sided = "one")
 #' # Example 3.5
-#' pss.t.test.1samp(n = 36, delta = 4.9 - 5.7, sd = 2, one.or.two.sided = "two")
+#' pss.t.test.1samp(n = 36, delta = 4.9 - 5.7, sd = 2, sided = "two")
 #' # Example 3.6
-#' pss.t.test.1samp(delta = 0.6, sd = 1, power = 0.8, one.or.two.sided = "one")
+#' pss.t.test.1samp(delta = 0.6, sd = 1, power = 0.8, sided = "one")
 
 pss.t.test.1samp <- function (n = NULL, delta = NULL, sd = 1,
                               alpha = 0.05, power = NULL,
-                              one.or.two.sided = c("two", "one"), strict = TRUE) {
+                              sided = c("two", "one"), strict = TRUE) {
 
   # Check if the arguments are specified correctly
   if (sum(sapply(list(n, delta, sd, power, alpha), is.null)) != 1)
     stop("exactly one of n, delta, sd, alpha, and power must be NULL")
 
   # Assign number of sides
-  one.or.two.sided <- match.arg(one.or.two.sided)
-  side <- switch(one.or.two.sided, one = 1, two = 2)
+  sided <- match.arg(sided)
+  side <- switch(sided, one = 1, two = 2)
 
   # Use absolute value of the effect size
   if (!is.null(delta))
@@ -69,6 +69,6 @@ pss.t.test.1samp <- function (n = NULL, delta = NULL, sd = 1,
 
   # Print output as a power.htest object
   structure(list(n = n, delta = delta, sd = sd, alpha = alpha,
-                 power = power, one.or.two.sided = one.or.two.sided,
+                 power = power, sided = sided,
                  method = METHOD), class = "power.htest")
 }
