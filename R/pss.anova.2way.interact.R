@@ -10,7 +10,7 @@
 #' @export
 #'
 #' @examples
-#' # Example 5.8
+#' # Example 5.10
 #' means <- matrix(c(9.3, 8.9, 8.5, 8.7, 8.3, 7.3), nrow = 2, byrow = TRUE)
 #' pss.anova.2way.interact(n = 30, means = means, sd = 2, alpha = 0.05)
 
