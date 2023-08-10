@@ -2,7 +2,7 @@
 #'
 #' @param nvec A vector of group sample sizes c(n1, n2, ...).
 #' @param mvec A vector of group mvec c(mu1, mu2, ...).
-#' @param sd The estimated standard deviation within each group; defaults to 1.
+#' @param sd The estimated standard deviation within each group.
 #' @param alpha The significance level or type 1 error rate; defaults to 0.05.
 #'
 #' @return A list of the arguments (including the computed power).
@@ -22,6 +22,8 @@ pss.unbal.anova.1way <- function (nvec = NULL, mvec = NULL, sd = NULL, alpha = 0
     stop("number of observations in each group must be at least 2")
   if(is.null(nvec) | is.null(mvec))
     stop("sample size vector and mvec vector must both be specified")
+  if(is.null(sd))
+    stop("sd must be specified")
   if(a != length(nvec))
     stop("number of sample sizes must equal to the number of groups")
 
@@ -37,8 +39,8 @@ pss.unbal.anova.1way <- function (nvec = NULL, mvec = NULL, sd = NULL, alpha = 0
   # Get ncp
   props <- nvec / N
   ws <- props %*% mmA
-  l <- sapply(X = 1:a, FUN = function(i) nvec[i] * ((mmA[i] - ws) / sd)^2)
-  Lambda <- sum(l)
+  temp <- sapply(X = 1:a, FUN = function(i) nvec[i] * ((mmA[i] - ws) / sd)^2)
+  Lambda <- sum(temp)
 
   # Calculate power
   power <- stats::pf(stats::qf(alpha, a - 1, N - a, lower.tail = FALSE),
