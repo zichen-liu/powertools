@@ -18,20 +18,23 @@ pss.anova.1way <- function (n = NULL, means = NULL, sd = 1,
 
   # Check if the arguments are specified correctly
   groups <- length(means)
-  if (sum(vapply(list(n, sd, alpha, power), is.null, NA)) != 1)
-    stop("exactly one of 'n', 'sd', 'alpha', and 'power' must be NULL")
+  if (sum(vapply(list(n, alpha, power), is.null, NA)) != 1)
+    stop("exactly one of 'n', 'alpha', and 'power' must be NULL")
   if (groups < 2)
     stop("number of groups must be at least 2")
   if (!is.null(n) && n < 2)
     stop("number of observations in each group must be at least 2")
+  if(is.null(sd))
+    stop("sd must be specified")
 
   # Get between group variance; sd is within group standard deviation
   within <- sd^2
   between <- var(means)
+  f <- sqrt(between / within)
 
   # Calculate df and ncp
   p.body <- quote({
-    lambda <- (groups - 1) * n * (between / within)
+    lambda <- (groups - 1) * n * f^2
     stats::pf(stats::qf(alpha, groups - 1, (n - 1) * groups, lower.tail = FALSE),
               groups - 1, (n - 1) * groups, lambda, lower.tail = FALSE)
   })
@@ -55,6 +58,6 @@ pss.anova.1way <- function (n = NULL, means = NULL, sd = 1,
 
   # Print output as a power.htest object
   structure(list(groups = groups, n = n, means = means,
-                 sd = sd, alpha = alpha, power = power,
+                 sd = sd, f = f, alpha = alpha, power = power,
                  note = NOTE, method = METHOD), class = "power.htest")
 }

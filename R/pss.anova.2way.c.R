@@ -1,4 +1,4 @@
-#' Power calculations for two-way balanced analysis of variance tests
+#' Power calculations for two-way balanced analysis of variance contrast test
 #'
 #' @param n The sample size per group.
 #' @param means A matrix of group means (see example).
@@ -86,7 +86,7 @@ pss.anova.2way <- function (n = NULL, means = NULL, sd = 1,
   # Print output as a power.htest object
   structure(list(`a, b` = c(a, b), `nA, nB` = c(nA, nB), n = n,
                  means = paste(row.list, collapse = " | "),
-                 sd = sd, alpha = alpha,
+                 sd = sd, `fA, fB` = c(fA, fB), alpha = alpha,
                  `powerA, powerB` = c(powerA, powerB), power = power,
                  note = NOTE, method = METHOD), class = "power.htest")
 }
