@@ -23,7 +23,7 @@ pss.anova.2way.main <- function (n = NULL, mmatrix = NULL, sd = 1,
   if (sum(vapply(list(n, alpha, power), is.null, NA)) != 1)
     stop("exactly one of 'n', 'alpha', and 'power' must be NULL")
   if (a < 2 | b < 2)
-    stop("number of groups per intervention must be at least 2")
+    stop("number of groups per factor must be at least 2")
   if (!is.null(n) && n < 2)
     stop("number of observations in each group must be at least 2")
   if(is.null(sd))
@@ -35,8 +35,8 @@ pss.anova.2way.main <- function (n = NULL, mmatrix = NULL, sd = 1,
 
   # Get grand mean and marginal mmatrix
   mu <- mean(mmatrix)
-  mmA <- rowmmatrix(mmatrix - mu)
-  mmB <- colmmatrix(mmatrix - mu)
+  mmA <- rowMeans(mmatrix - mu)
+  mmB <- colMeans(mmatrix - mu)
 
   # Get sds and f's
   sdA <- sqrt(sum(mmA^2) / a)
@@ -64,12 +64,10 @@ pss.anova.2way.main <- function (n = NULL, mmatrix = NULL, sd = 1,
   if (is.null(power)) {
     powerA <- eval(p.body.A)
     powerB <- eval(p.body.B)
-    power <- min(powerA, powerB)
   }
   else if (is.null(n)){
     nA <- uniroot(function(n) eval(p.body.A) - power, c(2, 1e+05))$root
     nB <- uniroot(function(n) eval(p.body.B) - power, c(2, 1e+05))$root
-    n <- max(nA, nB)
   }
   else if (is.null(alpha))
     alpha <- uniroot(function(alpha) eval(p.body.A) - power, c(1e-10, 1 - 1e-10))$root
@@ -77,17 +75,15 @@ pss.anova.2way.main <- function (n = NULL, mmatrix = NULL, sd = 1,
 
   # Generate output text
   NOTE <- "power is the minimum power among two factors;\n      n is the maximum required n among two factors"
-  METHOD <- "Balanced two-way analysis of variance power calculation\n     for main effects only"
-  row.list <- c()
-  for (i in 1:a) {
-    row.list <- c(row.list, paste(mmatrix[i,], collapse = ', '))
-  }
+  METHOD <- "Balanced two-way analysis of variance omnibus f test\n     power calculation for main effects only"
+  mrows <- c()
+  for (i in 1:a) mrows <- c(mrows, paste(mmatrix[i,], collapse = ', '))
 
   # Print output as a power.htest object
-  structure(list(`a, b` = c(a, b), `nA, nB` = c(nA, nB), n = n,
-                 mmatrix = paste(row.list, collapse = " | "),
+  structure(list(`a, b` = c(a, b), `nA, nB` = c(nA, nB),
+                 mmatrix = paste(mrows, collapse = " | "),
                  sd = sd, `fA, fB` = c(fA, fB), alpha = alpha,
-                 `powerA, powerB` = c(powerA, powerB), power = power,
+                 `powerA, powerB` = c(powerA, powerB),
                  note = NOTE, method = METHOD), class = "power.htest")
 }
 

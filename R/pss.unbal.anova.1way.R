@@ -21,7 +21,7 @@ pss.unbal.anova.1way <- function (nvec = NULL, mvec = NULL, sd = NULL, alpha = 0
   if (any(nvec < 2))
     stop("number of observations in each group must be at least 2")
   if(is.null(nvec) | is.null(mvec))
-    stop("sample size vector and mvec vector must both be specified")
+    stop("sample size vector and means vector must both be specified")
   if(is.null(sd))
     stop("sd must be specified")
   if(a != length(nvec))

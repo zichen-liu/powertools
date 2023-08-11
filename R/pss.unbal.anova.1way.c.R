@@ -23,7 +23,7 @@ pss.unbal.anova.1way.c <- function (nvec = NULL, mvec = NULL, cvec = NULL, sd = 
   if (any(nvec < 2))
     stop("number of observations in each group must be at least 2")
   if(is.null(nvec) | is.null(mvec) | is.null(cvec))
-    stop("sample size vector, mvec vector, and contrast coefficients vector must all be specified")
+    stop("sample size vector, means vector, and contrast coefficients vector must all be specified")
   if(is.null(sd))
     stop("sd must be specified")
   if(a != length(nvec))

@@ -49,13 +49,11 @@ pss.chisq.indep <- function (pmatrix = NULL, n = NULL, alpha = 0.05, power = NUL
   # Generate output text
   METHOD <- "Chi-square test of independence power calculation"
   NOTE <- "n is the number of observations"
-  row.list <- c()
-  for (i in 1:nrow(pmatrix)) {
-    row.list <- c(row.list, paste(pmatrix[i,], collapse = ', '))
-  }
+  prows <- c()
+  for (i in 1:nrow(pmatrix)) prows <- c(prows, paste(pmatrix[i,], collapse = ', '))
 
   # Print output as a power.htest object
-  structure(list(pmatrix = paste(row.list, collapse = " | "),
+  structure(list(pmatrix = paste(prows, collapse = " | "),
                  effect.size = es, n = n, alpha = alpha,
                  power = power, method = METHOD, note = NOTE), class = "power.htest")
 }

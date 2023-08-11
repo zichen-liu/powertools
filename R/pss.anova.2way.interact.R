@@ -89,14 +89,12 @@ pss.anova.2way.interact <- function (n = NULL, means = NULL, sd = 1,
 
   # Generate output text
   METHOD <- "Balanced two-way analysis of variance power calculation\n     for main effects and interaction effect"
-  row.list <- c()
-  for (i in 1:a) {
-    row.list <- c(row.list, paste(means[i,], collapse = ', '))
-  }
+  mrows <- c()
+  for (i in 1:a) mrows <- c(mrows, paste(means[i,], collapse = ', '))
 
   # Print output as a power.htest object
   structure(list(`a, b` = c(a, b), `nA, nB, nAB` = c(nA, nB, nAB),
-                 means = paste(row.list, collapse = " | "),
+                 means = paste(mrows, collapse = " | "),
                  sd = sd, `fA, fB, fAB` = c(fA, fB, fAB), alpha = alpha,
                  `powerA, powerB, powerAB` = c(powerA, powerB, powerAB),
                  method = METHOD), class = "power.htest")
