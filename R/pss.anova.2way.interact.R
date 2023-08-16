@@ -1,7 +1,7 @@
 #' Power calculations for two-way balanced analysis of variance test for main effects and interaction effect
 #'
 #' @param n The sample size per group.
-#' @param means A matrix of group means (see example).
+#' @param mmatrix A matrix of group means (see example).
 #' @param sd The estimated standard deviation within each group; defaults to 1.
 #' @param alpha The significance level or type 1 error rate; defaults to 0.05.
 #' @param power The specified level of power.
@@ -11,15 +11,15 @@
 #'
 #' @examples
 #' # Example 5.10
-#' means <- matrix(c(9.3, 8.9, 8.5, 8.7, 8.3, 7.3), nrow = 2, byrow = TRUE)
-#' pss.anova.2way.interact(n = 30, means = means, sd = 2, alpha = 0.05)
+#' mmatrix <- matrix(c(9.3, 8.9, 8.5, 8.7, 8.3, 7.3), nrow = 2, byrow = TRUE)
+#' pss.anova.2way.interact(n = 30, mmatrix = mmatrix, sd = 2, alpha = 0.05)
 
-pss.anova.2way.interact <- function (n = NULL, means = NULL, sd = 1,
+pss.anova.2way.interact <- function (n = NULL, mmatrix = NULL, sd = 1,
                             alpha = 0.05, power = NULL) {
 
   # Check if the arguments are specified correctly
-  a <- nrow(means)
-  b <- ncol(means)
+  a <- nrow(mmatrix)
+  b <- ncol(mmatrix)
   if (sum(vapply(list(n, alpha, power), is.null, NA)) != 1)
     stop("exactly one of 'n', 'alpha', and 'power' must be NULL")
   if (a < 2 | b < 2)
@@ -34,11 +34,11 @@ pss.anova.2way.interact <- function (n = NULL, means = NULL, sd = 1,
   powerA <- power; powerB <- power; powerAB <- power
 
   # Get grand mean, marginal means, and interaction effects
-  mu <- mean(means)
-  means2 <- means - mu
-  mmA <- rowMeans(means2)
-  mmB <- colMeans(means2)
-  ints <- sweep(x = means2, MARGIN = 2, STATS = mmB, FUN = "-")
+  mu <- mean(mmatrix)
+  means <- mmatrix - mu
+  mmA <- rowMeans(means)
+  mmB <- colMeans(means)
+  ints <- sweep(x = means, MARGIN = 2, STATS = mmB, FUN = "-")
   ints <- sweep(x = ints, MARGIN = 1, STATS = mmA, FUN = "-")
 
   # Get sds and f's
@@ -90,11 +90,11 @@ pss.anova.2way.interact <- function (n = NULL, means = NULL, sd = 1,
   # Generate output text
   METHOD <- "Balanced two-way analysis of variance power calculation\n     for main effects and interaction effect"
   mrows <- c()
-  for (i in 1:a) mrows <- c(mrows, paste(means[i,], collapse = ', '))
+  for (i in 1:a) mrows <- c(mrows, paste(mmatrix[i,], collapse = ', '))
 
   # Print output as a power.htest object
   structure(list(`a, b` = c(a, b), `nA, nB, nAB` = c(nA, nB, nAB),
-                 means = paste(mrows, collapse = " | "),
+                 mmatrix = paste(mrows, collapse = " | "),
                  sd = sd, `fA, fB, fAB` = c(fA, fB, fAB), alpha = alpha,
                  `powerA, powerB, powerAB` = c(powerA, powerB, powerAB),
                  method = METHOD), class = "power.htest")

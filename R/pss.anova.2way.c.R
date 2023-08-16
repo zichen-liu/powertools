@@ -1,7 +1,7 @@
 #' Power calculations for two-way balanced analysis of variance contrast test
 #'
 #' @param n The sample size per group.
-#' @param means A matrix of group means (see example).
+#' @param mmatrix A matrix of group means (see example).
 #' @param sd The estimated standard deviation within each group; defaults to 1.
 #' @param alpha The significance level or type 1 error rate; defaults to 0.05.
 #' @param power The specified level of power.
@@ -11,15 +11,15 @@
 #'
 #' @examples
 #' # Example 5.8
-#' means <- matrix(c(9.3, 8.9, 8.5, 8.7, 8.3, 7.9), nrow = 2, byrow = TRUE)
-#' pss.anova.2way(n = 30, means = means, sd = 2, alpha = 0.05)
+#' mmatrix <- matrix(c(9.3, 8.9, 8.5, 8.7, 8.3, 7.9), nrow = 2, byrow = TRUE)
+#' pss.anova.2way.c(n = 30, mmatrix = mmatrix, sd = 2, alpha = 0.05)
 
-pss.anova.2way <- function (n = NULL, means = NULL, sd = 1,
+pss.anova.2way.c <- function (n = NULL, mmatrix = NULL, sd = 1,
                             alpha = 0.05, power = NULL) {
 
   # Check if the arguments are specified correctly
-  a <- nrow(means)
-  b <- ncol(means)
+  a <- nrow(mmatrix)
+  b <- ncol(mmatrix)
   if (sum(vapply(list(n, alpha, power), is.null, NA)) != 1)
     stop("exactly one of 'n', 'alpha', and 'power' must be NULL")
   if (a < 2 | b < 2)
@@ -34,9 +34,9 @@ pss.anova.2way <- function (n = NULL, means = NULL, sd = 1,
   powerA <- power; powerB <- power
 
   # Get grand mean and marginal means
-  mu <- mean(means)
-  mmA <- rowMeans(means - mu)
-  mmB <- colMeans(means - mu)
+  mu <- mean(mmatrix)
+  mmA <- rowMeans(mmatrix - mu)
+  mmB <- colMeans(mmatrix - mu)
 
   # Get sds and f's
   sdA <- sqrt(sum(mmA ^ 2) / a)
@@ -78,14 +78,14 @@ pss.anova.2way <- function (n = NULL, means = NULL, sd = 1,
   # Generate output text
   NOTE <- "power is the minimum power among two factors;\n      n is the maximum required n among two factors"
   METHOD <- "Balanced two-way analysis of variance power calculation"
-  row.list <- c()
+  mrows <- c()
   for (i in 1:a) {
-    row.list <- c(row.list, paste(means[i,], collapse = ', '))
+    mrows <- c(row.list, paste(mmatrix[i,], collapse = ', '))
   }
 
   # Print output as a power.htest object
   structure(list(`a, b` = c(a, b), `nA, nB` = c(nA, nB), n = n,
-                 means = paste(row.list, collapse = " | "),
+                 means = paste(mrows, collapse = " | "),
                  sd = sd, `fA, fB` = c(fA, fB), alpha = alpha,
                  `powerA, powerB` = c(powerA, powerB), power = power,
                  note = NOTE, method = METHOD), class = "power.htest")
