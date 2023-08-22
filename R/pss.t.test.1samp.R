@@ -5,7 +5,7 @@
 #' @param sd The estimated standard deviation; defaults to 1.
 #' @param alpha The significance level or type 1 error rate; defaults to 0.05.
 #' @param power The specified level of power.
-#' @param sided Either "one" or "two" (default) to specify a one- or two- sided hypothesis test.
+#' @param sides Either 1 or 2 (default) to specify a one- or two- sided hypothesis test.
 #' @param strict Use strict interpretation in two-sided case; defaults to TRUE.
 #'
 #' @return A list of the arguments (including the computed one).
@@ -13,40 +13,32 @@
 #'
 #' @examples
 #' # Example 3.2
-#' pss.t.test.1samp(n = 36, delta = 4.9 - 5.7, sd = 2, sided = "one")
+#' pss.t.test.1samp(n = 36, delta = 4.9 - 5.7, sd = 2, sides = 1)
 #' # Example 3.3
-#' pss.t.test.1samp(n = 36, delta = 6.3 - 5.7, sd = 2, sided = "one")
+#' pss.t.test.1samp(n = 36, delta = 6.3 - 5.7, sd = 2, sides = 1)
 #' # Example 3.5
-#' pss.t.test.1samp(n = 36, delta = 4.9 - 5.7, sd = 2, sided = "two")
+#' pss.t.test.1samp(n = 36, delta = 4.9 - 5.7, sd = 2, sides = 2)
 #' # Example 3.6
-#' pss.t.test.1samp(delta = 0.6, sd = 1, power = 0.8, sided = "one")
+#' pss.t.test.1samp(delta = 0.6, sd = 1, power = 0.8, sides = 1)
 
 pss.t.test.1samp <- function (n = NULL, delta = NULL, sd = 1,
                               alpha = 0.05, power = NULL,
-                              sided = c("two", "one"), strict = TRUE) {
+                              sides = c(2, 1), strict = TRUE) {
 
   # Check if the arguments are specified correctly
   if (sum(sapply(list(n, delta, sd, power, alpha), is.null)) != 1)
     stop("exactly one of n, delta, sd, alpha, and power must be NULL")
 
-  # Assign number of sides
-  sided <- match.arg(sided)
-  side <- switch(sided, one = 1, two = 2)
-
-  # Use absolute value of the effect size
-  if (!is.null(delta))
-    delta <- abs(delta)
-
   # Calculate df and ncp
   p.body <- quote({
-    stats::pt(stats::qt(alpha / side, n - 1, lower.tail = FALSE), n - 1,
-              sqrt(n) * delta / sd, lower.tail = FALSE)
+    d <- abs(delta)
+    stats::pt(stats::qt(alpha / sides, n - 1, lower.tail = FALSE), n - 1,
+              sqrt(n) * d / sd, lower.tail = FALSE)
   })
-
-  # The strict two-sided case uses the F distribution
-  if (strict && side == 2)
+  if (strict && sides == 2)
     p.body <- quote({
-      ncp <- sqrt(n) * delta / sd
+      d <- abs(delta)
+      ncp <- sqrt(n) * d / sd
       stats::pf(stats::qf(alpha, 1, n - 1, lower.tail = FALSE),
                 1, n - 1, ncp^2, lower.tail = FALSE)
     })
@@ -69,6 +61,6 @@ pss.t.test.1samp <- function (n = NULL, delta = NULL, sd = 1,
 
   # Print output as a power.htest object
   structure(list(n = n, delta = delta, sd = sd, alpha = alpha,
-                 power = power, sided = sided,
+                 power = power, sides = sides,
                  method = METHOD), class = "power.htest")
 }
