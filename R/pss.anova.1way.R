@@ -14,7 +14,7 @@
 #' pss.anova.1way(n = 20, mvec = c(5, 10, 12), sd = 10)
 
 pss.anova.1way <- function (n = NULL, mvec = NULL, sd = 1,
-                             alpha = 0.05, power = NULL) {
+                            alpha = 0.05, power = NULL) {
 
   # Check if the arguments are specified correctly
   a <- length(mvec)
@@ -27,14 +27,17 @@ pss.anova.1way <- function (n = NULL, mvec = NULL, sd = 1,
   if(is.null(sd))
     stop("sd must be specified")
 
-  # Get between group variance; sd is within group standard deviation
-  within <- sd^2
-  between <- var(mvec)
-  f <- sqrt(between / within)
+  # Get weighted sum
+  mu <- mean(mvec)
+  mmA <- mvec - mu
+
+  # Get f effect size
+  sdA <- sqrt(sum(mmA^2) / a)
+  f <- sdA / sd
 
   # Calculate df and ncp
   p.body <- quote({
-    lambda <- (a - 1) * n * f^2
+    lambda <- a * n * f^2
     stats::pf(stats::qf(alpha, a - 1, (n - 1) * a, lower.tail = FALSE),
               a - 1, (n - 1) * a, lambda, lower.tail = FALSE)
   })
@@ -44,10 +47,6 @@ pss.anova.1way <- function (n = NULL, mvec = NULL, sd = 1,
     power <- eval(p.body)
   else if (is.null(n))
     n <- uniroot(function(n) eval(p.body) - power, c(2, 1e+05))$root
-  else if (is.null(sd)) {
-    within <- uniroot(function(within) eval(p.body) - power, between * c(1e-07, 1e+07))$root
-    sd <- sqrt(within)
-  }
   else if (is.null(alpha))
     alpha <- uniroot(function(alpha) eval(p.body) - power, c(1e-10, 1 - 1e-10))$root
   else stop("internal error", domain = NA)

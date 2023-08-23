@@ -88,15 +88,21 @@ pss.anova.2way.interact <- function (n = NULL, mmatrix = NULL, sd = 1,
   else stop("internal error", domain = NA)
 
   # Generate output text
+  if (is.null(power))
+    power <- c(powerA, powerB)
+  else if (is.null(n))
+    n <- c(nA, nB)
+  ab <- c(a, b)
+  f <- c(fA, fB)
   METHOD <- "Balanced two-way analysis of variance power calculation\n     for main effects and interaction effect"
   mrows <- c()
   for (i in 1:a) mrows <- c(mrows, paste(mmatrix[i,], collapse = ', '))
+  mmatrix <- paste(mrows, collapse = " | ")
 
   # Print output as a power.htest object
-  structure(list(`a, b` = c(a, b), `nA, nB, nAB` = c(nA, nB, nAB),
-                 mmatrix = paste(mrows, collapse = " | "),
-                 sd = sd, `fA, fB, fAB` = c(fA, fB, fAB), alpha = alpha,
-                 `powerA, powerB, powerAB` = c(powerA, powerB, powerAB),
+  structure(list(`a, b` = ab, mmatrix = mmatrix, n = n,
+                 sd = sd, f = f, alpha = alpha, power = power,
+                 n.int = nAB, f.int = fAB, power.int = powerAB,
                  method = METHOD), class = "power.htest")
 }
 

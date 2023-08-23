@@ -74,16 +74,20 @@ pss.anova.2way.main <- function (n = NULL, mmatrix = NULL, sd = 1,
   else stop("internal error", domain = NA)
 
   # Generate output text
-  NOTE <- "power is the minimum power among two factors;\n      n is the maximum required n among two factors"
+  if (is.null(power))
+    power <- c(powerA, powerB)
+  else if (is.null(n))
+    n <- c(nA, nB)
+  ab <- c(a, b)
+  f <- c(fA, fB)
   METHOD <- "Balanced two-way analysis of variance omnibus f test\n     power calculation for main effects only"
   mrows <- c()
   for (i in 1:a) mrows <- c(mrows, paste(mmatrix[i,], collapse = ', '))
+  mmatrix <- paste(mrows, collapse = " | ")
 
   # Print output as a power.htest object
-  structure(list(`a, b` = c(a, b), `nA, nB` = c(nA, nB),
-                 mmatrix = paste(mrows, collapse = " | "),
-                 sd = sd, `fA, fB` = c(fA, fB), alpha = alpha,
-                 `powerA, powerB` = c(powerA, powerB),
-                 note = NOTE, method = METHOD), class = "power.htest")
+  structure(list(`a, b` = ab, mmatrix = mmatrix, n = n,
+                 sd = sd, f = c(fA, fB), alpha = alpha, power = power,
+                 method = METHOD), class = "power.htest")
 }
 
