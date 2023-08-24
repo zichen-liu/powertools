@@ -1,23 +1,37 @@
+#' Power calculations for one sample proportion tests
+#'
+#' @param n The sample size.
+#' @param pA The true proportion.
+#' @param p0 The proportion under the null.
+#' @param alpha The significance level or type 1 error rate; defaults to 0.05.
+#' @param power The specified level of power.
+#' @param sides Either 1 or 2 (default) to specify a one- or two- sided hypothesis test.
+#'
+#' @return A list of the arguments (including the computed one).
+#' @export
+#'
+#' @examples
 #' # Example 6.1
-#' pss.prop.1samp(n = NULL, p0 = 0.2, pA = 0.3, power = 0.8, sided = "one")
+#' pss.prop.1samp(n = NULL, p0 = 0.2, pA = 0.3, power = 0.8, sides = 1)
 #' # Example 6.2
-#' pss.prop.1samp(n = NULL, p0 = 0.4, pA = 0.5, power = 0.8, sided = "one")
+#' pss.prop.1samp(n = NULL, p0 = 0.4, pA = 0.5, power = 0.8, sides = 1)
 #'
 
 pss.prop.1samp <- function (n = NULL, p0 = NULL, pA = NULL, alpha = 0.05,
-                            power = NULL, sided = c("two", "one")) {
+                            power = NULL, sides = c(2, 1)) {
+
+  # Check if the arguments are specified correctly
   if (sum(sapply(list(n, power, alpha), is.null)) != 1)
     stop("exactly one of 'n', 'alpha', and 'power' must be NULL")
 
-  sided <- match.arg(sided)
-  side <- switch(sided, one = 1, two = 2)
-
+  # Calculate test statistic
   p.body <- quote({
     d <- abs(pA - p0)
     (stats::pnorm(sqrt(n) * d / sqrt(pA * (1 - pA)) -
-                  stats::qnorm(alpha / side, lower = FALSE)))
+                  stats::qnorm(alpha / sides, lower = FALSE)))
   })
 
+  # Use uniroot function to calculate missing argument
   if (is.null(power))
     power <- eval(p.body)
   else if (is.null(n))
@@ -26,9 +40,12 @@ pss.prop.1samp <- function (n = NULL, p0 = NULL, pA = NULL, alpha = 0.05,
     alpha <- uniroot(function(alpha) eval(p.body) - power, c(1e-10, 1 - 1e-10))$root
   else stop("internal error", domain = NA)
 
-  METHOD <- "Two-sample comparison of proportions power calculation"
+  # Generate output text
+  METHOD <- "One sample proportion test power calculation"
+
+  # Print output as a power.htest object
   structure(list(n = n, p0 = p0, pA = pA, alpha = alpha,
-                 power = power, sided = sided,
+                 power = power, sides = sides,
                  method = METHOD), class = "power.htest")
 }
 
