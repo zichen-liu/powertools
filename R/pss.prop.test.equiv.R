@@ -1,9 +1,10 @@
-#' Power calculations for two sample proportion tests
+#' Power calculations for test of equivalence of two proportions
 #'
 #' @param n The sample size for group 1.
 #' @param n.ratio The ratio n2/n1 between the sample sizes of two groups; defaults to 1 (equal group sizes).
-#' @param p1 The proportion in group 1.
-#' @param p2 The proportion in group 2.
+#' @param p1 The outcome proportion in group 1.
+#' @param p2 The outcome proportion in group 2.
+#' @param delta The equivalence margin.
 #' @param alpha The significance level or type 1 error rate; defaults to 0.05.
 #' @param power The specified level of power.
 #' @param sides Either 1 or 2 (default) to specify a one- or two- sided hypothesis test.
@@ -12,25 +13,23 @@
 #' @export
 #'
 #' @examples
-#' #' # Example 6.6
-#' pss.prop.2samp(n = NULL, p1 = 0.6, p2 = 0.8, alpha = 0.025, power = 0.9, sides = 1)
+#' #' # Example 6.9
+#' pss.prop.test.equiv(n = NULL, p1 = 0.5, p2 = 0.5, delta = 0.1, alpha = 0.05, power = 0.8, sides = 1)
 
-pss.prop.2samp <- function (n = NULL, p1 = NULL, p2 = NULL, alpha = 0.05,
-          power = NULL, n.ratio = 1, sides = c(2, 1)) {
+pss.prop.test.equiv <- function (n = NULL, n.ratio = 1, p1 = NULL, p2 = NULL, delta = NULL,
+                            alpha = 0.05, power = NULL, sides = c(2, 1)) {
 
   # Check if the arguments are specified correctly
-  if (sum(sapply(list(n, power, alpha, n.ratio), is.null)) != 1)
+  if (sum(sapply(list(n, n.ratio, power, alpha), is.null)) != 1)
     stop("exactly one of 'n', 'n.ratio', 'alpha', and 'power' must be NULL")
-  if (!is.null(n.ratio) && n.ratio <= 0)
-    stop("n.ratio between group sizes must be positive")
 
   # Calculate test statistic
   p.body <- quote({
     d <- abs(p1 - p2)
-    q1 <- 1 - p1
-    q2 <- 1 - p2
-    ((stats::qnorm(alpha / side) + stats::qnorm(1 - power))^2 *
-    (n.ratio * p1 * q1 + p2 * q2) / (n.ratio * d^2))
+    var <- p1 * (1 - p1) + p2 * (1 - p2)
+    beta <- 1 - power
+    ((stats::qnorm(1 - alpha / sides) + stats::qnorm(1 - beta / 2))^2 *
+    var / n.ratio / (delta - d)^2)
   })
 
   # Use uniroot function to calculate missing argument
@@ -46,11 +45,12 @@ pss.prop.2samp <- function (n = NULL, p1 = NULL, p2 = NULL, alpha = 0.05,
 
   # Generate output text
   NOTE <- "n is the number in each group"
-  METHOD <- "Two sample comparison of proportions power calculation"
+  METHOD <- "Test for equivalence of two proportions power calculation"
 
   # Print output as a power.htest object
-  structure(list(n = c(n, n * n.ratio), p1 = p1, p2 = p2, alpha = alpha,
-                 power = power, sided = sided, note = NOTE,
+  structure(list(n = c(n, n * n.ratio), p1 = p1, p2 = p2,
+                 delta = delta, alpha = alpha,
+                 power = power, sides = sides, note = NOTE,
                  method = METHOD), class = "power.htest")
 }
 
