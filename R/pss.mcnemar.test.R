@@ -67,3 +67,4 @@ pss.mcnemar.test <- function (n = NULL, p1 = NULL, p2 = NULL, rho = NULL,
                    power = power, sides = sides, note = NOTE,
                    method = METHOD), class = "power.htest")
 }
+

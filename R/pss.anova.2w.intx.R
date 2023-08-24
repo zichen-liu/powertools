@@ -38,8 +38,8 @@ pss.anova.2w.intx <- function (n = NULL, mmatrix = NULL, sd = 1,
   means <- mmatrix - mu
   mmA <- rowMeans(means)
   mmB <- colMeans(means)
-  ints <- sweep(x = means, MARGIN = 2, STATS = mmB, FUN = "-")
-  ints <- sweep(x = ints, MARGIN = 1, STATS = mmA, FUN = "-")
+  temp <- sweep(x = means, MARGIN = 2, STATS = mmB, FUN = "-")
+  ints <- sweep(x = temp, MARGIN = 1, STATS = mmA, FUN = "-")
 
   # Get sds and f's
   sdA <- sqrt(sum(mmA^2) / a)
@@ -101,7 +101,7 @@ pss.anova.2w.intx <- function (n = NULL, mmatrix = NULL, sd = 1,
 
   # Print output as a power.htest object
   structure(list(`a, b` = ab, mmatrix = mmatrix, n = n,
-                 sd = sd, f = f, alpha = alpha, power = power,
+                 sd = sd, alpha = alpha, f = f, power = power,
                  n.int = nAB, f.int = fAB, power.int = powerAB,
                  method = METHOD), class = "power.htest")
 }

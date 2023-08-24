@@ -35,7 +35,7 @@ pss.anova.unbal.2w.main <- function (nmatrix = NULL, mmatrix = NULL, sd = NULL, 
   mmA <- rowMeans(mmatrix - mu)
   mmB <- colMeans(mmatrix - mu)
 
-  # Get LambdaA
+  # Get Lambdas
   LambdaA <- 0
   for (i in 1:a) {
     for (j in 1:b) {
@@ -43,8 +43,6 @@ pss.anova.unbal.2w.main <- function (nmatrix = NULL, mmatrix = NULL, sd = NULL, 
       LambdaA <- LambdaA + temp^2
     }
   }
-
-  # Get LambdaB
   LambdaB <- 0
   for (j in 1:b) {
     for (i in 1:a) {
@@ -66,21 +64,21 @@ pss.anova.unbal.2w.main <- function (nmatrix = NULL, mmatrix = NULL, sd = NULL, 
                       a - 1, df2, LambdaA, lower.tail = FALSE)
   powerB <- stats::pf(stats::qf(alpha, b - 1, df2, lower.tail = FALSE),
                       b - 1, df2, LambdaB, lower.tail = FALSE)
-  power <- min(powerA, powerB)
 
   # Generate output text
-  NOTE <- "power is the minimum power among two factors"
+  power <- c(powerA, powerB)
+  ab <- c(a, b)
+  f <- c(fA, fB)
   METHOD <- "Unbalanced two-way analysis of variance omnibus f test\n     power calculation for main effects only"
   nrows <- c(); mrows <- c()
   for (i in 1:a) nrows <- c(nrows, paste(nmatrix[i,], collapse = ', '))
+  nmatrix <- paste(nrows, collapse = " | ")
   for (i in 1:a) mrows <- c(mrows, paste(mmatrix[i,], collapse = ', '))
+  mmatrix <- paste(mrows, collapse = " | ")
 
   # Print output as a power.htest object
-  structure(list(`a, b` = c(a, b),
-                 nmatrix = paste(nrows, collapse = " | "),
-                 mmatrix = paste(mrows, collapse = " | "),
-                 sd = sd, `fA, fB` = c(fA, fB), alpha = alpha,
-                 `powerA, powerB` = c(powerA, powerB), power = power,
-                 note = NOTE, method = METHOD), class = "power.htest")
+  structure(list(`a, b` = ab, nmatrix = nmatrix, mmatrix = mmatrix,
+                 sd = sd, f = f, alpha = alpha, power = power,
+                 method = METHOD), class = "power.htest")
 }
 
