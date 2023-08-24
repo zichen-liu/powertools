@@ -12,9 +12,9 @@
 #' # Example 5.8
 #' nmatrix <- matrix(c(30, 30, 30, 30, 30, 30), nrow = 2, byrow = TRUE)
 #' mmatrix <- matrix(c(9.3, 8.9, 8.5, 8.7, 8.3, 7.9), nrow = 2, byrow = TRUE)
-#' pss.unbal.anova.2way.main(nmatrix = nmatrix, mmatrix = mmatrix, sd = 2, alpha = 0.05)
+#' pss.anova.unbal.2w.main(nmatrix = nmatrix, mmatrix = mmatrix, sd = 2, alpha = 0.05)
 
-pss.unbal.anova.2way.main <- function (nmatrix = NULL, mmatrix = NULL, sd = NULL, alpha = 0.05) {
+pss.anova.unbal.2w.main <- function (nmatrix = NULL, mmatrix = NULL, sd = NULL, alpha = 0.05) {
 
   # Check if the arguments are specified correctly
   a <- nrow(mmatrix)

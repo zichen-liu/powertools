@@ -10,9 +10,9 @@
 #'
 #' @examples
 #' # Example 5.2
-#' pss.unbal.anova.1way(nvec = c(20, 20, 20), mvec = c(5, 10, 12), sd = 10)
+#' pss.anova.unbal.1w(nvec = c(20, 20, 20), mvec = c(5, 10, 12), sd = 10)
 
-pss.unbal.anova.1way <- function (nvec = NULL, mvec = NULL, sd = NULL, alpha = 0.05) {
+pss.anova.unbal.1w <- function (nvec = NULL, mvec = NULL, sd = NULL, alpha = 0.05) {
 
   # Check if the arguments are specified correctly
   a <- length(mvec)

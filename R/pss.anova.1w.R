@@ -1,8 +1,7 @@
-#' Power calculations for one-way balanced analysis of variance contrast test
+#' Power calculations for one-way balanced analysis of variance omnibus F test
 #'
 #' @param n The sample size per group.
 #' @param mvec A vector of group means c(mu1, mu2, ...).
-#' @param cvec A vector of contrast coefficients c(c1, c2, ...).
 #' @param sd The estimated standard deviation within each group; defaults to 1.
 #' @param alpha The significance level or type 1 error rate; defaults to 0.05.
 #' @param power The specified level of power.
@@ -11,12 +10,11 @@
 #' @export
 #'
 #' @examples
-#' # Example 5.7
-#' pss.anova.1way.c(n = 20, mvec = c(5, 10, 12), cvec = c(1, -1, 0), sd = 10, alpha = 0.025)
-#' pss.anova.1way.c(n = 20, mvec = c(5, 10, 12), cvec = c(1, 0, -1), sd = 10, alpha = 0.025)
+#' # Example 5.2
+#' pss.anova.1w(n = 20, mvec = c(5, 10, 12), sd = 10)
 
-pss.anova.1way.c <- function (n = NULL, mvec = NULL, cvec = NULL, sd = 1,
-                              alpha = 0.05, power = NULL) {
+pss.anova.1w <- function (n = NULL, mvec = NULL, sd = 1,
+                            alpha = 0.05, power = NULL) {
 
   # Check if the arguments are specified correctly
   a <- length(mvec)
@@ -26,17 +24,22 @@ pss.anova.1way.c <- function (n = NULL, mvec = NULL, cvec = NULL, sd = 1,
     stop("number of groups must be at least 2")
   if (!is.null(n) && n < 2)
     stop("number of observations in each group must be at least 2")
-  if (a != length(cvec))
-    stop("number of contrast coefficients must be equal to the number of groups")
   if(is.null(sd))
     stop("sd must be specified")
 
+  # Get weighted sum
+  mu <- mean(mvec)
+  mmA <- mvec - mu
+
+  # Get f effect size
+  sdA <- sqrt(sum(mmA^2) / a)
+  f <- sdA / sd
+
   # Calculate df and ncp
   p.body <- quote({
-    lambda <- cvec %*% mvec / (sd * sqrt(sum(cvec^2 / n)))
-    df <- n * a - a
-    stats::pf(q = stats::qf(alpha, 1, df, lower.tail = FALSE),
-              1, df, lambda^2, lower.tail = FALSE)
+    lambda <- a * n * f^2
+    stats::pf(stats::qf(alpha, a - 1, (n - 1) * a, lower.tail = FALSE),
+              a - 1, (n - 1) * a, lambda, lower.tail = FALSE)
   })
 
   # Use uniroot function to calculate missing argument
@@ -50,10 +53,10 @@ pss.anova.1way.c <- function (n = NULL, mvec = NULL, cvec = NULL, sd = 1,
 
   # Generate output text
   NOTE <- "n is the number in each group"
-  METHOD <- "Balanced one-way analysis of variance\n     contrast test power calculation"
+  METHOD <- "Balanced one-way analysis of variance\n     omnibus F test power calculation"
 
   # Print output as a power.htest object
-  structure(list(a = a, n = n, mvec = mvec, cvec = cvec,
-                 sd = sd, alpha = alpha, power = power,
+  structure(list(a = a, n = n, mvec = mvec,
+                 sd = sd, f = f, alpha = alpha, power = power,
                  note = NOTE, method = METHOD), class = "power.htest")
 }

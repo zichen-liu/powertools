@@ -12,9 +12,9 @@
 #' @examples
 #' # Example 5.8
 #' mmatrix <- matrix(c(9.3, 8.9, 8.5, 8.7, 8.3, 7.9), nrow = 2, byrow = TRUE)
-#' pss.anova.2way.c(n = 30, mmatrix = mmatrix, sd = 2, alpha = 0.05)
+#' pss.anova.2w.c(n = 30, mmatrix = mmatrix, sd = 2, alpha = 0.05)
 
-pss.anova.2way.c <- function (n = NULL, mmatrix = NULL, sd = 1,
+pss.anova.2w.c <- function (n = NULL, mmatrix = NULL, sd = 1,
                             alpha = 0.05, power = NULL) {
 
   # Check if the arguments are specified correctly
