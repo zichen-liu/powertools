@@ -100,8 +100,8 @@ pss.anova.2w <- function (n = NULL, mmatrix = NULL, sd = 1,
                    "variance\n     omnibus f test power calculation",
                    ifelse(intx, " with interaction", ""))
   out <- list(`a, b` = ab, mmatrix = pss.matrix.format(mmatrix),
-              n = n, sd = sd, f = f, ncov = ncov, rho = rho,
-              alpha = alpha, power = power,
+              n = n, sd = sd, ncov = ncov, rho = rho,
+              alpha = alpha, f = f, power = power,
               n.int = nAB, f.int = fAB, power.int = powerAB,
               method = METHOD)
 

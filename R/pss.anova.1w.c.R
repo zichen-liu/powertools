@@ -13,7 +13,7 @@
 #' @export
 #'
 #' @examples
-#' # Example 5.7
+#' # Example 5.5
 #' pss.anova.1w.c(n = 20, mvec = c(5, 10, 12), cvec = c(1, -1, 0), sd = 10, alpha = 0.025)
 #' pss.anova.1w.c(n = 20, mvec = c(5, 10, 12), cvec = c(1, 0, -1), sd = 10, alpha = 0.025)
 

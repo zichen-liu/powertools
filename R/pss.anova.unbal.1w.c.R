@@ -4,18 +4,20 @@
 #' @param mvec A vector of group mvec c(mu1, mu2, ...).
 #' @param cvec A vector of contrast cvecicients c(c1, c2, ...).
 #' @param sd The estimated standard deviation within each group.
+#' @param rho The estimated correlation between covariates and the outcome; defaults to 0.
+#' @param ncov The number of covariates adjusted for in the model; defaults to 0.
 #' @param alpha The significance level or type 1 error rate; defaults to 0.05.
 #'
 #' @return A list of the arguments (including the computed power).
 #' @export
 #'
 #' @examples
-#' # Example 5.7
+#' # Example 5.5
 #' pss.anova.unbal.1w.c(nvec = c(20, 20, 20), mvec = c(5, 10, 12), cvec = c(1, -1, 0), sd = 10, alpha = 0.025)
 #' pss.anova.unbal.1w.c(nvec = c(20, 20, 20), mvec = c(5, 10, 12), cvec = c(1, 0, -1), sd = 10, alpha = 0.025)
 
 pss.anova.unbal.1w.c <- function (nvec = NULL, mvec = NULL, cvec = NULL,
-                                  sd = NULL, alpha = 0.05) {
+                                  sd = NULL, rho = 0, ncov = 0, alpha = 0.05) {
 
   # Check if the arguments are specified correctly
   a <- length(mvec)
@@ -36,17 +38,22 @@ pss.anova.unbal.1w.c <- function (nvec = NULL, mvec = NULL, cvec = NULL,
   num <- cvec %*% mvec
   temp <- sapply(X = 1:a, FUN = function(i) cvec[i]^2 / nvec[i])
   den <- sd * sqrt(sum(temp))
-  lambda <- num / den
+  lambda <- num / den / sqrt(1 - rho^2)
 
   # Calculate power
-  power <- stats::pf(stats::qf(alpha, 1, N - a, lower.tail = FALSE),
-                     1, N - a, lambda^2, lower.tail = FALSE)
+  df2 <- sum(nvec) - a - ncov
+  power <- stats::pf(stats::qf(alpha, 1, df2, lower.tail = FALSE),
+                     1, df2, lambda^2, lower.tail = FALSE)
 
   # Generate output text
-  METHOD <- "Unbalanced one-way analysis of variance\n     contrast test power calculation"
+  METHOD <- paste0("Unbalanced one-way analysis of ", ifelse(ncov < 1, "", "co"),
+                   "variance\n     contrast test power calculation")
+  out <- list(a = a, nvec = nvec, mvec = mvec, cvec = cvec,
+              sd = sd, ncov = ncov, rho = rho, alpha = alpha, power = power,
+              method = METHOD)
 
   # Print output as a power.htest object
-  structure(list(a = a, nvec = nvec, mvec = mvec, cvec = cvec,
-                 sd = sd, alpha = alpha, power = power,
-                 method = METHOD), class = "power.htest")
+  if (ncov < 1) out <- out[!names(out) %in% c("ncov", "rho")]
+  structure(out, class = "power.htest")
+
 }
