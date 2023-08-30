@@ -4,6 +4,7 @@
 #' @param n.ratio The ratio n2/n1 between the sample sizes of two groups; defaults to 1 (equal group sizes).
 #' @param p1 The proportion in group 1.
 #' @param p2 The proportion in group 2.
+#' @param delta The margin of noninferiority or superiority; defaults to 0.
 #' @param alpha The significance level or type 1 error rate; defaults to 0.05.
 #' @param power The specified level of power.
 #' @param sides Either 1 or 2 (default) to specify a one- or two- sided hypothesis test.
@@ -12,11 +13,13 @@
 #' @export
 #'
 #' @examples
-#' #' # Example 6.6
+#' # Example 6.6
 #' pss.prop.2samp(n = NULL, p1 = 0.6, p2 = 0.8, alpha = 0.025, power = 0.9, sides = 1)
+#' # Example 6.8
+#' pss.prop.2samp(n = NULL, p1 = 0.25, p2 = 0.25, delta = 0.1, alpha = 0.025, power = 0.8, sides = 1)
 
-pss.prop.2samp <- function (n = NULL, p1 = NULL, p2 = NULL, alpha = 0.05,
-          power = NULL, n.ratio = 1, sides = 2) {
+pss.prop.2samp <- function (n = NULL, p1 = NULL, p2 = NULL, delta = 0,
+                            alpha = 0.05, power = NULL, n.ratio = 1, sides = 2) {
 
   # Check if the arguments are specified correctly
   if (sides != 1 & sides != 2)
@@ -28,10 +31,10 @@ pss.prop.2samp <- function (n = NULL, p1 = NULL, p2 = NULL, alpha = 0.05,
 
   # Calculate test statistic
   p.body <- quote({
-    d <- abs(p1 - p2)
+    d <- abs(p1 - p2) - delta
     q1 <- 1 - p1
     q2 <- 1 - p2
-    ((stats::qnorm(alpha / side) + stats::qnorm(1 - power))^2 *
+    ((stats::qnorm(alpha / sides) + stats::qnorm(1 - power))^2 *
     (n.ratio * p1 * q1 + p2 * q2) / (n.ratio * d^2))
   })
 
@@ -51,8 +54,8 @@ pss.prop.2samp <- function (n = NULL, p1 = NULL, p2 = NULL, alpha = 0.05,
   METHOD <- "Two sample comparison of proportions power calculation"
 
   # Print output as a power.htest object
-  structure(list(n = c(n, n * n.ratio), p1 = p1, p2 = p2, alpha = alpha,
-                 power = power, sided = sided, note = NOTE,
+  structure(list(n = c(n, n * n.ratio), p1 = p1, p2 = p2, delta = delta,
+                 alpha = alpha, power = power, sides = sides, note = NOTE,
                  method = METHOD), class = "power.htest")
 }
 
