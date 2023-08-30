@@ -1,4 +1,4 @@
-pss.matrix.format <- function (matrix = NULL, nspaces = NULL) {
+pss.matrix.format <- function (matrix = NULL, nspaces = 18) {
   mrows <- c()
   for (i in 1:nrow(matrix))
     mrows <- c(mrows, paste(matrix[i,], collapse = ', '))
