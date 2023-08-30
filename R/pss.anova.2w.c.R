@@ -5,7 +5,8 @@
 #' @param cvec A vector of contrast coefficients c(c1, c2, ...).
 #' @param factor Either "a" or "b" depending on which factor the contrast test is being made on.
 #' @param sd The estimated standard deviation within each group; defaults to 1.
-#' @param indx Whether there is an interaction between the two factors.
+#' @param rho The estimated correlation between covariates and the outcome; defaults to 0.
+#' @param ncov The number of covariates adjusted for in the model; defaults to 0.
 #' @param alpha The significance level or type 1 error rate; defaults to 0.05.
 #' @param power The specified level of power.
 #'
@@ -15,10 +16,10 @@
 #' @examples
 #' # Example 5.11
 #' mmatrix <- matrix(c(9.3, 8.9, 8.5, 8.7, 8.3, 7.3), nrow = 2, byrow = TRUE)
-#' pss.anova.2w.c(n = 30, mmatrix = mmatrix, cvec = c(1, 0, -1), factor = "b", sd = 2, intx = TRUE, alpha = 0.05)
+#' pss.anova.2w.c(n = 30, mmatrix = mmatrix, cvec = c(1, 0, -1), factor = "b", sd = 2, alpha = 0.05)
 
 pss.anova.2w.c <- function (n = NULL, mmatrix = NULL, cvec = NULL,
-                            factor = c("a", "b"), sd = 1, intx = FALSE,
+                            factor = c("a", "b"), sd = 1, rho = 0, ncov = 0,
                             alpha = 0.05, power = NULL) {
 
   # Check if the arguments are specified correctly
@@ -41,13 +42,17 @@ pss.anova.2w.c <- function (n = NULL, mmatrix = NULL, cvec = NULL,
   mmA <- rowMeans(mmatrix - mu)
   mmB <- colMeans(mmatrix - mu)
 
-  # Get test statistic
+  # See if there is an interaction
+  fAB <- pss.effect.size(means = mmatrix, sd = sd)$fAB
+  intx <- ifelse(fAB == 0, FALSE, TRUE)
+
+  # Calculate df's and ncp's
   p.body <- quote({
     temp <- switch(factor, "a" = mmA, "b" = mmB) %*% cvec
     nj <- n * switch(factor, "a" = b, "b" = a)
-    Lambda <- temp^2 / (sd^2 * (1 / nj + 1 / nj))
+    Lambda <- temp^2 / (sd^2 * (1 / nj + 1 / nj)) / (1 - rho^2)
     N <- a * b * n
-    df2 <- ifelse(intx, N - a * b, N - a - b + 1)
+    df2 <- ifelse(intx, N - a * b - ncov, N - a - b + 1 - ncov)
     stats::pf(q = stats::qf(alpha, 1, df2, lower.tail = FALSE),
               1, df2, Lambda, lower.tail = FALSE)
   })
@@ -63,15 +68,18 @@ pss.anova.2w.c <- function (n = NULL, mmatrix = NULL, cvec = NULL,
 
   # Generate output text
   ab <- c(a, b)
-  METHOD <- "Balanced two-way analysis of variance\n     contrast test power calculation"
-  mrows <- c()
-  for (i in 1:a) mrows <- c(mrows, paste(mmatrix[i,], collapse = ', '))
-  mmatrix <- paste(mrows, collapse = " | ")
+  METHOD <- paste0("Balanced two-way analysis of ", ifelse(ncov < 1, "", "co"),
+                   "variance\n     contrast test power calculation",
+                   ifelse(intx, " with interaction", ""))
+  out <- list(`a, b` = ab, mmatrix = pss.matrix.format(mmatrix),
+              factor = factor, cvec = cvec, n = n,
+              sd = sd, ncov = ncov, rho = rho,
+              alpha = alpha, power = power,
+              method = METHOD)
 
   # Print output as a power.htest object
-  structure(list(`a, b` = ab, mmatrix = mmatrix,
-                 factor = factor, cvec = cvec, n = n,
-                 sd = sd, alpha = alpha, power = power,
-                 method = METHOD), class = "power.htest")
+  if (ncov < 1) out <- out[!names(out) %in% c("ncov", "rho")]
+  structure(out, class = "power.htest")
+
 }
 

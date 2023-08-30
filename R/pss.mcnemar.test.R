@@ -21,12 +21,13 @@
 
 pss.mcnemar.test <- function (n = NULL, p1 = NULL, p2 = NULL, rho = NULL,
                               paid = NULL, psi = NULL, alpha = 0.05,
-                              power = NULL, sides = c(2, 1)) {
+                              power = NULL, sides = 2) {
 
   # Check if the arguments are specified correctly
-  if (sum(sapply(list(n, alpha, power), is.null)) !=  1) {
+  if (sides != 1 & sides != 2)
+    stop("please specify 1 or 2 sides")
+  if (sum(sapply(list(n, alpha, power), is.null)) !=  1)
     stop("exactly one of 'n', 'alpha', and 'power' must be NULL")
-  }
   if ((is.null(p1) | is.null(p2) | is.null(rho)) & (is.null(psi) | is.null(paid)))
     stop("p1, p2, and rho OR psi and paid must be specified")
 

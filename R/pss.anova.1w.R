@@ -3,6 +3,8 @@
 #' @param n The sample size per group.
 #' @param mvec A vector of group means c(mu1, mu2, ...).
 #' @param sd The estimated standard deviation within each group; defaults to 1.
+#' @param rho The estimated correlation between covariates and the outcome; defaults to 0.
+#' @param ncov The number of covariates adjusted for in the model; defaults to 0.
 #' @param alpha The significance level or type 1 error rate; defaults to 0.05.
 #' @param power The specified level of power.
 #'
@@ -13,8 +15,8 @@
 #' # Example 5.2
 #' pss.anova.1w(n = 20, mvec = c(5, 10, 12), sd = 10)
 
-pss.anova.1w <- function (n = NULL, mvec = NULL, sd = 1,
-                            alpha = 0.05, power = NULL) {
+pss.anova.1w <- function (n = NULL, mvec = NULL, sd = 1, rho = 0, ncov = 0,
+                          alpha = 0.05, power = NULL) {
 
   # Check if the arguments are specified correctly
   a <- length(mvec)
@@ -27,19 +29,16 @@ pss.anova.1w <- function (n = NULL, mvec = NULL, sd = 1,
   if(is.null(sd))
     stop("sd must be specified")
 
-  # Get weighted sum
-  mu <- mean(mvec)
-  mmA <- mvec - mu
-
   # Get f effect size
-  sdA <- sqrt(sum(mmA^2) / a)
-  f <- sdA / sd
+  f <- pss.effect.size(means = mvec, sd = sd)$fA
 
-  # Calculate df and ncp
+  # Calculate df's and ncp
   p.body <- quote({
-    lambda <- a * n * f^2
-    stats::pf(stats::qf(alpha, a - 1, (n - 1) * a, lower.tail = FALSE),
-              a - 1, (n - 1) * a, lambda, lower.tail = FALSE)
+    Lambda <- a * n * f^2 / (1 - rho^2)
+    df1 <- a - 1
+    df2 <- (n - 1) * a - ncov
+    stats::pf(stats::qf(alpha, df1, df2, lower.tail = FALSE),
+              df1, df2, Lambda, lower.tail = FALSE)
   })
 
   # Use uniroot function to calculate missing argument
@@ -52,11 +51,15 @@ pss.anova.1w <- function (n = NULL, mvec = NULL, sd = 1,
   else stop("internal error", domain = NA)
 
   # Generate output text
-  NOTE <- "n is the number in each group"
-  METHOD <- "Balanced one-way analysis of variance\n     omnibus F test power calculation"
+  METHOD <- paste0("Balanced one-way analysis of ", ifelse(ncov < 1, "", "co"),
+                   "variance\n     omnibus F test power calculation")
+  out <- list(a = a, mvec = mvec, n = n, sd = sd,
+              f = f, ncov = ncov, rho = rho,
+              alpha = alpha, power = power,
+              method = METHOD)
 
   # Print output as a power.htest object
-  structure(list(a = a, n = n, mvec = mvec,
-                 sd = sd, f = f, alpha = alpha, power = power,
-                 note = NOTE, method = METHOD), class = "power.htest")
+  if (ncov < 1) out <- out[!names(out) %in% c("ncov", "rho")]
+  structure(out, class = "power.htest")
+
 }

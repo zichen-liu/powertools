@@ -18,9 +18,11 @@
 #'
 
 pss.prop.1samp <- function (n = NULL, p0 = NULL, pA = NULL, alpha = 0.05,
-                            power = NULL, sides = c(2, 1)) {
+                            power = NULL, sides = 2) {
 
   # Check if the arguments are specified correctly
+  if (sides != 1 & sides != 2)
+    stop("please specify 1 or 2 sides")
   if (sum(sapply(list(n, power, alpha), is.null)) != 1)
     stop("exactly one of 'n', 'alpha', and 'power' must be NULL")
 

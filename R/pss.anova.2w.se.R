@@ -4,7 +4,8 @@
 #' @param mmatrix A matrix of group means (see example).
 #' @param cmatrix A matrix of contrast coefficients (see example).
 #' @param sd The estimated standard deviation within each group; defaults to 1.
-#' @param indx Whether there is an interaction between the two factors.
+#' @param rho The estimated correlation between covariates and the outcome; defaults to 0.
+#' @param ncov The number of covariates adjusted for in the model; defaults to 0.
 #' @param alpha The significance level or type 1 error rate; defaults to 0.05.
 #' @param power The specified level of power.
 #'
@@ -15,10 +16,11 @@
 #' # Example 5.12
 #' mmatrix <- matrix(c(9.3, 8.9, 8.5, 8.7, 8.3, 7.3), nrow = 2, byrow = TRUE)
 #' cmatrix <- matrix(c(-1, 0, 0, 1, 0, 0), nrow = 2, byrow = TRUE)
-#' pss.anova.2w.se(n = 30, mmatrix = mmatrix, cmatrix = cmatrix, sd = 2, intx = TRUE, alpha = 0.025)
+#' pss.anova.2w.se(n = 30, mmatrix = mmatrix, cmatrix = cmatrix, sd = 2, alpha = 0.025)
 
 pss.anova.2w.se <- function (n = NULL, mmatrix = NULL, cmatrix = NULL,
-                            sd = 1, intx = FALSE, alpha = 0.05, power = NULL) {
+                            sd = 1, rho = 0, ncov = 0,
+                            alpha = 0.05, power = NULL) {
 
   # Check if the arguments are specified correctly
   a <- nrow(mmatrix)
@@ -34,11 +36,16 @@ pss.anova.2w.se <- function (n = NULL, mmatrix = NULL, cmatrix = NULL,
   if(is.null(sd))
     stop("sd must be specified")
 
+  # See if there is an interaction
+  fAB <- pss.effect.size(means = mmatrix, sd = sd)$fAB
+  intx <- ifelse(fAB == 0, FALSE, TRUE)
+
   # Get test statistic
   p.body <- quote({
-    lambda <- sum(cmatrix * mmatrix) / sd / sqrt(sum(cmatrix^2 / n))
+    lambda <- sum(cmatrix * mmatrix) / sd / sqrt(sum(cmatrix^2 / n)) /
+      sqrt(1 - rho^2)
     N <- a * b * n
-    df <- ifelse(intx, N - a * b, N - a - b + 1)
+    df <- ifelse(intx, N - a * b - ncov, N - a - b + 1 - ncov)
     stats::pt(q = stats::qt(alpha, df), df, lambda)
   })
 
@@ -53,12 +60,17 @@ pss.anova.2w.se <- function (n = NULL, mmatrix = NULL, cmatrix = NULL,
 
   # Generate output text
   ab <- c(a, b)
-  METHOD <- "Balanced two-way analysis of variance\n     simple effects power calculation"
+  METHOD <- paste0("Balanced two-way analysis of ", ifelse(ncov < 1, "", "co"),
+                   "variance\n     simple effects power calculation",
+                   ifelse(intx, " with interaction", ""))
+  out <- list(`a, b` = ab, mmatrix = pss.matrix.format(mmatrix),
+              cmatrix = pss.matrix.format(cmatrix), n = n,
+              sd = sd, ncov = ncov, rho = rho, alpha = alpha, power = power,
+              method = METHOD)
 
   # Print output as a power.htest object
-  structure(list(`a, b` = ab, mmatrix = pss.matrix.format(mmatrix),
-                 cmatrix = pss.matrix.format(cmatrix), n = n,
-                 sd = sd, alpha = alpha, power = power,
-                 method = METHOD), class = "power.htest")
+  if (ncov < 1) out <- out[!names(out) %in% c("ncov", "rho")]
+  structure(out, class = "power.htest")
+
 }
 

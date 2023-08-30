@@ -20,9 +20,11 @@
 pss.z.test.paired <- function (n = NULL, delta = NULL,
                                sd1 = 1, sd2 = 1, rho = NULL,
                                alpha = 0.05, power = NULL,
-                               sides = c(2, 1), strict = TRUE) {
+                               sides = 2, strict = TRUE) {
 
   # Check if the arguments are specified correctly
+  if (sides != 1 & sides != 2)
+    stop("please specify 1 or 2 sides")
   if (sum(sapply(list(n, delta, power, alpha), is.null)) != 1)
     stop("exactly one of n, delta, alpha, and power must be NULL")
   if (is.null(sd1) | is.null(sd2) | is.null(rho))

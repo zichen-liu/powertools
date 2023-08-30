@@ -17,9 +17,11 @@
 #' pss.prop.test.equiv(n = NULL, p1 = 0.5, p2 = 0.5, delta = 0.1, alpha = 0.05, power = 0.8, sides = 1)
 
 pss.prop.test.equiv <- function (n = NULL, n.ratio = 1, p1 = NULL, p2 = NULL, delta = NULL,
-                            alpha = 0.05, power = NULL, sides = c(2, 1)) {
+                            alpha = 0.05, power = NULL, sides = 2) {
 
   # Check if the arguments are specified correctly
+  if (sides != 1 & sides != 2)
+    stop("please specify 1 or 2 sides")
   if (sum(sapply(list(n, n.ratio, power, alpha), is.null)) != 1)
     stop("exactly one of 'n', 'n.ratio', 'alpha', and 'power' must be NULL")
 

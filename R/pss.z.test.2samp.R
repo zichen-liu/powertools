@@ -20,9 +20,11 @@
 pss.z.test.2samp <- function (n = NULL, n.ratio = 1, delta = NULL,
                               sd = 1, sd.ratio = 1,
                               alpha = 0.05, power = NULL,
-                              sides = c(2, 1), strict = TRUE) {
+                              sides = 2, strict = TRUE) {
 
   # Check if the arguments are specified correctly
+  if (sides != 1 & sides != 2)
+    stop("please specify 1 or 2 sides")
   if (sum(sapply(list(n, n.ratio, delta, sd, sd.ratio, power, alpha), is.null)) != 1)
     stop("exactly one of n, n.ratio, delta, sd, sd.ratio, power, and alpha must be NULL")
 

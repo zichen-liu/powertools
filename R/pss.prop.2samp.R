@@ -16,9 +16,11 @@
 #' pss.prop.2samp(n = NULL, p1 = 0.6, p2 = 0.8, alpha = 0.025, power = 0.9, sides = 1)
 
 pss.prop.2samp <- function (n = NULL, p1 = NULL, p2 = NULL, alpha = 0.05,
-          power = NULL, n.ratio = 1, sides = c(2, 1)) {
+          power = NULL, n.ratio = 1, sides = 2) {
 
   # Check if the arguments are specified correctly
+  if (sides != 1 & sides != 2)
+    stop("please specify 1 or 2 sides")
   if (sum(sapply(list(n, power, alpha, n.ratio), is.null)) != 1)
     stop("exactly one of 'n', 'n.ratio', 'alpha', and 'power' must be NULL")
   if (!is.null(n.ratio) && n.ratio <= 0)
