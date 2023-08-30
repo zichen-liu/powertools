@@ -4,7 +4,7 @@
 #' @param mmatrix A matrix of group means. One of mvec OR mmatrix must be specified.
 #' @param sd The estimated standard deviation within each group.
 #'
-#' @return A list of the various f effect sizes.
+#' @return A list of the arguments and various f effect sizes.
 #' @export
 #'
 #' @examples
