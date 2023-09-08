@@ -14,16 +14,16 @@
 #' @examples
 #' # Example 5.8
 #' mmatrix <- matrix(c(9.3, 8.9, 8.5, 8.7, 8.3, 7.9), nrow = 2, byrow = TRUE)
-#' pss.anova.2w(n = 30, mmatrix = mmatrix, sd = 2, alpha = 0.05)
+#' pss.anova.bal.2w(n = 30, mmatrix = mmatrix, sd = 2, alpha = 0.05)
 #' # Example 5.10
 #' mmatrix <- matrix(c(9.3, 8.9, 8.5, 8.7, 8.3, 7.3), nrow = 2, byrow = TRUE)
-#' pss.anova.2w(n = 30, mmatrix = mmatrix, sd = 2, alpha = 0.05)
+#' pss.anova.bal.2w(n = 30, mmatrix = mmatrix, sd = 2, alpha = 0.05)
 #' # Example 5.14
 #' mmatrix <- matrix(c(9.3, 8.9, 8.5, 8.7, 8.3, 7.9), nrow = 2, byrow = TRUE)
-#' pss.anova.2w(n = 30, mmatrix = mmatrix, sd = 2, rho = 0.4, ncov = 1, alpha = 0.05)
+#' pss.anova.bal.2w(n = 30, mmatrix = mmatrix, sd = 2, rho = 0.4, ncov = 1, alpha = 0.05)
 
-pss.anova.2w <- function (n = NULL, mmatrix = NULL, sd = 1,
-                          rho = 0, ncov = 0, alpha = 0.05, power = NULL) {
+pss.anova.bal.2w <- function (n = NULL, mmatrix = NULL, sd = 1,
+                              rho = 0, ncov = 0, alpha = 0.05, power = NULL) {
 
   # Check if the arguments are specified correctly
   a <- nrow(mmatrix)
@@ -42,9 +42,10 @@ pss.anova.2w <- function (n = NULL, mmatrix = NULL, sd = 1,
   powerA <- power; powerB <- power; powerAB <- power
 
   # Get f effect sizes
-  fA <- pss.effect.size(means = mmatrix, sd = sd)$fA
-  fB <- pss.effect.size(means = mmatrix, sd = sd)$fB
-  fAB <- pss.effect.size(means = mmatrix, sd = sd)$fAB
+  es <- pss.anova.f.es(means = mmatrix, sd = sd)
+  fA <- es$fA
+  fB <- es$fB
+  fAB <- es$fAB
   intx <- ifelse(fAB == 0, FALSE, TRUE)
 
   # Calculate df's and ncp's
@@ -75,15 +76,15 @@ pss.anova.2w <- function (n = NULL, mmatrix = NULL, sd = 1,
 
   # Use uniroot function to calculate missing argument
   if (is.null(power)) {
-    powerA <- eval(p.body.A)
-    powerB <- eval(p.body.B)
-    if (intx) powerAB <- eval(p.body.AB)
+    powerA <- round(eval(p.body.A), 4)
+    powerB <- round(eval(p.body.B), 4)
+    if (intx) powerAB <- round(eval(p.body.AB), 4)
   }
   else if (is.null(n)){
-    nA <- uniroot(function(n) eval(p.body.A) - power, c(2, 1e+05))$root
-    nB <- uniroot(function(n) eval(p.body.B) - power, c(2, 1e+05))$root
+    nA <- round(uniroot(function(n) eval(p.body.A) - power, c(2, 1e+05))$root, 4)
+    nB <- round(uniroot(function(n) eval(p.body.B) - power, c(2, 1e+05))$root, 4)
     if (intx)
-      nAB <- uniroot(function(n) eval(p.body.AB) - power, c(2, 1e+05))$root
+      nAB <- round(uniroot(function(n) eval(p.body.AB) - power, c(2, 1e+05))$root, 4)
   }
   else if (is.null(alpha))
     alpha <- uniroot(function(alpha) eval(p.body.A) - power, c(1e-10, 1 - 1e-10))$root
@@ -92,22 +93,23 @@ pss.anova.2w <- function (n = NULL, mmatrix = NULL, sd = 1,
   # Generate output text
   ab <- c(a, b)
   if (is.null(power))
-    power <- c(powerA, powerB)
+    if (intx) power <- c(powerA, powerB, powerAB) else power <- c(powerA, powerB)
   else if (is.null(n))
-    n <- c(nA, nB)
-  f <- c(fA, fB)
+    if (intx) n <- c(nA, nB, nAB) else n <- c(nA, nB)
+  if (intx) f <- c(round(fA, 4), round(fB, 4), round(fAB, 4))
+  else f <- c(round(fA, 4), round(fB, 4))
   METHOD <- paste0("Balanced two-way analysis of ", ifelse(ncov < 1, "", "co"),
                    "variance\n     omnibus f test power calculation",
                    ifelse(intx, " with interaction", ""))
+  NOTE <- "The 3rd value for f and power or n is for the interaction"
   out <- list(`a, b` = ab, mmatrix = pss.matrix.format(mmatrix),
               n = n, sd = sd, ncov = ncov, rho = rho,
               alpha = alpha, f = f, power = power,
-              n.int = nAB, f.int = fAB, power.int = powerAB,
-              method = METHOD)
+              method = METHOD, note = NOTE)
 
   # Print output as a power.htest object
   if (ncov < 1) out <- out[!names(out) %in% c("ncov", "rho")]
-  if (!intx) out <- out[!names(out) %in% c("n.int", "f.int", "power.int")]
+  if (!intx) out <- out[!names(out) == "note"]
   structure(out, class = "power.htest")
 
 }

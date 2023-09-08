@@ -42,17 +42,15 @@ pss.anova.unbal.2w <- function (nmatrix = NULL, mmatrix = NULL, sd = NULL,
     stop("number of sample sizes must equal to the number of groups")
 
   # Get marginal means
-  mu <- mean(mmatrix)
-  means <- mmatrix - mu
-  mmA <- rowMeans(means)
-  mmB <- colMeans(means)
-  temp <- sweep(x = means, MARGIN = 2, STATS = mmB, FUN = "-")
-  ints <- sweep(x = temp, MARGIN = 1, STATS = mmA, FUN = "-")
+  es <- pss.anova.f.es(means = mmatrix, sd = sd)
+  mmA <- es$mmA
+  mmB <- es$mmB
+  ints <- es$ints
 
   # Get f effect sizes
-  fA <- pss.effect.size(means = mmatrix, sd = sd)$fA
-  fB <- pss.effect.size(means = mmatrix, sd = sd)$fB
-  fAB <- pss.effect.size(means = mmatrix, sd = sd)$fAB
+  fA <- es$fA
+  fB <- es$fB
+  fAB <- es$fAB
   intx <- ifelse(fAB == 0, FALSE, TRUE)
 
   # Get Lambdas

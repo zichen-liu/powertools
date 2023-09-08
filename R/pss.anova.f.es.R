@@ -9,12 +9,12 @@
 #'
 #' @examples
 #' # Example 5.3
-#' pss.effect.size(means = c(5, 10, 12), sd = 10)
+#' pss.anova.f.es(means = c(5, 10, 12), sd = 10)
 #' # Example 5.8
 #' mmatrix <- matrix(c(9.3, 8.9, 8.5, 8.7, 8.3, 7.9), nrow = 2, byrow = TRUE)
-#' pss.effect.size(means = mmatrix, sd = 2)
+#' pss.anova.f.es(means = mmatrix, sd = 2)
 
-pss.effect.size <- function (means = NULL, sd = NULL) {
+pss.anova.f.es <- function (means = NULL, sd = NULL) {
 
   # Check if the arguments are specified correctly
   if(is.null(sd))
@@ -56,7 +56,8 @@ pss.effect.size <- function (means = NULL, sd = NULL) {
   # Print output as a power.htest object
   if (is.vector(means)) {
     METHOD <- "Cohen's f effect size calculation for\n     one-way analysis of variance"
-    structure(list(a = a, means = means, sd = sd, fA = fA,
+    structure(list(a = a, means = means, sd = sd,
+                   mmA = mmA, fA = fA,
                    method = METHOD), class = "power.htest")
 
   } else if (is.matrix(means)) {
@@ -65,7 +66,9 @@ pss.effect.size <- function (means = NULL, sd = NULL) {
     for (i in 1:a) mrows <- c(mrows, paste(means[i,], collapse = ', '))
     means <- paste(mrows, collapse = "\n                  ")
     structure(list(a = a, b = b, means = means, sd = sd,
+                   mmA = mmA, mmB = mmB, ints = ints,
                    fA = fA, fB = fB, fAB = fAB,
                    method = METHOD), class = "power.htest")
   }
+
 }

@@ -30,12 +30,12 @@ pss.anova.unbal.1w <- function (nvec = NULL, mvec = NULL, sd = NULL,
   if(a != length(nvec))
     stop("number of sample sizes must equal to the number of groups")
 
-  # Get marginal means
-  mu <- mean(mvec)
-  mmA <- mvec - mu
+  # Get marginal mean
+  es <- pss.anova.f.es(means = mvec, sd = sd)
+  mmA <- es$mmA
 
   # Get f effect size
-  f <- pss.effect.size(means = mvec, sd = sd)$fA
+  f <- es$fA
 
   # Get ncp
   N <- sum(nvec)

@@ -13,10 +13,10 @@
 #'
 #' @examples
 #' # Example 5.2
-#' pss.anova.1w(n = 20, mvec = c(5, 10, 12), sd = 10)
+#' pss.anova.bal.1w(n = 20, mvec = c(5, 10, 12), sd = 10)
 
-pss.anova.1w <- function (n = NULL, mvec = NULL, sd = 1, rho = 0, ncov = 0,
-                          alpha = 0.05, power = NULL) {
+pss.anova.bal.1w <- function (n = NULL, mvec = NULL, sd = 1, rho = 0, ncov = 0,
+                              alpha = 0.05, power = NULL) {
 
   # Check if the arguments are specified correctly
   a <- length(mvec)
@@ -30,7 +30,7 @@ pss.anova.1w <- function (n = NULL, mvec = NULL, sd = 1, rho = 0, ncov = 0,
     stop("sd must be specified")
 
   # Get f effect size
-  f <- pss.effect.size(means = mvec, sd = sd)$fA
+  f <- pss.anova.f.es(means = mvec, sd = sd)$fA
 
   # Calculate df's and ncp
   p.body <- quote({

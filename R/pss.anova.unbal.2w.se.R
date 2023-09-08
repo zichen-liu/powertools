@@ -36,7 +36,7 @@ pss.anova.unbal.2w.se <- function (nmatrix = NULL, mmatrix = NULL, cmatrix = NUL
     stop("sd must be specified")
 
   # See if there is an interaction
-  fAB <- pss.effect.size(means = mmatrix, sd = sd)$fAB
+  fAB <- pss.anova.f.es(means = mmatrix, sd = sd)$fAB
   intx <- ifelse(fAB == 0, FALSE, TRUE)
 
   # Get lambda

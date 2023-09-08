@@ -37,12 +37,12 @@ pss.anova.unbal.2w.c <- function (nmatrix = nmatrix, mmatrix = NULL, cvec = NULL
     stop("sd must be specified")
 
   # Get grand mean and marginal means
-  mu <- mean(mmatrix)
-  mmA <- rowMeans(mmatrix - mu)
-  mmB <- colMeans(mmatrix - mu)
+  es <- pss.anova.f.es(means = mmatrix, sd = sd)
+  mmA <- es$mmA
+  mmB <- es$mmB
 
   # See if there is an interaction
-  fAB <- pss.effect.size(means = mmatrix, sd = sd)$fAB
+  fAB <- es$fAB
   intx <- ifelse(fAB == 0, FALSE, TRUE)
 
   # Get lambda (Lambda = lambda^2)

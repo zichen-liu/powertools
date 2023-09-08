@@ -16,11 +16,11 @@
 #' @examples
 #' # Example 5.11
 #' mmatrix <- matrix(c(9.3, 8.9, 8.5, 8.7, 8.3, 7.3), nrow = 2, byrow = TRUE)
-#' pss.anova.2w.c(n = 30, mmatrix = mmatrix, cvec = c(1, 0, -1), factor = "b", sd = 2, alpha = 0.05)
+#' pss.anova.bal.2w.c(n = 30, mmatrix = mmatrix, cvec = c(1, 0, -1), factor = "b", sd = 2, alpha = 0.05)
 
-pss.anova.2w.c <- function (n = NULL, mmatrix = NULL, cvec = NULL,
-                            factor = c("a", "b"), sd = 1, rho = 0, ncov = 0,
-                            alpha = 0.05, power = NULL) {
+pss.anova.bal.2w.c <- function (n = NULL, mmatrix = NULL, cvec = NULL,
+                                factor = c("a", "b"), sd = 1, rho = 0, ncov = 0,
+                                alpha = 0.05, power = NULL) {
 
   # Check if the arguments are specified correctly
   a <- nrow(mmatrix)
@@ -38,12 +38,12 @@ pss.anova.2w.c <- function (n = NULL, mmatrix = NULL, cvec = NULL,
     stop("sd must be specified")
 
   # Get grand mean and marginal means
-  mu <- mean(mmatrix)
-  mmA <- rowMeans(mmatrix - mu)
-  mmB <- colMeans(mmatrix - mu)
+  es <- pss.anova.f.es(means = mmatrix, sd = sd)
+  mmA <- es$mmA
+  mmB <- es$mmB
 
   # See if there is an interaction
-  fAB <- pss.effect.size(means = mmatrix, sd = sd)$fAB
+  fAB <- es$fAB
   intx <- ifelse(fAB == 0, FALSE, TRUE)
 
   # Calculate df's and ncp's
