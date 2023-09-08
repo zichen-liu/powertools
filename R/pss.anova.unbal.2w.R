@@ -83,33 +83,34 @@ pss.anova.unbal.2w <- function (nmatrix = NULL, mmatrix = NULL, sd = NULL,
   N <- sum(nmatrix)
   df1A <- a - 1; df1B <- b - 1; df1AB <- (a - 1) * (b - 1)
   df2 <- ifelse(intx, N - a * b - ncov, N - a - b + 1 - ncov)
-  powerA <- stats::pf(stats::qf(alpha, df1A, df2, lower.tail = FALSE),
-                      df1A, df2, LambdaA, lower.tail = FALSE)
-  powerB <- stats::pf(stats::qf(alpha, df1B, df2, lower.tail = FALSE),
-                      df1B, df2, LambdaB, lower.tail = FALSE)
+  powerA <- round(stats::pf(stats::qf(alpha, df1A, df2, lower.tail = FALSE),
+                  df1A, df2, LambdaA, lower.tail = FALSE), 4)
+  powerB <- round(stats::pf(stats::qf(alpha, df1B, df2, lower.tail = FALSE),
+                  df1B, df2, LambdaB, lower.tail = FALSE), 4)
   if (intx) {
-    powerAB <- stats::pf(stats::qf(alpha, df1AB, df2, lower.tail = FALSE),
-                         df1AB, df2, LambdaAB, lower.tail = FALSE)
+    powerAB <- round(stats::pf(stats::qf(alpha, df1AB, df2, lower.tail = FALSE),
+                     df1AB, df2, LambdaAB, lower.tail = FALSE), 4)
   }
   else { powerAB <- 0}
 
   # Generate output text
   ab <- c(a, b)
-  power <- c(powerA, powerB)
-  f <- c(fA, fB)
+  if (intx) power <- c(powerA, powerB, powerAB) else power <- c(powerA, powerB)
+  if (intx) f <- c(round(fA, 4), round(fB, 4), round(fAB, 4))
+  else f <- c(round(fA, 4), round(fB, 4))
   METHOD <- paste0("Unalanced two-way analysis of ", ifelse(ncov < 1, "", "co"),
                    "variance\n     omnibus f test power calculation",
                    ifelse(intx, " with interaction", ""))
+  NOTE <- "The 3rd value for f and power or n is for the interaction"
   out <- list(`a, b` = ab, mmatrix = pss.matrix.format(mmatrix),
               nmatrix = pss.matrix.format(nmatrix),
               sd = sd, ncov = ncov, rho = rho,
               alpha = alpha, f = f, power = power,
-              f.int = fAB, power.int = powerAB,
               method = METHOD)
 
   # Print output as a power.htest object
   if (ncov < 1) out <- out[!names(out) %in% c("ncov", "rho")]
-  if (!intx) out <- out[!names(out) %in% c("n.int", "f.int", "power.int")]
+  if (!intx) out <- out[!names(out) == "note"]
   structure(out, class = "power.htest")
 
 }
