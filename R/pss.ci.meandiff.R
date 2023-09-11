@@ -1,7 +1,7 @@
-#' Power calculations for precision analysis for one mean
+#' Power calculations for precision analysis for a difference between means
 #'
-#' @param n The sample size.
-#' @param h The desired halfwidth.
+#' @param n The sample size per group.
+#' @param h The desired halfwidth for the difference in means.
 #' @param sd The estimated standard deviation; defaults to 1.
 #' @param d The standardized halfwidth. Either d OR h and sd must be specified.
 #' @param alpha The significance level or type 1 error rate; defaults to 0.05.
@@ -13,14 +13,14 @@
 #' @export
 #'
 #' @examples
-#' # Example 9.2
-#' pss.ci.mean(n = NULL, d = 0.25, power = 0.8)
-#' # Example 9.3
+#' # Example 9.4
+#' pss.ci.meandiff(n = NULL, d = 0.25, power = 0.8)
+#' # Example 9.5
 #' library(PowerTOST)
-#' pss.ci.mean(n = 73, d = 0.25, cond = TRUE)
+#' pss.ci.meandiff(n = 134, d = 0.25, cond = TRUE)
 
-pss.ci.mean <- function (n = NULL, d = NULL, h = NULL, sd = 1,
-                         alpha = 0.05, power = NULL, sides = 2, cond = FALSE) {
+pss.ci.meandiff <- function (n = NULL, d = NULL, h = NULL, sd = 1,
+                              alpha = 0.05, power = NULL, sides = 2, cond = FALSE) {
 
   # Check if the arguments are specified correctly
   if (sides != 1 & sides != 2)
@@ -32,9 +32,10 @@ pss.ci.mean <- function (n = NULL, d = NULL, h = NULL, sd = 1,
 
   if (is.null(d)) d <- h / sd
   p.body <- quote({
-    df <- n - 1
+    N <- n * 2
+    df <- N - 2
     t <- stats::qt(1 - alpha / sides, df)
-    b <- d * sqrt(n * df) / t
+    b <- d * sqrt(N * df) / (2 * t)
     if (cond) {
       uQ <- PowerTOST::OwensQ(nu = df, t = t, delta = 0, a = 0, b = b)
       lQ <- PowerTOST::OwensQ(nu = df, t = 0, delta = 0, a = 0, b = b)
@@ -53,12 +54,13 @@ pss.ci.mean <- function (n = NULL, d = NULL, h = NULL, sd = 1,
   else stop("internal error")
 
   # Generate output text
-  METHOD <- paste0("Precision analysis for one mean\n     using ",
+  METHOD <- paste0("Precision analysis for difference between means\n     using ",
                    ifelse(cond, "", "un"), "conditional probability")
+  NOTE <- "n is the number in each group"
 
   # Print output as a power.htest object
   structure(list(n = n, d = d, alpha = alpha,
                  power = power, sides = sides,
-                 method = METHOD), class = "power.htest")
+                 method = METHOD, note = NOTE), class = "power.htest")
 
 }
