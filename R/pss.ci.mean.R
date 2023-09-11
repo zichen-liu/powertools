@@ -7,7 +7,7 @@
 #' @param alpha The significance level or type 1 error rate; defaults to 0.05.
 #' @param power The specified level of power.
 #' @param sides Either 1 or 2 (default) to specify a one- or two- sided hypothesis test.
-#' @param strict Use strict interpretation in two-sided case; defaults to TRUE.
+#' @param cond Specify using unconditional or conditional probability. Defaults to FALSE.
 #'
 #' @return A list of the arguments (including the computed one).
 #' @export
@@ -15,9 +15,12 @@
 #' @examples
 #' # Example 9.2
 #' pss.ci.mean(n = NULL, d = 0.25, power = 0.8)
+#' # Example 9.3
+#' library(PowerTOST)
+#' pss.ci.mean(n = 73, d = 0.25, cond = TRUE)
 
 pss.ci.mean <- function (n = NULL, d = NULL, h = NULL, sd = 1,
-                         alpha = 0.05, power = NULL, sides = 2) {
+                         alpha = 0.05, power = NULL, sides = 2, cond = FALSE) {
 
   # Check if the arguments are specified correctly
   if (sides != 1 & sides != 2)
@@ -30,8 +33,15 @@ pss.ci.mean <- function (n = NULL, d = NULL, h = NULL, sd = 1,
   if (is.null(d)) d <- h / sd
   p.body <- quote({
     df <- n - 1
-    q <- n * (n - 1) * d^2 / (stats::qt(1 - alpha / sides, df))^2
-    stats::pchisq(q, df)
+    t <- stats::qt(1 - alpha / sides, df)
+    b1 <- d * sqrt(n * df) / t
+    if (cond) {
+      uQ <- PowerTOST::OwensQ(nu = df, t = t, delta = 0, a = 0, b = b1)
+      lQ <- PowerTOST::OwensQ(nu = df, t = 0, delta = 0, a = 0, b = b1)
+      (2 / (1 - alpha)) * (uQ - lQ)
+    } else {
+      stats::pchisq(b1^2, df)
+    }
   })
 
   if (is.null(power))
@@ -43,7 +53,8 @@ pss.ci.mean <- function (n = NULL, d = NULL, h = NULL, sd = 1,
   else stop("internal error")
 
   # Generate output text
-  METHOD <- "Precision analysis for one mean"
+  METHOD <- paste0("Precision analysis for one mean\n     using ",
+                   ifelse(cond, "", "un"), "conditional probability")
 
   # Print output as a power.htest object
   structure(list(n = n, d = d, alpha = alpha,
