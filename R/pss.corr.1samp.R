@@ -1,7 +1,7 @@
 #' Power calculations for one correlation coefficient
 #'
 #' @param n The sample size.
-#' @param r0 The correlation coefficient under the null hypothesis.
+#' @param r0 The correlation coefficient under the null hypothesis; defaults to 0.
 #' @param rA The correlation coefficient under the alternative hypothesis.
 #' @param alpha The significance level or type 1 error rate; defaults to 0.05.
 #' @param power The specified level of power.
@@ -19,7 +19,7 @@ pss.corr.1samp <- function (n = NULL, r0 = 0, rA = NULL,
   # Check if the arguments are specified correctly
   if (sum(sapply(list(n, power, alpha), is.null)) != 1)
     stop("exactly one of n, alpha, and power must be NULL")
-  if (!is.null(rA))
+  if (is.null(rA))
     stop("please specify rA")
   if (!is.null(n) && any(n < 4))
     stop("number of observations must be at least 4")
