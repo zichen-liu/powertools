@@ -3,7 +3,7 @@
 #' @param nmatrix A matrix of group sample sizes (see example).
 #' @param mmatrix A matrix of group means (see example).
 #' @param sd The estimated standard deviation within each group.
-#' @param rho The estimated correlation between covariates and the outcome; defaults to 0.
+#' @param Rsq The estimated R^2 for regressing the outcome on the covariates; defaults to 0.
 #' @param ncov The number of covariates adjusted for in the model; defaults to 0.
 #' @param alpha The significance level or type 1 error rate; defaults to 0.05.
 #'
@@ -22,10 +22,10 @@
 #' # Example 5.14
 #' nmatrix <- matrix(c(30, 30, 30, 30, 30, 30), nrow = 2, byrow = TRUE)
 #' mmatrix <- matrix(c(9.3, 8.9, 8.5, 8.7, 8.3, 7.9), nrow = 2, byrow = TRUE)
-#' pss.anova.unbal.2w(nmatrix = nmatrix, mmatrix = mmatrix, sd = 2, rho = 0.4, ncov = 1, alpha = 0.05)
+#' pss.anova.unbal.2w(nmatrix = nmatrix, mmatrix = mmatrix, sd = 2, Rsq = 0.4^2, ncov = 1, alpha = 0.05)
 
 pss.anova.unbal.2w <- function (nmatrix = NULL, mmatrix = NULL, sd = NULL,
-                                rho = 0, ncov = 0, alpha = 0.05) {
+                                Rsq = 0, ncov = 0, alpha = 0.05) {
 
   # Check if the arguments are specified correctly
   a <- nrow(mmatrix)
@@ -61,7 +61,7 @@ pss.anova.unbal.2w <- function (nmatrix = NULL, mmatrix = NULL, sd = NULL,
       LambdaA <- LambdaA + temp^2
     }
   }
-  LambdaA <- LambdaA / (1 - rho^2)
+  LambdaA <- LambdaA / (1 - Rsq)
   LambdaB <- 0
   for (j in 1:b) {
     for (i in 1:a) {
@@ -69,7 +69,7 @@ pss.anova.unbal.2w <- function (nmatrix = NULL, mmatrix = NULL, sd = NULL,
       LambdaB <- LambdaB + temp^2
     }
   }
-  LambdaB <- LambdaB / (1 - rho^2)
+  LambdaB <- LambdaB / (1 - Rsq)
   LambdaAB <- 0
   for (i in 1:a) {
     for (j in 1:b) {
@@ -77,7 +77,7 @@ pss.anova.unbal.2w <- function (nmatrix = NULL, mmatrix = NULL, sd = NULL,
       LambdaAB <- LambdaAB + temp^2
     }
   }
-  LambdaAB <- LambdaAB / (1 - rho^2)
+  LambdaAB <- LambdaAB / (1 - Rsq)
 
   # Calculate power
   N <- sum(nmatrix)
@@ -99,17 +99,16 @@ pss.anova.unbal.2w <- function (nmatrix = NULL, mmatrix = NULL, sd = NULL,
   if (intx) f <- c(round(fA, 4), round(fB, 4), round(fAB, 4))
   else f <- c(round(fA, 4), round(fB, 4))
   METHOD <- paste0("Unalanced two-way analysis of ", ifelse(ncov < 1, "", "co"),
-                   "variance\n     omnibus f test power calculation",
-                   ifelse(intx, " with interaction", ""))
+                   "variance\n     omnibus F test power calculation")
   NOTE <- "The 3rd value for f and power or n is for the interaction"
   out <- list(`a, b` = ab, mmatrix = pss.matrix.format(mmatrix),
               nmatrix = pss.matrix.format(nmatrix),
-              sd = sd, ncov = ncov, rho = rho,
+              sd = sd, ncov = ncov, Rsq = Rsq,
               alpha = alpha, f = f, power = power,
               method = METHOD)
 
   # Print output as a power.htest object
-  if (ncov < 1) out <- out[!names(out) %in% c("ncov", "rho")]
+  if (ncov < 1) out <- out[!names(out) %in% c("ncov", "Rsq")]
   if (!intx) out <- out[!names(out) == "note"]
   structure(out, class = "power.htest")
 

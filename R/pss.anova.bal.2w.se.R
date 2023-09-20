@@ -4,7 +4,7 @@
 #' @param mmatrix A matrix of group means (see example).
 #' @param cmatrix A matrix of contrast coefficients (see example).
 #' @param sd The estimated standard deviation within each group; defaults to 1.
-#' @param rho The estimated correlation between covariates and the outcome; defaults to 0.
+#' @param Rsq The estimated R^2 for regressing the outcome on the covariates; defaults to 0.
 #' @param ncov The number of covariates adjusted for in the model; defaults to 0.
 #' @param alpha The significance level or type 1 error rate; defaults to 0.05.
 #' @param power The specified level of power.
@@ -19,7 +19,7 @@
 #' pss.anova.bal.2w.se(n = 30, mmatrix = mmatrix, cmatrix = cmatrix, sd = 2, alpha = 0.025)
 
 pss.anova.bal.2w.se <- function (n = NULL, mmatrix = NULL, cmatrix = NULL,
-                                 sd = 1, rho = 0, ncov = 0,
+                                 sd = 1, Rsq = 0, ncov = 0,
                                  alpha = 0.05, power = NULL) {
 
   # Check if the arguments are specified correctly
@@ -37,13 +37,13 @@ pss.anova.bal.2w.se <- function (n = NULL, mmatrix = NULL, cmatrix = NULL,
     stop("sd must be specified")
 
   # See if there is an interaction
-  fAB <- pss.effect.size(means = mmatrix, sd = sd)$fAB
+  fAB <- pss.anova.f.es(means = mmatrix, sd = sd)$fAB
   intx <- ifelse(fAB == 0, FALSE, TRUE)
 
   # Get test statistic
   p.body <- quote({
     lambda <- sum(cmatrix * mmatrix) / sd / sqrt(sum(cmatrix^2 / n)) /
-      sqrt(1 - rho^2)
+      sqrt(1 - Rsq)
     N <- a * b * n
     df <- ifelse(intx, N - a * b - ncov, N - a - b + 1 - ncov)
     stats::pt(q = stats::qt(alpha, df), df, lambda)
@@ -65,11 +65,11 @@ pss.anova.bal.2w.se <- function (n = NULL, mmatrix = NULL, cmatrix = NULL,
                    ifelse(intx, " with interaction", ""))
   out <- list(`a, b` = ab, mmatrix = pss.matrix.format(mmatrix),
               cmatrix = pss.matrix.format(cmatrix), n = n,
-              sd = sd, ncov = ncov, rho = rho, alpha = alpha, power = power,
+              sd = sd, ncov = ncov, Rsq = Rsq, alpha = alpha, power = power,
               method = METHOD)
 
   # Print output as a power.htest object
-  if (ncov < 1) out <- out[!names(out) %in% c("ncov", "rho")]
+  if (ncov < 1) out <- out[!names(out) %in% c("ncov", "Rsq")]
   structure(out, class = "power.htest")
 
 }

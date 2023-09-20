@@ -1,9 +1,9 @@
-#' Power calculations for two-way balanced analysis of variance test for main effects
+#' Power calculations for two-way balanced analysis of variance omnibus F test
 #'
 #' @param n The sample size per group.
 #' @param mmatrix A matrix of group means (see example).
 #' @param sd The estimated standard deviation within each group; defaults to 1.
-#' @param rho The estimated correlation between covariates and the outcome; defaults to 0.
+#' @param Rsq The estimated R^2 for regressing the outcome on the covariates; defaults to 0.
 #' @param ncov The number of covariates adjusted for in the model; defaults to 0.
 #' @param alpha The significance level or type 1 error rate; defaults to 0.05.
 #' @param power The specified level of power.
@@ -20,10 +20,10 @@
 #' pss.anova.bal.2w(n = 30, mmatrix = mmatrix, sd = 2, alpha = 0.05)
 #' # Example 5.14
 #' mmatrix <- matrix(c(9.3, 8.9, 8.5, 8.7, 8.3, 7.9), nrow = 2, byrow = TRUE)
-#' pss.anova.bal.2w(n = 30, mmatrix = mmatrix, sd = 2, rho = 0.4, ncov = 1, alpha = 0.05)
+#' pss.anova.bal.2w(n = 30, mmatrix = mmatrix, sd = 2, Rsq = 0.4, ncov = 1, alpha = 0.05)
 
 pss.anova.bal.2w <- function (n = NULL, mmatrix = NULL, sd = 1,
-                              rho = 0, ncov = 0, alpha = 0.05, power = NULL) {
+                              Rsq = 0, ncov = 0, alpha = 0.05, power = NULL) {
 
   # Check if the arguments are specified correctly
   a <- nrow(mmatrix)
@@ -51,7 +51,7 @@ pss.anova.bal.2w <- function (n = NULL, mmatrix = NULL, sd = 1,
   # Calculate df's and ncp's
   p.body.A <- quote({
     N <- n * a * b
-    LambdaA <- N * fA^2 / (1 - rho^2)
+    LambdaA <- N * fA^2 / (1 - Rsq)
     df1 <- a - 1
     df2 <- ifelse(intx, N - a * b - ncov, N - a - b + 1 - ncov)
     stats::pf(q = stats::qf(alpha, df1, df2, lower.tail = FALSE),
@@ -59,7 +59,7 @@ pss.anova.bal.2w <- function (n = NULL, mmatrix = NULL, sd = 1,
   })
   p.body.B <- quote({
     N <- n * a * b
-    LambdaB <- N * fB^2 / (1 - rho^2)
+    LambdaB <- N * fB^2 / (1 - Rsq)
     df1 <- b - 1
     df2 <- ifelse(intx, N - a * b - ncov, N - a - b + 1 - ncov)
     stats::pf(q = stats::qf(alpha, df1, df2, lower.tail = FALSE),
@@ -67,7 +67,7 @@ pss.anova.bal.2w <- function (n = NULL, mmatrix = NULL, sd = 1,
   })
   p.body.AB <- quote({
     N <- n * a * b
-    LambdaAB <- N * fAB^2 / (1 - rho^2)
+    LambdaAB <- N * fAB^2 / (1 - Rsq)
     df1 <- (a - 1) * (b - 1)
     df2 <- N - a * b - ncov
     stats::pf(q = stats::qf(alpha, df1, df2, lower.tail = FALSE),
@@ -99,16 +99,16 @@ pss.anova.bal.2w <- function (n = NULL, mmatrix = NULL, sd = 1,
   if (intx) f <- c(round(fA, 4), round(fB, 4), round(fAB, 4))
   else f <- c(round(fA, 4), round(fB, 4))
   METHOD <- paste0("Balanced two-way analysis of ", ifelse(ncov < 1, "", "co"),
-                   "variance\n     omnibus f test power calculation",
+                   "variance\n     omnibus F test power calculation",
                    ifelse(intx, " with interaction", ""))
   NOTE <- "The 3rd value for f and power or n is for the interaction"
   out <- list(`a, b` = ab, mmatrix = pss.matrix.format(mmatrix),
-              n = n, sd = sd, ncov = ncov, rho = rho,
+              n = n, sd = sd, ncov = ncov, Rsq = Rsq,
               alpha = alpha, f = f, power = power,
               method = METHOD, note = NOTE)
 
   # Print output as a power.htest object
-  if (ncov < 1) out <- out[!names(out) %in% c("ncov", "rho")]
+  if (ncov < 1) out <- out[!names(out) %in% c("ncov", "Rsq")]
   if (!intx) out <- out[!names(out) == "note"]
   structure(out, class = "power.htest")
 

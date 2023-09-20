@@ -1,10 +1,10 @@
-#' Power calculations for two-way balanced analysis of variance contrast test
+#' Power calculations for two-way unbalanced analysis of variance simple effects test
 #'
 #' @param nmatrix A matrix of sample sizes (see example).
 #' @param mmatrix A matrix of group means (see example).
 #' @param cmatrix A matrix of contrast coefficients (see example).
 #' @param sd The estimated standard deviation within each group.
-#' @param rho The estimated correlation between covariates and the outcome; defaults to 0.
+#' @param Rsq The estimated R^2 for regressing the outcome on the covariates; defaults to 0.
 #' @param ncov The number of covariates adjusted for in the model; defaults to 0.
 #' @param alpha The significance level or type 1 error rate; defaults to 0.05.
 #'
@@ -19,7 +19,7 @@
 #' pss.anova.unbal.2w.se(nmatrix = nmatrix, mmatrix = mmatrix, cmatrix = cmatrix, sd = 2, alpha = 0.025)
 
 pss.anova.unbal.2w.se <- function (nmatrix = NULL, mmatrix = NULL, cmatrix = NULL,
-                                   sd = 0, rho = 0, ncov = 0, alpha = 0.05) {
+                                   sd = 0, Rsq = 0, ncov = 0, alpha = 0.05) {
 
   # Check if the arguments are specified correctly
   a <- nrow(mmatrix)
@@ -41,7 +41,7 @@ pss.anova.unbal.2w.se <- function (nmatrix = NULL, mmatrix = NULL, cmatrix = NUL
 
   # Get lambda
   lambda <- sum(cmatrix * mmatrix) / sd / sqrt(sum(cmatrix^2 / nmatrix)) /
-    sqrt(1 - rho^2)
+    sqrt(1 - Rsq)
 
   # Calculate power
   N <- sum(nmatrix)
@@ -56,11 +56,11 @@ pss.anova.unbal.2w.se <- function (nmatrix = NULL, mmatrix = NULL, cmatrix = NUL
   out <- list(`a, b` = ab, mmatrix = pss.matrix.format(mmatrix),
               nmatrix = pss.matrix.format(nmatrix),
               cmatrix = pss.matrix.format(cmatrix),
-              sd = sd, ncov = ncov, rho = rho, alpha = alpha, power = power,
+              sd = sd, ncov = ncov, Rsq = Rsq, alpha = alpha, power = power,
               method = METHOD)
 
   # Print output as a power.htest object
-  if (ncov < 1) out <- out[!names(out) %in% c("ncov", "rho")]
+  if (ncov < 1) out <- out[!names(out) %in% c("ncov", "Rsq")]
   structure(out, class = "power.htest")
 }
 

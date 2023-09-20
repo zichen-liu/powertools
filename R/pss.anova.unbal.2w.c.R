@@ -5,7 +5,7 @@
 #' @param cvec A vector of contrast coefficients c(c1, c2, ...).
 #' @param factor Either "a" or "b" depending on which factor the contrast test is being made on.
 #' @param sd The estimated standard deviation within each group.
-#' @param rho The estimated correlation between covariates and the outcome; defaults to 0.
+#' @param Rsq The estimated R^2 for regressing the outcome on the covariates; defaults to 0.
 #' @param ncov The number of covariates adjusted for in the model; defaults to 0.
 #' @param alpha The significance level or type 1 error rate; defaults to 0.05.
 #' @param power The specified level of power.
@@ -20,7 +20,7 @@
 #' pss.anova.unbal.2w.c(nmatrix = nmatrix, mmatrix = mmatrix, cvec = c(1, 0, -1), factor = "b", sd = 2, alpha = 0.05)
 
 pss.anova.unbal.2w.c <- function (nmatrix = nmatrix, mmatrix = NULL, cvec = NULL,
-                            factor = c("a", "b"), sd = NULL, rho = 0, ncov = 0,
+                            factor = c("a", "b"), sd = NULL, Rsq = 0, ncov = 0,
                             alpha = 0.05) {
 
   # Check if the arguments are specified correctly
@@ -53,7 +53,7 @@ pss.anova.unbal.2w.c <- function (nmatrix = nmatrix, mmatrix = NULL, cvec = NULL
                  "b" = sapply(X = 1:b, FUN = function(j)
                        cvec[j]^2 / sum(nmatrix[, j])))
   den <- sd * sqrt(sum(temp))
-  lambda <- num / den / sqrt(1 - rho^2)
+  lambda <- num / den / sqrt(1 - Rsq)
 
   # Calculate power
   N <- sum(nmatrix)
@@ -68,12 +68,12 @@ pss.anova.unbal.2w.c <- function (nmatrix = nmatrix, mmatrix = NULL, cvec = NULL
                    ifelse(intx, " with interaction", ""))
   out <- list(`a, b` = ab, mmatrix = pss.matrix.format(mmatrix),
               nmatrix = pss.matrix.format(nmatrix), factor = factor,
-              cvec = cvec, sd = sd, ncov = ncov, rho = rho,
+              cvec = cvec, sd = sd, ncov = ncov, Rsq = Rsq,
               alpha = alpha, power = power,
               method = METHOD)
 
   # Print output as a power.htest object
-  if (ncov < 1) out <- out[!names(out) %in% c("ncov", "rho")]
+  if (ncov < 1) out <- out[!names(out) %in% c("ncov", "Rsq")]
   structure(out, class = "power.htest")
 
 }
