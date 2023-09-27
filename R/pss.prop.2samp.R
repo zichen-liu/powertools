@@ -4,7 +4,7 @@
 #' @param n.ratio The ratio n2/n1 between the sample sizes of two groups; defaults to 1 (equal group sizes).
 #' @param p1 The proportion in group 1.
 #' @param p2 The proportion in group 2.
-#' @param delta The margin of noninferiority or superiority; defaults to 0.
+#' @param delta The margin of noninferiority or superiority; defaults to 0. See delta.sign for guidance on the sign of delta.
 #' @param alpha The significance level or type 1 error rate; defaults to 0.05.
 #' @param power The specified level of power.
 #' @param sides Either 1 or 2 (default) to specify a one- or two- sided hypothesis test.

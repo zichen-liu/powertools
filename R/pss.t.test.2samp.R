@@ -2,7 +2,7 @@
 #'
 #' @param n The sample size for group 1.
 #' @param n.ratio The ratio n2/n1 between the sample sizes of two groups; defaults to 1 (equal group sizes).
-#' @param delta DeltaA (the true difference mu1 - mu2) - Delta0 (the difference under the null).
+#' @param delta DeltaA (the true difference mu1 - mu2) - Delta0 (the difference under the null) - delta. See delta.sign for guidance on the sign of delta.
 #' @param sd The estimated standard deviation for group 1; defaults to 1 (equal standard deviations in the two groups).
 #' @param sd.ratio The ratio sd2/sd1 between the standard deviations of the two groups.
 #' @param df.method Method for calculating the degrees of freedom: "welch" (default) or "classical".
