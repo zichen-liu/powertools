@@ -8,6 +8,7 @@
 #' @param cond Specify using unconditional or conditional probability. Defaults to FALSE.
 #'
 #' @return A list of the arguments (including the computed one).
+#' @import PowerTOST
 #' @export
 #'
 #' @examples
@@ -15,7 +16,6 @@
 #' pss.ci.mean(n = NULL, h = 0.25, power = 0.8)
 #' pss.ci.mean(n = 62, h = 0.25, power = NULL)
 #' # Example 9.3
-#' library(PowerTOST)
 #' pss.ci.mean(n = 73, h = 0.25, cond = TRUE)
 
 pss.ci.mean <- function (n = NULL, h = NULL, sd = 1,

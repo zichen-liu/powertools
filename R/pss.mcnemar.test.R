@@ -58,11 +58,11 @@ pss.mcnemar.test <- function (n = NULL, p1 = NULL, p2 = NULL, rho = NULL,
   METHOD <-"McNemar paired comparison of proportions\n     approximate power calculation"
 
   # Print output as a power.htest object depending on which inputs were given
-  if (!is.null(p1) & !is.null(p2) & !is.null(rho)) {
+  if (!is.null(p1) & !is.null(p2) & !is.null(rho))
     structure(list(n = n, p1 = p1, p2 = p2, rho = rho, alpha = alpha,
                    power = power, sides = sides, note = NOTE,
                    method = METHOD), class = "power.htest")
-  }
+
   else if (!is.null(paid) & !is.null(psi))
     structure(list(n = n, paid = paid, psi = psi, alpha = alpha,
                    power = power, sides = sides, note = NOTE,

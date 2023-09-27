@@ -9,13 +9,13 @@
 #' @param cond Specify using unconditional or conditional probability. Defaults to FALSE.
 #'
 #' @return A list of the arguments (including the computed one).
+#' @import PowerTOST
 #' @export
 #'
 #' @examples
 #' # Example 9.4
 #' pss.ci.meandiff(n = NULL, h = 0.25, power = 0.8)
 #' # Example 9.5
-#' library(PowerTOST)
 #' pss.ci.meandiff(n = 134, h = 0.25, cond = TRUE)
 
 pss.ci.meandiff <- function (n = NULL, n.ratio = 1, h = NULL, sd = 1,
