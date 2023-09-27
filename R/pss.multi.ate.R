@@ -2,7 +2,7 @@
 
 #' @param m The number of subjects per site.
 #' @param J The number of sites.
-#' @param r The allocation ratio to intervention and control at each site; defaults to 1.
+#' @param m.ratio The allocation ratio to intervention and control at each site; defaults to 1.
 #' @param gamma The average treatment effect under the alternative.
 #' @param rho0 The proportion of total variance of the outcome attributable to variation in site-level means.
 #' @param rho1 The proportion of total variance of the outcome attributable to variation in the treatment effect across sites.

@@ -6,18 +6,21 @@
 #' @param rho2 The correlation coefficient in the second group.
 #' @param alpha The significance level or type 1 error rate; defaults to 0.05.
 #' @param power The specified level of power.
+#' @param sides Either 1 or 2 (default) to specify a one- or two- sided hypothesis test.
 #'
 #' @return A list of the arguments (including the computed one).
 #' @import psych
 #' @export
 #'
 #' @examples#' # Example 10.2
-#' pss.corr.2samp(n = 300, rho1 = 0.3, rho2 = 0.1)
+#' pss.corr.2samp(n = 300, rho1 = 0.3, rho2 = 0.1, sides = 1)
 
 pss.corr.2samp <- function (n = NULL, n.ratio = 1, rho1 = NULL, rho2 = NULL,
-                            alpha = 0.05, power = NULL) {
+                            alpha = 0.05, power = NULL, sides = 2) {
 
   # Check if the arguments are specified correctly
+  if (sides != 1 & sides != 2)
+    stop("please specify 1 or 2 sides")
   if (sum(sapply(list(n, n.ratio, power, alpha), is.null)) != 1)
     stop("exactly one of n, n.ratio, alpha, and power must be NULL")
   if (is.null(rho1) | is.null(rho2))
@@ -27,7 +30,7 @@ pss.corr.2samp <- function (n = NULL, n.ratio = 1, rho1 = NULL, rho2 = NULL,
 
   # Calculate power
   p.body <- quote({
-    za <- stats::qnorm(1 - alpha)
+    za <- stats::qnorm(1 - alpha / sides)
     f1 <- psych::fisherz(rho1) + rho1 / (2 * (n - 1))
     f2 <- psych::fisherz(rho2) + rho2 / (2 * (n * n.ratio - 1))
     DeltaA <- abs(f1 - f2)

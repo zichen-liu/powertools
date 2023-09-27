@@ -5,18 +5,21 @@
 #' @param rhoA The correlation coefficient under the alternative hypothesis.
 #' @param alpha The significance level or type 1 error rate; defaults to 0.05.
 #' @param power The specified level of power.
+#' @param sides Either 1 or 2 (default) to specify a one- or two- sided hypothesis test.
 #'
 #' @return A list of the arguments (including the computed one).
 #' @export
 #'
 #' @examples#' # Example 10.1
-#' pss.corr.1samp(n = 100, rhoA = 0.2)
-#' pss.corr.1samp(n = 100, rho0 = 0.2, rhoA = 0.4)
+#' pss.corr.1samp(n = 100, rhoA = 0.2, sides = 1)
+#' pss.corr.1samp(n = 100, rho0 = 0.2, rhoA = 0.4, sides = 1)
 
 pss.corr.1samp <- function (n = NULL, rho0 = 0, rhoA = NULL,
-                            alpha = 0.05, power = NULL) {
+                            alpha = 0.05, power = NULL, sides = 2) {
 
   # Check if the arguments are specified correctly
+  if (sides != 1 & sides != 2)
+    stop("please specify 1 or 2 sides")
   if (sum(sapply(list(n, power, alpha), is.null)) != 1)
     stop("exactly one of n, alpha, and power must be NULL")
   if (is.null(rhoA))
@@ -26,7 +29,7 @@ pss.corr.1samp <- function (n = NULL, rho0 = 0, rhoA = NULL,
 
   # Calculate power
   p.body <- quote({
-    za <- stats::qnorm(1 - alpha)
+    za <- stats::qnorm(1 - alpha / sides)
     K1 <- (5 + rhoA^2) / (4 * (n - 1))
     K2 <- (11 + 2 * rhoA^2 + 3 * rhoA^4) / (8 * (n - 1)^2)
     K <- 1 + K1 + K2
