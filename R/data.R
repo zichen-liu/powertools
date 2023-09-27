@@ -14,3 +14,16 @@
 #' }
 #'
 "multisite.data"
+
+#' Delta Sign Table
+#'
+#' A table documenting the sign of delta for tests comparing two parameters.
+#'
+#' @format ## `delta.sign`
+#' A data frame with 3 rows and 3 columns:
+#' \describe{
+#'   \item{columns}{Whether the test is for noninferiority of superirority by a margin}
+#'   \item{rows}{Whether a higher or lower parameter value is better}
+#'   \item{xij}{The sign of delta given the row & column}
+#' }
+"delta.sign"
