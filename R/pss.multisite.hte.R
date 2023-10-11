@@ -12,7 +12,8 @@
 #' @examples # Example 14.7
 #' pss.multi.hte(m = 10, J = 30, ssq.u1 = 8, ssq.e = 36)
 
-pss.multi.hte <- function(m, J, ssq.u1, ssq.e, alpha = 0.05) {
+pss.multi.hte <- function(m = NULL, J = NULL, ssq.u1 = NULL, ssq.e = NULL,
+                          alpha = 0.05) {
   VR <- ssq.u1 / ssq.e
   omega <- 1 + m * VR / 4
   df1 <- J - 1
