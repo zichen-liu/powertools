@@ -8,7 +8,7 @@
 #' @param rho1 The proportion of total variance of the outcome attributable to variation in the treatment effect across sites.
 #' @param ssq.Y The total variance of the outcome variable Y.
 #' @param alpha The significance level or type 1 error rate; defaults to 0.05.
-
+#' @param sides Either 1 or 2 (default) to specify a one- or two- sided hypothesis test.
 #' @return A list of the arguments (including the computed power).
 #' @export
 #'

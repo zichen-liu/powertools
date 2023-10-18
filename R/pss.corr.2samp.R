@@ -12,7 +12,7 @@
 #' @import psych
 #' @export
 #'
-#' @examples#' # Example 10.2
+#' @examples
 #' pss.corr.2samp(n = 300, rho1 = 0.3, rho2 = 0.1, sides = 1)
 
 pss.corr.2samp <- function (n = NULL, n.ratio = 1, rho1 = NULL, rho2 = NULL,

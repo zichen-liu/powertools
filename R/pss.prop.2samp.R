@@ -13,9 +13,7 @@
 #' @export
 #'
 #' @examples
-#' # Example 6.6
 #' pss.prop.2samp(n = NULL, p1 = 0.6, p2 = 0.8, alpha = 0.025, power = 0.9, sides = 1)
-#' # Example 6.8
 #' pss.prop.2samp(n = NULL, p1 = 0.25, p2 = 0.25, delta = 0.1, alpha = 0.025, power = 0.8, sides = 1)
 
 pss.prop.2samp <- function (n = NULL, p1 = NULL, p2 = NULL, delta = 0,

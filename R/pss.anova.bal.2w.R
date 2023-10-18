@@ -12,13 +12,10 @@
 #' @export
 #'
 #' @examples
-#' # Example 5.8
 #' mmatrix <- matrix(c(9.3, 8.9, 8.5, 8.7, 8.3, 7.9), nrow = 2, byrow = TRUE)
 #' pss.anova.bal.2w(n = 30, mmatrix = mmatrix, sd = 2, alpha = 0.05)
-#' # Example 5.10
 #' mmatrix <- matrix(c(9.3, 8.9, 8.5, 8.7, 8.3, 7.3), nrow = 2, byrow = TRUE)
 #' pss.anova.bal.2w(n = 30, mmatrix = mmatrix, sd = 2, alpha = 0.05)
-#' # Example 5.14
 #' mmatrix <- matrix(c(9.3, 8.9, 8.5, 8.7, 8.3, 7.9), nrow = 2, byrow = TRUE)
 #' pss.anova.bal.2w(n = 30, mmatrix = mmatrix, sd = 2, Rsq = 0.4, ncov = 1, alpha = 0.05)
 

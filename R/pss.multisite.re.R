@@ -7,6 +7,8 @@
 #' @export
 #'
 #' @examples
+#' 1 / pss.multisite.re(m.mean = 30, m.sd = 23, rho = 0.05)$re
+#' 1 / pss.multisite.re(m.mean = 30, m.sd = 23, rho = 0.1)$re
 #'
 
 pss.multisite.re <- function (m.mean = NULL, m.sd = NULL, rho = NULL) {
@@ -17,5 +19,5 @@ pss.multisite.re <- function (m.mean = NULL, m.sd = NULL, rho = NULL) {
  METHOD <- "Relative efficiency due to unequal number of participants per site"
 
  structure(list(m.mean = m.mean, m.sd = m.sd, rho = rho,
-                method = METHOD), class = "power.htest")
+                re = re, method = METHOD), class = "power.htest")
 }

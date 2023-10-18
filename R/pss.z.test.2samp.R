@@ -14,7 +14,6 @@
 #' @export
 #'
 #' @examples
-#' # Example 3.7
 #' pss.z.test.2samp(n = NULL, n.ratio = 1, delta = 0.5, sd = 1, power = 0.8, sides = 2)
 
 pss.z.test.2samp <- function (n = NULL, n.ratio = 1, delta = NULL,

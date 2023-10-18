@@ -11,7 +11,6 @@
 #' @export
 #'
 #' @examples
-#' # Example 5.2
 #' pss.anova.unbal.1w(nvec = c(10, 20, 30), mvec = c(5, 10, 12), sd = 10)
 
 pss.anova.unbal.1w <- function (nvec = NULL, mvec = NULL, sd = NULL,

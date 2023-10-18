@@ -13,7 +13,6 @@
 #' @export
 #'
 #' @examples
-#' #' # Example 6.9
 #' pss.prop.test.equiv(n = NULL, p1 = 0.5, p2 = 0.5, delta = 0.1, alpha = 0.05, power = 0.8, sides = 1)
 
 pss.prop.test.equiv <- function (n = NULL, n.ratio = 1, p1 = NULL, p2 = NULL, delta = NULL,

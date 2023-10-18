@@ -4,11 +4,11 @@
 #' @param J The number of sites.
 #' @param gamma The average treatment effect under the alternative.
 #' @param ssq.Y The total variance of the outcome variable Y.
-#' @param d The standardized ???. Either gamma and ssq.Y OR d must be specified.
+#' @param d The standardized effect size. Either gamma and ssq.Y OR d must be specified.
 #' @param rho0 The proportion of total variance of the outcome attributable to variation in site-level means.
 #' @param rho1 The proportion of total variance of the outcome attributable to variation in the treatment effect across sites.
 #' @param alpha The significance level or type 1 error rate; defaults to 0.05.
-
+#' @param sides Either 1 or 2 (default) to specify a one- or two- sided hypothesis test.
 #' @return A list of the arguments (including the computed power).
 #' @export
 #'
@@ -24,16 +24,16 @@ pss.multisite.ate <- function (m = NULL, J = NULL,
 
   # Calculate power
   N <- m * J
-  df <- J - 1
+  df <- J - 1 # not affected by covariate
 
   if (is.null(d)) {
     d <- gamma / sqrt(ssq.Y)
-    ncp <- d / sqrt(4 * (1 - rho0) / N)
+    ncp <- d / sqrt(4 * (1 - rho0) / N) # divide by RE
     crit <- stats::qt(1 - alpha / sides, df)
     power <- 1 - stats::pt(crit, df, ncp)
   } else {
     DE <- 1 - rho0 + (m - 1) * rho1
-    ncp <- (d / sqrt(4 * DE / N))^2
+    ncp <- (d / sqrt(4 * DE / N))^2  # divide by RE
     crit <- stats::qf(1 - alpha, 1, df)
     power <- 1 - stats::pf(crit, 1, df, ncp)
   }

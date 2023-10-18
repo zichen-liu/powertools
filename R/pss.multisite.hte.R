@@ -9,7 +9,7 @@
 #' @return A list of the arguments (including the computed power).
 #' @export
 #'
-#' @examples # Example 14.7
+#' @examples
 #' pss.multisite.hte(m = 10, J = 30, ssq.u1 = 8, ssq.e = 36)
 
 pss.multisite.hte <- function (m = NULL, J = NULL, ssq.u1 = NULL, ssq.e = NULL,

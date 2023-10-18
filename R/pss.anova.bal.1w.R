@@ -12,9 +12,7 @@
 #' @export
 #'
 #' @examples
-#' # Example 5.2
 #' pss.anova.bal.1w(n = 20, mvec = c(5, 10, 12), sd = 10)
-#' # Example 5.14
 #' pss.anova.bal.1w(n = NULL, mvec = c(-0.25, 0.25), sd = 1, Rsq = 0.5^2, ncov = 1, power = 0.8)
 
 pss.anova.bal.1w <- function (n = NULL, mvec = NULL, sd = 1, Rsq = 0, ncov = 0,

@@ -8,9 +8,7 @@
 #' @export
 #'
 #' @examples
-#' # Example 5.3
 #' pss.anova.f.es(means = c(5, 10, 12), sd = 10)
-#' # Example 5.8
 #' mmatrix <- matrix(c(9.3, 8.9, 8.5, 8.7, 8.3, 7.9), nrow = 2, byrow = TRUE)
 #' pss.anova.f.es(means = mmatrix, sd = 2)
 
