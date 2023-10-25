@@ -11,9 +11,9 @@
 #' @export
 #'
 #' @examples
-#' pss.anova.unbal.1w(nvec = c(10, 20, 30), mvec = c(5, 10, 12), sd = 10)
+#' pss.anova1way.F.unbal(nvec = c(10, 20, 30), mvec = c(5, 10, 12), sd = 10)
 
-pss.anova.unbal.1w <- function (nvec = NULL, mvec = NULL, sd = NULL,
+pss.anova1way.F.unbal <- function (nvec = NULL, mvec = NULL, sd = NULL,
                                 Rsq = 0, ncov = 0, alpha = 0.05) {
 
   # Check if the arguments are specified correctly

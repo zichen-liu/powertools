@@ -15,9 +15,9 @@
 #' nmatrix <- matrix(c(30, 30, 30, 30, 30, 30), nrow = 2, byrow = TRUE)
 #' mmatrix <- matrix(c(9.3, 8.9, 8.5, 8.7, 8.3, 7.3), nrow = 2, byrow = TRUE)
 #' cmatrix <- matrix(c(-1, 0, 0, 1, 0, 0), nrow = 2, byrow = TRUE)
-#' pss.anova.unbal.2w.se(nmatrix = nmatrix, mmatrix = mmatrix, cmatrix = cmatrix, sd = 2, alpha = 0.025)
+#' pss.anova2way.se.unbal(nmatrix = nmatrix, mmatrix = mmatrix, cmatrix = cmatrix, sd = 2, alpha = 0.025)
 
-pss.anova.unbal.2w.se <- function (nmatrix = NULL, mmatrix = NULL, cmatrix = NULL,
+pss.anova2way.se.unbal <- function (nmatrix = NULL, mmatrix = NULL, cmatrix = NULL,
                                    sd = 0, Rsq = 0, ncov = 0, alpha = 0.05) {
 
   # Check if the arguments are specified correctly

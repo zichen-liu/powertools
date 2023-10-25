@@ -12,10 +12,10 @@
 #' @export
 #'
 #' @examples
-#' pss.anova.unbal.1w.c(nvec = c(20, 20, 20), mvec = c(5, 10, 12), cvec = c(1, -1, 0), sd = 10, alpha = 0.025)
-#' pss.anova.unbal.1w.c(nvec = c(20, 20, 20), mvec = c(5, 10, 12), cvec = c(1, 0, -1), sd = 10, alpha = 0.025)
+#' pss.anova1way.c.unbal(nvec = c(20, 20, 20), mvec = c(5, 10, 12), cvec = c(1, -1, 0), sd = 10, alpha = 0.025)
+#' pss.anova1way.c.unbal(nvec = c(20, 20, 20), mvec = c(5, 10, 12), cvec = c(1, 0, -1), sd = 10, alpha = 0.025)
 
-pss.anova.unbal.1w.c <- function (nvec = NULL, mvec = NULL, cvec = NULL,
+pss.anova1way.c.unbal <- function (nvec = NULL, mvec = NULL, cvec = NULL,
                                   sd = NULL, Rsq = 0, ncov = 0, alpha = 0.05) {
 
   # Check if the arguments are specified correctly

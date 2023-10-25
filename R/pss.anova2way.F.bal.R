@@ -13,13 +13,13 @@
 #'
 #' @examples
 #' mmatrix <- matrix(c(9.3, 8.9, 8.5, 8.7, 8.3, 7.9), nrow = 2, byrow = TRUE)
-#' pss.anova.bal.2w(n = 30, mmatrix = mmatrix, sd = 2, alpha = 0.05)
+#' pss.anova2way.F.bal(n = 30, mmatrix = mmatrix, sd = 2, alpha = 0.05)
 #' mmatrix <- matrix(c(9.3, 8.9, 8.5, 8.7, 8.3, 7.3), nrow = 2, byrow = TRUE)
-#' pss.anova.bal.2w(n = 30, mmatrix = mmatrix, sd = 2, alpha = 0.05)
+#' pss.anova2way.F.bal(n = 30, mmatrix = mmatrix, sd = 2, alpha = 0.05)
 #' mmatrix <- matrix(c(9.3, 8.9, 8.5, 8.7, 8.3, 7.9), nrow = 2, byrow = TRUE)
-#' pss.anova.bal.2w(n = 30, mmatrix = mmatrix, sd = 2, Rsq = 0.4, ncov = 1, alpha = 0.05)
+#' pss.anova2way.F.bal(n = 30, mmatrix = mmatrix, sd = 2, Rsq = 0.4, ncov = 1, alpha = 0.05)
 
-pss.anova.bal.2w <- function (n = NULL, mmatrix = NULL, sd = 1,
+pss.anova2way.F.bal <- function (n = NULL, mmatrix = NULL, sd = 1,
                               Rsq = 0, ncov = 0, alpha = 0.05, power = NULL) {
 
   # Check if the arguments are specified correctly

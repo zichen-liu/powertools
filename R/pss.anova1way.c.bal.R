@@ -13,10 +13,10 @@
 #' @export
 #'
 #' @examples
-#' pss.anova.bal.1w.c(n = 20, mvec = c(5, 10, 12), cvec = c(1, -1, 0), sd = 10, alpha = 0.025)
-#' pss.anova.bal.1w.c(n = 20, mvec = c(5, 10, 12), cvec = c(1, 0, -1), sd = 10, alpha = 0.025)
+#' pss.anova1way.c.bal(n = 20, mvec = c(5, 10, 12), cvec = c(1, -1, 0), sd = 10, alpha = 0.025)
+#' pss.anova1way.c.bal(n = 20, mvec = c(5, 10, 12), cvec = c(1, 0, -1), sd = 10, alpha = 0.025)
 
-pss.anova.bal.1w.c <- function (n = NULL, mvec = NULL, cvec = NULL, sd = 1,
+pss.anova1way.c.bal <- function (n = NULL, mvec = NULL, cvec = NULL, sd = 1,
                                 Rsq = 0, ncov = 0, alpha = 0.05, power = NULL) {
 
   # Check if the arguments are specified correctly
