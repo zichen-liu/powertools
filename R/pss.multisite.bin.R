@@ -7,13 +7,15 @@
 #' @param prop.t The proportion of subjects allocated to the treatment condition within each site; defaults to 0.5.
 #' @param sigma.u Standard deviation of the treatment effect across sites.
 #' @param alpha The significance level or type 1 error rate; defaults to 0.05.
+#' @param power The specified level of power.
 #' @param sides Either 1 or 2 (default) to specify a one- or two- sided hypothesis test.
 #'
-#' @return A list of the arguments (including the computed power).
+#' @return A list of the arguments (including the computed one).
 #' @export
 #'
 #' @examples
 #' pss.multisite.bin(m = 30, J = 25, pc = 0.1, pt = 0.2, sigma.u = 0.4, power = NULL)
+#' pss.multisite.bin(m = 30, J = NULL, pc = 0.1, pt = 0.2, sigma.u = 0.4, power = 0.9)
 
 pss.multisite.bin <- function (m = NULL, J = NULL, prop.t = 0.5,
                                pc = NULL, pt = NULL, sigma.u = NULL,
