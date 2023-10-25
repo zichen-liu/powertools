@@ -5,7 +5,7 @@
 \title{Power calculations for one sample proportion tests}
 \usage{
 pss.prop.1samp(
-  n = NULL,
+  N = NULL,
   p0 = NULL,
   pA = NULL,
   alpha = 0.05,
@@ -14,7 +14,7 @@ pss.prop.1samp(
 )
 }
 \arguments{
-\item{n}{The sample size.}
+\item{N}{The sample size.}
 
 \item{p0}{The proportion under the null.}
 
@@ -33,9 +33,7 @@ A list of the arguments (including the computed one).
 Power calculations for one sample proportion tests
 }
 \examples{
-# Example 6.1
-pss.prop.1samp(n = NULL, p0 = 0.2, pA = 0.3, power = 0.8, sides = 1)
-# Example 6.2
-pss.prop.1samp(n = NULL, p0 = 0.4, pA = 0.5, power = 0.8, sides = 1)
+pss.prop.1samp(N = NULL, p0 = 0.2, pA = 0.3, power = 0.8, sides = 1)
+pss.prop.1samp(N = NULL, p0 = 0.4, pA = 0.5, power = 0.8, sides = 1)
 
 }

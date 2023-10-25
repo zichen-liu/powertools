@@ -5,7 +5,7 @@
 \title{Power calculations for a multiple linear regression overall F test}
 \usage{
 pss.mlrF.overall(
-  n = NULL,
+  N = NULL,
   p = NULL,
   Rsq = NULL,
   fsq = NULL,
@@ -15,7 +15,7 @@ pss.mlrF.overall(
 )
 }
 \arguments{
-\item{n}{The sample size.}
+\item{N}{The sample size.}
 
 \item{p}{The number of predictors.}
 
@@ -36,15 +36,11 @@ A list of the arguments (including the computed one).
 Power calculations for a multiple linear regression overall F test
 }
 \examples{
-# Example 10.6
-pss.mlrF.overall(n = 400, p = 2, Rsq = 0.02)
-pss.mlrF.overall(n = 400, p = 2, fsq = 0.02 / (1 - 0.02))
-# Example 10.7
-pss.mlrF.overall(n = 109, p = 1, Rsq = 0.3^2)
-# Example 10.8
-pss.mlrF.overall(n = 50, p = 1, Rsq = 0.2)
-pss.mlrF.overall(n = 50, p = 3, Rsq = 0.2)
-pss.mlrF.overall(n = 50, p = 5, Rsq = 0.2)
-# Example 10.9
-pss.mlrF.overall(n = 400, p = 2, Rsq = 0.02, random = TRUE)
+pss.mlrF.overall(N = 400, p = 2, Rsq = 0.02)
+pss.mlrF.overall(N = 400, p = 2, fsq = 0.02 / (1 - 0.02))
+pss.mlrF.overall(N = 109, p = 1, Rsq = 0.3^2)
+pss.mlrF.overall(N = 50, p = 1, Rsq = 0.2)
+pss.mlrF.overall(N = 50, p = 3, Rsq = 0.2)
+pss.mlrF.overall(N = 50, p = 5, Rsq = 0.2)
+pss.mlrF.overall(N = 400, p = 2, Rsq = 0.02, random = TRUE)
 }

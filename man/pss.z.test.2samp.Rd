@@ -21,7 +21,7 @@ pss.z.test.2samp(
 
 \item{n.ratio}{The ratio n2/n1 between the sample sizes of two groups; defaults to 1 (equal group sizes).}
 
-\item{delta}{DeltaA (the true difference mu1 - mu2) - Delta0 (the difference under the null).}
+\item{delta}{DeltaA (the true difference mu1 - mu2) - Delta0 (the difference under the null) - delta. See delta.sign for guidance on the sign of delta.}
 
 \item{sd}{The estimated standard deviation for group 1; defaults to 1 (equal standard deviations in the two groups).}
 
@@ -42,6 +42,5 @@ A list of the arguments (including the computed one).
 Power calculations for two sample z tests allowing for unequal sample sizes and/or variances
 }
 \examples{
-# Example 3.7
 pss.z.test.2samp(n = NULL, n.ratio = 1, delta = 0.5, sd = 1, power = 0.8, sides = 2)
 }

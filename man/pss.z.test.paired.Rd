@@ -5,7 +5,7 @@
 \title{Power calculations for paired z tests}
 \usage{
 pss.z.test.paired(
-  n = NULL,
+  N = NULL,
   delta = NULL,
   sd1 = 1,
   sd2 = 1,
@@ -17,7 +17,7 @@ pss.z.test.paired(
 )
 }
 \arguments{
-\item{n}{The sample size; the number of pairs.}
+\item{N}{The sample size; the number of pairs.}
 
 \item{delta}{DeltaA (the true mean difference) - Delta0 (the mean difference under the null).}
 
@@ -42,6 +42,5 @@ A list of the arguments (including the computed one).
 Power calculations for paired z tests
 }
 \examples{
-# Example 3.15 approximation
-pss.z.test.paired(n = NULL, delta = 4, sd1 = 10, sd2 = 10, rho = 0.4, power = 0.8, sides = 2)
+pss.z.test.paired(N = NULL, delta = 4, sd1 = 10, sd2 = 10, rho = 0.4, power = 0.8, sides = 2)
 }

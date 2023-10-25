@@ -5,17 +5,18 @@
 \title{Power calculations for a simple linear regression}
 \usage{
 pss.slr(
-  n = NULL,
+  N = NULL,
   beta10 = 0,
   beta1A = NULL,
   sd.x.sq = NULL,
   sigma.e = NULL,
   alpha = 0.05,
-  power = NULL
+  power = NULL,
+  sides = 2
 )
 }
 \arguments{
-\item{n}{The sample size.}
+\item{N}{The sample size.}
 
 \item{beta10}{The slope regression coefficient under the null hypothesis.}
 
@@ -28,6 +29,8 @@ pss.slr(
 \item{alpha}{The significance level or type 1 error rate; defaults to 0.05.}
 
 \item{power}{The specified level of power.}
+
+\item{sides}{Either 1 or 2 (default) to specify a one- or two- sided hypothesis test.}
 }
 \value{
 A list of the arguments (including the computed one).
@@ -36,7 +39,6 @@ A list of the arguments (including the computed one).
 Power calculations for a simple linear regression
 }
 \examples{
-#' # Example 10.3
-Yi = beta0 + beta1 * Xi + ei, i = 1,...,n
-pss.slr(n = 100, beta10 = 1, beta1A = 1.5, sd.x.sq = 25, sigma.e = 10)
+Yi = beta0 + beta1 * Xi + ei, i = 1,...,N
+pss.slr(N = 100, beta10 = 1, beta1A = 1.5, sd.x.sq = 25, sigma.e = 10, sides = 1)
 }

@@ -5,7 +5,7 @@
 \title{Power calculations for a multiple linear regression partial F test}
 \usage{
 pss.mlrF.partial(
-  n = NULL,
+  N = NULL,
   p = NULL,
   q = NULL,
   pc = NULL,
@@ -16,7 +16,7 @@ pss.mlrF.partial(
 )
 }
 \arguments{
-\item{n}{The sample size.}
+\item{N}{The sample size.}
 
 \item{p}{The number of control predictors.}
 
@@ -39,8 +39,6 @@ A list of the arguments (including the computed one).
 Power calculations for a multiple linear regression partial F test
 }
 \examples{
-# Example 10.10
-pss.mlrF.partial(n = 80, p = 3, q = 2, Rsq.red = 0.25, Rsq.full = 0.35)
-# Example 10.11
-pss.mlrF.partial(n = 150, p = 4, pc = 0.2)
+pss.mlrF.partial(N = 80, p = 3, q = 2, Rsq.red = 0.25, Rsq.full = 0.35)
+pss.mlrF.partial(N = 150, p = 4, pc = 0.2)
 }

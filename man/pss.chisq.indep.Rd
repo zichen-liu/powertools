@@ -4,12 +4,12 @@
 \alias{pss.chisq.indep}
 \title{Power calculations for chi-square test of independence}
 \usage{
-pss.chisq.indep(pmatrix = NULL, n = NULL, alpha = 0.05, power = NULL)
+pss.chisq.indep(pmatrix = NULL, N = NULL, alpha = 0.05, power = NULL)
 }
 \arguments{
 \item{pmatrix}{The two-way probability table under the alternative hypothesis.}
 
-\item{n}{The number of total observations.}
+\item{N}{The number of total observations.}
 
 \item{alpha}{The significance level or type 1 error rate; defaults to 0.05.}
 
@@ -22,8 +22,6 @@ A list of the arguments (including the computed one).
 Power calculations for chi-square test of independence
 }
 \examples{
-# Example 8.2
-pss.chisq.indep(pmatrix = matrix(c(0.050, 0.350, 0.100, 0.075, 0.250, 0.175), nrow = 2, byrow = TRUE), n = 230)
-# Example 8.3
-pss.chisq.indep(pmatrix = matrix(c(0.3, 0.2, 0.4, 0.1), nrow = 2, byrow = TRUE), n = 200)
+pss.chisq.indep(pmatrix = matrix(c(0.050, 0.350, 0.100, 0.075, 0.250, 0.175), nrow = 2, byrow = TRUE), N = 230)
+pss.chisq.indep(pmatrix = matrix(c(0.3, 0.2, 0.4, 0.1), nrow = 2, byrow = TRUE), N = 200)
 }

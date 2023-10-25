@@ -4,14 +4,14 @@
 \alias{pss.chisq.gof}
 \title{Power calculations for chi-square goodness-of-fit test}
 \usage{
-pss.chisq.gof(p0vec = NULL, p1vec = NULL, n = NULL, alpha = 0.05, power = NULL)
+pss.chisq.gof(p0vec = NULL, p1vec = NULL, N = NULL, alpha = 0.05, power = NULL)
 }
 \arguments{
 \item{p0vec}{The first vector of probabilities (under the null).}
 
 \item{p1vec}{The second vector of probabilities (under the alternative hypothesis).}
 
-\item{n}{The number of total observations.}
+\item{N}{The number of total observations.}
 
 \item{alpha}{The significance level or type 1 error rate; defaults to 0.05.}
 
@@ -24,6 +24,5 @@ A list of the arguments (including the computed one).
 Power calculations for chi-square goodness-of-fit test
 }
 \examples{
-# Example 8.1
-pss.chisq.gof(p0vec = c(0.5, 0.3, 0.2), p1vec = c(0.7, 0.2, 0.1), n = 50)
+pss.chisq.gof(p0vec = c(0.5, 0.3, 0.2), p1vec = c(0.7, 0.2, 0.1), N = 50)
 }

@@ -13,7 +13,7 @@
 #' @export
 #'
 #' @examples
-#' Yi = beta0 + beta1 * Xi + ei, i = 1,...,N
+#' # Yi = beta0 + beta1 * Xi + ei, i = 1,...,N
 #' pss.slr(N = 100, beta10 = 1, beta1A = 1.5, sd.x.sq = 25, sigma.e = 10, sides = 1)
 
 pss.slr <- function (N = NULL, beta10 = 0, beta1A = NULL,

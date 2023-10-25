@@ -36,8 +36,6 @@ A list of the arguments (including the computed one).
 Power calculations for precision analysis for a difference between means
 }
 \examples{
-# Example 9.4
 pss.ci.meandiff(n = NULL, h = 0.25, power = 0.8)
-# Example 9.5
 pss.ci.meandiff(n = 134, h = 0.25, cond = TRUE)
 }

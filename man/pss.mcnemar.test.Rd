@@ -5,7 +5,7 @@
 \title{Power approximation for McNemar's test for two correlated proportions}
 \usage{
 pss.mcnemar.test(
-  n = NULL,
+  N = NULL,
   p1 = NULL,
   p2 = NULL,
   rho = NULL,
@@ -17,7 +17,7 @@ pss.mcnemar.test(
 )
 }
 \arguments{
-\item{n}{The sample size; the number of pairs.}
+\item{N}{The sample size; the number of pairs.}
 
 \item{p1}{The proportion in condition 1.}
 
@@ -42,8 +42,6 @@ A list of the arguments (including the computed one).
 Power approximation for McNemar's test for two correlated proportions
 }
 \examples{
-# Example 6.10
-pss.mcnemar.test(n = NULL, p1 = 0.8, p2 = 0.9, rho = 0, power = 0.9, sides = 2)
-# Example 6.10
-pss.mcnemar.test(n = NULL, paid = 0.08, psi = 0.18 / 0.08, power = 0.9, sides = 2)
+pss.mcnemar.test(N = NULL, p1 = 0.8, p2 = 0.9, rho = 0, power = 0.9, sides = 2)
+pss.mcnemar.test(N = NULL, paid = 0.08, psi = 0.18 / 0.08, power = 0.9, sides = 2)
 }

@@ -22,7 +22,7 @@ pss.t.test.2samp(
 
 \item{n.ratio}{The ratio n2/n1 between the sample sizes of two groups; defaults to 1 (equal group sizes).}
 
-\item{delta}{DeltaA (the true difference mu1 - mu2) - Delta0 (the difference under the null).}
+\item{delta}{DeltaA (the true difference mu1 - mu2) - Delta0 (the difference under the null) - delta. See delta.sign for guidance on the sign of delta.}
 
 \item{sd}{The estimated standard deviation for group 1; defaults to 1 (equal standard deviations in the two groups).}
 
@@ -45,14 +45,9 @@ A list of the arguments (including the computed one).
 Power calculations for two sample t tests allowing for unequal sample sizes and/or variances
 }
 \examples{
-# Example 3.7
 pss.t.test.2samp(n = 50, delta = 2, sd = 5, sides = 1)
-# Example 3.9a
 pss.t.test.2samp(n = NULL, n.ratio = 2, delta = 0.5, sd = 1, power = 0.8, sides = 2)
-# Example 3.9b
 pss.t.test.2samp(n = 49, n.ratio = 2, delta = 0.5, sd = 1, power = NULL, sides = 2)
-# Example 3.10
 pss.t.test.2samp(n = 25, n.ratio = 3, delta = 3, sd = 4, sd.ratio = 1.5, alpha = 0.025, sides = 1)
-# Example 3.11
 pss.t.test.2samp(n = NULL, delta = 0.5, sd = 1, power = 0.8, sides = 2)
 }

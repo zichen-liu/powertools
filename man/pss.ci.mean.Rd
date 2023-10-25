@@ -5,7 +5,7 @@
 \title{Power calculations for precision analysis for one mean}
 \usage{
 pss.ci.mean(
-  n = NULL,
+  N = NULL,
   h = NULL,
   sd = 1,
   alpha = 0.05,
@@ -14,7 +14,7 @@ pss.ci.mean(
 )
 }
 \arguments{
-\item{n}{The sample size.}
+\item{N}{The sample size.}
 
 \item{h}{The desired halfwidth.}
 
@@ -33,9 +33,7 @@ A list of the arguments (including the computed one).
 Power calculations for precision analysis for one mean
 }
 \examples{
-# Example 9.2
-pss.ci.mean(n = NULL, h = 0.25, power = 0.8)
-pss.ci.mean(n = 62, h = 0.25, power = NULL)
-# Example 9.3
-pss.ci.mean(n = 73, h = 0.25, cond = TRUE)
+pss.ci.mean(N = NULL, h = 0.25, power = 0.8)
+pss.ci.mean(N = 62, h = 0.25, power = NULL)
+pss.ci.mean(N = 73, h = 0.25, cond = TRUE)
 }

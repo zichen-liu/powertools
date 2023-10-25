@@ -39,6 +39,5 @@ A list of the arguments (including the computed one).
 Power calculations for test of equivalence of two proportions
 }
 \examples{
-#' # Example 6.9
 pss.prop.test.equiv(n = NULL, p1 = 0.5, p2 = 0.5, delta = 0.1, alpha = 0.05, power = 0.8, sides = 1)
 }

@@ -5,7 +5,7 @@
 \title{Power calculations for one sample z tests}
 \usage{
 pss.z.test.1samp(
-  n = NULL,
+  N = NULL,
   delta = NULL,
   sd = 1,
   alpha = 0.05,
@@ -15,7 +15,7 @@ pss.z.test.1samp(
 )
 }
 \arguments{
-\item{n}{The sample size.}
+\item{N}{The sample size.}
 
 \item{delta}{muA (the true mean) - mu0 (the mean under the null).}
 
@@ -36,10 +36,7 @@ A list of the arguments (including the computed one).
 Power calculations for one sample z tests
 }
 \examples{
-# Example 2.5
-pss.z.test.1samp(n = NULL, delta = 6.5 - 5.7, sd = 2, power = 0.8, sides = 2)
-# Example 2.7
-pss.z.test.1samp(n = 40, delta = NULL, sd = 1, power = 0.9, sides = 2)
-# Example 3.6
-pss.z.test.1samp(n = NULL, delta = 0.6, sd = 1, power = 0.8, sides = 1)
+pss.z.test.1samp(N = NULL, delta = 6.5 - 5.7, sd = 2, power = 0.8, sides = 2)
+pss.z.test.1samp(N = 40, delta = NULL, sd = 1, power = 0.9, sides = 2)
+pss.z.test.1samp(N = NULL, delta = 0.6, sd = 1, power = 0.8, sides = 1)
 }

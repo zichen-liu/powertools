@@ -5,7 +5,7 @@
 \title{Power calculations for one sample t tests}
 \usage{
 pss.t.test.1samp(
-  n = NULL,
+  N = NULL,
   delta = NULL,
   sd = 1,
   alpha = 0.05,
@@ -15,7 +15,7 @@ pss.t.test.1samp(
 )
 }
 \arguments{
-\item{n}{The sample size.}
+\item{N}{The sample size.}
 
 \item{delta}{muA (the true mean) - mu0 (the mean under the null).}
 
@@ -36,12 +36,8 @@ A list of the arguments (including the computed one).
 Power calculations for one sample t tests
 }
 \examples{
-# Example 3.2
-pss.t.test.1samp(n = 36, delta = 4.9 - 5.7, sd = 2, sides = 1)
-# Example 3.3
-pss.t.test.1samp(n = 36, delta = 6.3 - 5.7, sd = 2, sides = 1)
-# Example 3.5
-pss.t.test.1samp(n = 36, delta = 4.9 - 5.7, sd = 2, sides = 2)
-# Example 3.6
+pss.t.test.1samp(N = 36, delta = 4.9 - 5.7, sd = 2, sides = 1)
+pss.t.test.1samp(N = 36, delta = 6.3 - 5.7, sd = 2, sides = 1)
+pss.t.test.1samp(N = 36, delta = 4.9 - 5.7, sd = 2, sides = 2)
 pss.t.test.1samp(delta = 0.6, sd = 1, power = 0.8, sides = 1)
 }

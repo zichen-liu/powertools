@@ -10,7 +10,8 @@ pss.corr.2samp(
   rho1 = NULL,
   rho2 = NULL,
   alpha = 0.05,
-  power = NULL
+  power = NULL,
+  sides = 2
 )
 }
 \arguments{
@@ -25,6 +26,8 @@ pss.corr.2samp(
 \item{alpha}{The significance level or type 1 error rate; defaults to 0.05.}
 
 \item{power}{The specified level of power.}
+
+\item{sides}{Either 1 or 2 (default) to specify a one- or two- sided hypothesis test.}
 }
 \value{
 A list of the arguments (including the computed one).
@@ -33,6 +36,5 @@ A list of the arguments (including the computed one).
 Power calculations for comparing two correlation coefficients
 }
 \examples{
-#' # Example 10.2
-pss.corr.2samp(n = 300, rho1 = 0.3, rho2 = 0.1)
+pss.corr.2samp(n = 300, rho1 = 0.3, rho2 = 0.1, sides = 1)
 }

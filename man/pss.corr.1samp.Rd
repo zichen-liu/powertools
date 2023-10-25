@@ -4,10 +4,17 @@
 \alias{pss.corr.1samp}
 \title{Power calculations for one correlation coefficient}
 \usage{
-pss.corr.1samp(n = NULL, rho0 = 0, rhoA = NULL, alpha = 0.05, power = NULL)
+pss.corr.1samp(
+  N = NULL,
+  rho0 = 0,
+  rhoA = NULL,
+  alpha = 0.05,
+  power = NULL,
+  sides = 2
+)
 }
 \arguments{
-\item{n}{The sample size.}
+\item{N}{The sample size.}
 
 \item{rho0}{The correlation coefficient under the null hypothesis; defaults to 0.}
 
@@ -16,6 +23,8 @@ pss.corr.1samp(n = NULL, rho0 = 0, rhoA = NULL, alpha = 0.05, power = NULL)
 \item{alpha}{The significance level or type 1 error rate; defaults to 0.05.}
 
 \item{power}{The specified level of power.}
+
+\item{sides}{Either 1 or 2 (default) to specify a one- or two- sided hypothesis test.}
 }
 \value{
 A list of the arguments (including the computed one).
@@ -24,7 +33,6 @@ A list of the arguments (including the computed one).
 Power calculations for one correlation coefficient
 }
 \examples{
-#' # Example 10.1
-pss.corr.1samp(n = 100, rhoA = 0.2)
-pss.corr.1samp(n = 100, rho0 = 0.2, rhoA = 0.4)
+pss.corr.1samp(N = 100, rhoA = 0.2, sides = 1)
+pss.corr.1samp(N = 100, rho0 = 0.2, rhoA = 0.4, sides = 1)
 }
