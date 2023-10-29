@@ -8,6 +8,8 @@
 #' @return The sum of a + b
 #' @export
 #'
+#' @keywords internal
+#'
 #' @examples
 #' # Try to show new function
 #' newfunction(a=3, b = 6)

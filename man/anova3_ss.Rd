@@ -47,3 +47,4 @@ anova3_ss(means = c(5, 10, 12), sds = c(10, 8, 10), alphalevel = 0.05,
 powerlevel = 0.8, groupratios = c(1, 1, 3),
 Nmin = NULL, Nmax = NULL)
 }
+\keyword{internal}

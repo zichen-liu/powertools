@@ -6,6 +6,8 @@
 \usage{
 pss.multisite.bin(
   m = NULL,
+  J = NULL,
+  prop.t = 0.5,
   pc = NULL,
   pt = NULL,
   sigma.u = NULL,
@@ -17,6 +19,10 @@ pss.multisite.bin(
 \arguments{
 \item{m}{The number of subjects per site.}
 
+\item{J}{The number of sites.}
+
+\item{prop.t}{The proportion of subjects allocated to the treatment condition within each site; defaults to 0.5.}
+
 \item{pc}{The probability of the outcome in the control condition.}
 
 \item{pt}{The probability of the outcome in the treatment condition.}
@@ -25,14 +31,17 @@ pss.multisite.bin(
 
 \item{alpha}{The significance level or type 1 error rate; defaults to 0.05.}
 
+\item{power}{The specified level of power.}
+
 \item{sides}{Either 1 or 2 (default) to specify a one- or two- sided hypothesis test.}
 }
 \value{
-A list of the arguments (including the computed power).
+A list of the arguments (including the computed one).
 }
 \description{
 Number of sites for multisite trials with binary outcomes
 }
 \examples{
-pss.multisite.bin(m = 30, pc = 0.1, pt = 0.2, sigma.u = 0.4, power = 0.9)
+pss.multisite.bin(m = 30, J = 25, pc = 0.1, pt = 0.2, sigma.u = 0.4, power = NULL)
+pss.multisite.bin(m = 30, J = NULL, pc = 0.1, pt = 0.2, sigma.u = 0.4, power = 0.9)
 }

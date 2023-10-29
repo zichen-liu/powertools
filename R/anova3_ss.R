@@ -16,6 +16,8 @@
 #' @return Returns a data frame with sample sizes for each group indicated in n1, n2, and n3, actual power, and any notes from the computation.
 #' @export
 #'
+#' @keywords internal
+#'
 #' @examples
 #' # Sample Size for 3 groups with unequal allocation at 0.05 significance and 80% power
 #' # explores range itself from N = 30 to 300

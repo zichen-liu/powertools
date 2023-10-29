@@ -46,3 +46,4 @@ mcnemar_ss(p1 = 0.8, p2 = 0.9, rho = 0, alpha = 0.05, power = 0.9)
 # Calculate sample size supplying cell probabilities at 90\% power
 mcnemar_ss(p10 = 0.18, p01 = 0.08, alpha = 0.05, power = 0.9)
 }
+\keyword{internal}

@@ -6,7 +6,7 @@
 \usage{
 pss.ci.mean(
   N = NULL,
-  h = NULL,
+  halfwidth = NULL,
   sd = 1,
   alpha = 0.05,
   power = NULL,
@@ -16,7 +16,7 @@ pss.ci.mean(
 \arguments{
 \item{N}{The sample size.}
 
-\item{h}{The desired halfwidth.}
+\item{halfwidth}{The desired halfwidth.}
 
 \item{sd}{The estimated standard deviation; defaults to 1.}
 
@@ -33,7 +33,7 @@ A list of the arguments (including the computed one).
 Power calculations for precision analysis for one mean
 }
 \examples{
-pss.ci.mean(N = NULL, h = 0.25, power = 0.8)
-pss.ci.mean(N = 62, h = 0.25, power = NULL)
-pss.ci.mean(N = 73, h = 0.25, cond = TRUE)
+pss.ci.mean(N = NULL, halfwidth = 0.25, power = 0.8)
+pss.ci.mean(N = 62, halfwidth = 0.25, power = NULL)
+pss.ci.mean(N = 73, halfwidth = 0.25, cond = TRUE)
 }

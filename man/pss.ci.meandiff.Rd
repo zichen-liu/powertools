@@ -7,7 +7,7 @@
 pss.ci.meandiff(
   n = NULL,
   n.ratio = 1,
-  h = NULL,
+  halfwidth = NULL,
   sd = 1,
   alpha = 0.05,
   power = NULL,
@@ -19,7 +19,7 @@ pss.ci.meandiff(
 
 \item{n.ratio}{The ratio n2/n1 between the sample sizes of two groups; defaults to 1 (equal group sizes).}
 
-\item{h}{The desired halfwidth for the difference in means.}
+\item{halfwidth}{The desired halfwidth for the difference in means.}
 
 \item{sd}{The estimated standard deviation; defaults to 1.}
 
@@ -36,6 +36,6 @@ A list of the arguments (including the computed one).
 Power calculations for precision analysis for a difference between means
 }
 \examples{
-pss.ci.meandiff(n = NULL, h = 0.25, power = 0.8)
-pss.ci.meandiff(n = 134, h = 0.25, cond = TRUE)
+pss.ci.meandiff(n = NULL, halfwidth = 0.25, power = 0.8)
+pss.ci.meandiff(n = 134, halfwidth = 0.25, cond = TRUE)
 }

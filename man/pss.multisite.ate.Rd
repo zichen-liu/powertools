@@ -7,14 +7,14 @@
 pss.multisite.ate(
   m = NULL,
   m.sd = 0,
-  ICC = 0,
   J = NULL,
   delta = NULL,
-  var = 1,
+  sd = 1,
   rho0 = NULL,
   rho1 = NULL,
-  rho.cov = 0,
+  Rsq = 0,
   alpha = 0.05,
+  power = NULL,
   sides = 2
 )
 }
@@ -23,33 +23,33 @@ pss.multisite.ate(
 
 \item{m.sd}{The standard deviation of cluster sizes (provide if unequal number of participants per site); defaults to 0.}
 
-\item{ICC}{The intraclass correlation between cluster sizes (provide if unequal number of participants per site); defaults to 0.}
-
 \item{J}{The number of sites.}
 
 \item{delta}{The difference between the intervention and control means in the outcome variable.}
 
-\item{var}{The total variance of the outcome variable; defaults to 1.}
+\item{sd}{The total standard deviation of the outcome variable; defaults to 1.}
 
 \item{rho0}{The proportion of total variance of the outcome attributable to variation in site-level means.}
 
 \item{rho1}{The proportion of total variance of the outcome attributable to variation in the treatment effect across sites.}
 
-\item{rho.cov}{The proportion of variance in the outome attributable to an individual-level covariate; defaults to 0.}
+\item{Rsq}{The estimated R^2 for regressing the outcome on the covariates; defaults to 0.}
 
 \item{alpha}{The significance level or type 1 error rate; defaults to 0.05.}
+
+\item{power}{The specified level of power.}
 
 \item{sides}{Either 1 or 2 (default) to specify a one- or two- sided hypothesis test.}
 }
 \value{
-A list of the arguments (including the computed power).
+A list of the arguments (including the computed one).
 }
 \description{
 Power for test of average treatment effect
 }
 \examples{
-pss.multisite.ate(m = 20, J = 10, delta = 3, var = 40, rho0 = 0.1, rho1 = 0)
-pss.multisite.ate(m = 20, J = 10, delta = 3, var = 48, rho0 = 0.095, rho1 = 0.048)
-pss.multisite.ate(m = 20, m.sd = 5, ICC = 0.5, J = 10, delta = 3, var = 48, rho0 = 0.095, rho1 = 0.048)
-pss.multisite.ate(m = 20, J = 10, delta = 3, var = 48, rho0 = 0.095, rho1 = 0.048, rho.cov = 0.5)
+pss.multisite.ate(m = 20, J = 10, delta = 3, sd = sqrt(40), rho0 = 0.1, rho1 = 0)
+pss.multisite.ate(m = 20, J = 10, delta = 3, sd = sqrt(48), rho0 = 0.095, rho1 = 0.048)
+pss.multisite.ate(m = 20, m.sd = 5, J = 10, delta = 3, sd = sqrt(48), rho0 = 0.095, rho1 = 0.048)
+pss.multisite.ate(m = 20, J = 10, delta = 3, sd = sqrt(48), rho0 = 0.095, rho1 = 0.048, Rsq = 0.5^2)
 }

@@ -21,3 +21,4 @@ This should be new description
 # Try to show new function
 newfunction(a=3, b = 6)
 }
+\keyword{internal}

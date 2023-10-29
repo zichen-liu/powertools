@@ -29,3 +29,4 @@ This function calculates the minimum sample size required to achieve certain pre
 # at significance level of 0.05 with 80\% power. We specify to search between 62 and 75 people.
 onemean_ci_ss(N_min = 62, N_max = 75, d=0.25, alpha=0.05, power=0.8)
 }
+\keyword{internal}

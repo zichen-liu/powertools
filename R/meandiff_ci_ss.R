@@ -14,6 +14,8 @@
 #' @return returns all sample sizes and power that satisfy the specified power level.
 #' @export
 #'
+#' @keywords internal
+#'
 #' @examples
 #' # Find sample sizes with allocation ratio of 2 between two groups for a 95% confidence
 #' # interval to have 80% probability of a 0.25 standard deviation halfwidth or smaller.

@@ -49,3 +49,4 @@ oneprop_ss(p0 = 0.4, pA = 0.5, alpha = 0.05, power = 0.8,
 oneprop_ss(p0 = 0.4, pA = 0.5, alpha = 0.05, power = 0.8,
            method = "conditional", one.or.two.sided = "one")
 }
+\keyword{internal}

@@ -12,6 +12,8 @@
 #' @return The total N, group sample sizes, and corresponding power.
 #' @export
 #'
+#' @keywords internal
+#'
 #' @examples
 #' # Calculate power for a 95% confidence interval to have 0.25 standard deviation width
 #' # when there are 100 and 160 people in each group

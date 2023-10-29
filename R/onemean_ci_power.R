@@ -9,6 +9,8 @@
 #' @return The statistical power associated with the number of observations.
 #' @export
 #'
+#' @keywords internal
+#'
 #' @examples
 #' # Calculate probability that a 95% confidence interval for group size of 73
 #' # to have 0.25 standard deviation halfwidth or less

@@ -30,3 +30,4 @@ This function calculates the power of a confidence interval for the difference o
 # when there are 100 and 160 people in each group
 meandiff_ci_power(n1 = 100, n2 = 160, alpha = 0.05, d = 0.25, halfwidth = NULL, sigma = NULL)
 }
+\keyword{internal}

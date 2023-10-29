@@ -44,3 +44,4 @@ Calculate sample sizes in two groups (allowing unequal allocation) that will ade
 meandiff_ci_ss(N_min = 200, N_max = 325, r = c(1,2),
                alpha = 0.05, power = 0.8, d = 0.25)
 }
+\keyword{internal}

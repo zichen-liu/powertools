@@ -12,6 +12,8 @@
 #' @return The minimum sample size required to achieve the specified level of power.
 #' @export
 #'
+#' @keywords internal
+#'
 #' @examples
 #' # Example 1: Find the required sample size that achieves a half width of 0.25 standard deviations
 #' # at significance level of 0.05 with 80% power. We specify to search between 62 and 75 people.

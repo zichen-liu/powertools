@@ -13,6 +13,8 @@
 #' @return Returns n, the sample size needed for a one proportion test.
 #' @export
 #'
+#' @keywords internal
+#'
 #' @examples
 #' # Example 5.1: Calculate sample size needed for experimental therapy
 #' # to be considered promising (at least 20%) if the true proportion of

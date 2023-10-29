@@ -15,6 +15,8 @@
 #' @return Returns a data frame with total number of observations needed (N_obs) and number of pairs needed (N_pairs).
 #' @export
 #'
+#' @keywords internal
+#'
 #' @examples
 #' # Calculate sample size supplying marginal probabilities of 0.8 and 0.9
 #' # at 90% power without any correlation between probabilities.

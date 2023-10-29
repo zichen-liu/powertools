@@ -6,8 +6,9 @@ Authors@R: c(
     person("Catherine", "Crespi", "M", "ccrespi@ucla.edu", role = "cre"),
     person("Kristen", "McGreevy", "M", "kristenmae@ucla.edu", role = "aut"),
     person("Yixuan", "Zhou", "", "jyixzhou@g.ucla.edu", role = "aut"),
-    person("Sundin", "Phillip", role = "aut"))
-Description: This package accompanies the textbook "Power and Sample Size in R" by 
+    person("Sundin", "Phillip", role = "aut"),
+    person("Zichen", "Liu", "", "zichenliu@ucla.edu", role = "aut"))
+Description: This package accompanies the textbook ``Power and Sample Size in R`` by 
     Catherine M. Crespi for calculating power and sample size requirements for designing studies.
 License: MIT + file LICENSE
 Encoding: UTF-8
@@ -23,25 +24,13 @@ Suggests:
     testthat (>= 3.0.0)
 Config/testthat/edition: 3
 Imports: 
-    clusterPower,
-    dplyr,
-    exact2x2,
     magrittr,
-    MESS,
-    MKmisc,
     mvtnorm,
     plyr,
     PowerTOST,
-    precisely,
-    presize,
     psych,
     purrr,
-    pwr,
-    pwr2,
     pwr2ppl,
-    pwrAB,
-    SampleSize4ClinicalTrials,
-    stats,
-    Superpower
+    stats
 Depends: 
     R (>= 2.10)

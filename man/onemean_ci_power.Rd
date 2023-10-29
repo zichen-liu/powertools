@@ -24,3 +24,4 @@ Calculates the power of a confidence interval for a single mean accounting for e
 # to have 0.25 standard deviation halfwidth or less
 onemean_ci_power(N = 73, d=0.25, alpha=0.05)
 }
+\keyword{internal}

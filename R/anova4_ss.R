@@ -16,6 +16,8 @@
 #' @return Returns a data frame with sample sizes for each group indicated in n1, n2, n3, and n4, actual power, and any notes from the computation.
 #' @export
 #'
+#' @keywords internal
+#'
 #' @examples
 #' # We find the sample size per group required for 4 group ANOVA with equal
 #' # standard deviations and 2:1:1:2 group allocation ratio.
