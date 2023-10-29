@@ -2,7 +2,7 @@
 #'
 #' @param n The sample size for group 1.
 #' @param n.ratio The ratio n2/n1 between the sample sizes of two groups; defaults to 1 (equal group sizes).
-#' @param h The desired halfwidth for the difference in means.
+#' @param halfwidth The desired halfwidth for the difference in means.
 #' @param sd The estimated standard deviation; defaults to 1.
 #' @param alpha The significance level or type 1 error rate; defaults to 0.05.
 #' @param power The specified level of power.
@@ -13,19 +13,19 @@
 #' @export
 #'
 #' @examples
-#' pss.ci.meandiff(n = NULL, h = 0.25, power = 0.8)
-#' pss.ci.meandiff(n = 134, h = 0.25, cond = TRUE)
+#' pss.ci.meandiff(n = NULL, halfwidth = 0.25, power = 0.8)
+#' pss.ci.meandiff(n = 134, halfwidth = 0.25, cond = TRUE)
 
-pss.ci.meandiff <- function (n = NULL, n.ratio = 1, h = NULL, sd = 1,
+pss.ci.meandiff <- function (n = NULL, n.ratio = 1, halfwidth = NULL, sd = 1,
                               alpha = 0.05, power = NULL, cond = FALSE) {
 
   # Check if the arguments are specified correctly
   if (sum(sapply(list(n, n.ratio, power, alpha), is.null)) != 1)
     stop("exactly one of n, n.ratio, alpha, and power must be NULL")
-  if (is.null(h))
-    stop("h must be specified")
+  if (is.null(halfwidth))
+    stop("halfwidth must be specified")
 
-  d <- h / sd
+  d <- halfwidth / sd
   p.body <- quote({
     df <- n * (n.ratio + 1) - 2
     t <- stats::qt(1 - alpha / 2, df)
@@ -55,7 +55,7 @@ pss.ci.meandiff <- function (n = NULL, n.ratio = 1, h = NULL, sd = 1,
   n <- c(n, n * n.ratio)
 
   # Print output as a power.htest object
-  structure(list(n = n, h = h, sd = sd,
+  structure(list(n = n, halfwidth = halfwidth, sd = sd,
                  alpha = alpha, power = power,
                  method = METHOD), class = "power.htest")
 

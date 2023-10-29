@@ -2,13 +2,12 @@
 #'
 #' @param m The number of subjects per site or the mean cluster size (if unequal number of participants per site).
 #' @param m.sd The standard deviation of cluster sizes (provide if unequal number of participants per site); defaults to 0.
-#' @param ICC The intraclass correlation between cluster sizes (provide if unequal number of participants per site); defaults to 0.
 #' @param J The number of sites.
 #' @param delta The difference between the intervention and control means in the outcome variable.
 #' @param sd The total standard deviation of the outcome variable; defaults to 1.
 #' @param rho0 The proportion of total variance of the outcome attributable to variation in site-level means.
 #' @param rho1 The proportion of total variance of the outcome attributable to variation in the treatment effect across sites.
-#' @param rho.cov The proportion of variance in the outome attributable to an individual-level covariate; defaults to 0.
+#' @param Rsq The estimated R^2 for regressing the outcome on the covariates; defaults to 0.
 #' @param alpha The significance level or type 1 error rate; defaults to 0.05.
 #' @param power The specified level of power.
 #' @param sides Either 1 or 2 (default) to specify a one- or two- sided hypothesis test.
@@ -19,18 +18,17 @@
 #' pss.multisite.ate(m = 20, J = 10, delta = 3, sd = sqrt(40), rho0 = 0.1, rho1 = 0)
 #' pss.multisite.ate(m = 20, J = 10, delta = 3, sd = sqrt(48), rho0 = 0.095, rho1 = 0.048)
 #' pss.multisite.ate(m = 20, m.sd = 5, J = 10, delta = 3, sd = sqrt(48), rho0 = 0.095, rho1 = 0.048)
-#' pss.multisite.ate(m = 20, J = 10, delta = 3, sd = sqrt(48), rho0 = 0.095, rho1 = 0.048, rho.cov = 0.5)
+#' pss.multisite.ate(m = 20, J = 10, delta = 3, sd = sqrt(48), rho0 = 0.095, rho1 = 0.048, Rsq = 0.5^2)
 
-pss.multisite.ate <- function (m = NULL, m.sd = 0, ICC = 0,
-                               J = NULL, delta = NULL, sd = 1,
-                               rho0 = NULL, rho1 = NULL, rho.cov = 0,
+pss.multisite.ate <- function (m = NULL, m.sd = 0, J = NULL, delta = NULL, sd = 1,
+                               rho0 = NULL, rho1 = NULL, Rsq = 0,
                                alpha = 0.05, power = NULL, sides = 2) {
 
   # Calculate power
   p.body <- quote({
     N <- m * J
     df <- J - 1
-    d <- delta / (sd * sqrt((1 - rho.cov^2)))
+    d <- delta / (sd * sqrt((1 - Rsq)))
     RE <- pss.multisite.re(m.mean = m, m.sd = m.sd, rho = rho0 + rho1)$re
     ncp <- d / sqrt(4 * (1 - rho0) / N) / RE
     crit <- stats::qt(1 - alpha / sides, df)
@@ -55,7 +53,7 @@ pss.multisite.ate <- function (m = NULL, m.sd = 0, ICC = 0,
 
   # Print output as a power.htest object
   structure(list(m = m, J = J, delta = delta, sd = sd,
-                 `rho0, rho1` = rho, rho.cov = rho.cov,
+                 `rho0, rho1` = rho, Rsq = Rsq,
                  alpha = alpha, power = power,
                  method = METHOD), class = "power.htest")
 
