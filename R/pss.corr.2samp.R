@@ -45,7 +45,7 @@ pss.corr.2samp <- function (n = NULL, n.ratio = 1, rho1 = NULL, rho2 = NULL,
   else if (is.null(n))
     n <- uniroot(function(n) eval(p.body) - power, c(4 + 1e-10, 1e+09))$root
   else if (is.null(n.ratio))
-    n.ratio <- uniroot(function(ratio) eval(p.body) - power, c(2/n, 1e+07))$root
+    n.ratio <- uniroot(function(n.ratio) eval(p.body) - power, c(2/n, 1e+07))$root
   else if (is.null(alpha))
     alpha <- uniroot(function(alpha) eval(p.body) - power, c(1e-10, 1 - 1e-10))$root
   else stop("internal error")

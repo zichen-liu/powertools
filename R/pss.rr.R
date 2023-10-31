@@ -21,7 +21,7 @@ pss.rr <- function (n = NULL, n.ratio = 1, p1 = NULL, p2 = NULL, RR0 = 1,
   # Check if the arguments are specified correctly
   if (sides != 1 & sides != 2)
     stop("please specify 1 or 2 sides")
-  if (sum(sapply(list(n, power, alpha, n.ratio), is.null)) != 1)
+  if (sum(sapply(list(n, n.ratio, power, alpha), is.null)) != 1)
     stop("exactly one of 'n', 'n.ratio', 'alpha', and 'power' must be NULL")
   if (!is.null(n.ratio) && n.ratio <= 0)
     stop("n.ratio between group sizes must be positive")
@@ -32,27 +32,29 @@ pss.rr <- function (n = NULL, n.ratio = 1, p1 = NULL, p2 = NULL, RR0 = 1,
     d <- abs(log(RR) - log(RR0))
     q1 <- 1 - p1
     q2 <- 1 - p2
-    (stats::qnorm(1 - alpha / sides) + stats::qnorm(1 - power))^2 *
-    (1 + n.ratio) * (q1 / p1 + q2 / (n.ratio * p2)) / (d^2)
+    denom <- (1 / n) * (q1 / p1 + q2 / (n.ratio * p2))
+    (stats::qnorm(alpha / sides) + d / sqrt(denom))
   })
 
   # Use uniroot function to calculate missing argument
-  if (is.null(n))
-    n <- eval(p.body)
-  else if (is.null(power))
-    power <- uniroot(function(power) eval(p.body) - n, c(1e-05, 0.99999))$root
+  if (is.null(power))
+    power <- eval(p.body)
+  else if (is.null(n))
+    n <- uniroot(function(n) eval(p.body) - power, c(2, 1e+07))$root
   else if (is.null(n.ratio))
-    n.ratio <- uniroot(function(n.ratio) eval(p.body) - n, c(2/n, 1e+07))$root
+    n.ratio <- uniroot(function(n.ratio) eval(p.body) - power, c(2/n, 1e+07))$root
   else if (is.null(alpha))
-    alpha <- uniroot(function(alpha) eval(p.body) - n, c(1e-10, 1 - 1e-10))$root
-  else stop("internal error", domain = NA)
+    alpha <- uniroot(function(alpha) eval(p.body) - power, c(1e-10, 1 - 1e-10))$root
+  else stop("internal error")
 
   # Generate output text
   NOTE <- "n is the number in each group"
   METHOD <- "Relative risk power calculation"
-  n = c(n, n * n.ratio)
+  n <- c(n, n * n.ratio)
   p <- c(p1, p2)
-  RR <- c(RR, RR0)
+  RR <- c(p2 / p1, RR0)
+
+  print(n.ratio)
 
   # Print output as a power.htest object
   structure(list(n = n, `p1, p2` = p, `RR, RR0` = RR,

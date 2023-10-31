@@ -47,7 +47,7 @@ pss.z.test.2samp <- function (n = NULL, n.ratio = 1, delta = NULL,
   else if (is.null(n))
     n <- uniroot(function(n) eval(p.body) - power, c(2, 1e+07))$root
   else if (is.null(n.ratio))
-    n.ratio <- uniroot(function(ratio) eval(p.body) - power,c(2/n, 1e+07))$root
+    n.ratio <- uniroot(function(n.ratio) eval(p.body) - power,c(2/n, 1e+07))$root
   else if (is.null(sd))
     sd <- uniroot(function(sd) eval(p.body) - power, delta * c(1e-07, 1e+07))$root
   else if (is.null(sd.ratio))

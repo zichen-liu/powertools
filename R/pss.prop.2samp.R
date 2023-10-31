@@ -50,7 +50,7 @@ pss.prop.2samp <- function (n = NULL, n.ratio = 1, p1 = NULL, p2 = NULL, delta =
   # Generate output text
   NOTE <- "n is the number in each group"
   METHOD <- "Two sample comparison of proportions power calculation"
-  n = c(n, n * n.ratio)
+  n <- c(n, n * n.ratio)
   p <- c(p1, p2)
 
   # Print output as a power.htest object
