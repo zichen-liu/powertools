@@ -51,3 +51,4 @@ search_power(powerfunction = AB_t2n, searchvector1 = c(80, 80, 100, 100, 120, 12
                      sd_A = 4 , sd_B = 6, sig_level = 0.05,
                      power = NULL, alt = c("less"))
 }
+\keyword{internal}

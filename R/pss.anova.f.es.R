@@ -1,7 +1,6 @@
 #' Cohen's f effect size calculation for one- or two- way analysis of variance
 #'
-#' @param mvec A vector of group means. One of mvec OR mmatrix must be specified.
-#' @param mmatrix A matrix of group means. One of mvec OR mmatrix must be specified.
+#' @param means A vector or matrix of group means.
 #' @param sd The estimated standard deviation within each group.
 #'
 #' @return A list of the arguments and various f effect sizes.

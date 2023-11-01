@@ -8,7 +8,6 @@
 #' @param Rsq The estimated R^2 for regressing the outcome on the covariates; defaults to 0.
 #' @param ncov The number of covariates adjusted for in the model; defaults to 0.
 #' @param alpha The significance level or type 1 error rate; defaults to 0.05.
-#' @param power The specified level of power.
 #'
 #' @return A list of the arguments (including the computed one).
 #' @export

@@ -12,6 +12,8 @@
 #' @return A data frame with the resulting power at the specified search values.
 #' @export
 #'
+#' @keywords internal
+#'
 #' @examples
 #' # Example 1: Search through group sizes 3 and 4 (k) and group sample sizes 80
 #' # and 100 (n) in one way ANOVA. alpha = 0.05, delta = 3, sigma = 8.5 are all

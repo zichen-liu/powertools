@@ -31,8 +31,6 @@ pss.anova2way.c.unbal(
 \item{ncov}{The number of covariates adjusted for in the model; defaults to 0.}
 
 \item{alpha}{The significance level or type 1 error rate; defaults to 0.05.}
-
-\item{power}{The specified level of power.}
 }
 \value{
 A list of the arguments (including the computed one).

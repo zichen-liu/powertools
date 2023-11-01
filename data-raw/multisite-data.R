@@ -35,4 +35,4 @@ group <- xij+1.5
 
 multisite.data <- data.frame(cbind(id,j,i,group,xij,Yij,Wij))
 
-usethis::use_data(multisite.data, overwrite = TRUE)
+usethis::use_data(multisite.data, overwrite = TRUE, internal = TRUE)

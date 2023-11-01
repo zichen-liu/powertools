@@ -7,11 +7,9 @@
 pss.anova.f.es(means = NULL, sd = NULL)
 }
 \arguments{
+\item{means}{A vector or matrix of group means.}
+
 \item{sd}{The estimated standard deviation within each group.}
-
-\item{mvec}{A vector of group means. One of mvec OR mmatrix must be specified.}
-
-\item{mmatrix}{A matrix of group means. One of mvec OR mmatrix must be specified.}
 }
 \value{
 A list of the arguments and various f effect sizes.
