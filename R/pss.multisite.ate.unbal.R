@@ -12,10 +12,12 @@
 #' @return A list of the arguments (including the computed power).
 #' @export
 #'
+#' @keywords internal
+#'
 #' @examples
-#' pss.multisite.ate.bal(m = 20, m.ratio = 1.5, J = 10, gamma = 3, rho0 = 0.0952381, rho1 = 0.04761905, ssq.Y = 48)
+#' pss.multisite.ate.unbal(m = 20, m.ratio = 1.5, J = 10, gamma = 3, rho0 = 0.0952381, rho1 = 0.04761905, ssq.Y = 48)
 
-pss.multisite.ate.bal <- function (m = NULL, m.ratio = NULL, J = NULL, gamma = NULL,
+pss.multisite.ate.unbal <- function (m = NULL, m.ratio = NULL, J = NULL, gamma = NULL,
                                    rho0 = NULL, rho1 = NULL, ssq.Y = NULL, d = NULL,
                                    alpha = 0.05, sides = 2) {
 
