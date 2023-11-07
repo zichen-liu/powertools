@@ -1,6 +1,6 @@
 #' Power calculations for two sample z tests allowing for unequal sample sizes and/or variances
 #'
-#' @param n The sample size for group 1.
+#' @param n1 The sample size for group 1.
 #' @param n.ratio The ratio n2/n1 between the sample sizes of two groups; defaults to 1 (equal group sizes).
 #' @param delta DeltaA (the true difference mu1 - mu2) - Delta0 (the difference under the null) - delta. See delta.sign for guidance on the sign of delta.
 #' @param sd The estimated standard deviation for group 1; defaults to 1 (equal standard deviations in the two groups).
@@ -14,9 +14,9 @@
 #' @export
 #'
 #' @examples
-#' pss.z.test.2samp(n = NULL, n.ratio = 1, delta = 0.5, sd = 1, power = 0.8, sides = 2)
+#' pss.z.test.2samp(n1 = NULL, n.ratio = 1, delta = 0.5, sd = 1, power = 0.8, sides = 2)
 
-pss.z.test.2samp <- function (n = NULL, n.ratio = 1, delta = NULL,
+pss.z.test.2samp <- function (n1 = NULL, n.ratio = 1, delta = NULL,
                               sd = 1, sd.ratio = 1,
                               alpha = 0.05, power = NULL,
                               sides = 2, strict = TRUE) {
@@ -24,30 +24,30 @@ pss.z.test.2samp <- function (n = NULL, n.ratio = 1, delta = NULL,
   # Check if the arguments are specified correctly
   if (sides != 1 & sides != 2)
     stop("please specify 1 or 2 sides")
-  if (sum(sapply(list(n, n.ratio, delta, sd, sd.ratio, power, alpha), is.null)) != 1)
-    stop("exactly one of n, n.ratio, delta, sd, sd.ratio, power, and alpha must be NULL")
+  if (sum(sapply(list(n1, n.ratio, delta, sd, sd.ratio, power, alpha), is.null)) != 1)
+    stop("exactly one of n1, n.ratio, delta, sd, sd.ratio, power, and alpha must be NULL")
 
   # Calculate test statistic
   p.body <- quote({
     d <- abs(delta)
     stats::pnorm(stats::qnorm(alpha / sides) +
-                 d / sqrt((sd * sd.ratio)^2 / (n * n.ratio) + sd^2 / n))})
+                 d / sqrt((sd * sd.ratio)^2 / (n1 * n.ratio) + sd^2 / n1))})
   if (strict & sides == 2)
     p.body <- quote({
       d <- abs(delta)
       stats::pnorm(stats::qnorm(alpha / sides) +
-                   d / sqrt((sd * sd.ratio)^2 / (n * n.ratio) + sd^2 / n)) +
+                   d / sqrt((sd * sd.ratio)^2 / (n1 * n.ratio) + sd^2 / n1)) +
       stats::pnorm(stats::qnorm(alpha / sides) -
-                   d / sqrt((sd * sd.ratio)^2 / (n * n.ratio) + sd^2 / n))
+                   d / sqrt((sd * sd.ratio)^2 / (n1 * n.ratio) + sd^2 / n1))
     })
 
   # Use uniroot function to calculate missing argument
   if (is.null(power))
     power <- eval(p.body)
-  else if (is.null(n))
-    n <- uniroot(function(n) eval(p.body) - power, c(2, 1e+07))$root
+  else if (is.null(n1))
+    n1 <- uniroot(function(n1) eval(p.body) - power, c(2, 1e+07))$root
   else if (is.null(n.ratio))
-    n.ratio <- uniroot(function(n.ratio) eval(p.body) - power,c(2/n, 1e+07))$root
+    n.ratio <- uniroot(function(n.ratio) eval(p.body) - power,c(2/n1, 1e+07))$root
   else if (is.null(sd))
     sd <- uniroot(function(sd) eval(p.body) - power, delta * c(1e-07, 1e+07))$root
   else if (is.null(sd.ratio))
@@ -60,7 +60,7 @@ pss.z.test.2samp <- function (n = NULL, n.ratio = 1, delta = NULL,
 
   # Generate output text
   METHOD <- "Two-sample z test power calculation"
-  n <- c(n, n * n.ratio)
+  n <- c(n1, n1 * n.ratio)
   sd <- c(sd, sd * sd.ratio)
 
   # Print output as a power.htest object

@@ -28,3 +28,4 @@ ratio <- tandz_ratio(alpha = 0.05, power = 0.8, df = 20)
 N_adjusted <- ceiling(original_ss * ratio)
 N_adjusted
 }
+\keyword{internal}

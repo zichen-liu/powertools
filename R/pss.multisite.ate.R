@@ -29,7 +29,7 @@ pss.multisite.ate <- function (m = NULL, m.sd = 0, J = NULL, delta = NULL, sd = 
     N <- m * J
     df <- J - 1
     d <- delta / (sd * sqrt((1 - Rsq)))
-    RE <- pss.multisite.re(m.mean = m, m.sd = m.sd, rho = rho0 + rho1)$re
+    RE <- pss.multisite.re(m.mean = m, m.sd = m.sd, rho = rho1)$re
     ncp <- d / sqrt(4 * (1 - rho0) / N) / RE
     crit <- stats::qt(1 - alpha / sides, df)
     1 - stats::pt(crit, df, ncp)
@@ -38,14 +38,14 @@ pss.multisite.ate <- function (m = NULL, m.sd = 0, J = NULL, delta = NULL, sd = 
   # Use uniroot to calculate missing argument
   if (is.null(alpha))
     alpha <- uniroot(function(alpha) eval(p.body) - power, c(1e-10, 1 - 1e-10))$root
-  if (is.null(power))
+  else if (is.null(power))
     power <- eval(p.body)
-  if (is.null(J))
+  else if (is.null(J))
     J <- uniroot(function(J) eval(p.body) - power, c(2 + 1e-10, 1e+07))$root
-  if (is.null(m))
+  else if (is.null(m))
     m <- uniroot(function(m) eval(p.body) - power, c(2 + 1e-10, 1e+07))$root
-  if (is.null(delta))
-    delta <- stats::uniroot(function(d) eval(p.body) - power, c(1e-07, 1e+07))$root
+  else if (is.null(delta))
+    delta <- stats::uniroot(function(delta) eval(p.body) - power, c(1e-07, 1e+07))$root
 
   # Generate output text
   METHOD <-"Power for test of average treatment effect"

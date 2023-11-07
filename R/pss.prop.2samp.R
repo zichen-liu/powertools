@@ -1,6 +1,6 @@
 #' Power calculations for two sample proportion tests
 #'
-#' @param n The sample size for group 1.
+#' @param n1 The sample size for group 1.
 #' @param n.ratio The ratio n2/n1 between the sample sizes of two groups; defaults to 1 (equal group sizes).
 #' @param p1 The proportion in group 1.
 #' @param p2 The proportion in group 2.
@@ -13,17 +13,17 @@
 #' @export
 #'
 #' @examples
-#' pss.prop.2samp(n = NULL, p1 = 0.6, p2 = 0.8, alpha = 0.025, power = 0.9, sides = 1)
-#' pss.prop.2samp(n = NULL, p1 = 0.25, p2 = 0.25, delta = 0.1, alpha = 0.025, power = 0.8, sides = 1)
+#' pss.prop.2samp(n1 = NULL, p1 = 0.6, p2 = 0.8, alpha = 0.025, power = 0.9, sides = 1)
+#' pss.prop.2samp(n1 = NULL, p1 = 0.25, p2 = 0.25, delta = 0.1, alpha = 0.025, power = 0.8, sides = 1)
 
-pss.prop.2samp <- function (n = NULL, n.ratio = 1, p1 = NULL, p2 = NULL, delta = 0,
+pss.prop.2samp <- function (n1 = NULL, n.ratio = 1, p1 = NULL, p2 = NULL, delta = 0,
                             alpha = 0.05, power = NULL, sides = 2) {
 
   # Check if the arguments are specified correctly
   if (sides != 1 & sides != 2)
     stop("please specify 1 or 2 sides")
-  if (sum(sapply(list(n, power, alpha, n.ratio), is.null)) != 1)
-    stop("exactly one of 'n', 'n.ratio', 'alpha', and 'power' must be NULL")
+  if (sum(sapply(list(n1, power, alpha, n.ratio), is.null)) != 1)
+    stop("exactly one of 'n1', 'n.ratio', 'alpha', and 'power' must be NULL")
   if (!is.null(n.ratio) && n.ratio <= 0)
     stop("n.ratio between group sizes must be positive")
 
@@ -37,20 +37,20 @@ pss.prop.2samp <- function (n = NULL, n.ratio = 1, p1 = NULL, p2 = NULL, delta =
   })
 
   # Use uniroot function to calculate missing argument
-  if (is.null(n))
-    n <- eval(p.body)
+  if (is.null(n1))
+    n1 <- eval(p.body)
   else if (is.null(power))
-    power <- uniroot(function(power) eval(p.body) - n, c(1e-05, 0.99999))$root
+    power <- uniroot(function(power) eval(p.body) - n1, c(1e-05, 0.99999))$root
   else if (is.null(n.ratio))
-    n.ratio <- uniroot(function(n.ratio) eval(p.body) - n, c(2/n, 1e+07))$root
+    n.ratio <- uniroot(function(n.ratio) eval(p.body) - n1, c(2/n1, 1e+07))$root
   else if (is.null(alpha))
-    alpha <- uniroot(function(alpha) eval(p.body) - n, c(1e-10, 1 - 1e-10))$root
+    alpha <- uniroot(function(alpha) eval(p.body) - n1, c(1e-10, 1 - 1e-10))$root
   else stop("internal error", domain = NA)
 
   # Generate output text
   NOTE <- "n is the number in each group"
   METHOD <- "Two sample comparison of proportions power calculation"
-  n <- c(n, n * n.ratio)
+  n <- c(n1, n1 * n.ratio)
   p <- c(p1, p2)
 
   # Print output as a power.htest object

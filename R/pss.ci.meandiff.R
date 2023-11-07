@@ -1,6 +1,6 @@
 #' Power calculations for precision analysis for a difference between means
 #'
-#' @param n The sample size for group 1.
+#' @param n1 The sample size for group 1.
 #' @param n.ratio The ratio n2/n1 between the sample sizes of two groups; defaults to 1 (equal group sizes).
 #' @param halfwidth The desired halfwidth for the difference in means.
 #' @param sd The estimated standard deviation; defaults to 1.
@@ -13,23 +13,23 @@
 #' @export
 #'
 #' @examples
-#' pss.ci.meandiff(n = NULL, halfwidth = 0.25, power = 0.8)
-#' pss.ci.meandiff(n = 134, halfwidth = 0.25, cond = TRUE)
+#' pss.ci.meandiff(n1 = NULL, halfwidth = 0.25, power = 0.8)
+#' pss.ci.meandiff(n1 = 134, halfwidth = 0.25, cond = TRUE)
 
-pss.ci.meandiff <- function (n = NULL, n.ratio = 1, halfwidth = NULL, sd = 1,
+pss.ci.meandiff <- function (n1 = NULL, n.ratio = 1, halfwidth = NULL, sd = 1,
                               alpha = 0.05, power = NULL, cond = FALSE) {
 
   # Check if the arguments are specified correctly
-  if (sum(sapply(list(n, n.ratio, power, alpha), is.null)) != 1)
-    stop("exactly one of n, n.ratio, alpha, and power must be NULL")
+  if (sum(sapply(list(n1, n.ratio, power, alpha), is.null)) != 1)
+    stop("exactly one of n1, n.ratio, alpha, and power must be NULL")
   if (is.null(halfwidth))
     stop("halfwidth must be specified")
 
   d <- halfwidth / sd
   p.body <- quote({
-    df <- n * (n.ratio + 1) - 2
+    df <- n1 * (n.ratio + 1) - 2
     t <- stats::qt(1 - alpha / 2, df)
-    b <- d * sqrt(n * n.ratio * df) / (t * sqrt(n.ratio + 1))
+    b <- d * sqrt(n1 * n.ratio * df) / (t * sqrt(n.ratio + 1))
     if (cond) {
       uQ <- PowerTOST::OwensQ(nu = df, t = t, delta = 0, a = 0, b = b)
       lQ <- PowerTOST::OwensQ(nu = df, t = 0, delta = 0, a = 0, b = b)
@@ -41,10 +41,10 @@ pss.ci.meandiff <- function (n = NULL, n.ratio = 1, halfwidth = NULL, sd = 1,
 
   if (is.null(power))
     power <- eval(p.body)
-  else if (is.null(n))
-    n <- uniroot(function(n) eval(p.body) - power, c(2, 1e+07))$root
+  else if (is.null(n1))
+    n1 <- uniroot(function(n1) eval(p.body) - power, c(2, 1e+07))$root
   else if (is.null(n.ratio))
-    n.ratio <- uniroot(function(n.ratio) eval(p.body) - power, c(2/n, 1e+07))$root
+    n.ratio <- uniroot(function(n.ratio) eval(p.body) - power, c(2/n1, 1e+07))$root
   else if (is.null(alpha))
     alpha <- uniroot(function(alpha) eval(p.body) - power, c(1e-10, 1 - 1e-10))$root
   else stop("internal error")
@@ -52,7 +52,7 @@ pss.ci.meandiff <- function (n = NULL, n.ratio = 1, halfwidth = NULL, sd = 1,
   # Generate output text
   METHOD <- paste0("Precision analysis for difference between means\n     using ",
                    ifelse(cond, "", "un"), "conditional probability")
-  n <- c(n, n * n.ratio)
+  n <- c(n1, n1 * n.ratio)
 
   # Print output as a power.htest object
   structure(list(n = n, halfwidth = halfwidth, sd = sd,

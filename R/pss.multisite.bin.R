@@ -36,22 +36,24 @@ pss.multisite.bin <- function (m = NULL, J = NULL, prop.t = 0.5,
     stats::pnorm(gammaA / sqrt(var) - za)
   })
 
+  if (is.null(alpha))
+    alpha <- stats::uniroot(function(alpha) eval(p.body) - power, c(1e-10, 1 - 1e-10))$root
+  else if (is.null(power))
+    power <- eval(p.body)
+  else if (is.null(J))
+    J <- stats::uniroot(function(J) eval(p.body) - power, c(2 + 1e-10, 1e+07))$root
+  else if (is.null(m))
+    m <- stats::uniroot(function(m) eval(p.body) - power, c(2 + 1e-10, 1e+07))$root
+  else if (is.null(prop.t))
+    prop.t <- uniroot(function(prop.t) eval(p.body) - power, c(0 + 1e-10, 1 - 1e-10))$root
 
   # Generate output text
   METHOD <-"Number of sites for multisite trials with binary outcomes"
-
-  if (is.null(alpha))
-    alpha <- stats::uniroot(function(alpha) eval(p.body) - power, c(1e-10, 1 - 1e-10))$root
-  if (is.null(power))
-    power <- eval(p.body)
-  if (is.null(J))
-    J <- stats::uniroot(function(J) eval(p.body) - power, c(2 + 1e-10, 1e+07))$root
-  if (is.null(m))
-    m <- stats::uniroot(function(m) eval(p.body) - power, c(2 + 1e-10, 1e+07))$root
+  p <- c(pc, pt)
 
   # Print output as a power.htest object depending on which inputs were given
   structure(list(m = m, prop.t = prop.t, J = J,
-                 pc = pc, pt = pt, sigma.u = sigma.u,
+                 `pc, pt` = p, sigma.u = sigma.u,
                  alpha = alpha, power = power,
                  method = METHOD), class = "power.htest")
 
