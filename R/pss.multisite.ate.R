@@ -2,6 +2,7 @@
 #'
 #' @param m The number of subjects per site or the mean cluster size (if unequal number of participants per site).
 #' @param m.sd The standard deviation of cluster sizes (provide if unequal number of participants per site); defaults to 0.
+#' @param m.ratio The allocation ratio per site; defaults to 1.
 #' @param J The number of sites.
 #' @param delta The difference between the intervention and control means in the outcome variable.
 #' @param sd The total standard deviation of the outcome variable; defaults to 1.
@@ -17,10 +18,13 @@
 #' @examples
 #' pss.multisite.ate(m = 20, J = 10, delta = 3, sd = sqrt(40), rho0 = 0.1, rho1 = 0)
 #' pss.multisite.ate(m = 20, J = 10, delta = 3, sd = sqrt(48), rho0 = 0.095, rho1 = 0.048)
+#' pss.multisite.ate(m = 20, m.ratio = 1.5, J = 10, delta = 0.43, sd = 1, rho0 = 0.095, rho1 = 0.048)
+#' pss.multisite.ate(m = 10, J = NULL, delta = 0.5, sd = 1, rho0 = 0, rho1 = 0.05, power = 0.8)
 #' pss.multisite.ate(m = 20, m.sd = 5, J = 10, delta = 3, sd = sqrt(48), rho0 = 0.095, rho1 = 0.048)
 #' pss.multisite.ate(m = 20, J = 10, delta = 3, sd = sqrt(48), rho0 = 0.095, rho1 = 0.048, Rsq = 0.5^2)
 
-pss.multisite.ate <- function (m = NULL, m.sd = 0, J = NULL, delta = NULL, sd = 1,
+pss.multisite.ate <- function (m = NULL, m.sd = 0, m.ratio = 1, J = NULL,
+                               delta = NULL, sd = 1,
                                rho0 = NULL, rho1 = NULL, Rsq = 0,
                                alpha = 0.05, power = NULL, sides = 2) {
 
@@ -30,7 +34,8 @@ pss.multisite.ate <- function (m = NULL, m.sd = 0, J = NULL, delta = NULL, sd = 
     df <- J - 1
     d <- delta / (sd * sqrt((1 - Rsq)))
     RE <- pss.multisite.re(m.mean = m, m.sd = m.sd, rho = rho1)$re
-    ncp <- d / sqrt(4 * (1 - rho0) / N) / RE
+    c <- (1 + m.ratio)^2 / m.ratio
+    ncp <- d / sqrt(c * (1 - rho0 + (4 * m / c - 1) * rho1) / N) / RE
     crit <- stats::qt(1 - alpha / sides, df)
     1 - stats::pt(crit, df, ncp)
   })
