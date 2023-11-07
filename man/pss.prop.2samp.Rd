@@ -5,7 +5,7 @@
 \title{Power calculations for two sample proportion tests}
 \usage{
 pss.prop.2samp(
-  n = NULL,
+  n1 = NULL,
   n.ratio = 1,
   p1 = NULL,
   p2 = NULL,
@@ -16,7 +16,7 @@ pss.prop.2samp(
 )
 }
 \arguments{
-\item{n}{The sample size for group 1.}
+\item{n1}{The sample size for group 1.}
 
 \item{n.ratio}{The ratio n2/n1 between the sample sizes of two groups; defaults to 1 (equal group sizes).}
 
@@ -39,6 +39,6 @@ A list of the arguments (including the computed one).
 Power calculations for two sample proportion tests
 }
 \examples{
-pss.prop.2samp(n = NULL, p1 = 0.6, p2 = 0.8, alpha = 0.025, power = 0.9, sides = 1)
-pss.prop.2samp(n = NULL, p1 = 0.25, p2 = 0.25, delta = 0.1, alpha = 0.025, power = 0.8, sides = 1)
+pss.prop.2samp(n1 = NULL, p1 = 0.6, p2 = 0.8, alpha = 0.025, power = 0.9, sides = 1)
+pss.prop.2samp(n1 = NULL, p1 = 0.25, p2 = 0.25, delta = 0.1, alpha = 0.025, power = 0.8, sides = 1)
 }

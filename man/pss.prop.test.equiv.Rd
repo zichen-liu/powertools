@@ -5,7 +5,7 @@
 \title{Power calculations for test of equivalence of two proportions}
 \usage{
 pss.prop.test.equiv(
-  n = NULL,
+  n1 = NULL,
   n.ratio = 1,
   p1 = NULL,
   p2 = NULL,
@@ -16,7 +16,7 @@ pss.prop.test.equiv(
 )
 }
 \arguments{
-\item{n}{The sample size for group 1.}
+\item{n1}{The sample size for group 1.}
 
 \item{n.ratio}{The ratio n2/n1 between the sample sizes of two groups; defaults to 1 (equal group sizes).}
 
@@ -39,5 +39,5 @@ A list of the arguments (including the computed one).
 Power calculations for test of equivalence of two proportions
 }
 \examples{
-pss.prop.test.equiv(n = NULL, p1 = 0.5, p2 = 0.5, delta = 0.1, alpha = 0.05, power = 0.8, sides = 1)
+pss.prop.test.equiv(n1 = NULL, p1 = 0.5, p2 = 0.5, delta = 0.1, alpha = 0.05, power = 0.8, sides = 1)
 }

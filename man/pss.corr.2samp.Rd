@@ -5,7 +5,7 @@
 \title{Power calculations for comparing two correlation coefficients}
 \usage{
 pss.corr.2samp(
-  n = NULL,
+  n1 = NULL,
   n.ratio = 1,
   rho1 = NULL,
   rho2 = NULL,
@@ -15,7 +15,7 @@ pss.corr.2samp(
 )
 }
 \arguments{
-\item{n}{The sample size for group 1.}
+\item{n1}{The sample size for group 1.}
 
 \item{n.ratio}{The ratio n2/n1 between the sample sizes of two groups; defaults to 1 (equal group sizes).}
 
@@ -36,5 +36,5 @@ A list of the arguments (including the computed one).
 Power calculations for comparing two correlation coefficients
 }
 \examples{
-pss.corr.2samp(n = 300, rho1 = 0.3, rho2 = 0.1, sides = 1)
+pss.corr.2samp(n1 = 300, rho1 = 0.3, rho2 = 0.1, sides = 1)
 }

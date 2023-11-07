@@ -5,7 +5,7 @@
 \title{Power calculations for relative risk}
 \usage{
 pss.rr(
-  n = NULL,
+  n1 = NULL,
   n.ratio = 1,
   p1 = NULL,
   p2 = NULL,
@@ -16,7 +16,7 @@ pss.rr(
 )
 }
 \arguments{
-\item{n}{The sample size for group 1.}
+\item{n1}{The sample size for group 1.}
 
 \item{n.ratio}{The ratio n2/n1 between the sample sizes of two groups; defaults to 1 (equal group sizes).}
 
@@ -39,5 +39,5 @@ A list of the arguments (including the computed one).
 Power calculations for relative risk
 }
 \examples{
-pss.rr(n = NULL, n.ratio = 6, p1 = 0.1, p2 = 0.1 * 2, power = 0.8)
+pss.rr(n1 = NULL, n.ratio = 6, p1 = 0.1, p2 = 0.1 * 2, power = 0.8)
 }

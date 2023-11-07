@@ -5,7 +5,7 @@
 \title{Power calculations for precision analysis for a difference between means}
 \usage{
 pss.ci.meandiff(
-  n = NULL,
+  n1 = NULL,
   n.ratio = 1,
   halfwidth = NULL,
   sd = 1,
@@ -15,7 +15,7 @@ pss.ci.meandiff(
 )
 }
 \arguments{
-\item{n}{The sample size for group 1.}
+\item{n1}{The sample size for group 1.}
 
 \item{n.ratio}{The ratio n2/n1 between the sample sizes of two groups; defaults to 1 (equal group sizes).}
 
@@ -36,6 +36,6 @@ A list of the arguments (including the computed one).
 Power calculations for precision analysis for a difference between means
 }
 \examples{
-pss.ci.meandiff(n = NULL, halfwidth = 0.25, power = 0.8)
-pss.ci.meandiff(n = 134, halfwidth = 0.25, cond = TRUE)
+pss.ci.meandiff(n1 = NULL, halfwidth = 0.25, power = 0.8)
+pss.ci.meandiff(n1 = 134, halfwidth = 0.25, cond = TRUE)
 }
