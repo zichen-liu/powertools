@@ -42,19 +42,22 @@ pss.multisite.ate <- function (m = NULL, m.sd = 0, m.ratio = 1, J = NULL,
 
   # Use uniroot to calculate missing argument
   if (is.null(alpha))
-    alpha <- uniroot(function(alpha) eval(p.body) - power, c(1e-10, 1 - 1e-10))$root
+    alpha <- stats::uniroot(function(alpha) eval(p.body) - power, c(1e-10, 1 - 1e-10))$root
   else if (is.null(power))
     power <- eval(p.body)
   else if (is.null(J))
-    J <- uniroot(function(J) eval(p.body) - power, c(2 + 1e-10, 1e+07))$root
+    J <- stats::uniroot(function(J) eval(p.body) - power, c(2 + 1e-10, 1e+07))$root
   else if (is.null(m))
-    m <- uniroot(function(m) eval(p.body) - power, c(2 + 1e-10, 1e+07))$root
+    m <- stats::uniroot(function(m) eval(p.body) - power, c(2 + 1e-10, 1e+07))$root
+  else if (is.null(m.ratio))
+    m.ratio <- stats::uniroot(function(m.ratio) eval(p.body) - power, c(2/m, 1e+07), extendInt = "yes", maxiter = 5000)$root
   else if (is.null(delta))
     delta <- stats::uniroot(function(delta) eval(p.body) - power, c(1e-07, 1e+07))$root
 
   # Generate output text
   METHOD <-"Power for test of average treatment effect"
   rho <- c(rho0, rho1)
+  m <- c(m, m * m.ratio)
 
   # Print output as a power.htest object
   structure(list(m = m, J = J, delta = delta, sd = sd,
