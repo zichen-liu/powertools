@@ -22,6 +22,7 @@ A list of the arguments (including the computed one).
 Power calculations for chi-square test of independence
 }
 \examples{
-pss.chisq.indep(pmatrix = matrix(c(0.050, 0.350, 0.100, 0.075, 0.250, 0.175), nrow = 2, byrow = TRUE), N = 230)
+pss.chisq.indep(pmatrix = matrix(c(0.050, 0.350, 0.100, 0.075, 0.250, 0.175),
+nrow = 2, byrow = TRUE), N = 230)
 pss.chisq.indep(pmatrix = matrix(c(0.3, 0.2, 0.4, 0.1), nrow = 2, byrow = TRUE), N = 200)
 }

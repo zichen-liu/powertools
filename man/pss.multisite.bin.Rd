@@ -6,8 +6,8 @@
 \usage{
 pss.multisite.bin(
   m = NULL,
+  alloc.ratio = 1,
   J = NULL,
-  prop.t = 0.5,
   pc = NULL,
   pt = NULL,
   sigma.u = NULL,
@@ -19,9 +19,9 @@ pss.multisite.bin(
 \arguments{
 \item{m}{The number of subjects per site.}
 
-\item{J}{The number of sites.}
+\item{alloc.ratio}{The allocation ratio of intervention/control per site; defaults to 1.}
 
-\item{prop.t}{The proportion of subjects allocated to the treatment condition within each site; defaults to 0.5.}
+\item{J}{The number of sites.}
 
 \item{pc}{The probability of the outcome in the control condition.}
 

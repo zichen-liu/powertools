@@ -2,7 +2,7 @@
 #'
 #' @param nvec A vector of group sample sizes c(n1, n2, ...).
 #' @param mvec A vector of group mvec c(mu1, mu2, ...).
-#' @param cvec A vector of contrast cvecicients c(c1, c2, ...).
+#' @param cvec A vector of contrast coefficients c(c1, c2, ...).
 #' @param sd The estimated standard deviation within each group.
 #' @param Rsq The estimated R^2 for regressing the outcome on the covariates; defaults to 0.
 #' @param ncov The number of covariates adjusted for in the model; defaults to 0.
@@ -12,8 +12,10 @@
 #' @export
 #'
 #' @examples
-#' pss.anova1way.c.unbal(nvec = c(20, 20, 20), mvec = c(5, 10, 12), cvec = c(1, -1, 0), sd = 10, alpha = 0.025)
-#' pss.anova1way.c.unbal(nvec = c(20, 20, 20), mvec = c(5, 10, 12), cvec = c(1, 0, -1), sd = 10, alpha = 0.025)
+#' pss.anova1way.c.unbal(nvec = c(20, 20, 20), mvec = c(5, 10, 12), cvec = c(1, -1, 0),
+#' sd = 10, alpha = 0.025)
+#' pss.anova1way.c.unbal(nvec = c(20, 20, 20), mvec = c(5, 10, 12), cvec = c(1, 0, -1),
+#' sd = 10, alpha = 0.025)
 
 pss.anova1way.c.unbal <- function (nvec = NULL, mvec = NULL, cvec = NULL,
                                   sd = NULL, Rsq = 0, ncov = 0, alpha = 0.05) {

@@ -43,5 +43,6 @@ Power calculations for two-way balanced analysis of variance contrast test
 }
 \examples{
 mmatrix <- matrix(c(9.3, 8.9, 8.5, 8.7, 8.3, 7.3), nrow = 2, byrow = TRUE)
-pss.anova2way.c.bal(n = 30, mmatrix = mmatrix, cvec = c(1, 0, -1), factor = "b", sd = 2, alpha = 0.05)
+pss.anova2way.c.bal(n = 30, mmatrix = mmatrix, cvec = c(1, 0, -1), factor = "b",
+sd = 2, alpha = 0.05)
 }

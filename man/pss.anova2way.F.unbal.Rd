@@ -41,5 +41,6 @@ mmatrix <- matrix(c(9.3, 8.9, 8.5, 8.7, 8.3, 7.3), nrow = 2, byrow = TRUE)
 pss.anova2way.F.unbal(nmatrix = nmatrix, mmatrix = mmatrix, sd = 2, alpha = 0.05)
 nmatrix <- matrix(c(30, 30, 30, 30, 30, 30), nrow = 2, byrow = TRUE)
 mmatrix <- matrix(c(9.3, 8.9, 8.5, 8.7, 8.3, 7.9), nrow = 2, byrow = TRUE)
-pss.anova2way.F.unbal(nmatrix = nmatrix, mmatrix = mmatrix, sd = 2, Rsq = 0.4^2, ncov = 1, alpha = 0.05)
+pss.anova2way.F.unbal(nmatrix = nmatrix, mmatrix = mmatrix, sd = 2, Rsq = 0.4^2,
+ncov = 1, alpha = 0.05)
 }

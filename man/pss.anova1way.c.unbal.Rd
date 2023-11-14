@@ -19,7 +19,7 @@ pss.anova1way.c.unbal(
 
 \item{mvec}{A vector of group mvec c(mu1, mu2, ...).}
 
-\item{cvec}{A vector of contrast cvecicients c(c1, c2, ...).}
+\item{cvec}{A vector of contrast coefficients c(c1, c2, ...).}
 
 \item{sd}{The estimated standard deviation within each group.}
 
@@ -36,6 +36,8 @@ A list of the arguments (including the computed power).
 Power calculations for one-way unbalanced analysis of variance contrast test
 }
 \examples{
-pss.anova1way.c.unbal(nvec = c(20, 20, 20), mvec = c(5, 10, 12), cvec = c(1, -1, 0), sd = 10, alpha = 0.025)
-pss.anova1way.c.unbal(nvec = c(20, 20, 20), mvec = c(5, 10, 12), cvec = c(1, 0, -1), sd = 10, alpha = 0.025)
+pss.anova1way.c.unbal(nvec = c(20, 20, 20), mvec = c(5, 10, 12), cvec = c(1, -1, 0),
+sd = 10, alpha = 0.025)
+pss.anova1way.c.unbal(nvec = c(20, 20, 20), mvec = c(5, 10, 12), cvec = c(1, 0, -1),
+sd = 10, alpha = 0.025)
 }

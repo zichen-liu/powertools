@@ -7,6 +7,7 @@
 pss.multisite.ate(
   m = NULL,
   m.sd = 0,
+  alloc.ratio = 1,
   J = NULL,
   delta = NULL,
   sd = 1,
@@ -22,6 +23,8 @@ pss.multisite.ate(
 \item{m}{The number of subjects per site or the mean cluster size (if unequal number of participants per site).}
 
 \item{m.sd}{The standard deviation of cluster sizes (provide if unequal number of participants per site); defaults to 0.}
+
+\item{alloc.ratio}{The allocation ratio of intervention/control per site; defaults to 1.}
 
 \item{J}{The number of sites.}
 
@@ -50,6 +53,8 @@ Power for test of average treatment effect
 \examples{
 pss.multisite.ate(m = 20, J = 10, delta = 3, sd = sqrt(40), rho0 = 0.1, rho1 = 0)
 pss.multisite.ate(m = 20, J = 10, delta = 3, sd = sqrt(48), rho0 = 0.095, rho1 = 0.048)
+pss.multisite.ate(m = 20, alloc.ratio = 1.5, J = 10, delta = 0.43, rho0 = 0.095, rho1 = 0.048)
+pss.multisite.ate(m = 10, J = NULL, delta = 0.5, sd = 1, rho0 = 0, rho1 = 0.05, power = 0.8)
 pss.multisite.ate(m = 20, m.sd = 5, J = 10, delta = 3, sd = sqrt(48), rho0 = 0.095, rho1 = 0.048)
 pss.multisite.ate(m = 20, J = 10, delta = 3, sd = sqrt(48), rho0 = 0.095, rho1 = 0.048, Rsq = 0.5^2)
 }
