@@ -33,7 +33,11 @@ pss.multisite.ate <- function (m = NULL, m.sd = 0, alloc.ratio = 1, J = NULL,
     N <- m * J
     df <- J - 1
     d <- delta / (sd * sqrt((1 - Rsq)))
-    RE <- pss.multisite.re(m.mean = m, m.sd = m.sd, rho = rho1)$re
+
+    cv <- m.sd / m
+    K <- (m * rho1) / (1 + (m - 1) * rho1)
+    RE <- 1 - cv^2 * K * (1 - K)
+
     c <- (1 + alloc.ratio)^2 / alloc.ratio
     ncp <- d / sqrt(c * (1 - rho0 + (4 * m / c - 1) * rho1) / N) / RE
     crit <- stats::qt(1 - alpha / sides, df)
@@ -50,20 +54,23 @@ pss.multisite.ate <- function (m = NULL, m.sd = 0, alloc.ratio = 1, J = NULL,
   else if (is.null(m))
     m <- stats::uniroot(function(m) eval(p.body) - power, c(2 + 1e-10, 1e+07))$root
   else if (is.null(alloc.ratio))
-    alloc.ratio <- stats::uniroot(function(alloc.ratio) eval(p.body) - power, c(2/m, 1e+07), extendInt = "yes", maxiter = 5000)$root
+    alloc.ratio <- stats::uniroot(function(alloc.ratio) eval(p.body) - power, c(2/m, 1e+07))$root
   else if (is.null(delta))
     delta <- stats::uniroot(function(delta) eval(p.body) - power, c(1e-07, 1e+07))$root
 
   # Generate output text
-  METHOD <-"Power for test of average treatment effect"
+  METHOD <- "Power for test of average treatment effect"
+  NOTE <- "m is the subjects per site split as intervention, control"
   rho <- c(rho0, rho1)
-  m <- c(m, m * alloc.ratio)
+  c <- m / (alloc.ratio + 1)
+  t <- alloc.ratio * c
+  m <- c(t, c)
 
   # Print output as a power.htest object
-  structure(list(m = m, J = J, delta = delta, sd = sd,
+  structure(list(m = m, m.sd = m.sd, J = J, delta = delta, sd = sd,
                  `rho0, rho1` = rho, Rsq = Rsq,
                  alpha = alpha, power = power,
-                 method = METHOD), class = "power.htest")
+                 method = METHOD, note = NOTE), class = "power.htest")
 
 }
 

@@ -52,8 +52,11 @@ pss.multisite.bin <- function (m = NULL, alloc.ratio = 1, J = NULL,
 
   # Generate output text
   METHOD <-"Number of sites for multisite trials with binary outcomes"
+  NOTE <- "m is the subjects per site split as intervention, control"
   p <- c(pc, pt)
-  m <- c(m, m * alloc.ratio)
+  c <- m / (alloc.ratio + 1)
+  t <- alloc.ratio * c
+  m <- c(t, c)
 
   # Print output as a power.htest object depending on which inputs were given
   structure(list(m = m, J = J, `pc, pt` = p, sigma.u = sigma.u,
