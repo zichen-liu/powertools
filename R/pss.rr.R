@@ -54,8 +54,6 @@ pss.rr <- function (n1 = NULL, n.ratio = 1, p1 = NULL, p2 = NULL, RR0 = 1,
   p <- c(p1, p2)
   RR <- c(p2 / p1, RR0)
 
-  print(n.ratio)
-
   # Print output as a power.htest object
   structure(list(n = n, `p1, p2` = p, `RR, RR0` = RR,
                  alpha = alpha, power = power, sides = sides, note = NOTE,

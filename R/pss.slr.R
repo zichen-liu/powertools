@@ -55,7 +55,7 @@ pss.slr <- function (N = NULL, beta10 = 0, beta1A = NULL,
   # Print output as a power.htest object
   structure(list(N = N, beta10 = beta10, beta1A = beta1A,
                  sd.x.sq = sd.x.sq, sigma.e = sigma.e,
-                 alpha = alpha, power = power,
+                 alpha = alpha, power = power, sides = sides,
                  method = METHOD), class = "power.htest")
 
 }

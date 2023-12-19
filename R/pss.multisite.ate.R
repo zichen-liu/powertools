@@ -53,14 +53,15 @@ pss.multisite.ate <- function (m = NULL, m.sd = 0, alloc.ratio = 1, J = NULL,
     J <- stats::uniroot(function(J) eval(p.body) - power, c(2 + 1e-10, 1e+07))$root
   else if (is.null(m))
     m <- stats::uniroot(function(m) eval(p.body) - power, c(2 + 1e-10, 1e+07))$root
-  else if (is.null(alloc.ratio))
-    alloc.ratio <- stats::uniroot(function(alloc.ratio) eval(p.body) - power, c(2/m, 1e+07))$root
+  else if (is.null(alloc.ratio)) {
+    alloc.ratio <- stats::uniroot(function(alloc.ratio) eval(p.body) - power, c(1 + 1e-10, 1e+07))$root
+  }
   else if (is.null(delta))
     delta <- stats::uniroot(function(delta) eval(p.body) - power, c(1e-07, 1e+07))$root
 
   # Generate output text
   METHOD <- "Power for test of average treatment effect"
-  NOTE <- "m is the subjects per site split as intervention, control"
+  NOTE <- "m is the subjects per site split as interventions, controls"
   rho <- c(rho0, rho1)
   c <- m / (alloc.ratio + 1)
   t <- alloc.ratio * c
