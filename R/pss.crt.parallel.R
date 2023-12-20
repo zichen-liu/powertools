@@ -1,14 +1,10 @@
-#' Power for test of average treatment effect
+#' Power for test of treatment effect in cluster randomized trials
 #'
-#' @param m The number of subjects per site or the mean cluster size (if unequal number of participants per site).
-#' @param m.sd The standard deviation of cluster sizes (provide if unequal number of participants per site); defaults to 0.
-#' @param alloc.ratio The allocation ratio of intervention/control per site; defaults to 1.
-#' @param J The number of sites.
+#' @param m The number of subjects per cluster.
+#' @param J The number of clusters.
 #' @param delta The difference between the intervention and control means in the outcome variable.
 #' @param sd The total standard deviation of the outcome variable; defaults to 1.
-#' @param rho0 The proportion of total variance of the outcome attributable to variation in site-level means.
-#' @param rho1 The proportion of total variance of the outcome attributable to variation in the treatment effect across sites.
-#' @param Rsq The estimated R^2 for regressing the outcome on the covariates; defaults to 0.
+#' @param rho The intraclass correlation coefficient; defaults to 0.
 #' @param alpha The significance level or type 1 error rate; defaults to 0.05.
 #' @param power The specified level of power.
 #' @param sides Either 1 or 2 (default) to specify a one- or two- sided hypothesis test.
@@ -16,30 +12,17 @@
 #' @export
 #'
 #' @examples
-#' pss.multisite.ate(m = 20, J = 10, delta = 3, sd = sqrt(40), rho0 = 0.1, rho1 = 0)
-#' pss.multisite.ate(m = 20, J = 10, delta = 3, sd = sqrt(48), rho0 = 0.095, rho1 = 0.048)
-#' pss.multisite.ate(m = 20, alloc.ratio = 1.5, J = 10, delta = 0.43, rho0 = 0.095, rho1 = 0.048)
-#' pss.multisite.ate(m = 10, J = NULL, delta = 0.5, sd = 1, rho0 = 0, rho1 = 0.05, power = 0.8)
-#' pss.multisite.ate(m = 20, m.sd = 5, J = 10, delta = 3, sd = sqrt(48), rho0 = 0.095, rho1 = 0.048)
-#' pss.multisite.ate(m = 20, J = 10, delta = 3, sd = sqrt(48), rho0 = 0.095, rho1 = 0.048, Rsq = 0.5^2)
+#' pss.crt.parallel(m = 30, J = 16, delta = 0.4, rho = 0.05)
 
-pss.multisite.ate <- function (m = NULL, m.sd = 0, alloc.ratio = 1, J = NULL,
-                               delta = NULL, sd = 1,
-                               rho0 = NULL, rho1 = NULL, Rsq = 0,
-                               alpha = 0.05, power = NULL, sides = 2) {
+pss.crt.parallel <- function (m = NULL, J = NULL, delta = NULL, sd = 1,
+                              rho = 0, alpha = 0.05, power = NULL, sides = 2) {
 
   # Calculate power
   p.body <- quote({
     N <- m * J
-    df <- J - 1
-    d <- delta / (sd * sqrt((1 - Rsq)))
-
-    cv <- m.sd / m
-    K <- (m * rho1) / (1 + (m - 1) * rho1)
-    RE <- 1 - cv^2 * K * (1 - K)
-
-    c <- (1 + alloc.ratio)^2 / alloc.ratio
-    ncp <- d / sqrt(c * (1 - rho0 + (4 * m / c - 1) * rho1) / N) / RE
+    df <- J - 2
+    d <- delta / sd
+    ncp <- d / sqrt(4 * (1 + (m - 1) * rho) / N)
     crit <- stats::qt(1 - alpha / sides, df)
     1 - stats::pt(crit, df, ncp)
   })
@@ -53,24 +36,16 @@ pss.multisite.ate <- function (m = NULL, m.sd = 0, alloc.ratio = 1, J = NULL,
     J <- stats::uniroot(function(J) eval(p.body) - power, c(2 + 1e-10, 1e+07))$root
   else if (is.null(m))
     m <- stats::uniroot(function(m) eval(p.body) - power, c(2 + 1e-10, 1e+07))$root
-  else if (is.null(alloc.ratio)) {
-    alloc.ratio <- stats::uniroot(function(alloc.ratio) eval(p.body) - power, c(1 + 1e-10, 1e+07))$root
-  }
   else if (is.null(delta))
     delta <- stats::uniroot(function(delta) eval(p.body) - power, c(1e-07, 1e+07))$root
 
   # Generate output text
-  METHOD <- "Power for test of average treatment effect"
-  NOTE <- "m is the subjects per site split as interventions, controls"
-  rho <- c(rho0, rho1)
-  c <- m / (alloc.ratio + 1)
-  t <- alloc.ratio * c
-  m <- c(t, c)
+  METHOD <- "Power for test of treatment effect in cluster randomized trials"
+  NOTE <- "m is the subjects per site"
 
   # Print output as a power.htest object
-  structure(list(m = m, m.sd = m.sd, J = J, delta = delta, sd = sd,
-                 `rho0, rho1` = rho, Rsq = Rsq,
-                 alpha = alpha, power = power,
+  structure(list(m = m, J = J, delta = delta, sd = sd,
+                 rho = rho, alpha = alpha, power = power,
                  method = METHOD, note = NOTE), class = "power.htest")
 
 }
