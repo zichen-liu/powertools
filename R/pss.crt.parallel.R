@@ -1,4 +1,4 @@
-#' Power for test of average treatment effect in multisite trials
+#' Power for test of average treatment effect
 #'
 #' @param m The number of subjects per site or the mean cluster size (if unequal number of participants per site).
 #' @param m.sd The standard deviation of cluster sizes (provide if unequal number of participants per site); defaults to 0.
@@ -60,7 +60,7 @@ pss.multisite.ate <- function (m = NULL, m.sd = 0, alloc.ratio = 1, J = NULL,
     delta <- stats::uniroot(function(delta) eval(p.body) - power, c(1e-07, 1e+07))$root
 
   # Generate output text
-  METHOD <- "Power for test of average treatment effect in multisite trials"
+  METHOD <- "Power for test of average treatment effect"
   NOTE <- "m is the subjects per site split as interventions, controls"
   rho <- c(rho0, rho1)
   c <- m / (alloc.ratio + 1)

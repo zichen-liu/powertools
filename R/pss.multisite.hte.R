@@ -1,4 +1,4 @@
-#' Power for test of heterogeneity of treatment effect
+#' Power for test of heterogeneity of treatment effect in multisite trials
 
 #' @param m The number of subjects per site.
 #' @param J The number of sites.
@@ -22,7 +22,7 @@ pss.multisite.hte <- function (m = NULL, J = NULL, ssq.u1 = NULL, ssq.e = NULL,
   power  <- 1 - stats::pf(crit / omega, df1, df2)
 
   # Generate output text
-  METHOD <-"Power for test of heterogeneity of treatment effect"
+  METHOD <-"Power for test of heterogeneity of treatment effect in multisite trials"
 
   # Print output as a power.htest object depending on which inputs were given
   structure(list(m = m, J = J, ssq.u1 = ssq.u1, ssq.e = ssq.e,

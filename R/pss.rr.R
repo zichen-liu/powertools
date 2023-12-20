@@ -13,7 +13,7 @@
 #' @export
 #'
 #' @examples
-#' pss.rr(n1 = NULL, n.ratio = 6, p1 = 0.1, p2 = 0.1 * 2, power = 0.8)
+#' pss.rr(n1 = NULL, n.ratio = 1/6, p1 = 0.1, p2 = 0.1 * 2, power = 0.8)
 
 pss.rr <- function (n1 = NULL, n.ratio = 1, p1 = NULL, p2 = NULL, RR0 = 1,
                     alpha = 0.05, power = NULL, sides = 2) {

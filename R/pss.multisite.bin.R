@@ -1,5 +1,5 @@
-#' Number of sites for multisite trials with binary outcomes
-
+#' Power for multisite trials with binary outcomes
+#'
 #' @param m The number of subjects per site.
 #' @param alloc.ratio The allocation ratio of intervention/control per site; defaults to 1.
 #' @param J The number of sites.
@@ -51,7 +51,7 @@ pss.multisite.bin <- function (m = NULL, alloc.ratio = 1, J = NULL,
     prop.t <- uniroot(function(prop.t) eval(p.body) - power, c(0 + 1e-10, 1 - 1e-10))$root
 
   # Generate output text
-  METHOD <-"Number of sites for multisite trials with binary outcomes"
+  METHOD <-"Power for multisite trials with binary outcomes"
   NOTE <- "m is the subjects per site split as interventions, controls"
   p <- c(pc, pt)
   c <- m / (alloc.ratio + 1)
