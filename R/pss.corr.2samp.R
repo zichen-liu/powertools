@@ -2,8 +2,8 @@
 #'
 #' @param n1 The sample size for group 1.
 #' @param n.ratio The ratio n2/n1 between the sample sizes of two groups; defaults to 1 (equal group sizes).
-#' @param rho1 The correlation coefficient in the first group.
-#' @param rho2 The correlation coefficient in the second group.
+#' @param rho1 The correlation coefficient in group 1.
+#' @param rho2 The correlation coefficient in group 2.
 #' @param alpha The significance level or type 1 error rate; defaults to 0.05.
 #' @param power The specified level of power.
 #' @param sides Either 1 or 2 (default) to specify a one- or two- sided hypothesis test.

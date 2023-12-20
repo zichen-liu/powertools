@@ -7,11 +7,11 @@
 #' @export
 #'
 #' @examples
-#' pss.anova.f.es(means = c(5, 10, 12), sd = 10)
+#' pss.f.es(means = c(5, 10, 12), sd = 10)
 #' mmatrix <- matrix(c(9.3, 8.9, 8.5, 8.7, 8.3, 7.9), nrow = 2, byrow = TRUE)
-#' pss.anova.f.es(means = mmatrix, sd = 2)
+#' pss.f.es(means = mmatrix, sd = 2)
 
-pss.anova.f.es <- function (means = NULL, sd = NULL) {
+pss.f.es <- function (means = NULL, sd = NULL) {
 
   # Check if the arguments are specified correctly
   if(is.null(sd))
