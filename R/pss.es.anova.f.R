@@ -1,4 +1,4 @@
-#' Cohen's f effect size calculation for one- or two- way analysis of variance
+#' Cohen's f effect size calculation for one- or two- way balanced analysis of variance
 #'
 #' @param means A vector or matrix of group means.
 #' @param sd The estimated standard deviation within each group.
@@ -7,11 +7,11 @@
 #' @export
 #'
 #' @examples
-#' pss.f.es(means = c(5, 10, 12), sd = 10)
+#' pss.es.anova.f(means = c(5, 10, 12), sd = 10)
 #' mmatrix <- matrix(c(9.3, 8.9, 8.5, 8.7, 8.3, 7.9), nrow = 2, byrow = TRUE)
-#' pss.f.es(means = mmatrix, sd = 2)
+#' pss.es.anova.f(means = mmatrix, sd = 2)
 
-pss.f.es <- function (means = NULL, sd = NULL) {
+pss.es.anova.f <- function (means = NULL, sd = NULL) {
 
   # Check if the arguments are specified correctly
   if(is.null(sd))

@@ -39,7 +39,7 @@ pss.anova2way.F.bal <- function (n = NULL, mmatrix = NULL, sd = 1,
   powerA <- power; powerB <- power; powerAB <- power
 
   # Get f effect sizes
-  es <- pss.anova.f.es(means = mmatrix, sd = sd)
+  es <- pss.es.anova.f(means = mmatrix, sd = sd)
   fA <- es$fA
   fB <- es$fB
   fAB <- es$fAB

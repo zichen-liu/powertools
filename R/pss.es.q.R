@@ -7,9 +7,9 @@
 #' @export
 #'
 #' @examples
-#' pss.q.es(rho1 = 0.3, rho2 = 0.1)
+#' pss.es.q(rho1 = 0.3, rho2 = 0.1)
 
-pss.q.es <- function (rho1 = NULL, rho2 = NULL) {
+pss.es.q <- function (rho1 = NULL, rho2 = NULL) {
 
   # Check if the arguments are specified correctly
   if(is.null(rho1) | is.null(rho2))

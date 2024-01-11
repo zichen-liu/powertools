@@ -7,9 +7,9 @@
 #' @export
 #'
 #' @examples
-#' pss.h.es(p1 = 0.8, p2 = 0.6)
+#' pss.es.h(p1 = 0.8, p2 = 0.6)
 
-pss.h.es <- function (p1 = NULL, p2 = NULL) {
+pss.es.h <- function (p1 = NULL, p2 = NULL) {
 
   # Check if the arguments are specified correctly
   if(is.null(p1) | is.null(p2))

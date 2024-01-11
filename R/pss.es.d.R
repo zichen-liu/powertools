@@ -7,9 +7,9 @@
 #' @export
 #'
 #' @examples
-#' pss.d.es(delta = 6.5 - 5.7, sd = 0.4)
+#' pss.es.d(delta = 6.5 - 5.7, sd = 0.4)
 
-pss.d.es <- function (delta = NULL, sd = 1) {
+pss.es.d <- function (delta = NULL, sd = 1) {
 
   # Check if the arguments are specified correctly
   if(is.null(delta) | is.null(sd))

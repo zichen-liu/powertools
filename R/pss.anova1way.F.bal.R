@@ -30,7 +30,7 @@ pss.anova1way.F.bal <- function (n = NULL, mvec = NULL, sd = 1, Rsq = 0, ncov = 
     stop("sd must be specified")
 
   # Get f effect size
-  f <- pss.anova.f.es(means = mvec, sd = sd)$fA
+  f <- pss.es.anova.f(means = mvec, sd = sd)$fA
 
   # Calculate df's and ncp
   p.body <- quote({

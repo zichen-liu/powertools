@@ -38,7 +38,7 @@ pss.anova2way.c.bal <- function (n = NULL, mmatrix = NULL, cvec = NULL,
     stop("sd must be specified")
 
   # Get grand mean and marginal means
-  es <- pss.anova.f.es(means = mmatrix, sd = sd)
+  es <- pss.es.anova.f(means = mmatrix, sd = sd)
   mmA <- es$mmA
   mmB <- es$mmB
 

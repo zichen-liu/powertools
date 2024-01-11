@@ -36,7 +36,7 @@ pss.anova2way.se.bal <- function (n = NULL, mmatrix = NULL, cmatrix = NULL,
     stop("sd must be specified")
 
   # See if there is an interaction
-  fAB <- pss.anova.f.es(means = mmatrix, sd = sd)$fAB
+  fAB <- pss.es.anova.f(means = mmatrix, sd = sd)$fAB
   intx <- ifelse(fAB == 0, FALSE, TRUE)
 
   # Get test statistic
