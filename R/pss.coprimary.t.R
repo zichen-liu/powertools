@@ -7,7 +7,7 @@
 #' @param Sigma The covariance matrix of the K outcomes, of dimension K x K.
 #' @param sd A vector of length K of the standard deviations of the K outcomes.
 #' @param rho A vector of length 0.5*K*(K-1) of the correlations among the K outcomes.
-#' @param alpha The significance level or type 1 error rate; defaults to 0.05. A one-sided test is assumed.
+#' @param alpha The significance level or type 1 error rate; defaults to 0.025. A one-sided test is assumed.
 #' @param power The specified level of power.
 #' @param M The number of simulation.
 #' @param min.n Minimum value of n1; used in search for n1 to achieve desired power.
@@ -20,7 +20,7 @@
 #' pss.coprimary.t(K = 2, n1 = 100, delta = c(0.4, 0.5), sd = c(1, 1), rho = 0.3,
 #' alpha = 0.025, power = NULL)
 
-pss.coprimary.t <- function(K, n1 = NULL, n.ratio = 1, delta = NULL, Sigma, sd, rho, alpha = 0.05,
+pss.coprimary.t <- function(K, n1 = NULL, n.ratio = 1, delta = NULL, Sigma, sd, rho, alpha = 0.025,
                             power = NULL, M = 10000, min.n = NULL, max.n = NULL,
                             tol = .Machine$double.eps^0.25, use.uniroot = TRUE)
 {

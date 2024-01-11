@@ -6,9 +6,9 @@
 #' @export
 #'
 #' @examples
-#' pss.sq.es(Rsq = 0.02)
+#' pss.fsq.es(Rsq = 0.02)
 
-pss.sq.es <- function (Rsq = 0.02) {
+pss.fsq.es <- function (Rsq = 0.02) {
 
   # Check if the arguments are specified correctly
   if(is.null(Rsq))
