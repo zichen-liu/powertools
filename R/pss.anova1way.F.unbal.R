@@ -30,7 +30,7 @@ pss.anova1way.F.unbal <- function (nvec = NULL, mvec = NULL, sd = NULL,
     stop("number of sample sizes must equal to the number of groups")
 
   # Get marginal mean
-  es <- pss.anova.f.es(means = mvec, sd = sd)
+  es <- pss.es.anova.f(means = mvec, sd = sd)
   mmA <- es$mmA
 
   # Get f effect size

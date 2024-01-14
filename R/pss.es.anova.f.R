@@ -1,4 +1,4 @@
-#' Cohen's f effect size calculation for one- or two- way balanced analysis of variance
+#' Cohen's f effect size calculation for one- or two- way analysis of variance
 #'
 #' @param means A vector or matrix of group means.
 #' @param sd The estimated standard deviation within each group.

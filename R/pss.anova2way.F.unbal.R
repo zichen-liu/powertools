@@ -40,7 +40,7 @@ pss.anova2way.F.unbal <- function (nmatrix = NULL, mmatrix = NULL, sd = NULL,
     stop("number of sample sizes must equal to the number of groups")
 
   # Get marginal means
-  es <- pss.anova.f.es(means = mmatrix, sd = sd)
+  es <- pss.es.anova.f(means = mmatrix, sd = sd)
   mmA <- es$mmA
   mmB <- es$mmB
   ints <- es$ints
