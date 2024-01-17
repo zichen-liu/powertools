@@ -70,7 +70,7 @@ pss.multisite.ate <- function (m = NULL, m.sd = 0, alloc.ratio = 1, J = NULL,
   # Print output as a power.htest object
   structure(list(m = m, m.sd = m.sd, J = J, delta = delta, sd = sd,
                  `rho0, rho1` = rho, Rsq = Rsq,
-                 alpha = alpha, power = power,
+                 alpha = alpha, power = power, sides = sides,
                  method = METHOD, note = NOTE), class = "power.htest")
 
 }
