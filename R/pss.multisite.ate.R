@@ -39,7 +39,7 @@ pss.multisite.ate <- function (m = NULL, m.sd = 0, alloc.ratio = 1, J = NULL,
     RE <- 1 - cv^2 * K * (1 - K)
 
     c <- (1 + alloc.ratio)^2 / alloc.ratio
-    ncp <- d / sqrt(c * (1 - rho0 + (4 * m / c - 1) * rho1) / N) / RE
+    ncp <- d / sqrt(c * (1 - rho0 + (4 * m / c - 1) * rho1) / N / RE)
     crit <- stats::qt(1 - alpha / sides, df)
     1 - stats::pt(crit, df, ncp)
   })
@@ -53,9 +53,9 @@ pss.multisite.ate <- function (m = NULL, m.sd = 0, alloc.ratio = 1, J = NULL,
     J <- stats::uniroot(function(J) eval(p.body) - power, c(2 + 1e-10, 1e+07))$root
   else if (is.null(m))
     m <- stats::uniroot(function(m) eval(p.body) - power, c(2 + 1e-10, 1e+07))$root
-  else if (is.null(alloc.ratio)) {
-    alloc.ratio <- stats::uniroot(function(alloc.ratio) eval(p.body) - power, c(1 + 1e-10, 1e+07))$root
-  }
+  # else if (is.null(alloc.ratio)) {
+  #  alloc.ratio <- stats::uniroot(function(alloc.ratio) eval(p.body) - power, c(1 + 1e-10, 1e+07))$root
+  # }
   else if (is.null(delta))
     delta <- stats::uniroot(function(delta) eval(p.body) - power, c(1e-07, 1e+07))$root
 
@@ -65,13 +65,16 @@ pss.multisite.ate <- function (m = NULL, m.sd = 0, alloc.ratio = 1, J = NULL,
   rho <- c(rho0, rho1)
   c <- m / (alloc.ratio + 1)
   t <- alloc.ratio * c
-  m <- c(t, c)
+  m <- ifelse(m.sd == 0, c(t, c), paste0(t, ", ",  c, ", (sd = ", m.sd, ")"))
+
+  out <- list(m = m, J = J, delta = delta, sd = sd,
+              `rho0, rho1` = rho, Rsq = Rsq,
+              alpha = alpha, power = power, sides = sides,
+              method = METHOD, note = NOTE)
 
   # Print output as a power.htest object
-  structure(list(m = m, m.sd = m.sd, J = J, delta = delta, sd = sd,
-                 `rho0, rho1` = rho, Rsq = Rsq,
-                 alpha = alpha, power = power, sides = sides,
-                 method = METHOD, note = NOTE), class = "power.htest")
+  if (Rsq < 0.00000000001) out <- out[!names(out) %in% c("Rsq")]
+  structure(out, class = "power.htest")
 
 }
 
