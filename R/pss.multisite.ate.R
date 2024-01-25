@@ -6,8 +6,8 @@
 #' @param J The number of sites.
 #' @param delta The difference between the intervention and control means in the outcome variable.
 #' @param sd The total standard deviation of the outcome variable; defaults to 1.
-#' @param rho0 The proportion of total variance of the outcome attributable to variation in site-level means.
-#' @param rho1 The proportion of total variance of the outcome attributable to variation in the treatment effect across sites.
+#' @param icc0 The proportion of total variance of the outcome attributable to variation in site-level means.
+#' @param icc1 The proportion of total variance of the outcome attributable to variation in the treatment effect across sites.
 #' @param Rsq The estimated R^2 for regressing the outcome on the covariates; defaults to 0.
 #' @param alpha The significance level or type 1 error rate; defaults to 0.05.
 #' @param power The specified level of power.
@@ -16,16 +16,16 @@
 #' @export
 #'
 #' @examples
-#' pss.multisite.ate(m = 20, J = 10, delta = 3, sd = sqrt(40), rho0 = 0.1, rho1 = 0)
-#' pss.multisite.ate(m = 20, J = 10, delta = 3, sd = sqrt(48), rho0 = 0.095, rho1 = 0.048)
-#' pss.multisite.ate(m = 20, alloc.ratio = 1.5, J = 10, delta = 0.43, rho0 = 0.095, rho1 = 0.048)
-#' pss.multisite.ate(m = 10, J = NULL, delta = 0.5, sd = 1, rho0 = 0, rho1 = 0.05, power = 0.8)
-#' pss.multisite.ate(m = 20, m.sd = 5, J = 10, delta = 3, sd = sqrt(48), rho0 = 0.095, rho1 = 0.048)
-#' pss.multisite.ate(m = 20, J = 10, delta = 3, sd = sqrt(48), rho0 = 0.095, rho1 = 0.048, Rsq = 0.5^2)
+#' pss.multisite.ate(m = 20, J = 10, delta = 3, sd = sqrt(40), icc0 = 0.1, icc1 = 0)
+#' pss.multisite.ate(m = 20, J = 10, delta = 3, sd = sqrt(48), icc0 = 0.095, icc1 = 0.048)
+#' pss.multisite.ate(m = 20, alloc.ratio = 1.5, J = 10, delta = 0.43, icc0 = 0.095, icc1 = 0.048)
+#' pss.multisite.ate(m = 10, J = NULL, delta = 0.5, sd = 1, icc0 = 0, icc1 = 0.05, power = 0.8)
+#' pss.multisite.ate(m = 20, m.sd = 5, J = 10, delta = 3, sd = sqrt(48), icc0 = 0.095, icc1 = 0.048)
+#' pss.multisite.ate(m = 20, J = 10, delta = 3, sd = sqrt(48), icc0 = 0.095, icc1 = 0.048, Rsq = 0.5^2)
 
 pss.multisite.ate <- function (m = NULL, m.sd = 0, alloc.ratio = 1, J = NULL,
                                delta = NULL, sd = 1,
-                               rho0 = NULL, rho1 = NULL, Rsq = 0,
+                               icc0 = NULL, icc1 = NULL, Rsq = 0,
                                alpha = 0.05, power = NULL, sides = 2) {
 
   # Calculate power
@@ -35,11 +35,11 @@ pss.multisite.ate <- function (m = NULL, m.sd = 0, alloc.ratio = 1, J = NULL,
     d <- delta / (sd * sqrt((1 - Rsq)))
 
     cv <- m.sd / m
-    K <- (m * rho1) / (1 + (m - 1) * rho1)
+    K <- (m * icc1) / (1 + (m - 1) * icc1)
     RE <- 1 - cv^2 * K * (1 - K)
 
     c <- (1 + alloc.ratio)^2 / alloc.ratio
-    ncp <- d / sqrt(c * (1 - rho0 + (4 * m / c - 1) * rho1) / N / RE)
+    ncp <- d / sqrt(c * (1 - icc0 + (4 * m / c - 1) * icc1) / N / RE)
     crit <- stats::qt(1 - alpha / sides, df)
     1 - stats::pt(crit, df, ncp)
   })
@@ -62,13 +62,13 @@ pss.multisite.ate <- function (m = NULL, m.sd = 0, alloc.ratio = 1, J = NULL,
   # Generate output text
   METHOD <- "Power for test of average treatment effect in multisite trials"
   NOTE <- "m is the subjects per site split as interventions, controls"
-  rho <- c(rho0, rho1)
+  icc <- c(icc0, icc1)
   c <- m / (alloc.ratio + 1)
   t <- alloc.ratio * c
-  m <- ifelse(m.sd == 0, c(t, c), paste0(t, ", ",  c, ", (sd = ", m.sd, ")"))
+  m <- ifelse(m.sd == 0, paste0(t, ", ", c), paste0(t, ", ",  c, " (sd = ", m.sd, ")"))
 
   out <- list(m = m, J = J, delta = delta, sd = sd,
-              `rho0, rho1` = rho, Rsq = Rsq,
+              `icc0, icc1` = icc, Rsq = Rsq,
               alpha = alpha, power = power, sides = sides,
               method = METHOD, note = NOTE)
 

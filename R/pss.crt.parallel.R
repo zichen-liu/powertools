@@ -8,9 +8,9 @@
 #' @param sd The total standard deviation of the outcome variable; defaults to 1.
 #' @param icc1 The intraclass correlation coefficient in arm 1; defaults to 0.
 #' @param icc2 The intraclass correlation coefficient in arm 2; defaults to 0.
-#' @param rhoBsq The estimated proportion of total variance explained by cluster-level covariates; defaults to 0.
-#' @param rhoWsq The estimated proportion of total variance explained by individual-level covariates; defaults to 0.
-#' @param q The number of cluster-level and individual-level covariates; defaults to 0.
+#' @param RsqB The estimated proportion of total variance explained by cluster-level covariates; defaults to 0.
+#' @param RsqW The estimated proportion of total variance explained by individual-level covariates; defaults to 0.
+#' @param ncov The number of cluster-level and individual-level covariates; defaults to 0.
 #' @param alpha The significance level or type 1 error rate; defaults to 0.05.
 #' @param power The specified level of power.
 #' @param sides Either 1 or 2 (default) to specify a one- or two- sided hypothesis test.
@@ -21,18 +21,18 @@
 #' pss.crt.parallel(m = 30, J1 = 8, delta = 0.4, icc1 = 0.05, icc2 = 0.05)
 #' pss.crt.parallel(m = NULL, J1 = 6, delta = 0.5, icc1 = 0.05, icc2 = 0.05, power = 0.8)
 #' pss.crt.parallel(m = 25, m.sd = 15, J1 = NULL, delta = 0.3, icc1 = 0.05, icc2 = 0.05, power = 0.8)
-#' pss.crt.parallel(m = 20, J1 = 15, delta = 0.3, icc1 = 0.05, icc2 = 0.05, rhoBsq = 0.1, q = 1, sides = 1)
-#' pss.crt.parallel(m = 20, J1 = 15, delta = 0.3, icc1 = 0.05, icc2 = 0.05, rhoWsq = 0.5^2, q = 1, sides = 1)
+#' pss.crt.parallel(m = 20, J1 = 15, delta = 0.3, icc1 = 0.05, icc2 = 0.05, RsqB = 0.1, ncov = 1, sides = 1)
+#' pss.crt.parallel(m = 20, J1 = 15, delta = 0.3, icc1 = 0.05, icc2 = 0.05, RsqW = 0.5^2, ncov = 0, sides = 1)
 
 pss.crt.parallel <- function (m = NULL, m.sd = 0, J1 = NULL, J.ratio = 1, delta = NULL, sd = 1,
-                              icc1 = 0, icc2 = 0, Rsq = 0, q = 0, rhoBsq = 0, rhoWsq = 0,
+                              icc1 = 0, icc2 = 0, ncov = 0, RsqB = 0, RsqW = 0,
                               alpha = 0.05, power = NULL, sides = 2) {
 
   # Calculate power
   p.body <- quote({
     J <- J1 + J1 * J.ratio
     N <- m * J
-    df <- J - 2 - q
+    df <- J - 2 - ncov
     d <- delta / sd
 
     cv <- m.sd / m
@@ -40,10 +40,10 @@ pss.crt.parallel <- function (m = NULL, m.sd = 0, J1 = NULL, J.ratio = 1, delta 
     RE <- 1 - cv^2 * K * (1 - K)
 
     w <- 1 / (1 + J.ratio)
-    de1 <- 1 + (m - 1) * (1 - rhoBsq) * icc1 -
-           m * rhoWsq * (1 - 2 * icc1) / (m - 1)
-    de2 <- 1 + (m - 1) * (1 - rhoBsq) * icc2 -
-           m * rhoWsq * (1 - 2 * icc2) / (m - 1)
+    de1 <- 1 + (m - 1) * (1 - RsqB) * icc1 -
+           m * RsqW * (1 - 2 * icc1) / (m - 1)
+    de2 <- 1 + (m - 1) * (1 - RsqB) * icc2 -
+           m * RsqW * (1 - 2 * icc2) / (m - 1)
     detot <- de1 / w + de2 / (1 - w)
     ncp <- d / sqrt(detot / N / RE)
     crit <- stats::qt(1 - alpha / sides, df)
@@ -68,14 +68,16 @@ pss.crt.parallel <- function (m = NULL, m.sd = 0, J1 = NULL, J.ratio = 1, delta 
   m <- ifelse(m.sd == 0, m, paste0(m, " (sd = ", m.sd, ")"))
   J <- c(J1, J1 * J.ratio)
   icc <- c(icc1, icc2)
-  rho <- c(rhoBsq, rhoWsq)
+  Rsq <- c(RsqB, RsqW)
   out <- list(m = m, J = J, delta = delta, sd = sd, icc = icc,
-              q = q, `rhoBsq, rhoWsq` = rho,
+              ncov = ncov, `RsqB, RsqW` = Rsq,
               alpha = alpha, power = power, sides = sides,
               method = METHOD, note = NOTE)
+  print(Rsq)
 
   # Print output as a power.htest object
-  if (q < 1) out <- out[!names(out) %in% c("q", "rhoBsq, rhoWsq")]
+  if (RsqB < 0.0000000001 & RsqW < 0.0000000001)
+    out <- out[!names(out) %in% c("ncov", "RsqB, RsqW")]
   structure(out, class = "power.htest")
 
 }
