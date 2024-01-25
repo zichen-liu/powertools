@@ -73,7 +73,6 @@ pss.crt.parallel <- function (m = NULL, m.sd = 0, J1 = NULL, J.ratio = 1, delta 
               ncov = ncov, `RsqB, RsqW` = Rsq,
               alpha = alpha, power = power, sides = sides,
               method = METHOD, note = NOTE)
-  print(Rsq)
 
   # Print output as a power.htest object
   if (RsqB < 0.0000000001 & RsqW < 0.0000000001)
