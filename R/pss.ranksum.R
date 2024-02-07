@@ -29,15 +29,15 @@ pss.ranksum <- function (n1 = NULL, n.ratio = 1, p = NULL,
     stats::pnorm(stats::qnorm(alpha / sides) + sqrt(12 * n1 * n.ratio / (1 + n.ratio)) * abs(p - 0.5))
   })
 
-  # Use uniroot function to calculate missing argument
+  # Use stats::uniroot function to calculate missing argument
   if (is.null(power))
     power <- eval(p.body)
   else if (is.null(n1))
-    n1 <- uniroot(function(n1) eval(p.body) - power, c(2, 1e+07))$root
+    n1 <- stats::uniroot(function(n1) eval(p.body) - power, c(2, 1e+07))$root
   else if (is.null(n.ratio))
-    n.ratio <- uniroot(function(n.ratio) eval(p.body) - power, c(2/n1, 1e+07))$root
+    n.ratio <- stats::uniroot(function(n.ratio) eval(p.body) - power, c(2/n1, 1e+07))$root
   else if (is.null(alpha))
-    alpha <- uniroot(function(alpha) eval(p.body) - power, c(1e-10, 1 - 1e-10))$root
+    alpha <- stats::uniroot(function(alpha) eval(p.body) - power, c(1e-10, 1 - 1e-10))$root
   else stop("internal error")
 
   # Generate output text

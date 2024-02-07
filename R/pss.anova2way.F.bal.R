@@ -71,20 +71,20 @@ pss.anova2way.F.bal <- function (n = NULL, mmatrix = NULL, sd = 1,
               df1, df2, LambdaAB, lower.tail = FALSE)
   })
 
-  # Use uniroot function to calculate missing argument
+  # Use stats::uniroot function to calculate missing argument
   if (is.null(power)) {
     powerA <- round(eval(p.body.A), 4)
     powerB <- round(eval(p.body.B), 4)
     if (intx) powerAB <- round(eval(p.body.AB), 4)
   }
   else if (is.null(n)){
-    nA <- round(uniroot(function(n) eval(p.body.A) - power, c(2, 1e+05))$root, 4)
-    nB <- round(uniroot(function(n) eval(p.body.B) - power, c(2, 1e+05))$root, 4)
+    nA <- round(stats::uniroot(function(n) eval(p.body.A) - power, c(2, 1e+05))$root, 4)
+    nB <- round(stats::uniroot(function(n) eval(p.body.B) - power, c(2, 1e+05))$root, 4)
     if (intx)
-      nAB <- round(uniroot(function(n) eval(p.body.AB) - power, c(2, 1e+05))$root, 4)
+      nAB <- round(stats::uniroot(function(n) eval(p.body.AB) - power, c(2, 1e+05))$root, 4)
   }
   else if (is.null(alpha))
-    alpha <- uniroot(function(alpha) eval(p.body.A) - power, c(1e-10, 1 - 1e-10))$root
+    alpha <- stats::uniroot(function(alpha) eval(p.body.A) - power, c(1e-10, 1 - 1e-10))$root
   else stop("internal error", domain = NA)
 
   # Generate output text

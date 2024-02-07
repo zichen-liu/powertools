@@ -34,15 +34,15 @@ pss.prop.test.equiv <- function (n1 = NULL, n.ratio = 1, p1 = NULL, p2 = NULL, d
     var / n.ratio / (delta - d)^2)
   })
 
-  # Use uniroot function to calculate missing argument
+  # Use stats::uniroot function to calculate missing argument
   if (is.null(n1))
     n1 <- eval(p.body)
   else if (is.null(power))
-    power <- uniroot(function(power) eval(p.body) - n1, c(1e-05, 0.99999))$root
+    power <- stats::uniroot(function(power) eval(p.body) - n1, c(1e-05, 0.99999))$root
   else if (is.null(n.ratio))
-    n.ratio <- uniroot(function(n.ratio) eval(p.body) - n1, c(2/n1, 1e+07))$root
+    n.ratio <- stats::uniroot(function(n.ratio) eval(p.body) - n1, c(2/n1, 1e+07))$root
   else if (is.null(alpha))
-    alpha <- uniroot(function(alpha) eval(p.body) - n1, c(1e-10, 1 - 1e-10))$root
+    alpha <- stats::uniroot(function(alpha) eval(p.body) - n1, c(1e-10, 1 - 1e-10))$root
   else stop("internal error", domain = NA)
 
   # Generate output text

@@ -41,13 +41,13 @@ pss.anova1way.F.bal <- function (n = NULL, mvec = NULL, sd = 1, Rsq = 0, ncov = 
               df1, df2, Lambda, lower.tail = FALSE)
   })
 
-  # Use uniroot function to calculate missing argument
+  # Use stats::uniroot function to calculate missing argument
   if (is.null(power))
     power <- eval(p.body)
   else if (is.null(n))
-    n <- uniroot(function(n) eval(p.body) - power, c(2, 1e+05))$root
+    n <- stats::uniroot(function(n) eval(p.body) - power, c(2, 1e+05))$root
   else if (is.null(alpha))
-    alpha <- uniroot(function(alpha) eval(p.body) - power, c(1e-10, 1 - 1e-10))$root
+    alpha <- stats::uniroot(function(alpha) eval(p.body) - power, c(1e-10, 1 - 1e-10))$root
   else stop("internal error", domain = NA)
 
   # Generate output text

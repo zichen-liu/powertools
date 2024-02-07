@@ -99,7 +99,7 @@ pss.coprimary.z <- function(K, n1 = NULL, n.ratio = 1, delta = NULL, Sigma, sd, 
       crit.vals <- z.alpha - sqrt(n1*(n.ratio/(1+n.ratio)))*std.effect
       mvtnorm::pmvnorm(upper = -crit.vals, sigma = Sigma.cor) - power
     }
-    n1 <- uniroot(ssize.fct, c(2, 1e+05), tol = tol, extendInt = "yes",
+    n1 <- stats::uniroot(ssize.fct, c(2, 1e+05), tol = tol, extendInt = "yes",
                   n.ratio = n.ratio, std.effect = std.effect, z.alpha = z.alpha, Sigma.cor = Sigma.cor,
                   power = power)$root
   }

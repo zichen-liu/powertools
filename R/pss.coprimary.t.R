@@ -141,7 +141,7 @@ pss.coprimary.t <- function(K, n1 = NULL, n.ratio = 1, delta = NULL, Sigma, sd, 
       mean(probs)
     }
     if(use.uniroot){
-      n1 <- uniroot(ssize.fct, c(min.n, max.n), tol = tol, extendInt = "yes", n.ratio = n.ratio,
+      n1 <- stats::uniroot(ssize.fct, c(min.n, max.n), tol = tol, extendInt = "yes", n.ratio = n.ratio,
                     std.effect = std.effect, Sigma.cor = Sigma.cor, power = power, M = M,
                     verbose = TRUE)$root
     }else{

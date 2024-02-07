@@ -50,15 +50,15 @@ pss.t.test.paired <- function (N = NULL, delta = NULL,
                 1, df2, ncp^2, lower.tail = FALSE)
     })
 
-  # Use uniroot function to calculate missing argument
+  # Use stats::uniroot function to calculate missing argument
   if (is.null(power))
     power <- eval(p.body)
   else if (is.null(N))
-    N <- uniroot(function(N) eval(p.body) - power, c(2, 1e+07))$root
+    N <- stats::uniroot(function(N) eval(p.body) - power, c(2, 1e+07))$root
   else if (is.null(delta))
-    delta <- uniroot(function(delta) eval(p.body) - power,  c(1e-07, 1e+07))$root
+    delta <- stats::uniroot(function(delta) eval(p.body) - power,  c(1e-07, 1e+07))$root
   else if (is.null(alpha))
-    alpha <- uniroot(function(alpha) eval(p.body) - power, c(1e-10, 1 - 1e-10))$root
+    alpha <- stats::uniroot(function(alpha) eval(p.body) - power, c(1e-10, 1 - 1e-10))$root
   else stop("internal error")
 
   # Generate output text

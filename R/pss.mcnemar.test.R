@@ -42,13 +42,13 @@ pss.mcnemar.test <- function (N = NULL, p1 = NULL, p2 = NULL, phi = NULL,
                   stats::qnorm(alpha / sides, lower.tail = FALSE) *
                   sqrt(psi + 1)) / sqrt((psi + 1) - paid * (psi - 1)^2)))
 
-  # Use uniroot function to calculate missing argument
+  # Use stats::uniroot function to calculate missing argument
   if (is.null(power))
     power <- eval(p.body)
   else if (is.null(N))
-    N <- uniroot(function(N) eval(p.body) - power, c(ceiling(log(alpha) / log(0.5)), 1e+07))$root
+    N <- stats::uniroot(function(N) eval(p.body) - power, c(ceiling(log(alpha) / log(0.5)), 1e+07))$root
   else if (is.null(alpha))
-    alpha <- uniroot(function(alpha) eval(p.body) - power, c(1e-10, 1 - 1e-10))$root
+    alpha <- stats::uniroot(function(alpha) eval(p.body) - power, c(1e-10, 1 - 1e-10))$root
   else stop("internal error", domain = NA)
 
   # Generate output text

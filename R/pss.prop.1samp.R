@@ -31,13 +31,13 @@ pss.prop.1samp <- function (N = NULL, p0 = NULL, pA = NULL, alpha = 0.05,
                   stats::qnorm(alpha / sides, lower = FALSE)))
   })
 
-  # Use uniroot function to calculate missing argument
+  # Use stats::uniroot function to calculate missing argument
   if (is.null(power))
     power <- eval(p.body)
   else if (is.null(N))
-    N <- uniroot(function(N) eval(p.body) - power, c(2 + 1e-10, 1e+09))$root
+    N <- stats::uniroot(function(N) eval(p.body) - power, c(2 + 1e-10, 1e+09))$root
   else if (is.null(alpha))
-    alpha <- uniroot(function(alpha) eval(p.body) - power, c(1e-10, 1 - 1e-10))$root
+    alpha <- stats::uniroot(function(alpha) eval(p.body) - power, c(1e-10, 1 - 1e-10))$root
   else stop("internal error", domain = NA)
 
   # Generate output text

@@ -9,7 +9,6 @@
 #' @param sides Either 1 or 2 (default) to specify a one- or two- sided hypothesis test.
 #'
 #' @return A list of the arguments (including the computed one).
-#' @import psych
 #' @export
 #'
 #' @examples
@@ -28,26 +27,30 @@ pss.corr.2samp <- function (n1 = NULL, n.ratio = 1, rho1 = NULL, rho2 = NULL,
   if (!is.null(n1) && any(n1 < 4))
     stop("number of observations must be at least 4")
 
+  fisherz <- function(rho){
+    0.5 * log((1 + rho)/(1 - rho))
+  }
+
   # Calculate power
   p.body <- quote({
     za <- stats::qnorm(1 - alpha / sides)
-    f1 <- psych::fisherz(rho1) + rho1 / (2 * (n1 - 1))
-    f2 <- psych::fisherz(rho2) + rho2 / (2 * (n1 * n.ratio - 1))
+    f1 <- fisherz(rho1) + rho1 / (2 * (n1 - 1))
+    f2 <- fisherz(rho2) + rho2 / (2 * (n1 * n.ratio - 1))
     DeltaA <- abs(f1 - f2)
     lambda <- DeltaA / sqrt(1 / (n1 - 3) + 1 / (n1 * n.ratio - 3))
 
     stats::pnorm(lambda - za)
   })
 
-  # Use uniroot function to calculate missing argument
+  # Use stats::uniroot function to calculate missing argument
   if (is.null(power))
     power <- eval(p.body)
   else if (is.null(n1))
-    n1 <- uniroot(function(n1) eval(p.body) - power, c(4 + 1e-10, 1e+09))$root
+    n1 <- stats::uniroot(function(n1) eval(p.body) - power, c(4 + 1e-10, 1e+09))$root
   else if (is.null(n.ratio))
-    n.ratio <- uniroot(function(n.ratio) eval(p.body) - power, c(4/n1, 1e+07))$root
+    n.ratio <- stats::uniroot(function(n.ratio) eval(p.body) - power, c(4/n1, 1e+07))$root
   else if (is.null(alpha))
-    alpha <- uniroot(function(alpha) eval(p.body) - power, c(1e-7, 1 - 1e-7))$root
+    alpha <- stats::uniroot(function(alpha) eval(p.body) - power, c(1e-7, 1 - 1e-7))$root
   else stop("internal error")
 
   # Generate output text

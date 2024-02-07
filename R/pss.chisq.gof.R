@@ -35,13 +35,13 @@ pss.chisq.gof <- function (p0vec = NULL, p1vec = NULL,
                   df, N * es^2, lower = FALSE)
   })
 
-  # Use uniroot function to calculate missing argument
+  # Use stats::uniroot function to calculate missing argument
   if (is.null(power))
     power <- eval(p.body)
   else if (is.null(N))
-    N <- uniroot(function(n) eval(p.body) - power, c(1 + 1e-10, 1e+09))$root
+    N <- stats::uniroot(function(n) eval(p.body) - power, c(1 + 1e-10, 1e+09))$root
   else if (is.null(alpha))
-    alpha <- uniroot(function(sig.level) eval(p.body) - power, c(1e-10, 1 - 1e-10))$root
+    alpha <- stats::uniroot(function(sig.level) eval(p.body) - power, c(1e-10, 1 - 1e-10))$root
   else stop("internal error")
 
   # Generate output text

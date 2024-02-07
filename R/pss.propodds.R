@@ -6,11 +6,12 @@
 #' @param n.ratio The ratio n2/n1 between the sample sizes of two groups; defaults to 1 (equal group sizes).
 #' @param alpha The significance level or type 1 error rate; defaults to 0.05.
 #' @param power The specified level of power; defaults to 0.8.
-#'
+#' @import Hmisc
 #' @return A list of the arguments (including the computed one).
 #' @export
 #'
 #' @examples
+#' library(Hmisc)
 #' pC <- c(0.2, 0.5, 0.2, 0.1)
 #' pss.propodds(pC = pC, OR = 2.5, n1 = 65, n.ratio = 1, alpha = 0.05)
 

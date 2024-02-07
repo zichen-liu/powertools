@@ -42,9 +42,9 @@ pss.ci.mean <- function (N = NULL, halfwidth = NULL, sd = 1,
   if (is.null(power))
     power <- eval(p.body)
   else if (is.null(N))
-    N <- uniroot(function(N) eval(p.body) - power, c(2, 1e+07))$root
+    N <- stats::uniroot(function(N) eval(p.body) - power, c(2, 1e+07))$root
   else if (is.null(alpha))
-    alpha <- uniroot(function(alpha) eval(p.body) - power, c(1e-10, 1 - 1e-10))$root
+    alpha <- stats::uniroot(function(alpha) eval(p.body) - power, c(1e-10, 1 - 1e-10))$root
   else stop("internal error")
 
   # Generate output text
