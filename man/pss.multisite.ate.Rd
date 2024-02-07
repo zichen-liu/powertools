@@ -2,7 +2,7 @@
 % Please edit documentation in R/pss.multisite.ate.R
 \name{pss.multisite.ate}
 \alias{pss.multisite.ate}
-\title{Power for test of average treatment effect}
+\title{Power for test of average treatment effect in multisite trials}
 \usage{
 pss.multisite.ate(
   m = NULL,
@@ -11,8 +11,8 @@ pss.multisite.ate(
   J = NULL,
   delta = NULL,
   sd = 1,
-  rho0 = NULL,
-  rho1 = NULL,
+  icc0 = NULL,
+  icc1 = NULL,
   Rsq = 0,
   alpha = 0.05,
   power = NULL,
@@ -32,9 +32,9 @@ pss.multisite.ate(
 
 \item{sd}{The total standard deviation of the outcome variable; defaults to 1.}
 
-\item{rho0}{The proportion of total variance of the outcome attributable to variation in site-level means.}
+\item{icc0}{The proportion of total variance of the outcome attributable to variation in site-level means.}
 
-\item{rho1}{The proportion of total variance of the outcome attributable to variation in the treatment effect across sites.}
+\item{icc1}{The proportion of total variance of the outcome attributable to variation in the treatment effect across sites.}
 
 \item{Rsq}{The estimated R^2 for regressing the outcome on the covariates; defaults to 0.}
 
@@ -48,13 +48,13 @@ pss.multisite.ate(
 A list of the arguments (including the computed one).
 }
 \description{
-Power for test of average treatment effect
+Power for test of average treatment effect in multisite trials
 }
 \examples{
-pss.multisite.ate(m = 20, J = 10, delta = 3, sd = sqrt(40), rho0 = 0.1, rho1 = 0)
-pss.multisite.ate(m = 20, J = 10, delta = 3, sd = sqrt(48), rho0 = 0.095, rho1 = 0.048)
-pss.multisite.ate(m = 20, alloc.ratio = 1.5, J = 10, delta = 0.43, rho0 = 0.095, rho1 = 0.048)
-pss.multisite.ate(m = 10, J = NULL, delta = 0.5, sd = 1, rho0 = 0, rho1 = 0.05, power = 0.8)
-pss.multisite.ate(m = 20, m.sd = 5, J = 10, delta = 3, sd = sqrt(48), rho0 = 0.095, rho1 = 0.048)
-pss.multisite.ate(m = 20, J = 10, delta = 3, sd = sqrt(48), rho0 = 0.095, rho1 = 0.048, Rsq = 0.5^2)
+pss.multisite.ate(m = 20, J = 10, delta = 3, sd = sqrt(40), icc0 = 0.1, icc1 = 0)
+pss.multisite.ate(m = 20, J = 10, delta = 3, sd = sqrt(48), icc0 = 0.095, icc1 = 0.048)
+pss.multisite.ate(m = 20, alloc.ratio = 1.5, J = 10, delta = 0.43, icc0 = 0.095, icc1 = 0.048)
+pss.multisite.ate(m = 10, J = NULL, delta = 0.5, sd = 1, icc0 = 0, icc1 = 0.05, power = 0.8)
+pss.multisite.ate(m = 20, m.sd = 5, J = 10, delta = 3, sd = sqrt(48), icc0 = 0.095, icc1 = 0.048)
+pss.multisite.ate(m = 20, J = 10, delta = 3, sd = sqrt(48), icc0 = 0.095, icc1 = 0.048, Rsq = 0.5^2)
 }

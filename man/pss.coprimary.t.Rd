@@ -12,7 +12,7 @@ pss.coprimary.t(
   Sigma,
   sd,
   rho,
-  alpha = 0.05,
+  alpha = 0.025,
   power = NULL,
   M = 10000,
   min.n = NULL,
@@ -36,7 +36,7 @@ pss.coprimary.t(
 
 \item{rho}{A vector of length 0.5*K*(K-1) of the correlations among the K outcomes.}
 
-\item{alpha}{The significance level or type 1 error rate; defaults to 0.05. A one-sided test is assumed.}
+\item{alpha}{The significance level or type 1 error rate; defaults to 0.025. A one-sided test is assumed.}
 
 \item{power}{The specified level of power.}
 

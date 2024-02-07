@@ -14,11 +14,11 @@
 #' @export
 #'
 #' @examples
-#' pss.altprimary.z(K = 2, n1 = 100, delta = c(0.4, 0.5), sd = c(1, 1), rho = 0.3,
+#' pss.altprimary(K = 2, n1 = 100, delta = c(0.4, 0.5), sd = c(1, 1), rho = 0.3,
 #' alpha = 0.025, power = NULL)
 
-pss.altprimary.z <- function(K, n1 = NULL, n.ratio = 1, delta = NULL, Sigma, sd, rho, alpha = 0.025,
-                                 power = NULL, tol = .Machine$double.eps^0.25){
+pss.altprimary <- function(K, n1 = NULL, n.ratio = 1, delta = NULL, Sigma, sd, rho, alpha = 0.025,
+                             power = NULL, tol = .Machine$double.eps^0.25){
   ## check of input
 
   if(missing(K))
@@ -91,7 +91,7 @@ pss.altprimary.z <- function(K, n1 = NULL, n.ratio = 1, delta = NULL, Sigma, sd,
     std.effect <- delta/sqrt(diag(Sigma))
     z.alpha <- qnorm(1-alpha)
     crit.vals <- z.alpha - sqrt(n1*(n.ratio/(1+n.ratio)))*std.effect
-   power <- 1-mvtnorm::pmvnorm(lower = -crit.vals, sigma = Sigma.cor)
+    power <- 1-mvtnorm::pmvnorm(lower = -crit.vals, sigma = Sigma.cor)
   }
   if(is.null(n1)){
     std.effect <- delta/sqrt(diag(Sigma))
@@ -102,11 +102,11 @@ pss.altprimary.z <- function(K, n1 = NULL, n.ratio = 1, delta = NULL, Sigma, sd,
       mvtnorm::pmvnorm(lower = -crit.vals, sigma = Sigma.cor) - (1- power)
     }
     n1 <- stats::uniroot(ssize.fct, c(2, 1e+05), tol = tol, extendInt = "yes",
-                  n.ratio = n.ratio, std.effect = std.effect, z.alpha = z.alpha, Sigma.cor = Sigma.cor,
-                 power = power)$root
+                         n.ratio = n.ratio, std.effect = std.effect, z.alpha = z.alpha, Sigma.cor = Sigma.cor,
+                         power = power)$root
   }
   n <- c(n1, n1*n.ratio)
-    METHOD <- "Power calculation for alternative (at least one) primary endpoints"
+  METHOD <- "Power calculation for alternative (at least one) primary endpoints"
   structure(list(n = n, n.ratio = n.ratio, delta = delta, sd = sqrt(diag(Sigma)),
                  rho = Sigma.cor[lower.tri(Sigma.cor)], Sigma = Sigma,
                  alpha = alpha, sides = 1,

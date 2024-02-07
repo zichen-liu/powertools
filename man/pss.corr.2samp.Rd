@@ -19,9 +19,9 @@ pss.corr.2samp(
 
 \item{n.ratio}{The ratio n2/n1 between the sample sizes of two groups; defaults to 1 (equal group sizes).}
 
-\item{rho1}{The correlation coefficient in the first group.}
+\item{rho1}{The correlation coefficient in group 1.}
 
-\item{rho2}{The correlation coefficient in the second group.}
+\item{rho2}{The correlation coefficient in group 2.}
 
 \item{alpha}{The significance level or type 1 error rate; defaults to 0.05.}
 

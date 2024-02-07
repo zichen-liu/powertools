@@ -8,7 +8,7 @@ pss.mcnemar.test(
   N = NULL,
   p1 = NULL,
   p2 = NULL,
-  rho = NULL,
+  phi = NULL,
   paid = NULL,
   psi = NULL,
   alpha = 0.05,
@@ -23,11 +23,11 @@ pss.mcnemar.test(
 
 \item{p2}{The proportion in condition 2.}
 
-\item{rho}{The estimated correlation between the two conditions.}
+\item{phi}{The estimated correlation between the two conditions.}
 
-\item{paid}{The smaller of the two discordant probabilities. Either p1, p2, and rho, OR paid and psi must be specified.}
+\item{paid}{The smaller of the two discordant probabilities. Either p1, p2, and phi, OR paid and psi must be specified.}
 
-\item{psi}{The discordant proportion ratio. Either p1, p2, and rho, OR paid and psi must be specified.}
+\item{psi}{The discordant proportion ratio. Either p1, p2, and phi, OR paid and psi must be specified.}
 
 \item{alpha}{The significance level or type 1 error rate; defaults to 0.05.}
 
@@ -42,6 +42,6 @@ A list of the arguments (including the computed one).
 Power approximation for McNemar's test for two correlated proportions
 }
 \examples{
-pss.mcnemar.test(N = NULL, p1 = 0.8, p2 = 0.9, rho = 0, power = 0.9, sides = 2)
+pss.mcnemar.test(N = NULL, p1 = 0.8, p2 = 0.9, phi = 0, power = 0.9, sides = 2)
 pss.mcnemar.test(N = NULL, paid = 0.08, psi = 0.18 / 0.08, power = 0.9, sides = 2)
 }

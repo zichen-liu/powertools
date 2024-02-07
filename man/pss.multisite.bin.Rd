@@ -2,7 +2,7 @@
 % Please edit documentation in R/pss.multisite.bin.R
 \name{pss.multisite.bin}
 \alias{pss.multisite.bin}
-\title{Number of sites for multisite trials with binary outcomes}
+\title{Power for multisite trials with binary outcomes}
 \usage{
 pss.multisite.bin(
   m = NULL,
@@ -39,7 +39,7 @@ pss.multisite.bin(
 A list of the arguments (including the computed one).
 }
 \description{
-Number of sites for multisite trials with binary outcomes
+Power for multisite trials with binary outcomes
 }
 \examples{
 pss.multisite.bin(m = 30, J = 25, pc = 0.1, pt = 0.2, sigma.u = 0.4, power = NULL)

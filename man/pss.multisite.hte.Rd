@@ -2,7 +2,7 @@
 % Please edit documentation in R/pss.multisite.hte.R
 \name{pss.multisite.hte}
 \alias{pss.multisite.hte}
-\title{Power for test of heterogeneity of treatment effect}
+\title{Power for test of heterogeneity of treatment effect in multisite trials}
 \usage{
 pss.multisite.hte(
   m = NULL,
@@ -27,7 +27,7 @@ pss.multisite.hte(
 A list of the arguments (including the computed power).
 }
 \description{
-Power for test of heterogeneity of treatment effect
+Power for test of heterogeneity of treatment effect in multisite trials
 }
 \examples{
 pss.multisite.hte(m = 10, J = 30, ssq.u1 = 8, ssq.e = 36)

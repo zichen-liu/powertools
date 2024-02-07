@@ -14,7 +14,7 @@
 #' @export
 #'
 #' @examples
-#' pss.coprimary.z(K = 2, n = 100, delta = c(0.4, 0.5), sd = c(1, 1), rho = 0.3,
+#' pss.coprimary.z(K = 2, n1 = 100, delta = c(0.4, 0.5), sd = c(1, 1), rho = 0.3,
 #' alpha = 0.025, power = NULL)
 
 pss.coprimary.z <- function(K, n1 = NULL, n.ratio = 1, delta = NULL, Sigma, sd, rho, alpha = 0.025,

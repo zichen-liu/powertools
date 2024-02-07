@@ -39,5 +39,5 @@ A list of the arguments (including the computed one).
 Power calculations for relative risk
 }
 \examples{
-pss.rr(n1 = NULL, n.ratio = 6, p1 = 0.1, p2 = 0.1 * 2, power = 0.8)
+pss.rr(n1 = NULL, n.ratio = 1/6, p1 = 0.1, p2 = 0.1 * 2, power = 0.8)
 }

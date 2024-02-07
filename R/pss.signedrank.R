@@ -14,8 +14,8 @@
 
 
 pss.signedrank <- function (N = NULL, ps = NULL,
-                              alpha = 0.05, power = NULL,
-                              sides = 2) {
+                            alpha = 0.05, power = NULL,
+                            sides = 2) {
 
   # Check if the arguments are specified correctly
   if (sides != 1 & sides != 2)

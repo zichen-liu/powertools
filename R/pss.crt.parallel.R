@@ -21,8 +21,10 @@
 #' pss.crt.parallel(m = 30, J1 = 8, delta = 0.4, icc1 = 0.05, icc2 = 0.05)
 #' pss.crt.parallel(m = NULL, J1 = 6, delta = 0.5, icc1 = 0.05, icc2 = 0.05, power = 0.8)
 #' pss.crt.parallel(m = 25, m.sd = 15, J1 = NULL, delta = 0.3, icc1 = 0.05, icc2 = 0.05, power = 0.8)
-#' pss.crt.parallel(m = 20, J1 = 15, delta = 0.3, icc1 = 0.05, icc2 = 0.05, RsqB = 0.1, ncov = 1, sides = 1)
-#' pss.crt.parallel(m = 20, J1 = 15, delta = 0.3, icc1 = 0.05, icc2 = 0.05, RsqW = 0.5^2, ncov = 0, sides = 1)
+#' pss.crt.parallel(m = 20, J1 = 15, delta = 0.3, icc1 = 0.05, icc2 = 0.05,
+#' RsqB = 0.1, ncov = 1, sides = 1)
+#' pss.crt.parallel(m = 20, J1 = 15, delta = 0.3, icc1 = 0.05, icc2 = 0.05,
+#' RsqW = 0.5^2, ncov = 0, sides = 1)
 
 pss.crt.parallel <- function (m = NULL, m.sd = 0, J1 = NULL, J.ratio = 1, delta = NULL, sd = 1,
                               icc1 = 0, icc2 = 0, ncov = 0, RsqB = 0, RsqW = 0,
