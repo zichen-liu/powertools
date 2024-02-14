@@ -29,15 +29,15 @@ pss.t.test.1samp <- function (N = NULL, delta = NULL, sd = 1,
 
   # Calculate df and ncp
   p.body <- quote({
-    d <- abs(delta)
+    d <- pss.es.d(delta = delta, sd = sd)$d
     df <- N - 1
     stats::pt(stats::qt(alpha / sides, df, lower.tail = FALSE), df,
-              sqrt(N) * d / sd, lower.tail = FALSE)
+              sqrt(N) * d, lower.tail = FALSE)
   })
   if (strict && sides == 2)
     p.body <- quote({
-      d <- abs(delta)
-      ncp <- sqrt(N) * d / sd
+      d <- pss.es.d(delta = delta, sd = sd)$d
+      ncp <- sqrt(N) * d
       df2 <- N - 1
       stats::pf(stats::qf(alpha, 1, df2, lower.tail = FALSE),
                 1, df2, ncp^2, lower.tail = FALSE)

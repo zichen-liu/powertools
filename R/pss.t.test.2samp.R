@@ -38,26 +38,26 @@ pss.t.test.2samp <- function (n1 = NULL, n.ratio = 1, delta = NULL,
 
   # Calculate df and ncp
   p.body <- quote({
-    d <- abs(delta)
+    d <- pss.es.d(delta = delta, sd = sd)$d
     nu <- switch(df.method,
                  welch = (sd^2 / n1 + (sd * sd.ratio)^2 / (n1 * n.ratio))^2 /
                  ((sd^2 / n1)^2 / (n1 - 1) +
                  ((sd * sd.ratio)^2 / (n.ratio * n1))^2 / (n1 * n.ratio - 1)),
                  classical = (1 + n.ratio) * n1 - 2)
     stats::pt(stats::qt(alpha / sides, nu, lower = FALSE), nu,
-              sqrt(n1 / (1 + sd.ratio^2 / n.ratio)) * d / sd, lower = FALSE)
+              sqrt(n1 / (1 + sd.ratio^2 / n.ratio)) * d, lower = FALSE)
   })
 
   if (strict & sides == 2)
     p.body <- quote({
-      d <- abs(delta)
+      d <- pss.es.d(delta = delta, sd = sd)$d
       nu <- switch(df.method,
                    welch = (sd^2 / n1 + (sd * sd.ratio)^2 / (n1 * n.ratio))^2 /
                    ((sd^2 / n1)^2 / (n1 - 1) +
                    ((sd * sd.ratio)^2 / (n.ratio * n1))^2 / (n1 * n.ratio - 1)),
                    classical = (1 + n.ratio) * n1 - 2)
       qu <- stats::qt(alpha / sides, nu, lower = FALSE)
-      ncp <- sqrt(n1 / (1 + sd.ratio^2 / n.ratio)) * d / sd
+      ncp <- sqrt(n1 / (1 + sd.ratio^2 / n.ratio)) * d
       stats::pt(qu, nu, ncp, lower = FALSE) + pt(-qu, nu, ncp, lower = TRUE)
     })
 

@@ -34,10 +34,10 @@ pss.t.test.paired <- function (N = NULL, delta = NULL,
 
   # Calculate df and ncp
   p.body <- quote({
-    d <- abs(delta)
+    d <- pss.es.d(delta = delta, sd = sigmad)$d
     df <- N - 1
     stats::pt(stats::qt(alpha / sides, df, lower.tail = FALSE), df,
-              sqrt(N) * d / sigmad, lower.tail = FALSE)
+              sqrt(N) * d, lower.tail = FALSE)
   })
 
   # The strict two-sides case uses the F distribution

@@ -34,8 +34,8 @@ pss.z.test.paired <- function (N = NULL, delta = NULL,
 
   # Calculate test statistic
   p.body <- quote({
-    d <- abs(delta)
-    stats::pnorm(stats::qnorm(alpha / sides) + sqrt(N) * d / sigmad)
+    d <- pss.es.d(delta = delta, sd = sigmad)$d
+    stats::pnorm(stats::qnorm(alpha / sides) + sqrt(N) * d)
   })
 
   if (strict && sides == 2)

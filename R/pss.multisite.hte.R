@@ -2,19 +2,16 @@
 
 #' @param m The number of subjects per site.
 #' @param J The number of sites.
-#' @param ssq.u1 The variance of the site-level treatment effects (sigma squared u1) under the alternative.
-#' @param ssq.e The variance of the observations within sites (sigma squared epsilon) under the alternative.
+#' @param VR The variance ratio (site-level treatment effects / observations within sites) the under the alternative.
 #' @param alpha The significance level or type 1 error rate; defaults to 0.05.
 #'
 #' @return A list of the arguments (including the computed power).
 #' @export
 #'
 #' @examples
-#' pss.multisite.hte(m = 10, J = 30, ssq.u1 = 8, ssq.e = 36)
+#' pss.multisite.hte(m = 10, J = 30, VR = 8 / 36)
 
-pss.multisite.hte <- function (m = NULL, J = NULL, ssq.u1 = NULL, ssq.e = NULL,
-                               alpha = 0.05) {
-  VR <- ssq.u1 / ssq.e
+pss.multisite.hte <- function (m = NULL, J = NULL, VR = NULL, alpha = 0.05) {
   omega <- 1 + m * VR / 4
   df1 <- J - 1
   df2 <- J * (m - 2)
@@ -25,7 +22,7 @@ pss.multisite.hte <- function (m = NULL, J = NULL, ssq.u1 = NULL, ssq.e = NULL,
   METHOD <-"Power for test of heterogeneity of treatment effect in multisite trials"
 
   # Print output as a power.htest object depending on which inputs were given
-  structure(list(m = m, J = J, ssq.u1 = ssq.u1, ssq.e = ssq.e,
+  structure(list(m = m, J = J, VR = VR,
                  alpha = alpha, power = power,
                  method = METHOD), class = "power.htest")
 

@@ -4,8 +4,8 @@
 #' @param p1 The proportion in condition 1.
 #' @param p2 The proportion in condition 2.
 #' @param phi The estimated correlation between the two conditions.
-#' @param paid The smaller of the two discordant probabilities. Either p1, p2, and phi, OR paid and psi must be specified.
-#' @param psi The discordant proportion ratio. Either p1, p2, and phi, OR paid and psi must be specified.
+#' @param paid The smaller of the two discordant probabilities. Either p1, p2, and phi, OR paid and dpr must be specified.
+#' @param dpr The discordant proportion ratio. Either p1, p2, and phi, OR paid and dpr must be specified.
 #' @param alpha The significance level or type 1 error rate; defaults to 0.05.
 #' @param power The specified level of power.
 #' @param sides Either 1 or 2 (default) to specify a one- or two- sided hypothesis test.
@@ -15,10 +15,10 @@
 #'
 #' @examples
 #' pss.mcnemar.test(N = NULL, p1 = 0.8, p2 = 0.9, phi = 0, power = 0.9, sides = 2)
-#' pss.mcnemar.test(N = NULL, paid = 0.08, psi = 0.18 / 0.08, power = 0.9, sides = 2)
+#' pss.mcnemar.test(N = NULL, paid = 0.08, dpr = 0.18 / 0.08, power = 0.9, sides = 2)
 
 pss.mcnemar.test <- function (N = NULL, p1 = NULL, p2 = NULL, phi = NULL,
-                              paid = NULL, psi = NULL, alpha = 0.05,
+                              paid = NULL, dpr = NULL, alpha = 0.05,
                               power = NULL, sides = 2) {
 
   # Check if the arguments are specified correctly
@@ -26,21 +26,21 @@ pss.mcnemar.test <- function (N = NULL, p1 = NULL, p2 = NULL, phi = NULL,
     stop("please specify 1 or 2 sides")
   if (sum(sapply(list(N, alpha, power), is.null)) !=  1)
     stop("exactly one of 'N', 'alpha', and 'power' must be NULL")
-  if ((is.null(p1) | is.null(p2) | is.null(phi)) & (is.null(psi) | is.null(paid)))
-    stop("p1, p2, and phi OR psi and paid must be specified")
+  if ((is.null(p1) | is.null(p2) | is.null(phi)) & (is.null(dpr) | is.null(paid)))
+    stop("p1, p2, and phi OR dpr and paid must be specified")
 
-  # Calculate paid and psi if not given
-  if (is.null(paid) & is.null(psi)) {
+  # Calculate paid and dpr if not given
+  if (is.null(paid) & is.null(dpr)) {
     p01 <- p1 * (1 - p2) - phi * sqrt((1 - p2) * p1 * (1 - p1) * p2)
     p10 <- p01 + p2 - p1
     paid <- p01
-    psi <- p10 / p01
+    dpr <- p10 / p01
   }
 
   # Calculate test statistic
-  p.body <- quote(stats::pnorm((sqrt(N * paid) * (psi - 1) -
+  p.body <- quote(stats::pnorm((sqrt(N * paid) * (dpr - 1) -
                   stats::qnorm(alpha / sides, lower.tail = FALSE) *
-                  sqrt(psi + 1)) / sqrt((psi + 1) - paid * (psi - 1)^2)))
+                  sqrt(dpr + 1)) / sqrt((dpr + 1) - paid * (dpr - 1)^2)))
 
   # Use stats::uniroot function to calculate missing argument
   if (is.null(power))
@@ -61,8 +61,8 @@ pss.mcnemar.test <- function (N = NULL, p1 = NULL, p2 = NULL, phi = NULL,
                    power = power, sides = sides, note = NOTE,
                    method = METHOD), class = "power.htest")
 
-  else if (!is.null(paid) & !is.null(psi))
-    structure(list(N = N, paid = paid, psi = psi, alpha = alpha,
+  else if (!is.null(paid) & !is.null(dpr))
+    structure(list(N = N, paid = paid, dpr = dpr, alpha = alpha,
                    power = power, sides = sides, note = NOTE,
                    method = METHOD), class = "power.htest")
 }

@@ -28,14 +28,14 @@ pss.z.test.1samp <- function (N = NULL, delta = NULL, sd = 1,
 
   # Calculate test statistic
   p.body <- quote({
-    d <- abs(delta)
-    stats::pnorm(stats::qnorm(alpha / sides) + sqrt(N) * d / sd)
+    d <- pss.es.d(delta = delta, sd = sd)$d
+    stats::pnorm(stats::qnorm(alpha / sides) + sqrt(N) * d)
   })
   if (strict && sides == 2)
     p.body <- quote({
-      d <- abs(delta)
-      stats::pnorm(stats::qnorm(alpha / sides) + sqrt(N) * d / sd) +
-      stats::pnorm(stats::qnorm(alpha / sides) - sqrt(N) * d / sd)
+      d <- pss.es.d(delta = delta, sd = sd)$d
+      stats::pnorm(stats::qnorm(alpha / sides) + sqrt(N) * d) +
+      stats::pnorm(stats::qnorm(alpha / sides) - sqrt(N) * d)
     })
 
   # Use stats::uniroot function to calculate missing argument
