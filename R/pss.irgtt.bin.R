@@ -40,9 +40,12 @@ pss.irgtt.bin <- function (m = NULL, J = NULL, n = NULL, p1 = NULL, p2 = NULL,
   else if (is.null(n))
     n <- stats::uniroot(function(n) eval(p.body) - power, c(4 + 1e-10, 1e+07))$root
 
+  mjn <- c(m, J, n)
+  p <- c(p1, p2)
+
   # Print output as a power.htest object
   METHOD <- "Power for individual randomized group treatment trials with binary outcomes"
-  structure(list(m = m, J = J, n = n, p1 = p1, p2 = p2, icc = icc,
+  structure(list(`m, J, n` = mjn, `p1, p2` = p, icc = icc,
                  alpha = alpha, power = power, sides = sides,
                  method = METHOD), class = "power.htest")
 

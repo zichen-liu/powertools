@@ -44,11 +44,14 @@ pss.irgtt.cont <- function (m = NULL, J = NULL, n = NULL, delta = NULL, sd = 1,
   else if (is.null(delta))
     delta <- stats::uniroot(function(delta) eval(p.body) - power, c(1e-07, 1e+07))$root
 
+  mjn <- c(m, J, n)
+
   # Print output as a power.htest object
   METHOD <- "Power for individual randomized group treatment trials with continuous outcomes"
-  structure(list(m = m, J = J, n = n, delta = delta, sd = sd, icc = icc,
+  structure(list(`m, J, n` = mjn, delta = delta, sd = sd, icc = icc,
                  Theta = Theta, alpha = alpha, power = power, sides = sides,
                  method = METHOD), class = "power.htest")
+  # put m, J, n on the same line
 
 }
 
