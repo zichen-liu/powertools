@@ -25,6 +25,7 @@ pss.prop.2samp <- function (n1 = NULL, n.ratio = 1, p1 = NULL, p2 = NULL, delta 
   pss.check(n.ratio, "pos")
   pss.check(p1, "req"); pss.check(p1, "uniti")
   pss.check(p2, "req"); pss.check(p2, "uniti")
+  pss.check(delta, "req"); pss.check(delta, "num")
   pss.check(alpha, "unit")
   pss.check(power, "unit")
   pss.check(sides, "req"); pss.check(sides, "vals", valslist = c(1, 2))

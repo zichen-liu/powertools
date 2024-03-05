@@ -22,12 +22,17 @@ pss.mcnemar.test <- function (N = NULL, p1 = NULL, p2 = NULL, phi = NULL,
                               power = NULL, sides = 2) {
 
   # Check if the arguments are specified correctly
-  if (sides != 1 & sides != 2)
-    stop("please specify 1 or 2 sides")
-  if (sum(sapply(list(N, alpha, power), is.null)) !=  1)
-    stop("exactly one of 'N', 'alpha', and 'power' must be NULL")
   if ((is.null(p1) | is.null(p2) | is.null(phi)) & (is.null(dpr) | is.null(paid)))
     stop("p1, p2, and phi OR dpr and paid must be specified")
+  pss.check.many(list(N, alpha, power), "oneof")
+  pss.check(N, "int")
+  pss.check(p1, "uniti")
+  pss.check(p2, "uniti")
+  pss.check(paid, "uniti")
+  pss.check(dpr, "pos")
+  pss.check(alpha, "unit")
+  pss.check(power, "unit")
+  pss.check(sides, "req"); pss.check(sides, "vals", valslist = c(1, 2))
 
   # Calculate paid and dpr if not given
   if (is.null(paid) & is.null(dpr)) {
@@ -56,11 +61,12 @@ pss.mcnemar.test <- function (N = NULL, p1 = NULL, p2 = NULL, phi = NULL,
   METHOD <-"McNemar paired comparison of proportions\n     approximate power calculation"
 
   # Print output as a power.htest object depending on which inputs were given
-  if (!is.null(p1) & !is.null(p2) & !is.null(phi))
-    structure(list(N = N, p1 = p1, p2 = p2, phi = phi, alpha = alpha,
+  if (!is.null(p1) & !is.null(p2) & !is.null(phi)) {
+    p <- c(p1, p2)
+    structure(list(N = N, `p1, p2` = p, phi = phi, alpha = alpha,
                    power = power, sides = sides, note = NOTE,
                    method = METHOD), class = "power.htest")
-
+  }
   else if (!is.null(paid) & !is.null(dpr))
     structure(list(N = N, paid = paid, dpr = dpr, alpha = alpha,
                    power = power, sides = sides, note = NOTE,

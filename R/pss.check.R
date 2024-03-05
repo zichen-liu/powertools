@@ -29,7 +29,7 @@ pss.check <- function(param = NULL,
       }
 
       # variables between 0 and 1 inclusive
-      else if (type == "unit") {
+      else if (type == "uniti") {
         if (!is.numeric(param))
           stop(paste(name, "should be a numeric value"))
         if (param > 1 || param < 0)

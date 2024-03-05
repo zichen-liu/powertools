@@ -4,12 +4,6 @@ pss.check.many <- function(paramlist = NULL,
   names <- lapply(substitute(paramlist), deparse)
   names <- paste(names[-1], collapse = ", ")
 
-  # required variables
-  # if (type == "req") {
-  #  if(list(NULL) %in% paramlist)
-  #    stop(paste("the following arguments must all be specified:", names))
-  # }
-
   # variables where only one must be missing
   if (type == "oneof") {
     if (sum(sapply(paramlist, is.null)) != 1)

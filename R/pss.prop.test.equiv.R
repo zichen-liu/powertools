@@ -20,10 +20,15 @@ pss.prop.test.equiv <- function (n1 = NULL, n.ratio = 1, p1 = NULL, p2 = NULL, d
                                  alpha = 0.05, power = NULL, sides = 2) {
 
   # Check if the arguments are specified correctly
-  if (sides != 1 & sides != 2)
-    stop("please specify 1 or 2 sides")
-  if (sum(sapply(list(n1, n.ratio, power, alpha), is.null)) != 1)
-    stop("exactly one of 'n1', 'n.ratio', 'alpha', and 'power' must be NULL")
+  pss.check.many(list(n1, n.ratio, alpha, power), "oneof")
+  pss.check(n1, "int")
+  pss.check(n.ratio, "pos")
+  pss.check(p1, "req"); pss.check(p1, "uniti")
+  pss.check(p2, "req"); pss.check(p2, "uniti")
+  pss.check(delta, "req"); pss.check(delta, "num")
+  pss.check(alpha, "unit")
+  pss.check(power, "unit")
+  pss.check(sides, "req"); pss.check(sides, "vals", valslist = c(1, 2))
 
   # Calculate test statistic
   p.body <- quote({
@@ -46,14 +51,14 @@ pss.prop.test.equiv <- function (n1 = NULL, n.ratio = 1, p1 = NULL, p2 = NULL, d
   else stop("internal error", domain = NA)
 
   # Generate output text
-  NOTE <- "n is the number in each group"
   METHOD <- "Test for equivalence of two proportions power calculation"
   n <- c(n1, n1 * n.ratio)
+  p <- c(p1, p2)
 
   # Print output as a power.htest object
-  structure(list(n = n, p1 = p1, p2 = p2,
+  structure(list(`n1, n2` = n, `p1, p2` = p,
                  delta = delta, alpha = alpha,
-                 power = power, sides = sides, note = NOTE,
+                 power = power, sides = sides,
                  method = METHOD), class = "power.htest")
 }
 
