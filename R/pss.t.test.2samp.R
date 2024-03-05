@@ -90,7 +90,7 @@ pss.t.test.2samp <- function (n1 = NULL, n.ratio = 1, delta = NULL,
   sd <- c(sd1, sd1 * sd.ratio)
 
   # Print output as a power.htest object
-  structure(list(n = n, delta = delta, sd = sd, alpha = alpha,
+  structure(list(`n1, n2` = n, delta = delta, `sd1, sd2` = sd, alpha = alpha,
                  power = power, sides = sides,
                  method = METHOD), class = "power.htest")
 }

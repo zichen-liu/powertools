@@ -26,7 +26,7 @@ pss.t.test.paired <- function (N = NULL, delta = NULL,
   pss.check(N, "int")
   pss.check(sd1, "req"); pss.check(sd1, "pos")
   pss.check(sd2, "req"); pss.check(sd2, "pos")
-  pss.check(rho, "req"); pss.check(rho, "unit")
+  pss.check(rho, "req"); pss.check(rho, "uniti")
   pss.check(delta, "num")
   pss.check(alpha, "unit")
   pss.check(power, "unit")
@@ -67,11 +67,11 @@ pss.t.test.paired <- function (N = NULL, delta = NULL,
 
   # Generate output text
   METHOD <- "Paired t test power calculation"
-  NOTE <- "N is the number of pairs\n      sd is the pre and post standard deviations"
+  NOTE <- "N is the number of pairs"
   sd <- c(sd1, sd2)
 
   # Print output as a power.htest object
-  structure(list(N = N, delta = delta, sd = sd, rho = rho,
+  structure(list(N = N, delta = delta, `sd1, sd2` = sd, rho = rho,
                  alpha = alpha, power = power, sides = sides,
                  method = METHOD, note = NOTE), class = "power.htest")
 }

@@ -20,12 +20,14 @@ pss.prop.2samp <- function (n1 = NULL, n.ratio = 1, p1 = NULL, p2 = NULL, delta 
                             alpha = 0.05, power = NULL, sides = 2) {
 
   # Check if the arguments are specified correctly
-  if (sides != 1 & sides != 2)
-    stop("please specify 1 or 2 sides")
-  if (sum(sapply(list(n1, power, alpha, n.ratio), is.null)) != 1)
-    stop("exactly one of 'n1', 'n.ratio', 'alpha', and 'power' must be NULL")
-  if (!is.null(n.ratio) && n.ratio <= 0)
-    stop("n.ratio between group sizes must be positive")
+  pss.check.many(list(n1, n.ratio, alpha, power), "oneof")
+  pss.check(n1, "int")
+  pss.check(n.ratio, "pos")
+  pss.check(p1, "req"); pss.check(p1, "uniti")
+  pss.check(p2, "req"); pss.check(p2, "uniti")
+  pss.check(alpha, "unit")
+  pss.check(power, "unit")
+  pss.check(sides, "req"); pss.check(sides, "vals", valslist = c(1, 2))
 
   # Calculate test statistic
   p.body <- quote({
@@ -45,17 +47,16 @@ pss.prop.2samp <- function (n1 = NULL, n.ratio = 1, p1 = NULL, p2 = NULL, delta 
     n.ratio <- stats::uniroot(function(n.ratio) eval(p.body) - n1, c(2/n1, 1e+07))$root
   else if (is.null(alpha))
     alpha <- stats::uniroot(function(alpha) eval(p.body) - n1, c(1e-10, 1 - 1e-10))$root
-  else stop("internal error", domain = NA)
+  else stop("internal error")
 
   # Generate output text
-  NOTE <- "n is the number in each group"
   METHOD <- "Two sample comparison of proportions power calculation"
   n <- c(n1, n1 * n.ratio)
   p <- c(p1, p2)
 
   # Print output as a power.htest object
-  structure(list(n = n, `p1, p2` = p, delta = delta,
-                 alpha = alpha, power = power, sides = sides, note = NOTE,
+  structure(list(`n1, n2` = n, `p1, p2` = p, delta = delta,
+                 alpha = alpha, power = power, sides = sides,
                  method = METHOD), class = "power.htest")
 }
 

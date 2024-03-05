@@ -19,6 +19,14 @@ pss.prop.1samp <- function (N = NULL, p0 = NULL, pA = NULL, alpha = 0.05,
                             power = NULL, sides = 2) {
 
   # Check if the arguments are specified correctly
+  pss.check.many(list(N, alpha, power), "oneof")
+  pss.check(N, "int")
+  pss.check(p0, "req"); pss.check(p0, "uniti")
+  pss.check(pA, "req"); pss.check(pA, "uniti")
+  pss.check(alpha, "unit")
+  pss.check(power, "unit")
+  pss.check(sides, "req"); pss.check(sides, "vals", valslist = c(1, 2))
+
   if (sides != 1 & sides != 2)
     stop("please specify 1 or 2 sides")
   if (sum(sapply(list(N, power, alpha), is.null)) != 1)
@@ -38,13 +46,14 @@ pss.prop.1samp <- function (N = NULL, p0 = NULL, pA = NULL, alpha = 0.05,
     N <- stats::uniroot(function(N) eval(p.body) - power, c(2 + 1e-10, 1e+09))$root
   else if (is.null(alpha))
     alpha <- stats::uniroot(function(alpha) eval(p.body) - power, c(1e-10, 1 - 1e-10))$root
-  else stop("internal error", domain = NA)
+  else stop("internal error")
 
   # Generate output text
   METHOD <- "One sample proportion test power calculation"
+  p <- c(p0, pA)
 
   # Print output as a power.htest object
-  structure(list(N = N, p0 = p0, pA = pA, alpha = alpha,
+  structure(list(N = N, `p0, pA` = p, alpha = alpha,
                  power = power, sides = sides,
                  method = METHOD), class = "power.htest")
 

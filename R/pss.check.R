@@ -1,5 +1,5 @@
 pss.check <- function(param = NULL,
-                      type = c("req", "num", "unit", "pos", "int", "bool", "vals", "min"),
+                      type = c("req", "num", "unit", "uniti", "pos", "int", "bool", "vals", "min"),
                       valslist = NULL, min = NULL) {
 
   name <- deparse(substitute(param))
@@ -26,6 +26,14 @@ pss.check <- function(param = NULL,
           stop(paste(name, "should be a numeric value"))
         if (param >= 1 || param <= 0)
           stop(paste(name, "should be between 0 and 1"))
+      }
+
+      # variables between 0 and 1 inclusive
+      else if (type == "unit") {
+        if (!is.numeric(param))
+          stop(paste(name, "should be a numeric value"))
+        if (param > 1 || param < 0)
+          stop(paste(name, "should be between 0 and 1, inclusive"))
       }
 
       # positive values only
