@@ -1,4 +1,4 @@
-#' Power for individual randomized group treatment trials with continuous outcomes
+#' Power for an individual randomized group treatment trial with continuous outcomes
 #'
 #' @param m The number of subjects per cluster in the treatment group.
 #' @param J The number of clusters in the treatment group.
@@ -47,7 +47,7 @@ pss.irgtt.cont <- function (m = NULL, J = NULL, n = NULL, delta = NULL, sd = 1,
   mjn <- c(m, J, n)
 
   # Print output as a power.htest object
-  METHOD <- "Power for individual randomized group treatment trials with continuous outcomes"
+  METHOD <- "Power for an individual randomized group treatment trial with continuous outcomes"
   structure(list(`m, J, n` = mjn, delta = delta, sd = sd, icc = icc,
                  Theta = Theta, alpha = alpha, power = power, sides = sides,
                  method = METHOD), class = "power.htest")

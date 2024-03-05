@@ -22,12 +22,15 @@ pss.z.test.paired <- function (N = NULL, delta = NULL,
                                sides = 2, strict = TRUE) {
 
   # Check if the arguments are specified correctly
-  if (sides != 1 & sides != 2)
-    stop("please specify 1 or 2 sides")
-  if (sum(sapply(list(N, delta, power, alpha), is.null)) != 1)
-    stop("exactly one of N, delta, alpha, and power must be NULL")
-  if (is.null(sd1) | is.null(sd2) | is.null(rho))
-    stop("please specify sd1, sd2, and rho")
+  pss.check.many(list(N, delta, alpha, power), "oneof")
+  pss.check(N, "int")
+  pss.check(sd1, "req"); pss.check(sd1, "pos")
+  pss.check(sd2, "req"); pss.check(sd2, "pos")
+  pss.check(rho, "req"); pss.check(rho, "unit")
+  pss.check(alpha, "unit")
+  pss.check(power, "unit")
+  pss.check(sides, "req"); pss.check(sides, "vals", valslist = c(1, 2))
+  pss.check(strict, "req"); pss.check(strict, "bool")
 
   # Calculate the standard deviation of differences within pairs
   sigmad <- sqrt(sd1^2 + sd2^2 - 2 * rho * sd1 * sd2)
@@ -58,7 +61,7 @@ pss.z.test.paired <- function (N = NULL, delta = NULL,
 
   # Generate output text
   METHOD <- "Paired z test power calculation"
-  NOTE <- "N is the number of pairs"
+  NOTE <- "N is the number of pairs\n      sd is the pre and post standard deviations"
   sd <- c(sd1, sd2)
 
   # Print output as a power.htest object

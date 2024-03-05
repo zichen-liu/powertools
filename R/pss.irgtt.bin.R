@@ -1,4 +1,4 @@
-#' Power for individual randomized group treatment trials with binary outcomes
+#' Power for an individual randomized group treatment trial with binary outcomes
 #'
 #' @param m The number of subjects per cluster in the treatment group.
 #' @param J The number of clusters in the treatment group.
@@ -44,7 +44,7 @@ pss.irgtt.bin <- function (m = NULL, J = NULL, n = NULL, p1 = NULL, p2 = NULL,
   p <- c(p1, p2)
 
   # Print output as a power.htest object
-  METHOD <- "Power for individual randomized group treatment trials with binary outcomes"
+  METHOD <- "Power for an individual randomized group treatment trial with binary outcomes"
   structure(list(`m, J, n` = mjn, `p1, p2` = p, icc = icc,
                  alpha = alpha, power = power, sides = sides,
                  method = METHOD), class = "power.htest")

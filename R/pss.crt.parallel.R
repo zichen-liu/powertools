@@ -1,4 +1,4 @@
-#' Power for test of treatment effect in cluster randomized trials
+#' Power for test of treatment effect in a cluster randomized trial
 #'
 #' @param m The number of subjects per cluster or the mean cluster size (if unequal number of participants per cluster).
 #' @param m.sd The standard deviation of cluster sizes (provide if unequal number of participants per cluster); defaults to 0.
@@ -65,13 +65,13 @@ pss.crt.parallel <- function (m = NULL, m.sd = 0, J1 = NULL, J.ratio = 1, delta 
     delta <- stats::uniroot(function(delta) eval(p.body) - power, c(1e-07, 1e+07))$root
 
   # Generate output text
-  METHOD <- "Power for test of treatment effect in cluster randomized trials"
+  METHOD <- "Power for test of treatment effect in a cluster randomized trial"
   NOTE <- "J is the clusters per arm"
   m <- ifelse(m.sd == 0, m, paste0(m, " (sd = ", m.sd, ")"))
   J <- c(J1, J1 * J.ratio)
   icc <- c(icc1, icc2)
   Rsq <- c(RsqB, RsqW)
-  out <- list(m = m, J = J, delta = delta, sd = sd, icc = icc,
+  out <- list(m = m, `J1, J2` = J, delta = delta, sd = sd, `icc1, icc2` = icc,
               ncov = ncov, `RsqB, RsqW` = Rsq,
               alpha = alpha, power = power, sides = sides,
               method = METHOD, note = NOTE)

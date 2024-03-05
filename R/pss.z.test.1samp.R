@@ -21,10 +21,13 @@ pss.z.test.1samp <- function (N = NULL, delta = NULL, sd = 1,
                               sides = 2, strict = TRUE) {
 
   # Check if the arguments are specified correctly
-  if (sides != 1 & sides != 2)
-    stop("please specify 1 or 2 sides")
-  if (sum(sapply(list(N, delta, sd, power, alpha), is.null)) != 1)
-    stop("exactly one of N, delta, sd, alpha, and power must be NULL")
+  pss.check.many(list(N, delta, sd, alpha, power), "oneof")
+  pss.check(N, "int")
+  pss.check(sd, "pos")
+  pss.check(alpha, "unit")
+  pss.check(power, "unit")
+  pss.check(sides, "req"); pss.check(sides, "vals", valslist = c(1, 2))
+  pss.check(strict, "req"); pss.check(strict, "bool")
 
   # Calculate test statistic
   p.body <- quote({
