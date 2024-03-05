@@ -27,6 +27,7 @@ pss.z.test.paired <- function (N = NULL, delta = NULL,
   pss.check(sd1, "req"); pss.check(sd1, "pos")
   pss.check(sd2, "req"); pss.check(sd2, "pos")
   pss.check(rho, "req"); pss.check(rho, "unit")
+  pss.check(delta, "num")
   pss.check(alpha, "unit")
   pss.check(power, "unit")
   pss.check(sides, "req"); pss.check(sides, "vals", valslist = c(1, 2))

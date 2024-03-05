@@ -22,6 +22,15 @@ pss.t.test.1samp <- function (N = NULL, delta = NULL, sd = 1,
                               sides = 2, strict = TRUE) {
 
   # Check if the arguments are specified correctly
+  pss.check.many(list(N, delta, sd, alpha, power), "oneof")
+  pss.check(N, "int")
+  pss.check(delta, "num")
+  pss.check(sd, "pos")
+  pss.check(alpha, "unit")
+  pss.check(power, "unit")
+  pss.check(sides, "req"); pss.check(sides, "vals", valslist = c(1, 2))
+  pss.check(strict, "req"); pss.check(strict, "bool")
+
   if (sides != 1 & sides != 2)
     stop("please specify 1 or 2 sides")
   if (sum(sapply(list(N, delta, sd, power, alpha), is.null)) != 1)

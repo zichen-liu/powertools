@@ -27,6 +27,7 @@ pss.z.test.2samp <- function (n1 = NULL, n.ratio = 1, delta = NULL,
   pss.check(n.ratio, "pos")
   pss.check(sd1, "pos")
   pss.check(sd.ratio, "pos")
+  pss.check(delta, "num")
   pss.check(alpha, "unit")
   pss.check(power, "unit")
   pss.check(sides, "req"); pss.check(sides, "vals", valslist = c(1, 2))
@@ -34,7 +35,7 @@ pss.z.test.2samp <- function (n1 = NULL, n.ratio = 1, delta = NULL,
 
   # Calculate test statistic
   p.body <- quote({
-    d <- pss.es.d(delta = delta, sd1 = 1)$d
+    d <- pss.es.d(delta = delta, sd = 1)$d
     stats::pnorm(stats::qnorm(alpha / sides) +
                  d / sqrt((sd1 * sd.ratio)^2 / (n1 * n.ratio) + sd1^2 / n1))})
   if (strict & sides == 2)

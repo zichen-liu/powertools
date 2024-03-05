@@ -23,6 +23,7 @@ pss.z.test.1samp <- function (N = NULL, delta = NULL, sd = 1,
   # Check if the arguments are specified correctly
   pss.check.many(list(N, delta, sd, alpha, power), "oneof")
   pss.check(N, "int")
+  pss.check(delta, "num")
   pss.check(sd, "pos")
   pss.check(alpha, "unit")
   pss.check(power, "unit")
