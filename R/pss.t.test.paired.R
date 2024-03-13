@@ -38,7 +38,7 @@ pss.t.test.paired <- function (N = NULL, delta = NULL,
 
   # Calculate df and ncp
   p.body <- quote({
-    d <- pss.es.d(delta = delta, sd = sigmad)$d
+    d <- abs(delta) / sigmad
     df <- N - 1
     stats::pt(stats::qt(alpha / sides, df, lower.tail = FALSE), df,
               sqrt(N) * d, lower.tail = FALSE)

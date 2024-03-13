@@ -38,15 +38,15 @@ pss.z.test.paired <- function (N = NULL, delta = NULL,
 
   # Calculate test statistic
   p.body <- quote({
-    d <- pss.es.d(delta = delta, sd = sigmad)$d
+    d <- abs(delta) / sigmad
     stats::pnorm(stats::qnorm(alpha / sides) + sqrt(N) * d)
   })
 
   if (strict && sides == 2)
     p.body <- quote({
-      d <- abs(delta)
-      stats::pnorm(stats::qnorm(alpha / sides) + sqrt(N) * d / sigmad) +
-        stats::pnorm(stats::qnorm(alpha / sides) - sqrt(N) * d / sigmad)
+      d <- abs(delta) / sigmad
+      stats::pnorm(stats::qnorm(alpha / sides) + sqrt(N) * d) +
+        stats::pnorm(stats::qnorm(alpha / sides) - sqrt(N) * d)
     })
 
   # Use stats::uniroot function to calculate missing argument

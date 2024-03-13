@@ -35,7 +35,7 @@ pss.z.test.2samp <- function (n1 = NULL, n.ratio = 1, delta = NULL,
 
   # Calculate test statistic
   p.body <- quote({
-    d <- pss.es.d(delta = delta, sd = 1)$d
+    d <- abs(delta)
     stats::pnorm(stats::qnorm(alpha / sides) +
                  d / sqrt((sd1 * sd.ratio)^2 / (n1 * n.ratio) + sd1^2 / n1))})
   if (strict & sides == 2)

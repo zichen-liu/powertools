@@ -30,6 +30,10 @@ pss.crt.parallel <- function (m = NULL, m.sd = 0, J1 = NULL, J.ratio = 1, delta 
                               icc1 = 0, icc2 = 0, ncov = 0, RsqB = 0, RsqW = 0,
                               alpha = 0.05, power = NULL, sides = 2) {
 
+  if (is.null(m)) {
+    Nindep <- pss.t.test.2samp(n1 = NULL, delta = 0.5, sd1 = 1, power = 0.8, sides = 2)
+  }
+
   # Calculate power
   p.body <- quote({
     J <- J1 + J1 * J.ratio
