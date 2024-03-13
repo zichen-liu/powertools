@@ -16,12 +16,14 @@
 pss.chisq.indep <- function (pmatrix = NULL, N = NULL, alpha = 0.05, power = NULL) {
 
   # Check if the arguments are specified correctly
-  if (sum(sapply(list(N, alpha, power), is.null)) != 1)
-    stop("exactly one of N, alpha, and power must be NULL")
-  if (is.null(pmatrix))
-    stop("please specify the proportion matrix p")
-  if (!is.null(N) && any(N < 1))
-    stop("number of observations must be at least 1")
+  pss.check.many(list(N, alpha, power), "oneof")
+  pss.check(pmatrix, "req"); pss.check(pmatrix, "mat")
+  pss.check(N, "int"); pss.check(N, "min", min = 2)
+  pss.check(alpha, "unit")
+  pss.check(power, "unit")
+
+  if (any(pmatrix <= 0) | any(pmatrix >= 1))
+    stop("all proportions must be between 0 and 1")
 
   # Calculate effect size and df
   pi <- apply(pmatrix, 1, sum)
@@ -47,11 +49,9 @@ pss.chisq.indep <- function (pmatrix = NULL, N = NULL, alpha = 0.05, power = NUL
 
   # Generate output text
   METHOD <- "Chi-square test of independence power calculation"
-  prows <- c()
-  for (i in 1:nrow(pmatrix)) prows <- c(prows, paste(pmatrix[i,], collapse = ', '))
 
   # Print output as a power.htest object
-  structure(list(pmatrix = paste(prows, collapse = " | "),
+  structure(list(pmatrix = pss.matrix.format(pmatrix),
                  effect.size = es, N = N, alpha = alpha,
                  power = power, method = METHOD), class = "power.htest")
 }

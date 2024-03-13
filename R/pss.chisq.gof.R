@@ -16,14 +16,18 @@ pss.chisq.gof <- function (p0vec = NULL, p1vec = NULL,
                            N = NULL, alpha = 0.05, power = NULL) {
 
   # Check if the arguments are specified correctly
-  if (sum(sapply(list(N, alpha, power), is.null)) != 1)
-    stop("exactly one of N, alpha, and power must be NULL")
-  if (is.null(p0vec) | is.null(p1vec))
-    stop("please specify the two proportion vectors p0 and p1")
-  if (!is.null(N) && any(N < 1))
-    stop("number of observations must be at least 1")
+  pss.check.many(list(N, alpha, power), "oneof")
+  pss.check(p0vec, "req"); pss.check(p0vec, "vec")
+  pss.check(p1vec, "req"); pss.check(p1vec, "vec")
+  pss.check(N, "int"); pss.check(N, "min", min = 2)
+  pss.check(alpha, "unit")
+  pss.check(power, "unit")
+
   if (length(p0vec) != length(p1vec))
     stop("the two proportion vectors must have the same lengths")
+
+  if (any(p0vec <= 0) | any(p0vec >= 1) | any(p1vec <= 0) | any(p1vec  >= 1))
+    stop("all proportions must be between 0 and 1")
 
   # Calculate effect size and df
   es <- sqrt(sum((p1vec - p0vec)^2 / p0vec))

@@ -38,7 +38,7 @@ pss.crt.parallel <- function (m = NULL, m.sd = 0, J1 = NULL, J.ratio = 1, delta 
   # feasability check J > rho * Nindep
   if (is.null(m)) {
     out <- pss.t.test.2samp(n1 = NULL, delta = 0.5, sd1 = 1, power = 0.8, sides = 2)
-    Nindep <- out[[1]][1]
+    Nindep <- out[[1]][1] + out[[1]][2]
     iccavg <- mean(icc1, icc2)
     if (J1 + J1 * J.ratio <= iccavg * Nindep)
       stop("desired power unable to be achieved with given conditions")

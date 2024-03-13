@@ -27,12 +27,16 @@ pss.check <- function(param = NULL,
 
       # numeric variables
       if (type == "num") {
+        if (length(param) != 1)
+          stop(paste(name, "should have a singular value"))
         if (!is.numeric(param))
           stop(paste(name, "should be a numeric value"))
       }
 
       # variables between 0 and 1
       else if (type == "unit") {
+        if (length(param) != 1)
+          stop(paste(name, "should have a singular value"))
         if (!is.numeric(param))
           stop(paste(name, "should be a numeric value"))
         if (param >= 1 || param <= 0)
@@ -41,6 +45,8 @@ pss.check <- function(param = NULL,
 
       # variables between 0 and 1
       else if (type == "uniti") {
+        if (length(param) != 1)
+          stop(paste(name, "should have a singular value"))
         if (!is.numeric(param))
           stop(paste(name, "should be a numeric value"))
         if (param >= 1 || param < 0)
@@ -49,6 +55,8 @@ pss.check <- function(param = NULL,
 
       # positive values only
       else if (type == "pos") {
+        if (length(param) != 1)
+          stop(paste(name, "should have a singular value"))
         if (!is.numeric(param))
           stop(paste(name, "should be a numeric value"))
         if (param <= 0)
@@ -57,6 +65,8 @@ pss.check <- function(param = NULL,
 
       # integers only
       else if (type == "int") {
+        if (length(param) != 1)
+          stop(paste(name, "should have a singular value"))
         if (!is.numeric(param))
           stop(paste(name, "should be a numeric value"))
         if (param %% 1 != 0)
@@ -67,18 +77,24 @@ pss.check <- function(param = NULL,
 
       # true / false only
       else if (type == "bool") {
+        if (length(param) != 1)
+          stop(paste(name, "should have a singular value"))
         if (!isTRUE(param) & !isFALSE(param))
           stop(paste(name, "should be either TRUE or FALSE"))
       }
 
       # only certain values allowed
       else if (type == "vals") {
+        if (length(param) != 1)
+          stop(paste(name, "should have a singular value"))
         if (!(param %in% valslist))
           stop(paste(name, "should be one of:", paste(valslist, collapse = ", ")))
       }
 
       # value has a minimum
       else if (type == "min") {
+        if (length(param) != 1)
+          stop(paste(name, "should have a singular value"))
         if (!is.numeric(param))
           stop(paste(name, "should be a numeric value"))
         if (param < min)
