@@ -29,6 +29,9 @@ pss.chisq.gof <- function (p0vec = NULL, p1vec = NULL,
   if (any(p0vec <= 0) | any(p0vec >= 1) | any(p1vec <= 0) | any(p1vec  >= 1))
     stop("all proportions must be between 0 and 1")
 
+  if (sum(p0vec) != 1 | sum(p1vec) != 1)
+    stop("proportions must sum to 1 across each vector")
+
   # Calculate effect size and df
   es <- sqrt(sum((p1vec - p0vec)^2 / p0vec))
   df <- length(p0vec) - 1

@@ -25,6 +25,9 @@ pss.chisq.indep <- function (pmatrix = NULL, N = NULL, alpha = 0.05, power = NUL
   if (any(pmatrix <= 0) | any(pmatrix >= 1))
     stop("all proportions must be between 0 and 1")
 
+  if (sum(pmatrix) != 1)
+    stop("proportions must sum to 1")
+
   # Calculate effect size and df
   pi <- apply(pmatrix, 1, sum)
   pj <- apply(pmatrix, 2, sum)
@@ -52,6 +55,6 @@ pss.chisq.indep <- function (pmatrix = NULL, N = NULL, alpha = 0.05, power = NUL
 
   # Print output as a power.htest object
   structure(list(pmatrix = pss.matrix.format(pmatrix),
-                 effect.size = es, N = N, alpha = alpha,
+                 `w effect size` = es, N = N, alpha = alpha,
                  power = power, method = METHOD), class = "power.htest")
 }
