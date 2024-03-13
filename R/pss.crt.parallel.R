@@ -25,13 +25,23 @@
 #' RsqB = 0.1, ncov = 1, sides = 1)
 #' pss.crt.parallel(m = 20, J1 = 15, delta = 0.3, icc1 = 0.05, icc2 = 0.05,
 #' RsqW = 0.5^2, ncov = 0, sides = 1)
+#' pss.crt.parallel(m = NULL, J1 = 6, delta = 0.5, icc1 = 0.05, icc2 = 0.05, power = 0.8)
 
 pss.crt.parallel <- function (m = NULL, m.sd = 0, J1 = NULL, J.ratio = 1, delta = NULL, sd = 1,
                               icc1 = 0, icc2 = 0, ncov = 0, RsqB = 0, RsqW = 0,
                               alpha = 0.05, power = NULL, sides = 2) {
 
+  # Check if the arguments are specified correctly
+  pss.check(J1, "min", min = 2)
+  pss.check(J1 * J.ratio, "min", min = 2)
+
+  # feasability check J > rho * Nindep
   if (is.null(m)) {
-    Nindep <- pss.t.test.2samp(n1 = NULL, delta = 0.5, sd1 = 1, power = 0.8, sides = 2)
+    out <- pss.t.test.2samp(n1 = NULL, delta = 0.5, sd1 = 1, power = 0.8, sides = 2)
+    Nindep <- out[[1]][1]
+    iccavg <- mean(icc1, icc2)
+    if (J1 + J1 * J.ratio <= iccavg * Nindep)
+      stop("desired power unable to be achieved with given conditions")
   }
 
   # Calculate power
