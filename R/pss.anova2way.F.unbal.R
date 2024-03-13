@@ -23,21 +23,26 @@
 #' ncov = 1, alpha = 0.05)
 
 pss.anova2way.F.unbal <- function (nmatrix = NULL, mmatrix = NULL, sd = NULL,
-                                Rsq = 0, ncov = 0, alpha = 0.05) {
+                                   Rsq = 0, ncov = 0, alpha = 0.05) {
 
   # Check if the arguments are specified correctly
+  pss.check(nmatrix, "req"); pss.check(nmatrix, "mat")
+  pss.check(mmatrix, "req"); pss.check(mmatrix, "mat")
+  pss.check(sd, "req"); pss.check(sd, "pos")
+  pss.check(Rsq, "req"); pss.check(Rsq, "uniti")
+  pss.check(ncov, "req"); pss.check(ncov, "int")
+  pss.check(alpha, "req"); pss.check(alpha, "unit")
+
   a <- nrow(mmatrix)
   b <- ncol(mmatrix)
-  if (a < 2 | b < 2)
-    stop("number of groups per factor must be at least 2")
-  if (any(nmatrix < 2))
-    stop("number of observations in each group must be at least 2")
-  if(is.null(nmatrix) | is.null(mmatrix))
-    stop("sample size matrix and means matrix must both be specified")
-  if(is.null(sd))
-    stop("sd must be specified")
   if(nrow(nmatrix) != a | ncol(nmatrix) != b)
     stop("number of sample sizes must equal to the number of groups")
+
+  if (any(nmatrix < 2))
+    stop("number of observations in each group must be at least 2")
+
+  if (Rsq > 0 & ncov == 0)
+    stop("please specify ncov or set Rsq to 0")
 
   # Get marginal means
   es <- pss.es.anova.f(means = mmatrix, sd = sd)
@@ -92,18 +97,17 @@ pss.anova2way.F.unbal <- function (nmatrix = NULL, mmatrix = NULL, sd = NULL,
   else { powerAB <- 0}
 
   # Generate output text
-  ab <- c(a, b)
   if (intx) power <- c(powerA, powerB, powerAB) else power <- c(powerA, powerB)
   if (intx) f <- c(round(fA, 4), round(fB, 4), round(fAB, 4))
   else f <- c(round(fA, 4), round(fB, 4))
   METHOD <- paste0("Unalanced two-way analysis of ", ifelse(ncov < 1, "", "co"),
                    "variance\n     omnibus F test power calculation")
-  NOTE <- "The 3rd value for f and power or n is for the interaction"
-  out <- list(`a, b` = ab, mmatrix = pss.matrix.format(mmatrix),
-              nmatrix = pss.matrix.format(nmatrix),
-              sd = sd, ncov = ncov, Rsq = Rsq,
-              alpha = alpha, f = f, power = power,
-              method = METHOD)
+  NOTE <- "The 3rd value for f and power"
+  out <- list(nmatrix = pss.matrix.format(nmatrix),
+              mmatrix = pss.matrix.format(mmatrix),
+              sd = sd, f = f, ncov = ncov, Rsq = Rsq,
+              alpha = alpha, power = power,
+              method = METHOD, note = NOTE)
 
   # Print output as a power.htest object
   if (ncov < 1) out <- out[!names(out) %in% c("ncov", "Rsq")]

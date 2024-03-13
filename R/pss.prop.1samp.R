@@ -21,16 +21,11 @@ pss.prop.1samp <- function (N = NULL, p0 = NULL, pA = NULL, alpha = 0.05,
   # Check if the arguments are specified correctly
   pss.check.many(list(N, alpha, power), "oneof")
   pss.check(N, "int")
-  pss.check(p0, "req"); pss.check(p0, "uniti")
-  pss.check(pA, "req"); pss.check(pA, "uniti")
+  pss.check(p0, "req"); pss.check(p0, "unit")
+  pss.check(pA, "req"); pss.check(pA, "unit")
   pss.check(alpha, "unit")
   pss.check(power, "unit")
   pss.check(sides, "req"); pss.check(sides, "vals", valslist = c(1, 2))
-
-  if (sides != 1 & sides != 2)
-    stop("please specify 1 or 2 sides")
-  if (sum(sapply(list(N, power, alpha), is.null)) != 1)
-    stop("exactly one of 'N', 'alpha', and 'power' must be NULL")
 
   # Calculate test statistic
   p.body <- quote({

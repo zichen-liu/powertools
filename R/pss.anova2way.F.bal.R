@@ -23,16 +23,20 @@ pss.anova2way.F.bal <- function (n = NULL, mmatrix = NULL, sd = 1,
                               Rsq = 0, ncov = 0, alpha = 0.05, power = NULL) {
 
   # Check if the arguments are specified correctly
+  pss.check.many(list(n, alpha, power), "oneof")
+  pss.check(n, "int"); pss.check(n, "min", min = 2)
+  pss.check(mmatrix, "req"); pss.check(mmatrix, "mat")
+  pss.check(sd, "req"); pss.check(sd, "pos")
+  pss.check(Rsq, "req"); pss.check(Rsq, "uniti")
+  pss.check(ncov, "req"); pss.check(ncov, "int")
+  pss.check(alpha, "unit")
+  pss.check(power, "unit")
+
   a <- nrow(mmatrix)
   b <- ncol(mmatrix)
-  if (sum(vapply(list(n, alpha, power), is.null, NA)) != 1)
-    stop("exactly one of 'n', 'alpha', and 'power' must be NULL")
-  if (a < 2 | b < 2)
-    stop("number of groups per factor must be at least 2")
-  if (!is.null(n) && n < 2)
-    stop("number of observations in each group must be at least 2")
-  if(is.null(sd))
-    stop("sd must be specified")
+
+  if (Rsq > 0 & ncov == 0)
+    stop("please specify ncov or set Rsq to 0")
 
   # Set default values if given
   nA <- n; nB <- n; nAB <- n
@@ -88,7 +92,6 @@ pss.anova2way.F.bal <- function (n = NULL, mmatrix = NULL, sd = 1,
   else stop("internal error", domain = NA)
 
   # Generate output text
-  ab <- c(a, b)
   if (is.null(power))
     if (intx) power <- c(powerA, powerB, powerAB) else power <- c(powerA, powerB)
   else if (is.null(n))
@@ -99,9 +102,9 @@ pss.anova2way.F.bal <- function (n = NULL, mmatrix = NULL, sd = 1,
                    "variance\n     omnibus F test power calculation",
                    ifelse(intx, " with interaction", ""))
   NOTE <- "The 3rd value for f and power or n is for the interaction"
-  out <- list(`a, b` = ab, mmatrix = pss.matrix.format(mmatrix),
-              n = n, sd = sd, ncov = ncov, Rsq = Rsq,
-              alpha = alpha, f = f, power = power,
+  out <- list(n = n, mmatrix = pss.matrix.format(mmatrix),
+              sd = sd, f = f, ncov = ncov, Rsq = Rsq,
+              alpha = alpha, power = power,
               method = METHOD, note = NOTE)
 
   # Print output as a power.htest object

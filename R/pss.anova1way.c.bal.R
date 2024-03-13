@@ -20,17 +20,22 @@ pss.anova1way.c.bal <- function (n = NULL, mvec = NULL, cvec = NULL, sd = 1,
                                 Rsq = 0, ncov = 0, alpha = 0.05, power = NULL) {
 
   # Check if the arguments are specified correctly
+  pss.check.many(list(n, alpha, power), "oneof")
+  pss.check(n, "int"); pss.check(n, "min", min = 2)
+  pss.check(mvec, "req"); pss.check(mvec, "vec")
+  pss.check(cvec, "req"); pss.check(cvec, "vec")
+  pss.check(sd, "req"); pss.check(sd, "pos")
+  pss.check(Rsq, "req"); pss.check(Rsq, "uniti")
+  pss.check(ncov, "req"); pss.check(ncov, "int")
+  pss.check(alpha, "unit")
+  pss.check(power, "unit")
+
   a <- length(mvec)
-  if (sum(vapply(list(n, alpha, power), is.null, NA)) != 1)
-    stop("exactly one of 'n', 'alpha', and 'power' must be NULL")
-  if (a < 2)
-    stop("number of groups must be at least 2")
-  if (!is.null(n) && n < 2)
-    stop("number of observations in each group must be at least 2")
   if (a != length(cvec))
     stop("number of contrast coefficients must be equal to the number of groups")
-  if(is.null(sd))
-    stop("sd must be specified")
+
+  if (Rsq > 0 & ncov == 0)
+    stop("please specify ncov or set Rsq to 0")
 
   # Calculate df and ncp
   p.body <- quote({
@@ -52,7 +57,7 @@ pss.anova1way.c.bal <- function (n = NULL, mvec = NULL, cvec = NULL, sd = 1,
   # Generate output text
   METHOD <- paste0("Balanced one-way analysis of ", ifelse(ncov < 1, "", "co"),
                    "variance\n     contrast test power calculation")
-  out <- list(a = a, mvec = mvec, cvec = cvec, n = n, sd = sd,
+  out <- list(n = n, mvec = mvec, cvec = cvec, sd = sd,
               ncov = ncov, Rsq = Rsq, alpha = alpha, power = power,
               method = METHOD)
 

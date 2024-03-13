@@ -1,5 +1,5 @@
 pss.check.many <- function(paramlist = NULL,
-                      type = c("req", "oneof")) {
+                      type = c("oneof")) {
 
   names <- lapply(substitute(paramlist), deparse)
   names <- paste(names[-1], collapse = ", ")

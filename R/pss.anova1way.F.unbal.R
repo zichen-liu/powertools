@@ -17,17 +17,22 @@ pss.anova1way.F.unbal <- function (nvec = NULL, mvec = NULL, sd = NULL,
                                 Rsq = 0, ncov = 0, alpha = 0.05) {
 
   # Check if the arguments are specified correctly
+  pss.check(nvec, "req"); pss.check(nvec, "vec")
+  pss.check(mvec, "req"); pss.check(mvec, "vec")
+  pss.check(sd, "req"); pss.check(sd, "pos")
+  pss.check(Rsq, "req"); pss.check(Rsq, "uniti")
+  pss.check(ncov, "req"); pss.check(ncov, "int")
+  pss.check(alpha, "req"); pss.check(alpha, "unit")
+
   a <- length(mvec)
-  if (a < 2)
-    stop("number of a must be at least 2")
+  if (a != length(nvec))
+    stop("number of sample sizes must equal to the number of groups")
+
   if (any(nvec < 2))
     stop("number of observations in each group must be at least 2")
-  if(is.null(nvec) | is.null(mvec))
-    stop("sample size vector and means vector must both be specified")
-  if(is.null(sd))
-    stop("sd must be specified")
-  if(a != length(nvec))
-    stop("number of sample sizes must equal to the number of groups")
+
+  if (Rsq > 0 & ncov == 0)
+    stop("please specify ncov or set Rsq to 0")
 
   # Get marginal mean
   es <- pss.es.anova.f(means = mvec, sd = sd)
@@ -52,7 +57,7 @@ pss.anova1way.F.unbal <- function (nvec = NULL, mvec = NULL, sd = NULL,
   # Generate output text
   METHOD <- paste0("Unbalanced one-way analysis of ", ifelse(ncov < 1, "", "co"),
                    "variance\n     omnibus F test power calculation")
-  out <- list(a = a, mvec = mvec, nvec = nvec, sd = sd,
+  out <- list(nvec = nvec, mvec = mvec, sd = sd,
               f = f, ncov = ncov, Rsq = Rsq,
               alpha = alpha, power = power,
               method = METHOD)

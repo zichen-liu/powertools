@@ -3,7 +3,7 @@
 #' @param n The sample size per group.
 #' @param mmatrix A matrix of group means (see example).
 #' @param cvec A vector of contrast coefficients c(c1, c2, ...).
-#' @param factor Either "a" or "b" depending on which factor the contrast test is being made on.
+#' @param factor Either "a" for rows or "b" for columns depending on which factor the contrast test is being made on.
 #' @param sd The estimated standard deviation within each group; defaults to 1.
 #' @param Rsq The estimated R^2 for regressing the outcome on the covariates; defaults to 0.
 #' @param ncov The number of covariates adjusted for in the model; defaults to 0.
@@ -23,19 +23,25 @@ pss.anova2way.c.bal <- function (n = NULL, mmatrix = NULL, cvec = NULL,
                                 alpha = 0.05, power = NULL) {
 
   # Check if the arguments are specified correctly
+  pss.check.many(list(n, alpha, power), "oneof")
+  pss.check(n, "int"); pss.check(n, "min", min = 2)
+  pss.check(mmatrix, "req"); pss.check(mmatrix, "mat")
+  pss.check(cvec, "req"); pss.check(cvec, "vec")
+  pss.check(factor, "req"); pss.check(factor, "vals", valslist = c("a", "b"))
+  pss.check(sd, "req"); pss.check(sd, "pos")
+  pss.check(Rsq, "req"); pss.check(Rsq, "uniti")
+  pss.check(ncov, "req"); pss.check(ncov, "int")
+  pss.check(alpha, "unit")
+  pss.check(power, "unit")
+
   a <- nrow(mmatrix)
   b <- ncol(mmatrix)
   factor <- match.arg(factor)
-  if (sum(vapply(list(n, alpha, power), is.null, NA)) != 1)
-    stop("exactly one of 'n', 'alpha', and 'power' must be NULL")
-  if (a < 2 | b < 2)
-    stop("number of groups per intervention must be at least 2")
-  if (!is.null(n) && n < 2)
-    stop("number of observations in each group must be at least 2")
   if (switch(factor, "a" = a, "b" = b) != length(cvec))
     stop("number of contrast coefficients must be equal to the number of groups")
-  if(is.null(sd))
-    stop("sd must be specified")
+
+  if (Rsq > 0 & ncov == 0)
+    stop("please specify ncov or set Rsq to 0")
 
   # Get grand mean and marginal means
   es <- pss.es.anova.f(means = mmatrix, sd = sd)
@@ -67,11 +73,10 @@ pss.anova2way.c.bal <- function (n = NULL, mmatrix = NULL, cvec = NULL,
   else stop("internal error", domain = NA)
 
   # Generate output text
-  ab <- c(a, b)
   METHOD <- paste0("Balanced two-way analysis of ", ifelse(ncov < 1, "", "co"),
                    "variance\n     contrast test power calculation")
-  out <- list(`a, b` = ab, mmatrix = pss.matrix.format(mmatrix),
-              factor = factor, cvec = cvec, n = n,
+  out <- list(n = n, mmatrix = pss.matrix.format(mmatrix),
+              factor = factor, cvec = cvec,
               sd = sd, ncov = ncov, Rsq = Rsq,
               alpha = alpha, power = power,
               method = METHOD)

@@ -22,18 +22,23 @@ pss.anova2way.se.bal <- function (n = NULL, mmatrix = NULL, cmatrix = NULL,
                                  alpha = 0.05, power = NULL) {
 
   # Check if the arguments are specified correctly
+  pss.check.many(list(n, alpha, power), "oneof")
+  pss.check(n, "int"); pss.check(n, "min", min = 2)
+  pss.check(mmatrix, "req"); pss.check(mmatrix, "mat")
+  pss.check(cmatrix, "req"); pss.check(cmatrix, "mat")
+  pss.check(sd, "req"); pss.check(sd, "pos")
+  pss.check(Rsq, "req"); pss.check(Rsq, "uniti")
+  pss.check(ncov, "req"); pss.check(ncov, "int")
+  pss.check(alpha, "unit")
+  pss.check(power, "unit")
+
   a <- nrow(mmatrix)
   b <- ncol(mmatrix)
-  if (sum(vapply(list(n, alpha, power), is.null, NA)) != 1)
-    stop("exactly one of 'n', 'alpha', and 'power' must be NULL")
-  if (a < 2 | b < 2)
-    stop("number of groups per intervention must be at least 2")
-  if (!is.null(n) && n < 2)
-    stop("number of observations in each group must be at least 2")
   if (a != nrow(cmatrix) | b != ncol(cmatrix))
     stop("number of contrast coefficients must be equal to the number of groups")
-  if(is.null(sd))
-    stop("sd must be specified")
+
+   if (Rsq > 0 & ncov == 0)
+    stop("please specify ncov or set Rsq to 0")
 
   # See if there is an interaction
   fAB <- pss.es.anova.f(means = mmatrix, sd = sd)$fAB
@@ -58,12 +63,11 @@ pss.anova2way.se.bal <- function (n = NULL, mmatrix = NULL, cmatrix = NULL,
   else stop("internal error", domain = NA)
 
   # Generate output text
-  ab <- c(a, b)
   METHOD <- paste0("Balanced two-way analysis of ", ifelse(ncov < 1, "", "co"),
                    "variance\n     simple effects power calculation",
                    ifelse(intx, " with interaction", ""))
-  out <- list(`a, b` = ab, mmatrix = pss.matrix.format(mmatrix),
-              cmatrix = pss.matrix.format(cmatrix), n = n,
+  out <- list(n = n, mmatrix = pss.matrix.format(mmatrix),
+              cmatrix = pss.matrix.format(cmatrix),
               sd = sd, ncov = ncov, Rsq = Rsq, alpha = alpha, power = power,
               method = METHOD)
 

@@ -23,17 +23,26 @@ pss.anova2way.c.unbal <- function (nmatrix = nmatrix, mmatrix = NULL, cvec = NUL
                             alpha = 0.05) {
 
   # Check if the arguments are specified correctly
+  pss.check(nmatrix, "req"); pss.check(nmatrix, "mat")
+  pss.check(mmatrix, "req"); pss.check(mmatrix, "mat")
+  pss.check(cvec, "req"); pss.check(cvec, "vec")
+  pss.check(factor, "req"); pss.check(factor, "vals", valslist = c("a", "b"))
+  pss.check(sd, "req"); pss.check(sd, "pos")
+  pss.check(Rsq, "req"); pss.check(Rsq, "uniti")
+  pss.check(ncov, "req"); pss.check(ncov, "int")
+  pss.check(alpha, "req"); pss.check(alpha, "unit")
+
   a <- nrow(mmatrix)
   b <- ncol(mmatrix)
   factor <- match.arg(factor)
-  if (a < 2 | b < 2)
-    stop("number of groups per intervention must be at least 2")
-  if (any(nmatrix < 2))
-    stop("number of observations in each group must be at least 2")
   if (switch(factor, "a" = a, "b" = b) != length(cvec))
     stop("number of contrast coefficients must be equal to the number of groups")
-  if(is.null(sd))
-    stop("sd must be specified")
+
+  if (any(nmatrix < 2))
+    stop("number of observations in each group must be at least 2")
+
+  if (Rsq > 0 & ncov == 0)
+    stop("please specify ncov or set Rsq to 0")
 
   # Get grand mean and marginal means
   es <- pss.es.anova.f(means = mmatrix, sd = sd)
@@ -61,12 +70,12 @@ pss.anova2way.c.unbal <- function (nmatrix = nmatrix, mmatrix = NULL, cvec = NUL
                      1, df2, lambda^2, lower.tail = FALSE)
 
   # Generate output text
-  ab <- c(a, b)
   METHOD <- paste0("Unalanced two-way analysis of ", ifelse(ncov < 1, "", "co"),
                    "variance\n     contrast test power calculation",
                    ifelse(intx, " with interaction", ""))
-  out <- list(`a, b` = ab, mmatrix = pss.matrix.format(mmatrix),
-              nmatrix = pss.matrix.format(nmatrix), factor = factor,
+  out <- list(nmatrix = pss.matrix.format(nmatrix),
+              mmatrix = pss.matrix.format(mmatrix),
+              factor = factor,
               cvec = cvec, sd = sd, ncov = ncov, Rsq = Rsq,
               alpha = alpha, power = power,
               method = METHOD)

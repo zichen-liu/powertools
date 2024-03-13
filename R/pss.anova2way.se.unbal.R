@@ -22,18 +22,26 @@ pss.anova2way.se.unbal <- function (nmatrix = NULL, mmatrix = NULL, cmatrix = NU
                                    sd = 0, Rsq = 0, ncov = 0, alpha = 0.05) {
 
   # Check if the arguments are specified correctly
+  pss.check(nmatrix, "req"); pss.check(nmatrix, "mat")
+  pss.check(mmatrix, "req"); pss.check(mmatrix, "mat")
+  pss.check(cmatrix, "req"); pss.check(cmatrix, "mat")
+  pss.check(sd, "req"); pss.check(sd, "pos")
+  pss.check(Rsq, "req"); pss.check(Rsq, "uniti")
+  pss.check(ncov, "req"); pss.check(ncov, "int")
+  pss.check(alpha, "req"); pss.check(alpha, "unit")
+
   a <- nrow(mmatrix)
   b <- ncol(mmatrix)
-  if (a < 2 | b < 2)
-    stop("number of groups per intervention must be at least 2")
-  if (any(nmatrix < 2))
-    stop("number of observations in each group must be at least 2")
   if (a != nrow(cmatrix) | b != ncol(cmatrix))
     stop("number of contrast coefficients must be equal to the number of groups")
   if (a != nrow(nmatrix) | b != ncol(nmatrix))
     stop("number of sample sizes must be equal to the number of groups")
-  if(is.null(sd))
-    stop("sd must be specified")
+
+  if (any(nmatrix < 2))
+    stop("number of observations in each group must be at least 2")
+
+  if (Rsq > 0 & ncov == 0)
+    stop("please specify ncov or set Rsq to 0")
 
   # See if there is an interaction
   fAB <- pss.es.anova.f(means = mmatrix, sd = sd)$fAB
@@ -49,12 +57,11 @@ pss.anova2way.se.unbal <- function (nmatrix = NULL, mmatrix = NULL, cmatrix = NU
   power <- stats::pt(q = stats::qt(alpha, df), df, lambda)
 
   # Generate output text
-  ab <- c(a, b)
   METHOD <- paste0("Unbalanced two-way analysis of ", ifelse(ncov < 1, "", "co"),
                    "variance\n     simple effects power calculation",
                    ifelse(intx, " with interaction", ""))
-  out <- list(`a, b` = ab, mmatrix = pss.matrix.format(mmatrix),
-              nmatrix = pss.matrix.format(nmatrix),
+  out <- list(nmatrix = pss.matrix.format(nmatrix),
+              mmatrix = pss.matrix.format(mmatrix),
               cmatrix = pss.matrix.format(cmatrix),
               sd = sd, ncov = ncov, Rsq = Rsq, alpha = alpha, power = power,
               method = METHOD)
@@ -62,5 +69,6 @@ pss.anova2way.se.unbal <- function (nmatrix = NULL, mmatrix = NULL, cmatrix = NU
   # Print output as a power.htest object
   if (ncov < 1) out <- out[!names(out) %in% c("ncov", "Rsq")]
   structure(out, class = "power.htest")
+
 }
 
