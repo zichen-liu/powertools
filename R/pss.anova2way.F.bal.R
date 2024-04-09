@@ -103,7 +103,7 @@ pss.anova2way.F.bal <- function (n = NULL, mmatrix = NULL, sd = 1,
                    ifelse(intx, " with interaction", ""))
   NOTE <- "The 3rd value for f and power or n is for the interaction"
   out <- list(n = n, mmatrix = pss.matrix.format(mmatrix),
-              sd = sd, f = f, ncov = ncov, Rsq = Rsq,
+              sd = sd, `f effect size` = f, ncov = ncov, Rsq = Rsq,
               alpha = alpha, power = power,
               method = METHOD, note = NOTE)
 

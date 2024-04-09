@@ -105,7 +105,7 @@ pss.anova2way.F.unbal <- function (nmatrix = NULL, mmatrix = NULL, sd = NULL,
   NOTE <- "The 3rd value for f and power"
   out <- list(nmatrix = pss.matrix.format(nmatrix),
               mmatrix = pss.matrix.format(mmatrix),
-              sd = sd, f = f, ncov = ncov, Rsq = Rsq,
+              sd = sd, `f effect size` = f, ncov = ncov, Rsq = Rsq,
               alpha = alpha, power = power,
               method = METHOD, note = NOTE)
 

@@ -53,6 +53,6 @@ pss.chisq.gof <- function (p0vec = NULL, p1vec = NULL,
 
   # Generate output text
   METHOD <- "Chi-square goodness-of-fit power calculation"
-  structure(list(p1vec = p1vec, p0vec = p0vec, effect.size = es, N = N, alpha = alpha,
+  structure(list(p1vec = p1vec, p0vec = p0vec, `w effect size` = es, N = N, alpha = alpha,
                  power = power, method = METHOD), class = "power.htest")
 }

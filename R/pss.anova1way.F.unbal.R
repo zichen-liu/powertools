@@ -58,7 +58,7 @@ pss.anova1way.F.unbal <- function (nvec = NULL, mvec = NULL, sd = NULL,
   METHOD <- paste0("Unbalanced one-way analysis of ", ifelse(ncov < 1, "", "co"),
                    "variance\n     omnibus F test power calculation")
   out <- list(nvec = nvec, mvec = mvec, sd = sd,
-              f = f, ncov = ncov, Rsq = Rsq,
+              `f effect size` = f, ncov = ncov, Rsq = Rsq,
               alpha = alpha, power = power,
               method = METHOD)
 
