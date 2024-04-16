@@ -1,4 +1,4 @@
-#' Power for test of average treatment effect in multisite trials
+#' Power for test of average treatment effect in a multisite trial
 #'
 #' @param m The number of subjects per site or the mean cluster size (if unequal number of participants per site).
 #' @param m.sd The standard deviation of cluster sizes (provide if unequal number of participants per site); defaults to 0.
@@ -34,9 +34,7 @@ pss.multisite.ate <- function (m = NULL, m.sd = 0, alloc.ratio = 1, J = NULL,
     df <- J - 1
     d <- delta / (sd * sqrt((1 - Rsq)))
 
-    cv <- m.sd / m
-    K <- (m * icc1) / (1 + (m - 1) * icc1)
-    RE <- 1 - cv^2 * K * (1 - K)
+    RE <- pss.re(m = m, m.sd = m.sd, icc1 = icc1)$RE
 
     c <- (1 + alloc.ratio)^2 / alloc.ratio
     ncp <- d / sqrt(c * (1 - icc0 + (4 * m / c - 1) * icc1) / N / RE)
@@ -61,7 +59,7 @@ pss.multisite.ate <- function (m = NULL, m.sd = 0, alloc.ratio = 1, J = NULL,
 
   # Generate output text
   METHOD <- "Power for test of average treatment effect in multisite trials"
-  NOTE <- "m is the subjects per site split as interventions, controls"
+  NOTE <- "m is subjects within site in intervention, control conditions"
   icc <- c(icc0, icc1)
   c <- m / (alloc.ratio + 1)
   t <- alloc.ratio * c

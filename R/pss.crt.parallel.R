@@ -32,8 +32,8 @@ pss.crt.parallel <- function (m = NULL, m.sd = 0, J1 = NULL, J.ratio = 1, delta 
                               alpha = 0.05, power = NULL, sides = 2) {
 
   # Check if the arguments are specified correctly
-  pss.check(J1, "min", min = 2)
-  pss.check(J1 * J.ratio, "min", min = 2)
+    pss.check(J1, "min", min = 2)
+    pss.check(J1 * J.ratio, "min", min = 2)
 
   # feasability check J > rho * Nindep
   if (is.null(m)) {
@@ -51,9 +51,7 @@ pss.crt.parallel <- function (m = NULL, m.sd = 0, J1 = NULL, J.ratio = 1, delta 
     df <- J - 2 - ncov
     d <- delta / sd
 
-    cv <- m.sd / m
-    K <- (m * icc1) / (1 + (m - 1) * icc1)
-    RE <- 1 - cv^2 * K * (1 - K)
+    RE <- pss.re(m = m, m.sd = m.sd, icc1 = icc1)$RE
 
     w <- 1 / (1 + J.ratio)
     de1 <- 1 + (m - 1) * (1 - RsqB) * icc1 -

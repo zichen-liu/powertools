@@ -28,7 +28,7 @@ pss.check <- function(param = NULL,
       # numeric variables
       if (type == "num") {
         if (length(param) != 1)
-          stop(paste(name, "should have a singular value"))
+          stop(paste(name, "should have single value (length 1)"))
         if (!is.numeric(param))
           stop(paste(name, "should be a numeric value"))
       }
@@ -36,7 +36,7 @@ pss.check <- function(param = NULL,
       # variables between 0 and 1
       else if (type == "unit") {
         if (length(param) != 1)
-          stop(paste(name, "should have a singular value"))
+          stop(paste(name, "should have single value (length 1)"))
         if (!is.numeric(param))
           stop(paste(name, "should be a numeric value"))
         if (param >= 1 || param <= 0)
@@ -46,7 +46,7 @@ pss.check <- function(param = NULL,
       # variables between 0 and 1
       else if (type == "uniti") {
         if (length(param) != 1)
-          stop(paste(name, "should have a singular value"))
+          stop(paste(name, "should have single value (length 1)"))
         if (!is.numeric(param))
           stop(paste(name, "should be a numeric value"))
         if (param >= 1 || param < 0)
@@ -56,7 +56,7 @@ pss.check <- function(param = NULL,
       # positive values only
       else if (type == "pos") {
         if (length(param) != 1)
-          stop(paste(name, "should have a singular value"))
+          stop(paste(name, "should have single value (length 1)"))
         if (!is.numeric(param))
           stop(paste(name, "should be a numeric value"))
         if (param <= 0)
@@ -66,7 +66,7 @@ pss.check <- function(param = NULL,
       # integers only
       else if (type == "int") {
         if (length(param) != 1)
-          stop(paste(name, "should have a singular value"))
+          stop(paste(name, "should have single value (length 1)"))
         if (!is.numeric(param))
           stop(paste(name, "should be a numeric value"))
         if (param %% 1 != 0)
@@ -78,7 +78,7 @@ pss.check <- function(param = NULL,
       # true / false only
       else if (type == "bool") {
         if (length(param) != 1)
-          stop(paste(name, "should have a singular value"))
+          stop(paste(name, "should have single value (length 1)"))
         if (!isTRUE(param) & !isFALSE(param))
           stop(paste(name, "should be either TRUE or FALSE"))
       }
@@ -86,7 +86,7 @@ pss.check <- function(param = NULL,
       # only certain values allowed
       else if (type == "vals") {
         if (length(param) != 1)
-          stop(paste(name, "should have a singular value"))
+          stop(paste(name, "should have single value (length 1)"))
         if (!(param %in% valslist))
           stop(paste(name, "should be one of:", paste(valslist, collapse = ", ")))
       }
@@ -94,7 +94,7 @@ pss.check <- function(param = NULL,
       # value has a minimum
       else if (type == "min") {
         if (length(param) != 1)
-          stop(paste(name, "should have a singular value"))
+          stop(paste(name, "should have single value (length 1)"))
         if (!is.numeric(param))
           stop(paste(name, "should be a numeric value"))
         if (param < min)
@@ -116,6 +116,16 @@ pss.check <- function(param = NULL,
         if (nrow(param) < 2 | ncol(param) < 2)
           stop(paste(name, "each factor should have at least 2 groups"))
       }
+
+      # else if (type == "sumone") {
+      #   # value is numerical matrix
+      #   else if (type == "mat") {
+      #     if (class(c(param)) != "numeric")
+      #       stop(paste(name, "should be a numeric matrix"))
+      #     if (nrow(param) < 2 | ncol(param) < 2)
+      #       stop(paste(name, "each factor should have at least 2 groups"))
+      #   }
+      # }
 
     }
   }
