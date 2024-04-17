@@ -18,7 +18,20 @@
 #' pss.irgtt.cont(m = 10, J = 12, delta = 0.4, icc = 0.05, Theta = 1, sides = 1, power = 0.8)
 
 pss.irgtt.cont <- function (m = NULL, J = NULL, n = NULL, delta = NULL, sd = 1,
-                              icc = 0, Theta = 1, alpha = 0.05, power = NULL, sides = 2) {
+                            icc = 0, Theta = 1, alpha = 0.05, power = NULL, sides = 2) {
+
+  # Check if the arguments are specified correctly
+  pss.check.many(list(m, J, n, delta, alpha, power), "oneof")
+  pss.check(m, "int")
+  pss.check(J, "min", min = 2)
+  pss.check(n, "int")
+  pss.check(delta, "num")
+  pss.check(sd, "req"); pss.check(sd, "pos")
+  pss.check(icc, "req"); pss.check(icc, "uniti")
+  pss.check(Theta, "req"); pss.check(Theta, "pos")
+  pss.check(alpha, "unit")
+  pss.check(power, "unit")
+  pss.check(sides, "req"); pss.check(sides, "vals", valslist = c(1, 2))
 
   # Calculate power
   p.body <- quote({
@@ -51,7 +64,6 @@ pss.irgtt.cont <- function (m = NULL, J = NULL, n = NULL, delta = NULL, sd = 1,
   structure(list(`m, J, n` = mjn, delta = delta, sd = sd, icc = icc,
                  Theta = Theta, alpha = alpha, power = power, sides = sides,
                  method = METHOD), class = "power.htest")
-  # put m, J, n on the same line
 
 }
 

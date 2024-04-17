@@ -22,8 +22,16 @@ pss.multisite.bin <- function (m = NULL, alloc.ratio = 1, J = NULL,
                                alpha = 0.05, power = NULL, sides = 2) {
 
   # Check if the arguments are specified correctly
-  if (sides != 1 & sides != 2)
-    stop("please specify 1 or 2 sides")
+  pss.check.many(list(m, J, alpha, power), "oneof")
+  pss.check(m, "int")
+  pss.check(alloc.ratio, "req"); pss.check(alloc.ratio, "pos")
+  pss.check(J, "min", min = 2)
+  pss.check(pc, "req"); pss.check(pc, "unit")
+  pss.check(pt, "req"); pss.check(pt, "unit")
+  pss.check(sigma.u, "req"); pss.check(sigma.u, "pos")
+  pss.check(alpha, "unit")
+  pss.check(power, "unit")
+  pss.check(sides, "req"); pss.check(sides, "vals", valslist = c(1, 2))
 
   # Calculate power
   p.body <- quote({
@@ -45,8 +53,8 @@ pss.multisite.bin <- function (m = NULL, alloc.ratio = 1, J = NULL,
     J <- stats::uniroot(function(J) eval(p.body) - power, c(2 + 1e-10, 1e+07))$root
   else if (is.null(m))
     m <- stats::uniroot(function(m) eval(p.body) - power, c(2 + 1e-10, 1e+07))$root
-  else if (is.null(alloc.ratio))
-    alloc.ratio <- stats::uniroot(function(alloc.ratio) eval(p.body) - power, c(1 + 1e-10, 1e+07))$root
+  #else if (is.null(alloc.ratio))
+  #  alloc.ratio <- stats::uniroot(function(alloc.ratio) eval(p.body) - power, c(1 + 1e-10, 1e+07))$root
   else if (is.null(prop.t))
     prop.t <- stats::uniroot(function(prop.t) eval(p.body) - power, c(0 + 1e-10, 1 - 1e-10))$root
 

@@ -12,6 +12,13 @@
 #' pss.multisite.hte(m = 10, J = 30, VR = 8 / 36)
 
 pss.multisite.hte <- function (m = NULL, J = NULL, VR = NULL, alpha = 0.05) {
+
+  # Check if the arguments are specified correctly
+  pss.check(m, "req"); pss.check(m, "int")
+  pss.check(J, "req"); pss.check(J, "min", min = 2)
+  pss.check(VR, "req"); pss.check(VR, "pos")
+  pss.check(alpha, "req"); pss.check(alpha, "unit")
+
   omega <- 1 + m * VR / 4
   df1 <- J - 1
   df2 <- J * (m - 2)

@@ -28,6 +28,21 @@ pss.multisite.ate <- function (m = NULL, m.sd = 0, alloc.ratio = 1, J = NULL,
                                icc0 = NULL, icc1 = NULL, Rsq = 0,
                                alpha = 0.05, power = NULL, sides = 2) {
 
+  # Check if the arguments are specified correctly
+  pss.check.many(list(m, J, delta, alpha, power), "oneof")
+  pss.check(m, "int")
+  pss.check(m.sd, "req"); pss.check(m.sd, "min", min = 0)
+  pss.check(alloc.ratio, "req"); pss.check(alloc.ratio, "pos")
+  pss.check(J, "min", min = 2)
+  pss.check(delta, "num")
+  pss.check(sd, "req"); pss.check(sd, "pos")
+  pss.check(icc0, "req"); pss.check(icc0, "uniti")
+  pss.check(icc1, "req"); pss.check(icc1, "uniti")
+  pss.check(Rsq, "req"); pss.check(Rsq, "uniti")
+  pss.check(alpha, "unit")
+  pss.check(power, "unit")
+  pss.check(sides, "req"); pss.check(sides, "vals", valslist = c(1, 2))
+
   # Calculate power
   p.body <- quote({
     N <- m * J

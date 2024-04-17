@@ -19,6 +19,18 @@
 pss.irgtt.bin <- function (m = NULL, J = NULL, n = NULL, p1 = NULL, p2 = NULL,
                             icc = 0, alpha = 0.05, power = NULL, sides = 2) {
 
+  # Check if the arguments are specified correctly
+  pss.check.many(list(m, J, n, alpha, power), "oneof")
+  pss.check(m, "int")
+  pss.check(J, "min", min = 2)
+  pss.check(n, "int")
+  pss.check(p1, "req"); pss.check(p1, "unit")
+  pss.check(p2, "req"); pss.check(p2, "unit")
+  pss.check(icc, "req"); pss.check(icc, "uniti")
+  pss.check(alpha, "unit")
+  pss.check(power, "unit")
+  pss.check(sides, "req"); pss.check(sides, "vals", valslist = c(1, 2))
+
   # Calculate power
   p.body <- quote({
     de <- 1 + (m - 1) * icc
