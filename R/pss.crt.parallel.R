@@ -32,8 +32,22 @@ pss.crt.parallel <- function (m = NULL, m.sd = 0, J1 = NULL, J.ratio = 1, delta 
                               alpha = 0.05, power = NULL, sides = 2) {
 
   # Check if the arguments are specified correctly
-    pss.check(J1, "min", min = 2)
+  pss.check.many(list(m, J1, delta, sd, alpha, power), "oneof")
+  pss.check(m, "int")
+  pss.check(m.sd, "req"); pss.check(m.sd, "min", min = 0)
+  pss.check(J.ratio, "req"); pss.check(J.ratio, "pos")
+  pss.check(J1, "min", min = 2)
+  if (!is.null(J1))
     pss.check(J1 * J.ratio, "min", min = 2)
+  pss.check(delta, "num")
+  pss.check(sd, "req"); pss.check(sd, "pos")
+  pss.check(icc1, "req"); pss.check(icc1, "uniti")
+  pss.check(icc2, "req"); pss.check(icc2, "uniti")
+  pss.check(ncov, "req"); pss.check(ncov, "int")
+  pss.check(RsqB, "req"); pss.check(RsqB, "uniti")
+  pss.check(RsqW, "req"); pss.check(RsqW, "uniti")
+  pss.check(alpha, "unit")
+  pss.check(power, "unit")
 
   # feasability check J > rho * Nindep
   if (is.null(m)) {
