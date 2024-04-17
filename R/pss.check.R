@@ -9,7 +9,8 @@ pss.check <- function(param = NULL,
                                "vals",  # certain values (specify valslist)
                                "min",   # minimum value (specify min)
                                "vec",   # numerical vector
-                               "mat"    # numerical matrix
+                               "mat",   # numerical matrix
+                               "sum"    # sum to one
                                ),
                       valslist = NULL, min = NULL) {
 
@@ -117,16 +118,14 @@ pss.check <- function(param = NULL,
           stop(paste(name, "each factor should have at least 2 groups"))
       }
 
-      # else if (type == "sumone") {
-      #   # value is numerical matrix
-      #   else if (type == "mat") {
-      #     if (class(c(param)) != "numeric")
-      #       stop(paste(name, "should be a numeric matrix"))
-      #     if (nrow(param) < 2 | ncol(param) < 2)
-      #       stop(paste(name, "each factor should have at least 2 groups"))
-      #   }
-      # }
 
+      # value is numerical vector/matrix that sums to one
+      else if (type == "sum") {
+        if (any(param <= 0) | any(param >= 1))
+          stop(paste("all values of", name, "should be between 0 and 1"))
+        if (sum(param) != 1)
+          stop(paste("values of", name, "should sum to one"))
+      }
     }
   }
 }

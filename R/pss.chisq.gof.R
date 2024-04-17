@@ -17,8 +17,8 @@ pss.chisq.gof <- function (p0vec = NULL, p1vec = NULL,
 
   # Check if the arguments are specified correctly
   pss.check.many(list(N, alpha, power), "oneof")
-  pss.check(p0vec, "req"); pss.check(p0vec, "vec")
-  pss.check(p1vec, "req"); pss.check(p1vec, "vec")
+  pss.check(p0vec, "req"); pss.check(p0vec, "vec"); pss.check(p0vec, "sum")
+  pss.check(p1vec, "req"); pss.check(p1vec, "vec"); pss.check(p1vec, "sum")
   pss.check(N, "int"); pss.check(N, "min", min = 2)
   pss.check(alpha, "unit")
   pss.check(power, "unit")
