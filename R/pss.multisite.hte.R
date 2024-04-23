@@ -1,6 +1,6 @@
 #' Power for test of heterogeneity of treatment effect in multisite trials
 
-#' @param m The number of subjects per site.
+#' @param m The total number of subjects per site.
 #' @param J The number of sites.
 #' @param VR The variance ratio (site-level treatment effects / observations within sites) the under the alternative.
 #' @param alpha The significance level or type 1 error rate; defaults to 0.05.

@@ -69,7 +69,7 @@ pss.crt.parallel <- function (m = NULL, m.sd = 0, J1 = NULL, J.ratio = 1, delta 
     df <- J - 2 - ncov
     d <- delta / sd
 
-    RE <- pss.re(m = m, m.sd = m.sd, icc1 = icc1)$RE
+    RE <- pss.re(m = m, m.sd = m.sd, icc = (icc1+icc2)/2)
 
     w <- 1 / (1 + J.ratio)
     de1 <- 1 + (m - 1) * (1 - RsqB) * icc1 -
@@ -96,15 +96,13 @@ pss.crt.parallel <- function (m = NULL, m.sd = 0, J1 = NULL, J.ratio = 1, delta 
 
   # Generate output text
   METHOD <- "Power for test of treatment effect in a cluster randomized trial"
-  NOTE <- "J is the clusters per arm"
   m <- ifelse(m.sd == 0, m, paste0(m, " (sd = ", m.sd, ")"))
   J <- c(J1, J1 * J.ratio)
   icc <- c(icc1, icc2)
   Rsq <- c(RsqB, RsqW)
   out <- list(m = m, `J1, J2` = J, delta = delta, sd = sd, `icc1, icc2` = icc,
               ncov = ncov, `RsqB, RsqW` = Rsq,
-              alpha = alpha, power = power, sides = sides,
-              method = METHOD, note = NOTE)
+              alpha = alpha, power = power, sides = sides, method = METHOD)
 
   # Print output as a power.htest object
   if (RsqB < 0.0000000001 & RsqW < 0.0000000001)

@@ -49,7 +49,7 @@ pss.multisite.ate <- function (m = NULL, m.sd = 0, alloc.ratio = 1, J = NULL,
     df <- J - 1
     d <- delta / (sd * sqrt((1 - Rsq)))
 
-    RE <- pss.re(m = m, m.sd = m.sd, icc1 = icc1)$RE
+    RE <- pss.re(m = m, m.sd = m.sd, icc = icc1)
 
     c <- (1 + alloc.ratio)^2 / alloc.ratio
     ncp <- d / sqrt(c * (1 - icc0 + (4 * m / c - 1) * icc1) / N / RE)
@@ -74,13 +74,13 @@ pss.multisite.ate <- function (m = NULL, m.sd = 0, alloc.ratio = 1, J = NULL,
 
   # Generate output text
   METHOD <- "Power for test of average treatment effect in multisite trials"
-  NOTE <- "m is subjects within site in intervention, control conditions"
+  NOTE <- "NOTE: m1, m2 are the number of subjects within site in\ncondition 1, condition 2 (total of m1 + m2 per site)"
   icc <- c(icc0, icc1)
   c <- m / (alloc.ratio + 1)
   t <- alloc.ratio * c
   m <- ifelse(m.sd == 0, paste0(t, ", ", c), paste0(t, ", ",  c, " (sd = ", m.sd, ")"))
 
-  out <- list(m = m, J = J, delta = delta, sd = sd,
+  out <- list(`m1, m2` = m, J = J, delta = delta, sd = sd,
               `icc0, icc1` = icc, Rsq = Rsq,
               alpha = alpha, power = power, sides = sides,
               method = METHOD, note = NOTE)

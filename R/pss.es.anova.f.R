@@ -3,7 +3,7 @@
 #' @param means A vector or matrix of group means.
 #' @param sd The estimated standard deviation within each group.
 #'
-#' @return A list of the arguments and various f effect sizes.
+#' @return Various calculated f effect sizes.
 #' @export
 #'
 #' @examples
@@ -53,8 +53,7 @@ pss.es.anova.f <- function (means = NULL, sd = NULL) {
   # Print output as a power.htest object
   if (is.vector(means)) {
     METHOD <- "Cohen's f effect size calculation for\n     one-way analysis of variance"
-    structure(list(a = a, means = means, sd = sd,
-                   mmA = mmA, fA = fA,
+    structure(list(fA = fA,
                    method = METHOD), class = "power.htest")
 
   } else if (is.matrix(means)) {
@@ -62,9 +61,7 @@ pss.es.anova.f <- function (means = NULL, sd = NULL) {
     mrows <- c()
     for (i in 1:a) mrows <- c(mrows, paste(means[i,], collapse = ', '))
     means <- paste(mrows, collapse = "\n                  ")
-    structure(list(a = a, b = b, means = means, sd = sd,
-                   mmA = mmA, mmB = mmB, ints = ints,
-                   fA = fA, fB = fB, fAB = fAB,
+    structure(list(fA = fA, fB = fB, fAB = fAB,
                    method = METHOD), class = "power.htest")
   }
 
