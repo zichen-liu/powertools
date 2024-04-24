@@ -1,6 +1,6 @@
 #' Power for multisite trials with binary outcomes
 #'
-#' @param m The number of subjects per site.
+#' @param m The total number of subjects per site.
 #' @param alloc.ratio The allocation ratio of intervention/control per site; defaults to 1.
 #' @param J The number of sites.
 #' @param pc The probability of the outcome in the control condition.
@@ -60,14 +60,14 @@ pss.multisite.bin <- function (m = NULL, alloc.ratio = 1, J = NULL,
 
   # Generate output text
   METHOD <-"Power for multisite trials with binary outcomes"
-  NOTE <- "m is the subjects per site split as interventions, controls"
+  NOTE <- "m1, m2 are the number of subjects within site in condition 1, condition 2\n      (total of m1 + m2 per site)"
   p <- c(pc, pt)
   c <- m / (alloc.ratio + 1)
   t <- alloc.ratio * c
   m <- c(t, c)
 
   # Print output as a power.htest object depending on which inputs were given
-  structure(list(m = m, J = J, `pc, pt` = p, sigma.u = sigma.u,
+  structure(list(`m1, m2` = m, J = J, `pc, pt` = p, sigma.u = sigma.u,
                  alpha = alpha, power = power,
                  method = METHOD), class = "power.htest")
 

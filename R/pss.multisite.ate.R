@@ -1,6 +1,6 @@
 #' Power for test of average treatment effect in a multisite trial
 #'
-#' @param m The number of subjects per site or the mean cluster size (if unequal number of participants per site).
+#' @param m The total number of subjects per site or the mean cluster size (if unequal number of participants per site).
 #' @param m.sd The standard deviation of cluster sizes (provide if unequal number of participants per site); defaults to 0.
 #' @param alloc.ratio The allocation ratio of intervention/control per site; defaults to 1.
 #' @param J The number of sites.
@@ -74,7 +74,7 @@ pss.multisite.ate <- function (m = NULL, m.sd = 0, alloc.ratio = 1, J = NULL,
 
   # Generate output text
   METHOD <- "Power for test of average treatment effect in multisite trials"
-  NOTE <- "NOTE: m1, m2 are the number of subjects within site in\ncondition 1, condition 2 (total of m1 + m2 per site)"
+  NOTE <- "m1, m2 are the number of subjects within site in condition 1, condition 2\n      (total of m1 + m2 per site)"
   icc <- c(icc0, icc1)
   c <- m / (alloc.ratio + 1)
   t <- alloc.ratio * c
