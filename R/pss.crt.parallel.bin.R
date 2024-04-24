@@ -1,6 +1,7 @@
 #' Power for a cluster randomized trial with a binary outcome
 #'
 #' @param m The number of subjects per cluster
+#' @param m.sd The standard deviation of cluster sizes (provide if unequal number of participants per cluster); defaults to 0.
 #' @param J The number of clusters
 #' @param pc The probability of the outcome in control clusters
 #' @param pt The probability of the outcome in treatment clusters
@@ -14,8 +15,9 @@
 #'
 #' @examples
 #' pss.crt.parallel.bin(m = 60, J = NULL, pc = 0.25, pt = 0.15, sigma.u = 0.3, power = 0.8)
+#' pss.crt.parallel.bin(m = 60, m.sd = 1, J = NULL, pc = 0.25, pt = 0.15, sigma.u = 0.3, power = 0.8)
 
-pss.crt.parallel.bin <- function (m = NULL, J = NULL,
+pss.crt.parallel.bin <- function (m = NULL, m.sd = 0, J = NULL,
                                   pc = NULL, pt = NULL, sigma.u = NULL,
                                   alpha = 0.05, power = NULL, sides = 2) {
 
@@ -24,7 +26,7 @@ pss.crt.parallel.bin <- function (m = NULL, J = NULL,
     stop("please specify 1 or 2 sides")
 
   # Calculate power
-  p.body <- quote({
+  p.body <- quote({ # Where does RE go?
     or <- (pt / (1 - pt)) / (pc / (1 - pc))
     gammaA <- abs(log(or))
     ssq.e <- (1 / 2) * (1 / (pc * (1 - pc)) + 1 / (pt * (1 - pt)))
@@ -45,7 +47,6 @@ pss.crt.parallel.bin <- function (m = NULL, J = NULL,
   # Generate output text
   METHOD <-"Power for a cluster randomized trial with a binary outcome"
   p <- c(pc, pt)
-
 
   # Print output as a power.htest object depending on which inputs were given
   structure(list(m = m, J = J, `pc, pt` = p, sigma.u = sigma.u,
