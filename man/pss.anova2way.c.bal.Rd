@@ -23,7 +23,7 @@ pss.anova2way.c.bal(
 
 \item{cvec}{A vector of contrast coefficients c(c1, c2, ...).}
 
-\item{factor}{Either "a" or "b" depending on which factor the contrast test is being made on.}
+\item{factor}{Either "a" for rows or "b" for columns depending on which factor the contrast test is being made on.}
 
 \item{sd}{The estimated standard deviation within each group; defaults to 1.}
 

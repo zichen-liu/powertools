@@ -2,7 +2,7 @@
 % Please edit documentation in R/pss.multisite.ate.R
 \name{pss.multisite.ate}
 \alias{pss.multisite.ate}
-\title{Power for test of average treatment effect in multisite trials}
+\title{Power for test of average treatment effect in a multisite trial}
 \usage{
 pss.multisite.ate(
   m = NULL,
@@ -20,7 +20,7 @@ pss.multisite.ate(
 )
 }
 \arguments{
-\item{m}{The number of subjects per site or the mean cluster size (if unequal number of participants per site).}
+\item{m}{The total number of subjects per site or the mean cluster size (if unequal number of participants per site).}
 
 \item{m.sd}{The standard deviation of cluster sizes (provide if unequal number of participants per site); defaults to 0.}
 
@@ -48,7 +48,7 @@ pss.multisite.ate(
 A list of the arguments (including the computed one).
 }
 \description{
-Power for test of average treatment effect in multisite trials
+Power for test of average treatment effect in a multisite trial
 }
 \examples{
 pss.multisite.ate(m = 20, J = 10, delta = 3, sd = sqrt(40), icc0 = 0.1, icc1 = 0)

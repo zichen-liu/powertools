@@ -17,7 +17,7 @@ pss.multisite.bin(
 )
 }
 \arguments{
-\item{m}{The number of subjects per site.}
+\item{m}{The total number of subjects per site.}
 
 \item{alloc.ratio}{The allocation ratio of intervention/control per site; defaults to 1.}
 

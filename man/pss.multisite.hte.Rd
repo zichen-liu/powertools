@@ -4,22 +4,14 @@
 \alias{pss.multisite.hte}
 \title{Power for test of heterogeneity of treatment effect in multisite trials}
 \usage{
-pss.multisite.hte(
-  m = NULL,
-  J = NULL,
-  ssq.u1 = NULL,
-  ssq.e = NULL,
-  alpha = 0.05
-)
+pss.multisite.hte(m = NULL, alloc.ratio = 1, J = NULL, VR = NULL, alpha = 0.05)
 }
 \arguments{
-\item{m}{The number of subjects per site.}
+\item{m}{The total number of subjects per site.}
 
 \item{J}{The number of sites.}
 
-\item{ssq.u1}{The variance of the site-level treatment effects (sigma squared u1) under the alternative.}
-
-\item{ssq.e}{The variance of the observations within sites (sigma squared epsilon) under the alternative.}
+\item{VR}{The variance ratio (site-level treatment effects / observations within sites) the under the alternative.}
 
 \item{alpha}{The significance level or type 1 error rate; defaults to 0.05.}
 }
@@ -30,5 +22,5 @@ A list of the arguments (including the computed power).
 Power for test of heterogeneity of treatment effect in multisite trials
 }
 \examples{
-pss.multisite.hte(m = 10, J = 30, ssq.u1 = 8, ssq.e = 36)
+pss.multisite.hte(m = 10, J = 30, VR = 8 / 36)
 }

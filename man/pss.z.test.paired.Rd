@@ -25,7 +25,7 @@ pss.z.test.paired(
 
 \item{sd2}{The estimated post standard deviation; defaults to 1.}
 
-\item{rho}{The estimated correlation between pre and post measurements on the same individual.}
+\item{rho}{The estimated correlation between pre and post measurements on the same individual; defaults to 0.}
 
 \item{alpha}{The significance level or type 1 error rate; defaults to 0.05.}
 

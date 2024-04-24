@@ -8,7 +8,7 @@ pss.t.test.2samp(
   n1 = NULL,
   n.ratio = 1,
   delta = NULL,
-  sd = 1,
+  sd1 = 1,
   sd.ratio = 1,
   df.method = c("welch", "classical"),
   alpha = 0.05,
@@ -24,7 +24,7 @@ pss.t.test.2samp(
 
 \item{delta}{DeltaA (the true difference mu1 - mu2) - Delta0 (the difference under the null) - d. See delta.sign for guidance on the sign of d.}
 
-\item{sd}{The estimated standard deviation for group 1; defaults to 1 (equal standard deviations in the two groups).}
+\item{sd1}{The estimated standard deviation for group 1; defaults to 1 (equal standard deviations in the two groups).}
 
 \item{sd.ratio}{The ratio sd2/sd1 between the standard deviations of the two groups.}
 
@@ -45,9 +45,9 @@ A list of the arguments (including the computed one).
 Power calculations for two sample t tests allowing for unequal sample sizes and/or variances
 }
 \examples{
-pss.t.test.2samp(n1 = 50, delta = 2, sd = 5, sides = 1)
-pss.t.test.2samp(n1 = NULL, n.ratio = 2, delta = 0.5, sd = 1, power = 0.8, sides = 2)
-pss.t.test.2samp(n1 = 49, n.ratio = 2, delta = 0.5, sd = 1, power = NULL, sides = 2)
-pss.t.test.2samp(n1 = 25, n.ratio = 3, delta = 3, sd = 4, sd.ratio = 1.5, alpha = 0.025, sides = 1)
-pss.t.test.2samp(n1 = NULL, delta = 0.5, sd = 1, power = 0.8, sides = 2)
+pss.t.test.2samp(n1 = 50, delta = 2, sd1 = 5, sides = 1)
+pss.t.test.2samp(n1 = NULL, n.ratio = 2, delta = 0.5, sd1 = 1, power = 0.8, sides = 2)
+pss.t.test.2samp(n1 = 49, n.ratio = 2, delta = 0.5, sd1 = 1, power = NULL, sides = 2)
+pss.t.test.2samp(n1 = 25, n.ratio = 3, delta = 3, sd1 = 4, sd.ratio = 1.5, alpha = 0.025, sides = 1)
+pss.t.test.2samp(n1 = NULL, delta = 0.5, sd1 = 1, power = 0.8, sides = 2)
 }

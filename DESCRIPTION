@@ -13,7 +13,7 @@ Description: This package accompanies the book Power and Sample Size in R by
 License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
-RoxygenNote: 7.3.0
+RoxygenNote: 7.3.1
 Suggests: 
     designsize,
     longpower,

@@ -12,7 +12,7 @@ pss.es.anova.f(means = NULL, sd = NULL)
 \item{sd}{The estimated standard deviation within each group.}
 }
 \value{
-A list of the arguments and various f effect sizes.
+Various calculated f effect sizes.
 }
 \description{
 Cohen's f effect size calculation for one- or two- way analysis of variance

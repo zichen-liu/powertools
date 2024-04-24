@@ -55,8 +55,6 @@ pss.multisite.bin <- function (m = NULL, alloc.ratio = 1, J = NULL,
     m <- stats::uniroot(function(m) eval(p.body) - power, c(2 + 1e-10, 1e+07))$root
   #else if (is.null(alloc.ratio))
   #  alloc.ratio <- stats::uniroot(function(alloc.ratio) eval(p.body) - power, c(1 + 1e-10, 1e+07))$root
-  else if (is.null(prop.t))
-    prop.t <- stats::uniroot(function(prop.t) eval(p.body) - power, c(0 + 1e-10, 1 - 1e-10))$root
 
   # Generate output text
   METHOD <-"Power for multisite trials with binary outcomes"
@@ -69,6 +67,6 @@ pss.multisite.bin <- function (m = NULL, alloc.ratio = 1, J = NULL,
   # Print output as a power.htest object depending on which inputs were given
   structure(list(`m1, m2` = m, J = J, `pc, pt` = p, sigma.u = sigma.u,
                  alpha = alpha, power = power,
-                 method = METHOD), class = "power.htest")
+                 method = METHOD, note = NOTE), class = "power.htest")
 
 }
