@@ -4,7 +4,7 @@
 #' @param n.ratio The ratio n2/n1 between the sample sizes of two groups; defaults to 1 (equal group sizes).
 #' @param p1 The proportion in group 1.
 #' @param p2 The proportion in group 2.
-#' @param delta The margin of noninferiority or superiority; defaults to 0. See delta.sign for guidance on the sign of delta.
+#' @param margin The margin of noninferiority or superiority; defaults to 0. See margin.sign for guidance on the sign of margin.
 #' @param alpha The significance level or type 1 error rate; defaults to 0.05.
 #' @param power The specified level of power.
 #' @param sides Either 1 or 2 (default) to specify a one- or two- sided hypothesis test.
@@ -14,9 +14,9 @@
 #'
 #' @examples
 #' pss.prop.2samp(n1 = NULL, p1 = 0.6, p2 = 0.8, alpha = 0.025, power = 0.9, sides = 1)
-#' pss.prop.2samp(n1 = NULL, p1 = 0.25, p2 = 0.25, delta = 0.1, alpha = 0.025, power = 0.8, sides = 1)
+#' pss.prop.2samp(n1 = NULL, p1 = 0.25, p2 = 0.25, margin = 0.1, alpha = 0.025, power = 0.8, sides = 1)
 
-pss.prop.2samp <- function (n1 = NULL, n.ratio = 1, p1 = NULL, p2 = NULL, delta = 0,
+pss.prop.2samp <- function (n1 = NULL, n.ratio = 1, p1 = NULL, p2 = NULL, margin = 0,
                             alpha = 0.05, power = NULL, sides = 2) {
 
   # Check if the arguments are specified correctly
@@ -25,14 +25,14 @@ pss.prop.2samp <- function (n1 = NULL, n.ratio = 1, p1 = NULL, p2 = NULL, delta 
   pss.check(n.ratio, "pos")
   pss.check(p1, "req"); pss.check(p1, "unit")
   pss.check(p2, "req"); pss.check(p2, "unit")
-  pss.check(delta, "req"); pss.check(delta, "num")
+  pss.check(margin, "req"); pss.check(margin, "num")
   pss.check(alpha, "unit")
   pss.check(power, "unit")
   pss.check(sides, "req"); pss.check(sides, "vals", valslist = c(1, 2))
 
   # Calculate test statistic
   p.body <- quote({
-    d <- abs(p1 - p2) - delta
+    d <- abs(p1 - p2) - margin
     q1 <- 1 - p1
     q2 <- 1 - p2
     ((stats::qnorm(alpha / sides) + stats::qnorm(1 - power))^2 *
@@ -56,7 +56,7 @@ pss.prop.2samp <- function (n1 = NULL, n.ratio = 1, p1 = NULL, p2 = NULL, delta 
   p <- c(p1, p2)
 
   # Print output as a power.htest object
-  structure(list(`n1, n2` = n, `p1, p2` = p, delta = delta,
+  structure(list(`n1, n2` = n, `p1, p2` = p, margin = margin,
                  alpha = alpha, power = power, sides = sides,
                  method = METHOD), class = "power.htest")
 }

@@ -3,7 +3,7 @@
 #' @param m The number of subjects per cluster in the treatment group.
 #' @param J The number of clusters in the treatment group.
 #' @param n The number of total participants in the control group.
-#' @param delta The difference between the intervention and control means in the outcome variable.
+#' @param delta The difference between the intervention and control means under the alternative minus the difference under the null hypothesis.
 #' @param sd The total standard deviation of the outcome variable in the control group; defaults to 1.
 #' @param icc The intraclass correlation coefficient in the treatment group; defaults to 0.
 #' @param Theta The ratio of the total variance between intervention and control groups; defaults to 1.

@@ -4,7 +4,7 @@
 #' @param m.sd The standard deviation of cluster sizes (provide if unequal number of participants per cluster); defaults to 0.
 #' @param J1 The number of clusters in arm 1.
 #' @param J.ratio The ratio J2/J1 between the number of clusters in the two arms; defaults to 1 (equal clusters per arm).
-#' @param delta The difference between the intervention and control means in the outcome variable.
+#' @param delta The difference between the intervention and control means under the alternative minus the difference under the null hypothesis.
 #' @param sd The total standard deviation of the outcome variable; defaults to 1.
 #' @param icc1 The intraclass correlation coefficient in arm 1; defaults to 0.
 #' @param icc2 The intraclass correlation coefficient in arm 2; defaults to 0.

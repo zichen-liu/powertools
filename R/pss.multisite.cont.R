@@ -4,7 +4,7 @@
 #' @param m.sd The standard deviation of cluster sizes (provide if unequal number of participants per site); defaults to 0.
 #' @param alloc.ratio The allocation ratio of intervention/control per site; defaults to 1.
 #' @param J The number of sites.
-#' @param delta The difference between the intervention and control means in the outcome variable.
+#' @param delta The difference between the intervention and control means under the alternative minus the difference under the null hypothesis.
 #' @param sd The total standard deviation of the outcome variable; defaults to 1.
 #' @param icc0 The proportion of total variance of the outcome attributable to variation in site-level means.
 #' @param icc1 The proportion of total variance of the outcome attributable to variation in the treatment effect across sites.

@@ -4,7 +4,7 @@
 #' @param n.ratio The ratio n2/n1 between the sample sizes of two groups; defaults to 1 (equal group sizes).
 #' @param p1 The outcome proportion in group 1.
 #' @param p2 The outcome proportion in group 2.
-#' @param delta The equivalence margin.
+#' @param margin The equivalence margin. See margin.sign for guidance on the sign of margin.
 #' @param alpha The significance level or type 1 error rate; defaults to 0.05.
 #' @param power The specified level of power.
 #' @param sides Either 1 or 2 (default) to specify a one- or two- sided hypothesis test.
@@ -13,10 +13,10 @@
 #' @export
 #'
 #' @examples
-#' pss.prop.test.equiv(n1 = NULL, p1 = 0.5, p2 = 0.5, delta = 0.1, alpha = 0.05, power = 0.8,
+#' pss.prop.test.equiv(n1 = NULL, p1 = 0.5, p2 = 0.5, margin = 0.1, alpha = 0.05, power = 0.8,
 #' sides = 1)
 
-pss.prop.test.equiv <- function (n1 = NULL, n.ratio = 1, p1 = NULL, p2 = NULL, delta = NULL,
+pss.prop.test.equiv <- function (n1 = NULL, n.ratio = 1, p1 = NULL, p2 = NULL, margin = NULL,
                                  alpha = 0.05, power = NULL, sides = 2) {
 
   # Check if the arguments are specified correctly
@@ -25,7 +25,7 @@ pss.prop.test.equiv <- function (n1 = NULL, n.ratio = 1, p1 = NULL, p2 = NULL, d
   pss.check(n.ratio, "pos")
   pss.check(p1, "req"); pss.check(p1, "unit")
   pss.check(p2, "req"); pss.check(p2, "unit")
-  pss.check(delta, "req"); pss.check(delta, "num")
+  pss.check(margin, "req"); pss.check(margin, "num")
   pss.check(alpha, "unit")
   pss.check(power, "unit")
   pss.check(sides, "req"); pss.check(sides, "vals", valslist = c(1, 2))
@@ -36,7 +36,7 @@ pss.prop.test.equiv <- function (n1 = NULL, n.ratio = 1, p1 = NULL, p2 = NULL, d
     var <- p1 * (1 - p1) + p2 * (1 - p2)
     beta <- 1 - power
     ((stats::qnorm(1 - alpha / sides) + stats::qnorm(1 - beta / 2))^2 *
-    var / n.ratio / (delta - d)^2)
+    var / n.ratio / (margin - d)^2)
   })
 
   # Use stats::uniroot function to calculate missing argument
@@ -57,7 +57,7 @@ pss.prop.test.equiv <- function (n1 = NULL, n.ratio = 1, p1 = NULL, p2 = NULL, d
 
   # Print output as a power.htest object
   structure(list(`n1, n2` = n, `p1, p2` = p,
-                 delta = delta, alpha = alpha,
+                 margin = margin, alpha = alpha,
                  power = power, sides = sides,
                  method = METHOD), class = "power.htest")
 }
