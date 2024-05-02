@@ -27,8 +27,9 @@ pss.crt.varexplore <- function(pc, pt){
   pt.up <- round(pt.up, 2)
 
   table <- data.frame("sigma.u" = sigma.u, "pc.lower" = pc.lo, "pc.upper" = pc.up,
-                    "pt.lower" = pt.lo, "pt.upper" = pt.up)
-  print(kable(table, caption = paste("pc:", pc, "; pt:", pt), "simple"))
-
+                      "pt.lower" = pt.lo, "pt.upper" = pt.up)
+  out <- kable(table, caption = paste("pc:", pc, "; pt:", pt), "simple")
+  print(gsub("^Table:", "", out))
   return(invisible(list(pc = pc, pt = pt, talbe = table)))
 }
+

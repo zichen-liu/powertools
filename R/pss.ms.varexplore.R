@@ -24,7 +24,8 @@ pss.ms.varexplore <- function(pc, pt) {
   or_up <- round(or_up, 2)
 
   table <- data.frame("sigma.u1" = sigma_u1, "OR.lower" = or_lo, "OR.upper" = or_up)
-  print(kable(table, caption = paste("OR:", or), "simple"))
+  out <- kable(table, caption = paste("OR:", or), "simple")
+  print(gsub("^Table:", "", out))
   return(invisible(list(OR = or, table = table)))
 
 }
