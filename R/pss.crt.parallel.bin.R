@@ -1,10 +1,10 @@
 #' Power for a cluster randomized trial with a binary outcome
 #'
-#' @param m The number of subjects per cluster
+#' @param m The number of subjects per cluster.
 #' @param m.sd The standard deviation of cluster sizes (provide if unequal number of participants per cluster); defaults to 0.
-#' @param J The number of clusters
-#' @param pc The probability of the outcome in control clusters
-#' @param pt The probability of the outcome in treatment clusters
+#' @param J The number of clusters.
+#' @param pc The probability of the outcome in control clusters.
+#' @param pt The probability of the outcome in treatment clusters.
 #' @param sigma.u Standard deviation of the cluster random effect.
 #' @param alpha The significance level or type 1 error rate; defaults to 0.05.
 #' @param power The specified level of power.
@@ -30,7 +30,10 @@ pss.crt.parallel.bin <- function (m = NULL, m.sd = 0, J = NULL,
     or <- (pt / (1 - pt)) / (pc / (1 - pc))
     gammaA <- abs(log(or))
     ssq.e <- (1 / 2) * (1 / (pc * (1 - pc)) + 1 / (pt * (1 - pt)))
-    var <- 1.2 * (4 * (ssq.e  + m * sigma.u^2)) / (m *J)
+
+    RE <- pss.re.crt.bin(m = m, m.sd = m.sd, pc = pc, pt = pt, sigma.u = sigma.u)
+
+    var <- 1.2 * (4 * (ssq.e  + m * sigma.u^2)) / (m *J) / RE
     za <- stats::qnorm(1 - alpha / sides)
     stats::pnorm(gammaA / sqrt(var) - za)
   })
@@ -46,6 +49,7 @@ pss.crt.parallel.bin <- function (m = NULL, m.sd = 0, J = NULL,
 
   # Generate output text
   METHOD <-"Power for a cluster randomized trial with a binary outcome"
+  m <- ifelse(m.sd == 0, m, paste0(m, " (sd = ", m.sd, ")"))
   p <- c(pc, pt)
 
   # Print output as a power.htest object depending on which inputs were given

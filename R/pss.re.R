@@ -4,7 +4,7 @@
 #' @param m The number of subjects per cluster or the mean cluster size (if unequal number of participants per cluster).
 #' @param m.sd The standard deviation of cluster sizes (provide if unequal number of participants per cluster).
 #' @param icc The intraclass correlation coefficient. For a multisite trial this is icc1. For a CRT this is the average of the 2 icc's.
-#' @return A list of the arguments (including the computed RE).
+#' @return The computed RE.
 #' @export
 #'
 #' @examples

@@ -6,6 +6,7 @@
 \usage{
 pss.crt.parallel.bin(
   m = NULL,
+  m.sd = 0,
   J = NULL,
   pc = NULL,
   pt = NULL,
@@ -17,6 +18,8 @@ pss.crt.parallel.bin(
 }
 \arguments{
 \item{m}{The number of subjects per cluster}
+
+\item{m.sd}{The standard deviation of cluster sizes (provide if unequal number of participants per cluster); defaults to 0.}
 
 \item{J}{The number of clusters}
 
@@ -40,4 +43,5 @@ Power for a cluster randomized trial with a binary outcome
 }
 \examples{
 pss.crt.parallel.bin(m = 60, J = NULL, pc = 0.25, pt = 0.15, sigma.u = 0.3, power = 0.8)
+pss.crt.parallel.bin(m = 60, m.sd = 1, J = NULL, pc = 0.25, pt = 0.15, sigma.u = 0.3, power = 0.8)
 }
