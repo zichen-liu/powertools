@@ -1,6 +1,15 @@
-library(knitr)
+#' Variance exploration for multisite trials with binary outcomes
+#'
+#' @param pc The probability of the outcome in control clusters.
+#' @param pt The probability of the outcome in treatment clusters.
+#'
+#' @return A list of the arguments and a dataframe of outputs.
+#' @import knitr
+#' @export
+#'
+#' @examples pss.ms.varexplore(pc = 0.1, pt = 0.2)
 
-pss.ms.varexplore <- function(pc, pt){
+pss.ms.varexplore <- function(pc, pt) {
 
   or <- (pt / (1 - pt)) / (pc / (1 - pc))
 
@@ -14,10 +23,8 @@ pss.ms.varexplore <- function(pc, pt){
   or_up <- exp(gam1 + 1.96 * sigma_u1)
   or_up <- round(or_up, 2)
 
-  out <- data.frame("sigma.u1" = sigma_u1, "OR.lower" = or_lo, "OR.upper" = or_up)
-  table <- kable(out, caption = paste("OR:", or), "simple")
-  table <- gsub("^Table:", "", table)
-  return(table)
-}
+  table <- data.frame("sigma.u1" = sigma_u1, "OR.lower" = or_lo, "OR.upper" = or_up)
+  print(kable(table, caption = paste("OR:", or), "simple"))
+  return(invisible(list(OR = or, table = table)))
 
-pss.ms.varexplore(pc = 0.1, pt = 0.2)
+}
