@@ -30,6 +30,6 @@ pss.crt.varexplore <- function(pc, pt){
                       "pt.lower" = pt.lo, "pt.upper" = pt.up)
   out <- kable(table, caption = paste("pc:", pc, "; pt:", pt), "simple")
   print(gsub("^Table:", "", out))
-  return(invisible(list(pc = pc, pt = pt, talbe = table)))
+  return(invisible(list(pc = pc, pt = pt, table = table)))
 }
 

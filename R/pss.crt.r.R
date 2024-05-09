@@ -8,10 +8,10 @@
 #' @export
 #'
 #' @examples
-#' pss.tempname(m = 30, icc = 0.05, cac = 0.4, sac = 0.5)
+#' pss.crt.r(m = 30, icc = 0.05, cac = 0.4, sac = 0.5)
 
 
-pss.tempname <- function (m, icc, cac, sac) {
+pss.crt.r <- function (m, icc, cac, sac) {
   pss.check(m, "req"); pss.check(m, "pos")
   pss.check(icc, "req"); pss.check(icc, "uniti")
   pss.check(cac, "req"); pss.check(cac, "uniti")
