@@ -6,7 +6,7 @@
 #' @param delta The difference between the intervention and control means under the alternative minus the difference under the null hypothesis.
 #' @param sd The total standard deviation of the outcome variable; defaults to 1.
 #' @param icc The within-cluster, within-period intraclass correlation coefficient; defaults to 0.
-#' @param cac The cluster autocorrelation; defaults to 1.
+#' @param cac The cluster autocorrelation; defaults to 0.
 #' @param sac The subject autocorrelation; defaults to 0.
 #' @param alpha The significance level or type 1 error rate; defaults to 0.05.
 #' @param power The specified level of power.
@@ -19,7 +19,7 @@
 
 
 pss.crt.long.cont <- function (m = NULL, J1 = NULL, J.ratio = 1, delta = NULL, sd = 1,
-                               icc = 0, cac = 1, sac = 0,
+                               icc = 0, cac = 0, sac = 0,
                                alpha = 0.05, power = NULL, sides = 2) {
 
   # Check if the arguments are specified correctly
