@@ -28,7 +28,7 @@ pss.multisite.cont(
 
 \item{J}{The number of sites.}
 
-\item{delta}{The difference between the intervention and control means in the outcome variable.}
+\item{delta}{The difference between the intervention and control means under the alternative minus the difference under the null hypothesis.}
 
 \item{sd}{The total standard deviation of the outcome variable; defaults to 1.}
 

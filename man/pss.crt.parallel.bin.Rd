@@ -17,15 +17,15 @@ pss.crt.parallel.bin(
 )
 }
 \arguments{
-\item{m}{The number of subjects per cluster}
+\item{m}{The number of subjects per cluster.}
 
 \item{m.sd}{The standard deviation of cluster sizes (provide if unequal number of participants per cluster); defaults to 0.}
 
-\item{J}{The number of clusters}
+\item{J}{The number of clusters.}
 
-\item{pc}{The probability of the outcome in control clusters}
+\item{pc}{The probability of the outcome in control clusters.}
 
-\item{pt}{The probability of the outcome in treatment clusters}
+\item{pt}{The probability of the outcome in treatment clusters.}
 
 \item{sigma.u}{Standard deviation of the cluster random effect.}
 

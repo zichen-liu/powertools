@@ -15,7 +15,7 @@ pss.re(m, m.sd, icc)
 \item{icc}{The intraclass correlation coefficient. For a multisite trial this is icc1. For a CRT this is the average of the 2 icc's.}
 }
 \value{
-A list of the arguments (including the computed RE).
+The computed RE.
 }
 \description{
 Relative efficiency for cluster randomized or multisite trials

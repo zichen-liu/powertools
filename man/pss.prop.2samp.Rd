@@ -9,7 +9,7 @@ pss.prop.2samp(
   n.ratio = 1,
   p1 = NULL,
   p2 = NULL,
-  delta = 0,
+  margin = 0,
   alpha = 0.05,
   power = NULL,
   sides = 2
@@ -24,7 +24,7 @@ pss.prop.2samp(
 
 \item{p2}{The proportion in group 2.}
 
-\item{delta}{The margin of noninferiority or superiority; defaults to 0. See delta.sign for guidance on the sign of delta.}
+\item{margin}{The margin of noninferiority or superiority; defaults to 0. See margin.sign for guidance on the sign of margin.}
 
 \item{alpha}{The significance level or type 1 error rate; defaults to 0.05.}
 
@@ -40,5 +40,5 @@ Power calculations for two sample proportion tests
 }
 \examples{
 pss.prop.2samp(n1 = NULL, p1 = 0.6, p2 = 0.8, alpha = 0.025, power = 0.9, sides = 1)
-pss.prop.2samp(n1 = NULL, p1 = 0.25, p2 = 0.25, delta = 0.1, alpha = 0.025, power = 0.8, sides = 1)
+pss.prop.2samp(n1 = NULL, p1 = 0.25, p2 = 0.25, margin = 0.1, alpha = 0.025, power = 0.8, sides = 1)
 }

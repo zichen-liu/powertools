@@ -9,7 +9,7 @@ pss.prop.test.equiv(
   n.ratio = 1,
   p1 = NULL,
   p2 = NULL,
-  delta = NULL,
+  margin = NULL,
   alpha = 0.05,
   power = NULL,
   sides = 2
@@ -24,7 +24,7 @@ pss.prop.test.equiv(
 
 \item{p2}{The outcome proportion in group 2.}
 
-\item{delta}{The equivalence margin.}
+\item{margin}{The equivalence margin. See margin.sign for guidance on the sign of margin.}
 
 \item{alpha}{The significance level or type 1 error rate; defaults to 0.05.}
 
@@ -39,6 +39,6 @@ A list of the arguments (including the computed one).
 Power calculations for test of equivalence of two proportions
 }
 \examples{
-pss.prop.test.equiv(n1 = NULL, p1 = 0.5, p2 = 0.5, delta = 0.1, alpha = 0.05, power = 0.8,
+pss.prop.test.equiv(n1 = NULL, p1 = 0.5, p2 = 0.5, margin = 0.1, alpha = 0.05, power = 0.8,
 sides = 1)
 }

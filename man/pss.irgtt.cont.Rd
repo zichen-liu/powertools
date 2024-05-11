@@ -24,7 +24,7 @@ pss.irgtt.cont(
 
 \item{n}{The number of total participants in the control group.}
 
-\item{delta}{The difference between the intervention and control means in the outcome variable.}
+\item{delta}{The difference between the intervention and control means under the alternative minus the difference under the null hypothesis.}
 
 \item{sd}{The total standard deviation of the outcome variable in the control group; defaults to 1.}
 
