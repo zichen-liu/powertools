@@ -66,7 +66,6 @@ pss.crt.long.cont <- function (m = NULL, J1 = NULL, J.ratio = 1, delta = NULL, s
 
   # Generate output text
   METHOD <- "Power for test of treatment effect in a longitudinal cluster randomized trial with baseline measurement"
-  m <- m
   J <- c(J1, J1 * J.ratio)
   de.pa <- 1 + (m - 1) * icc
   r <- m * icc * cac / de.pa + (1 - icc) * sac / de.pa
@@ -78,5 +77,3 @@ pss.crt.long.cont <- function (m = NULL, J1 = NULL, J.ratio = 1, delta = NULL, s
   structure(out, class = "power.htest")
 
 }
-pss.crt.long.cont(m = 30, J1 = 8, delta = 0.3, icc = 0.05, cac = 0.4, sac = 0.5)
-

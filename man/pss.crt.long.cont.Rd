@@ -11,7 +11,7 @@ pss.crt.long.cont(
   delta = NULL,
   sd = 1,
   icc = 0,
-  cac = 1,
+  cac = 0,
   sac = 0,
   alpha = 0.05,
   power = NULL,
@@ -31,7 +31,7 @@ pss.crt.long.cont(
 
 \item{icc}{The within-cluster, within-period intraclass correlation coefficient; defaults to 0.}
 
-\item{cac}{The cluster autocorrelation; defaults to 1.}
+\item{cac}{The cluster autocorrelation; defaults to 0.}
 
 \item{sac}{The subject autocorrelation; defaults to 0.}
 

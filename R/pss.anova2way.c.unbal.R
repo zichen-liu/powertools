@@ -3,7 +3,7 @@
 #' @param nmatrix A matrix of group sample sizes (see example).
 #' @param mmatrix A matrix of group means (see example).
 #' @param cvec A vector of contrast coefficients c(c1, c2, ...).
-#' @param factor Either "a" or "b" depending on which factor the contrast test is being made on.
+#' @param factor Either "a" (rows) or "b" (columns) depending on which factor the contrast test is being made on.
 #' @param sd The estimated standard deviation within each group.
 #' @param Rsq The estimated R^2 for regressing the outcome on the covariates; defaults to 0.
 #' @param ncov The number of covariates adjusted for in the model; defaults to 0.
@@ -44,14 +44,15 @@ pss.anova2way.c.unbal <- function (nmatrix = nmatrix, mmatrix = NULL, cvec = NUL
   if (Rsq > 0 & ncov == 0)
     stop("please specify ncov or set Rsq to 0")
 
-  # Get grand mean and marginal means
-  es <- pss.es.anova.f(means = mmatrix, sd = sd)
-  mmA <- es$mmA
-  mmB <- es$mmB
-
   # See if there is an interaction
-  fAB <- es$fAB
+  fAB <- pss.es.anova.f(means = mmatrix, sd = sd)$fAB
   intx <- ifelse(fAB == 0, FALSE, TRUE)
+
+  # Get grand mean and marginal means
+  mu <- mean(mmatrix)
+  temp1 <- mmatrix - mu
+  mmA <- rowMeans(temp1)
+  mmB <- colMeans(temp1)
 
   # Get lambda (Lambda = lambda^2)
   num <- switch(factor, "a" = mmA, "b" = mmB) %*% cvec

@@ -14,7 +14,7 @@
 #' pss.anova1way.F.unbal(nvec = c(10, 20, 30), mvec = c(5, 10, 12), sd = 10)
 
 pss.anova1way.F.unbal <- function (nvec = NULL, mvec = NULL, sd = NULL,
-                                Rsq = 0, ncov = 0, alpha = 0.05) {
+                                   Rsq = 0, ncov = 0, alpha = 0.05) {
 
   # Check if the arguments are specified correctly
   pss.check(nvec, "req"); pss.check(nvec, "vec")
@@ -34,12 +34,14 @@ pss.anova1way.F.unbal <- function (nvec = NULL, mvec = NULL, sd = NULL,
   if (Rsq > 0 & ncov == 0)
     stop("please specify ncov or set Rsq to 0")
 
-  # Get marginal mean
-  es <- pss.es.anova.f(means = mvec, sd = sd)
-  mmA <- es$mmA
-
   # Get f effect size
-  f <- es$fA
+  f <- pss.es.anova.f(means = mvec, sd = sd)$fA
+
+  # Get marginal mean
+  mvec <- matrix(mvec)
+  mu <- mean(mvec)
+  temp1 <- mvec - mu
+  mmA <- rowMeans(temp1)
 
   # Get ncp
   N <- sum(nvec)

@@ -104,7 +104,7 @@ pss.check <- function(param = NULL,
 
       # value is numerical vector
       else if (type == "vec") {
-        if (class(param) != "numeric")
+        if (!is.numeric(param))
           stop(paste(name, "should be a numeric vector"))
         if (length(param) < 2)
           stop(paste(name, "should have at least 2 groups"))
@@ -112,7 +112,7 @@ pss.check <- function(param = NULL,
 
       # value is numerical matrix
       else if (type == "mat") {
-        if (class(c(param)) != "numeric")
+        if (!is.numeric(c(param)))
           stop(paste(name, "should be a numeric matrix"))
         if (nrow(param) < 2 | ncol(param) < 2)
           stop(paste(name, "each factor should have at least 2 groups"))

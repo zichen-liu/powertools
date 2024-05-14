@@ -21,7 +21,8 @@
 #' pss.multisite.cont(m = 20, alloc.ratio = 1.5, J = 10, delta = 0.43, icc0 = 0.095, icc1 = 0.048)
 #' pss.multisite.cont(m = 10, J = NULL, delta = 0.5, sd = 1, icc0 = 0, icc1 = 0.05, power = 0.8)
 #' pss.multisite.cont(m = 20, m.sd = 5, J = 10, delta = 3, sd = sqrt(48), icc0 = 0.095, icc1 = 0.048)
-#' pss.multisite.cont(m = 20, J = 10, delta = 3, sd = sqrt(48), icc0 = 0.095, icc1 = 0.048, Rsq = 0.5^2)
+#' pss.multisite.cont(m = 20, J = 10, delta = 3, sd = sqrt(48), icc0 = 0.095,
+#' icc1 = 0.048, Rsq = 0.5^2)
 
 pss.multisite.cont <- function (m = NULL, m.sd = 0, alloc.ratio = 1, J = NULL,
                                delta = NULL, sd = 1,

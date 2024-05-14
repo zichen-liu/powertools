@@ -44,17 +44,20 @@ pss.anova2way.F.unbal <- function (nmatrix = NULL, mmatrix = NULL, sd = NULL,
   if (Rsq > 0 & ncov == 0)
     stop("please specify ncov or set Rsq to 0")
 
-  # Get marginal means
-  es <- pss.es.anova.f(means = mmatrix, sd = sd)
-  mmA <- es$mmA
-  mmB <- es$mmB
-  ints <- es$ints
-
   # Get f effect sizes
+  es <- pss.es.anova.f(means = mmatrix, sd = sd)
   fA <- es$fA
   fB <- es$fB
   fAB <- es$fAB
   intx <- ifelse(fAB == 0, FALSE, TRUE)
+
+  # Get marginal means
+  mu <- mean(mmatrix)
+  temp1 <- mmatrix - mu
+  mmA <- rowMeans(temp1)
+  mmB <- colMeans(temp1)
+  temp2 <- sweep(x = temp1, MARGIN = 2, STATS = mmB, FUN = "-")
+  ints <- sweep(x = temp2, MARGIN = 1, STATS = mmA, FUN = "-")
 
   # Get Lambdas
   LambdaA <- 0
@@ -102,7 +105,7 @@ pss.anova2way.F.unbal <- function (nmatrix = NULL, mmatrix = NULL, sd = NULL,
   else f <- c(round(fA, 4), round(fB, 4))
   METHOD <- paste0("Unalanced two-way analysis of ", ifelse(ncov < 1, "", "co"),
                    "variance\n     omnibus F test power calculation")
-  NOTE <- "The 3rd value for f and power"
+  NOTE <- "The 3rd value for f and power is for the interaction"
   out <- list(nmatrix = pss.matrix.format(nmatrix),
               mmatrix = pss.matrix.format(mmatrix),
               sd = sd, `f effect size` = f, ncov = ncov, Rsq = Rsq,

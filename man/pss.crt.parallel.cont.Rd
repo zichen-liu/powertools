@@ -2,7 +2,7 @@
 % Please edit documentation in R/pss.crt.parallel.cont.R
 \name{pss.crt.parallel.cont}
 \alias{pss.crt.parallel.cont}
-\title{Power for test of treatment effect in a cluster randomized trial}
+\title{Power for a cluster randomized trial with a continuous outcome}
 \usage{
 pss.crt.parallel.cont(
   m = NULL,
@@ -54,15 +54,16 @@ pss.crt.parallel.cont(
 A list of the arguments (including the computed one).
 }
 \description{
-Power for test of treatment effect in a cluster randomized trial
+Power for a cluster randomized trial with a continuous outcome
 }
 \examples{
 pss.crt.parallel.cont(m = 30, J1 = 8, delta = 0.4, icc1 = 0.05, icc2 = 0.05)
 pss.crt.parallel.cont(m = NULL, J1 = 6, delta = 0.5, icc1 = 0.05, icc2 = 0.05, power = 0.8)
-pss.crt.parallel.cont(m = 25, m.sd = 15, J1 = NULL, delta = 0.3, icc1 = 0.05, icc2 = 0.05, power = 0.8)
+pss.crt.parallel.cont(m = 25, m.sd = 15, J1 = NULL, delta = 0.3, icc1 = 0.05,
+icc2 = 0.05, power = 0.8)
 pss.crt.parallel.cont(m = 20, J1 = 15, delta = 0.3, icc1 = 0.05, icc2 = 0.05,
 RsqB = 0.1, ncov = 1, sides = 1)
 pss.crt.parallel.cont(m = 20, J1 = 15, delta = 0.3, icc1 = 0.05, icc2 = 0.05,
-RsqW = 0.5^2, ncov = 0, sides = 1)
+RsqW = 0.5^2, ncov = 1, sides = 1)
 pss.crt.parallel.cont(m = NULL, J1 = 6, delta = 0.5, icc1 = 0.05, icc2 = 0.05, power = 0.8)
 }

@@ -1,4 +1,4 @@
-#' Power for test of treatment effect in a cluster randomized trial
+#' Power for a cluster randomized trial with a continuous outcome
 #'
 #' @param m The number of subjects per cluster or the mean cluster size (if unequal number of participants per cluster).
 #' @param m.sd The standard deviation of cluster sizes (provide if unequal number of participants per cluster); defaults to 0.
@@ -20,11 +20,12 @@
 #' @examples
 #' pss.crt.parallel.cont(m = 30, J1 = 8, delta = 0.4, icc1 = 0.05, icc2 = 0.05)
 #' pss.crt.parallel.cont(m = NULL, J1 = 6, delta = 0.5, icc1 = 0.05, icc2 = 0.05, power = 0.8)
-#' pss.crt.parallel.cont(m = 25, m.sd = 15, J1 = NULL, delta = 0.3, icc1 = 0.05, icc2 = 0.05, power = 0.8)
+#' pss.crt.parallel.cont(m = 25, m.sd = 15, J1 = NULL, delta = 0.3, icc1 = 0.05,
+#' icc2 = 0.05, power = 0.8)
 #' pss.crt.parallel.cont(m = 20, J1 = 15, delta = 0.3, icc1 = 0.05, icc2 = 0.05,
 #' RsqB = 0.1, ncov = 1, sides = 1)
 #' pss.crt.parallel.cont(m = 20, J1 = 15, delta = 0.3, icc1 = 0.05, icc2 = 0.05,
-#' RsqW = 0.5^2, ncov = 0, sides = 1)
+#' RsqW = 0.5^2, ncov = 1, sides = 1)
 #' pss.crt.parallel.cont(m = NULL, J1 = 6, delta = 0.5, icc1 = 0.05, icc2 = 0.05, power = 0.8)
 
 pss.crt.parallel.cont <- function (m = NULL, m.sd = 0, J1 = NULL, J.ratio = 1, delta = NULL, sd = 1,
@@ -95,7 +96,7 @@ pss.crt.parallel.cont <- function (m = NULL, m.sd = 0, J1 = NULL, J.ratio = 1, d
     delta <- stats::uniroot(function(delta) eval(p.body) - power, c(1e-07, 1e+07))$root
 
   # Generate output text
-  METHOD <- "Power for test of treatment effect in a cluster randomized trial"
+  METHOD <- "Power for a cluster randomized trial with a continuous outcome"
   m <- ifelse(m.sd == 0, m, paste0(m, " (sd = ", m.sd, ")"))
   J <- c(J1, J1 * J.ratio)
   icc <- c(icc1, icc2)

@@ -43,14 +43,15 @@ pss.anova2way.c.bal <- function (n = NULL, mmatrix = NULL, cvec = NULL,
   if (Rsq > 0 & ncov == 0)
     stop("please specify ncov or set Rsq to 0")
 
-  # Get grand mean and marginal means
-  es <- pss.es.anova.f(means = mmatrix, sd = sd)
-  mmA <- es$mmA
-  mmB <- es$mmB
-
   # See if there is an interaction
-  fAB <- es$fAB
+  fAB <- pss.es.anova.f(means = mmatrix, sd = sd)$fAB
   intx <- ifelse(fAB == 0, FALSE, TRUE)
+
+  # Get grand mean and marginal means
+  mu <- mean(mmatrix)
+  temp1 <- mmatrix - mu
+  mmA <- rowMeans(temp1)
+  mmB <- colMeans(temp1)
 
   # Calculate df's and ncp's
   p.body <- quote({
