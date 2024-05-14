@@ -1,4 +1,4 @@
-#' Power for an individual randomized group treatment trial with continuous outcomes
+#' Power for individually randomized group treatment trial with continuous outcome
 #'
 #' @param m The number of subjects per cluster in the treatment group.
 #' @param J The number of clusters in the treatment group.
@@ -14,11 +14,12 @@
 #' @export
 #'
 #' @examples
-#' pss.irgtt.cont(m = 10, J = 10, n = 100, delta = 0.4, icc = 0.05, Theta = 1, sides = 1)
-#' pss.irgtt.cont(m = 10, J = 12, delta = 0.4, icc = 0.05, Theta = 1, sides = 1, power = 0.8)
+#' pss.irgtt.cont(m = 10, J = 12, n = 120, delta = 0.4, icc = 0.05, Theta = 1, power = NULL)
+#' pss.irgtt.cont(m = 10, J = 12, n = NULL, delta = 0.4, icc = 0.05, Theta = 1, power = 0.8)
 
 pss.irgtt.cont <- function (m = NULL, J = NULL, n = NULL, delta = NULL, sd = 1,
-                            icc = 0, Theta = 1, alpha = 0.05, power = NULL, sides = 2) {
+                            icc = 0, Theta = 1, alpha = 0.05, power = NULL, sides = 2,
+                            tol = .Machine$double.eps^0.25) {
 
   # Check if the arguments are specified correctly
   pss.check.many(list(m, J, n, delta, alpha, power), "oneof")
@@ -35,35 +36,47 @@ pss.irgtt.cont <- function (m = NULL, J = NULL, n = NULL, delta = NULL, sd = 1,
 
   # Calculate power
   p.body <- quote({
-    df2 <- J + n
     de <- 1 + (m - 1) * icc
+    Uc <- sd^2 / n
+    Ue <- Theta * sd^2 * de / (m * J)
+    df2 <- (Ue^2 * (J + 1)/(J - 1) + Uc^2 * (n+1)/(n-1)) / (Ue^2 * (J+1)/(J-1)^2 + Uc^2 * (n+1)/(n-1)^2)
     d <- delta / sd
     lambda <- d / sqrt(Theta * de / (m * J) + 1 / n)
-    crit <- stats::qf(1 - alpha / sides, df1 = 1, df2 = df2)
+    crit <- stats::qf(1 - alpha, df1 = 1, df2 = df2)
+    1 - stats::pf(crit, df1 = 1, df2 = df2, ncp = lambda^2)
+  })
+  # use this function (normal approx) if solving for anything other than power
+  p.body2 <- quote({
+    de <- 1 + (m - 1) * icc
+    df2 <- 10000
+    d <- delta / sd
+    lambda <- d / sqrt(Theta * de / (m * J) + 1 / n)
+    crit <- stats::qf(1 - alpha, df1 = 1, df2 = df2)
     1 - stats::pf(crit, df1 = 1, df2 = df2, ncp = lambda^2)
   })
 
   # Use uniroot to calculate missing argument
   if (is.null(alpha))
-    alpha <- stats::uniroot(function(alpha) eval(p.body) - power, c(1e-10, 1 - 1e-10))$root
+    alpha <- stats::uniroot(function(alpha) eval(p.body2) - power, interval = c(1e-10, 1 - 1e-10), tol = tol)$root
   else if (is.null(power))
     power <- eval(p.body)
   else if (is.null(J))
-    J <- stats::uniroot(function(J) eval(p.body) - power, c(2 + 1e-10, 1e+07))$root
+    J <- stats::uniroot(function(J) eval(p.body2) - power, interval = c(2 + 1e-10, 1e+07), tol = tol)$root
   else if (is.null(m))
-    m <- stats::uniroot(function(m) eval(p.body) - power, c(2 + 1e-10, 1e+07))$root
+    m <- stats::uniroot(function(m) eval(p.body2) - power, interval = c(2 + 1e-10, 1e+07), tol = tol)$root
   else if (is.null(n))
-    n <- stats::uniroot(function(n) eval(p.body) - power, c(4 + 1e-10, 1e+07))$root
+    n <- stats::uniroot(function(n) eval(p.body2) - power, interval = c(2 + 1e-10, 1e+07), tol = tol)$root
   else if (is.null(delta))
-    delta <- stats::uniroot(function(delta) eval(p.body) - power, c(1e-07, 1e+07))$root
+    delta <- stats::uniroot(function(delta) eval(p.body2) - power, interval = c(1e-07, 1e+07), tol = tol)$root
 
   mjn <- c(m, J, n)
+  NOTE <- "Power is solved for using t/F distribution; other quantities solved for using normal approximation."
 
   # Print output as a power.htest object
-  METHOD <- "Power for an individual randomized group treatment trial with continuous outcomes"
+  METHOD <- "Power for individually randomized group treatment trial with continuous outcome"
   structure(list(`m, J, n` = mjn, delta = delta, sd = sd, icc = icc,
                  Theta = Theta, alpha = alpha, power = power, sides = sides,
-                 method = METHOD), class = "power.htest")
+                 method = METHOD, note = NOTE), class = "power.htest")
 
 }
 
