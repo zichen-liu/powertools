@@ -52,7 +52,8 @@ pss.crt.xo.cont <- function (m = NULL, J.arm = NULL, delta = NULL, sd = 1,
     N <- m * J
     df <- 2 * J - 3
     d <- delta / sd
-    de <- ifelse(sac == 0, 2 * (1 + (m - 1) * icc - m * iccb) , 2 * (1 - xi + (m - 1) * (icc - iccb)))
+
+    de <- ifelse(xi == 0, 2 * (1 + (m - 1) * icc - m * iccb) , 2 * (1 - xi + (m - 1) * (icc - iccb)))
     ncp <- d / sqrt(de / N)
     crit <- stats::qt(1 - alpha / sides, df)
     1 - stats::pt(crit, df, ncp)
