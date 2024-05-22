@@ -6,6 +6,7 @@
 #' @param alpha The significance level or type 1 error rate; defaults to 0.05.
 #' @param power The specified level of power.
 #' @param sides Either 1 or 2 (default) to specify a one- or two- sided hypothesis test.
+#' @param v Either TRUE for verbose output or FALSE to output computed argument only.
 #'
 #' @return A list of the arguments (including the computed one).
 #' @export
@@ -17,7 +18,8 @@
 #' pss.t.test.1samp(delta = 0.6, sd = 1, power = 0.8, sides = 1)
 
 pss.t.test.1samp <- function (N = NULL, delta = NULL, sd = 1,
-                              alpha = 0.05, power = NULL, sides = 2) {
+                              alpha = 0.05, power = NULL, sides = 2,
+                              v = TRUE) {
 
   # Check if the arguments are specified correctly
   pss.check.many(list(N, delta, sd, alpha, power), "oneof")
@@ -27,6 +29,7 @@ pss.t.test.1samp <- function (N = NULL, delta = NULL, sd = 1,
   pss.check(alpha, "unit")
   pss.check(power, "unit")
   pss.check(sides, "req"); pss.check(sides, "vals", valslist = c(1, 2))
+  pss.check(v, "req"); pss.check(v, "bool")
 
   # Calculate df and ncp
   if (sides == 1)
@@ -46,16 +49,27 @@ pss.t.test.1samp <- function (N = NULL, delta = NULL, sd = 1,
     })
 
   # Use stats::uniroot function to calculate missing argument
-  if (is.null(power))
+  if (is.null(power)) {
     power <- eval(p.body)
-  else if (is.null(N))
+    if (!v) return(power)
+  }
+  else if (is.null(N)) {
     N <- stats::uniroot(function(N) eval(p.body) - power, c(2, 1e+07))$root
-  else if (is.null(sd))
+    if (!v) return(N)
+  }
+  else if (is.null(sd)) {
     sd <- stats::uniroot(function(sd) eval(p.body) - power, delta * c(1e-07, 1e+07))$root
-  else if (is.null(delta))
+    if (!v) return(sd)
+  }
+  else if (is.null(delta)) {
     delta <- stats::uniroot(function(delta) eval(p.body) - power,  c(1e-07, 1e+07))$root
-  else if (is.null(alpha))
+    if (!v) return(delta)
+  }
+  else if (is.null(alpha)) {
     alpha <- stats::uniroot(function(alpha) eval(p.body) - power, c(1e-10, 1 - 1e-10))$root
+    if (!v) return(alpha)
+  }
+
   else stop("internal error")
 
   # Generate output text
