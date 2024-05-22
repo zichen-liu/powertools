@@ -2,6 +2,7 @@
 #'
 #' @param means A vector or matrix of group means.
 #' @param sd The estimated standard deviation within each group.
+#' @param v Either TRUE for verbose output or FALSE to output computed argument only.
 #'
 #' @return Various calculated f effect sizes.
 #' @export
@@ -11,7 +12,7 @@
 #' mmatrix <- matrix(c(9.3, 8.9, 8.5, 8.7, 8.3, 7.9), nrow = 2, byrow = TRUE)
 #' pss.es.anova.f(means = mmatrix, sd = 2)
 
-pss.es.anova.f <- function (means = NULL, sd = NULL) {
+pss.es.anova.f <- function (means = NULL, sd = NULL, v = TRUE) {
 
   # Check if the arguments are specified correctly
   if(is.null(sd))
@@ -52,9 +53,9 @@ pss.es.anova.f <- function (means = NULL, sd = NULL) {
 
   # Print output as a power.htest object
   if (is.vector(means)) {
+    if (!v) return(fA)
     METHOD <- "Cohen's f effect size calculation for\n     one-way analysis of variance"
-    structure(list(fA = fA,
-                   method = METHOD), class = "power.htest")
+    structure(list(fA = fA, method = METHOD), class = "power.htest")
 
   } else if (is.matrix(means)) {
     METHOD <- "Cohen's f effect size calculation for\n     two-way analysis of variance"

@@ -7,6 +7,7 @@
 #' @param ncov The number of covariates adjusted for in the model; defaults to 0.
 #' @param alpha The significance level or type 1 error rate; defaults to 0.05.
 #' @param power The specified level of power.
+#' @param v Either TRUE for verbose output or FALSE to output computed argument only.
 #'
 #' @return A list of the arguments (including the computed one).
 #' @export
@@ -20,7 +21,8 @@
 #' pss.anova2way.F.bal(n = 30, mmatrix = mmatrix, sd = 2, Rsq = 0.4, ncov = 1, alpha = 0.05)
 
 pss.anova2way.F.bal <- function (n = NULL, mmatrix = NULL, sd = 1,
-                              Rsq = 0, ncov = 0, alpha = 0.05, power = NULL) {
+                                 Rsq = 0, ncov = 0, alpha = 0.05, power = NULL,
+                                 v = TRUE) {
 
   # Check if the arguments are specified correctly
   pss.check.many(list(n, alpha, power), "oneof")
@@ -31,6 +33,7 @@ pss.anova2way.F.bal <- function (n = NULL, mmatrix = NULL, sd = 1,
   pss.check(ncov, "req"); pss.check(ncov, "int")
   pss.check(alpha, "unit")
   pss.check(power, "unit")
+  pss.check(v, "req"); pss.check(v, "bool")
 
   a <- nrow(mmatrix)
   b <- ncol(mmatrix)
@@ -89,6 +92,7 @@ pss.anova2way.F.bal <- function (n = NULL, mmatrix = NULL, sd = 1,
   }
   else if (is.null(alpha))
     alpha <- stats::uniroot(function(alpha) eval(p.body.A) - power, c(1e-10, 1 - 1e-10))$root
+    if (!v) return(alpha)
   else stop("internal error", domain = NA)
 
   # Generate output text

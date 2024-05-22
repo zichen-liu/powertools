@@ -8,6 +8,7 @@
 #' @param Rsq The estimated R^2 for regressing the outcome on the covariates; defaults to 0.
 #' @param ncov The number of covariates adjusted for in the model; defaults to 0.
 #' @param alpha The significance level or type 1 error rate; defaults to 0.05.
+#' @param v Either TRUE for verbose output or FALSE to output computed argument only.
 #'
 #' @return A list of the arguments (including the computed one).
 #' @export
@@ -20,7 +21,7 @@
 
 pss.anova2way.c.unbal <- function (nmatrix = nmatrix, mmatrix = NULL, cvec = NULL,
                             factor = c("a", "b"), sd = NULL, Rsq = 0, ncov = 0,
-                            alpha = 0.05) {
+                            alpha = 0.05, v = TRUE) {
 
   # Check if the arguments are specified correctly
   pss.check(nmatrix, "req"); pss.check(nmatrix, "mat")
@@ -31,6 +32,7 @@ pss.anova2way.c.unbal <- function (nmatrix = nmatrix, mmatrix = NULL, cvec = NUL
   pss.check(Rsq, "req"); pss.check(Rsq, "uniti")
   pss.check(ncov, "req"); pss.check(ncov, "int")
   pss.check(alpha, "req"); pss.check(alpha, "unit")
+  pss.check(v, "req"); pss.check(v, "bool")
 
   a <- nrow(mmatrix)
   b <- ncol(mmatrix)
@@ -69,6 +71,7 @@ pss.anova2way.c.unbal <- function (nmatrix = nmatrix, mmatrix = NULL, cvec = NUL
   df2 <- ifelse(intx, N - a * b - ncov, N - a - b + 1 - ncov)
   power <- stats::pf(q = stats::qf(alpha, 1, df2, lower.tail = FALSE),
                      1, df2, lambda^2, lower.tail = FALSE)
+  if (!v) return(power)
 
   # Generate output text
   METHOD <- paste0("Unalanced two-way analysis of ", ifelse(ncov < 1, "", "co"),

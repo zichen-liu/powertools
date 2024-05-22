@@ -8,6 +8,7 @@
 #' @param ncov The number of covariates adjusted for in the model; defaults to 0.
 #' @param alpha The significance level or type 1 error rate; defaults to 0.05.
 #' @param power The specified level of power.
+#' @param v Either TRUE for verbose output or FALSE to output computed argument only.
 #'
 #' @return A list of the arguments (including the computed one).
 #' @export
@@ -19,7 +20,7 @@
 
 pss.anova2way.se.bal <- function (n = NULL, mmatrix = NULL, cmatrix = NULL,
                                  sd = 1, Rsq = 0, ncov = 0,
-                                 alpha = 0.05, power = NULL) {
+                                 alpha = 0.05, power = NULL, v = TRUE) {
 
   # Check if the arguments are specified correctly
   pss.check.many(list(n, alpha, power), "oneof")
@@ -31,6 +32,7 @@ pss.anova2way.se.bal <- function (n = NULL, mmatrix = NULL, cmatrix = NULL,
   pss.check(ncov, "req"); pss.check(ncov, "int")
   pss.check(alpha, "unit")
   pss.check(power, "unit")
+  pss.check(v, "req"); pss.check(v, "bool")
 
   a <- nrow(mmatrix)
   b <- ncol(mmatrix)
@@ -54,12 +56,18 @@ pss.anova2way.se.bal <- function (n = NULL, mmatrix = NULL, cmatrix = NULL,
   })
 
   # Use stats::uniroot function to calculate missing argument
-  if (is.null(power))
+  if (is.null(power)) {
     power <- eval(p.body)
-  else if (is.null(n))
+    if (!v) return(power)
+  }
+  else if (is.null(n)) {
     n <- stats::uniroot(function(n) eval(p.body) - power, c(2, 1e+05))$root
-  else if (is.null(alpha))
+    if (!v) return(n)
+  }
+  else if (is.null(alpha)) {
     alpha <- stats::uniroot(function(alpha) eval(p.body) - power, c(1e-10, 1 - 1e-10))$root
+    if (!v) return(alpha)
+  }
   else stop("internal error", domain = NA)
 
   # Generate output text
