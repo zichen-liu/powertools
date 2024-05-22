@@ -9,7 +9,6 @@
 #' @param alpha The significance level or type 1 error rate; defaults to 0.05.
 #' @param power The specified level of power.
 #' @param sides Either 1 or 2 (default) to specify a one- or two- sided hypothesis test.
-#' @param strict Use strict interpretation in two-sided case; defaults to TRUE.
 #'
 #' @return A list of the arguments (including the computed one).
 #' @export
@@ -24,8 +23,7 @@
 pss.t.test.2samp <- function (n1 = NULL, n.ratio = 1, delta = NULL,
                               sd1 = 1, sd.ratio = 1,
                               df.method = c("welch", "classical"),
-                              alpha = 0.05, power = NULL,
-                              sides = 2, strict = TRUE) {
+                              alpha = 0.05, power = NULL, sides = 2) {
 
   # Check if the arguments are specified correctly
   pss.check.many(list(n1, n.ratio, delta, sd1, sd.ratio, alpha, power), "oneof")
@@ -37,24 +35,12 @@ pss.t.test.2samp <- function (n1 = NULL, n.ratio = 1, delta = NULL,
   pss.check(alpha, "unit")
   pss.check(power, "unit")
   pss.check(sides, "req"); pss.check(sides, "vals", valslist = c(1, 2))
-  pss.check(strict, "req"); pss.check(strict, "bool")
 
   # Assign df method
   df.method <- match.arg(df.method)
 
   # Calculate df and ncp
-  p.body <- quote({
-    d <- abs(delta)
-    nu <- switch(df.method,
-                 welch = (sd1^2 / n1 + (sd1 * sd.ratio)^2 / (n1 * n.ratio))^2 /
-                 ((sd1^2 / n1)^2 / (n1 - 1) +
-                 ((sd1 * sd.ratio)^2 / (n.ratio * n1))^2 / (n1 * n.ratio - 1)),
-                 classical = (1 + n.ratio) * n1 - 2)
-    stats::pt(stats::qt(alpha / sides, nu, lower = FALSE), nu,
-              sqrt(n1 / (1 + sd.ratio^2 / n.ratio)) * d / sd1, lower = FALSE)
-  })
-
-  if (strict & sides == 2)
+  if (sides == 1)
     p.body <- quote({
       d <- abs(delta)
       nu <- switch(df.method,
@@ -62,7 +48,18 @@ pss.t.test.2samp <- function (n1 = NULL, n.ratio = 1, delta = NULL,
                    ((sd1^2 / n1)^2 / (n1 - 1) +
                    ((sd1 * sd.ratio)^2 / (n.ratio * n1))^2 / (n1 * n.ratio - 1)),
                    classical = (1 + n.ratio) * n1 - 2)
-      qu <- stats::qt(alpha / sides, nu, lower = FALSE)
+      stats::pt(stats::qt(alpha, nu, lower = FALSE), nu,
+                sqrt(n1 / (1 + sd.ratio^2 / n.ratio)) * d / sd1, lower = FALSE)
+    })
+  else if (sides == 2)
+    p.body <- quote({
+      d <- abs(delta)
+      nu <- switch(df.method,
+                   welch = (sd1^2 / n1 + (sd1 * sd.ratio)^2 / (n1 * n.ratio))^2 /
+                   ((sd1^2 / n1)^2 / (n1 - 1) +
+                   ((sd1 * sd.ratio)^2 / (n.ratio * n1))^2 / (n1 * n.ratio - 1)),
+                   classical = (1 + n.ratio) * n1 - 2)
+      qu <- stats::qt(alpha / 2, nu, lower = FALSE)
       ncp <- sqrt(n1 / (1 + sd.ratio^2 / n.ratio)) * d / sd1
       stats::pt(qu, nu, ncp, lower = FALSE) + pt(-qu, nu, ncp, lower = TRUE)
     })

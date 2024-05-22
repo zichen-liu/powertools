@@ -70,7 +70,7 @@ pss.crt.parallel.cont <- function (m = NULL, m.sd = 0, J1 = NULL, J.ratio = 1, d
     df <- J - 2 - ncov
     d <- delta / sd
 
-    RE <- pss.re(m = m, m.sd = m.sd, icc = (icc1 + icc2)/2)
+    RE <- pss.varym.re(m = m, m.sd = m.sd, icc = (icc1 + icc2)/2)
 
     w <- 1 / (1 + J.ratio)
     de1 <- 1 + (m - 1) * (1 - RsqB) * icc1 -

@@ -10,8 +10,10 @@ pss.crt.xo.cont(
   delta = NULL,
   sd = 1,
   icc = 0,
-  cac = 0,
-  sac = 0,
+  iccb = NULL,
+  xi = NULL,
+  cac = NULL,
+  sac = NULL,
   alpha = 0.05,
   power = NULL,
   sides = 2
@@ -28,19 +30,19 @@ pss.crt.xo.cont(
 
 \item{icc}{The within-cluster, within-period intraclass correlation coefficient; defaults to 0.}
 
-\item{cac}{The cluster autocorrelation; defaults to 0.}
+\item{iccb}{The within-cluster, between-period intraclass correlation coefficient. Either iccb and xi, OR cac and sac must be specified.}
 
-\item{sac}{The subject autocorrelation; defaults to 0.}
+\item{xi}{The  within-cluster, within-subject correlation (correlation between two measurements within the same subject). Either iccb and xi, OR cac and sac must be specified.}
+
+\item{cac}{The cluster autocorrelation. Either iccb and xi, OR cac and sac must be specified.}
+
+\item{sac}{The subject autocorrelation. Either iccb and xi, OR cac and sac must be specified.}
 
 \item{alpha}{The significance level or type 1 error rate; defaults to 0.05.}
 
 \item{power}{The specified level of power.}
 
 \item{sides}{Either 1 or 2 (default) to specify a one- or two- sided hypothesis test.}
-
-\item{iccb}{The within-cluster, between-period intraclass correlation coefficient; defaults to 0.}
-
-\item{xi}{The  within-cluster, within-subject correlation (correlation between two measurements within the same subject); defaults to 0.}
 }
 \value{
 A list of the arguments (including the computed one).
@@ -50,4 +52,5 @@ Power for test of treatment effect in 2x2 crossover cluster randomized trial
 }
 \examples{
 pss.crt.xo.cont(m = 30, J.arm = 4, delta = 0.3, icc = 0.05, cac = 0.8, sac = 0.4)
+pss.crt.xo.cont(m = 30, J.arm = 4, delta = 0.3, icc = 0.05, iccb = 0.04, xi = 0.42)
 }

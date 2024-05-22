@@ -9,6 +9,8 @@ pss.multisite.hte(m = NULL, alloc.ratio = 1, J = NULL, VR = NULL, alpha = 0.05)
 \arguments{
 \item{m}{The total number of subjects per site.}
 
+\item{alloc.ratio}{The allocation ratio of intervention/control per site; defaults to 1.}
+
 \item{J}{The number of sites.}
 
 \item{VR}{The variance ratio (site-level treatment effects / observations within sites) the under the alternative.}

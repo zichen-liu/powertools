@@ -2,7 +2,7 @@
 % Please edit documentation in R/pss.irgtt.cont.R
 \name{pss.irgtt.cont}
 \alias{pss.irgtt.cont}
-\title{Power for an individual randomized group treatment trial with continuous outcomes}
+\title{Power for individually randomized group treatment trial with continuous outcome}
 \usage{
 pss.irgtt.cont(
   m = NULL,
@@ -14,7 +14,8 @@ pss.irgtt.cont(
   Theta = 1,
   alpha = 0.05,
   power = NULL,
-  sides = 2
+  sides = 2,
+  tol = .Machine$double.eps^0.25
 )
 }
 \arguments{
@@ -42,9 +43,9 @@ pss.irgtt.cont(
 A list of the arguments (including the computed one).
 }
 \description{
-Power for an individual randomized group treatment trial with continuous outcomes
+Power for individually randomized group treatment trial with continuous outcome
 }
 \examples{
-pss.irgtt.cont(m = 10, J = 10, n = 100, delta = 0.4, icc = 0.05, Theta = 1, sides = 1)
-pss.irgtt.cont(m = 10, J = 12, delta = 0.4, icc = 0.05, Theta = 1, sides = 1, power = 0.8)
+pss.irgtt.cont(m = 10, J = 12, n = 120, delta = 0.4, icc = 0.05, Theta = 1, power = NULL)
+pss.irgtt.cont(m = 10, J = 12, n = NULL, delta = 0.4, icc = 0.05, Theta = 1, power = 0.8)
 }

@@ -6,7 +6,6 @@
 #' @param alpha The significance level or type 1 error rate; defaults to 0.05.
 #' @param power The specified level of power.
 #' @param sides Either 1 or 2 (default) to specify a one- or two- sided hypothesis test.
-#' @param strict Use strict interpretation in two-sided case; defaults to TRUE.
 #'
 #' @return A list of the arguments (including the computed one).
 #' @export
@@ -17,8 +16,7 @@
 #' pss.z.test.1samp(N = NULL, delta = 0.6, sd = 1, power = 0.8, sides = 1)
 
 pss.z.test.1samp <- function (N = NULL, delta = NULL, sd = 1,
-                              alpha = 0.05, power = NULL,
-                              sides = 2, strict = TRUE) {
+                              alpha = 0.05, power = NULL, sides = 2) {
 
   # Check if the arguments are specified correctly
   pss.check.many(list(N, delta, sd, alpha, power), "oneof")
@@ -28,18 +26,18 @@ pss.z.test.1samp <- function (N = NULL, delta = NULL, sd = 1,
   pss.check(alpha, "unit")
   pss.check(power, "unit")
   pss.check(sides, "req"); pss.check(sides, "vals", valslist = c(1, 2))
-  pss.check(strict, "req"); pss.check(strict, "bool")
 
   # Calculate test statistic
-  p.body <- quote({
-    d <- abs(delta) / sd
-    stats::pnorm(stats::qnorm(alpha / sides) + sqrt(N) * d)
-  })
-  if (strict && sides == 2)
+  if (sides == 1)
     p.body <- quote({
       d <- abs(delta) / sd
-      stats::pnorm(stats::qnorm(alpha / sides) + sqrt(N) * d) +
-      stats::pnorm(stats::qnorm(alpha / sides) - sqrt(N) * d)
+      stats::pnorm(stats::qnorm(alpha) + sqrt(N) * d)
+    })
+  else if (sides == 2)
+    p.body <- quote({
+      d <- abs(delta) / sd
+      stats::pnorm(stats::qnorm(alpha / 2) + sqrt(N) * d) +
+      stats::pnorm(stats::qnorm(alpha / 2) - sqrt(N) * d)
     })
 
   # Use stats::uniroot function to calculate missing argument
