@@ -43,6 +43,8 @@ pss.crt.xo.cont <- function (m = NULL, J.arm = NULL, delta = NULL, sd = 1,
 
   if (is.null(iccb))
     iccb <- icc * cac
+  if (is.null(cac))
+    cac <- iccb / icc
   if (!is.null(cac))
     xi <- ifelse(sac == 0, 0, (1 - icc) * sac + icc * cac)
 
