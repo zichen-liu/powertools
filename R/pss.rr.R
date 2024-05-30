@@ -8,6 +8,7 @@
 #' @param alpha The significance level or type 1 error rate; defaults to 0.05.
 #' @param power The specified level of power.
 #' @param sides Either 1 or 2 (default) to specify a one- or two- sided hypothesis test.
+#' @param v Either TRUE for verbose output or FALSE to output computed argument only.
 #'
 #' @return A list of the arguments (including the computed one).
 #' @export
@@ -16,7 +17,7 @@
 #' pss.rr(n1 = NULL, n.ratio = 1/6, p1 = 0.1, p2 = 0.1 * 2, power = 0.8)
 
 pss.rr <- function (n1 = NULL, n.ratio = 1, p1 = NULL, p2 = NULL, RR0 = 1,
-                    alpha = 0.05, power = NULL, sides = 2) {
+                    alpha = 0.05, power = NULL, sides = 2, v = TRUE) {
 
   # Check if the arguments are specified correctly
   pss.check.many(list(n1, n.ratio, alpha, power), "oneof")
@@ -28,6 +29,7 @@ pss.rr <- function (n1 = NULL, n.ratio = 1, p1 = NULL, p2 = NULL, RR0 = 1,
   pss.check(alpha, "unit")
   pss.check(power, "unit")
   pss.check(sides, "req"); pss.check(sides, "vals", valslist = c(1, 2))
+  pss.check(v, "req"); pss.check(v, "bool")
 
   # Calculate test statistic
   p.body <- quote({
@@ -40,14 +42,22 @@ pss.rr <- function (n1 = NULL, n.ratio = 1, p1 = NULL, p2 = NULL, RR0 = 1,
   })
 
   # Use stats::uniroot function to calculate missing argument
-  if (is.null(power))
+  if (is.null(power)) {
     power <- eval(p.body)
-  else if (is.null(n1))
+    if (!v) return(power)
+  }
+  else if (is.null(n1)) {
     n1 <- stats::uniroot(function(n1) eval(p.body) - power, c(2, 1e+07))$root
-  else if (is.null(n.ratio))
+    if (!v) return(n1)
+  }
+  else if (is.null(n.ratio)) {
     n.ratio <- stats::uniroot(function(n.ratio) eval(p.body) - power, c(2/n1, 1e+07))$root
-  else if (is.null(alpha))
+    if (!v) return(n.ratio)
+  }
+  else if (is.null(alpha)) {
     alpha <- stats::uniroot(function(alpha) eval(p.body) - power, c(1e-10, 1 - 1e-10))$root
+    if (!v) return(alpha)
+  }
   else stop("internal error")
 
   # Generate output text

@@ -9,6 +9,7 @@
 #' @param alpha The significance level or type 1 error rate; defaults to 0.05.
 #' @param power The specified level of power.
 #' @param sides Either 1 or 2 (default) to specify a one- or two- sided hypothesis test.
+#' @param v Either TRUE for verbose output or FALSE to output computed argument only.
 #'
 #' @return A list of the arguments (including the computed one).
 #' @export
@@ -19,7 +20,7 @@
 
 pss.mcnemar.test <- function (N = NULL, p1 = NULL, p2 = NULL, phi = NULL,
                               paid = NULL, dpr = NULL, alpha = 0.05,
-                              power = NULL, sides = 2) {
+                              power = NULL, sides = 2, v = TRUE) {
 
   # Check if the arguments are specified correctly
   if ((is.null(p1) | is.null(p2) | is.null(phi)) & (is.null(dpr) | is.null(paid)))
@@ -33,6 +34,7 @@ pss.mcnemar.test <- function (N = NULL, p1 = NULL, p2 = NULL, phi = NULL,
   pss.check(alpha, "unit")
   pss.check(power, "unit")
   pss.check(sides, "req"); pss.check(sides, "vals", valslist = c(1, 2))
+  pss.check(v, "req"); pss.check(v, "bool")
 
   # Calculate paid and dpr if not given
   if (is.null(paid) & is.null(dpr)) {
@@ -47,17 +49,25 @@ pss.mcnemar.test <- function (N = NULL, p1 = NULL, p2 = NULL, phi = NULL,
                   stats::qnorm(alpha / sides, lower.tail = FALSE) *
                   sqrt(dpr + 1)) / sqrt((dpr + 1) - paid * (dpr - 1)^2)))
 
+  NOTE <- "N is the number of pairs"
+  if (!v) print(paste("NOTE:", NOTE))
+
   # Use stats::uniroot function to calculate missing argument
-  if (is.null(power))
+  if (is.null(power)) {
     power <- eval(p.body)
-  else if (is.null(N))
+    if (!v) return(power)
+  }
+  else if (is.null(N)) {
     N <- stats::uniroot(function(N) eval(p.body) - power, c(ceiling(log(alpha) / log(0.5)), 1e+07))$root
-  else if (is.null(alpha))
+    if (!v) return(N)
+  }
+  else if (is.null(alpha)) {
     alpha <- stats::uniroot(function(alpha) eval(p.body) - power, c(1e-10, 1 - 1e-10))$root
+    if (!v) return(alpha)
+  }
   else stop("internal error", domain = NA)
 
   # Generate output text
-  NOTE <- "N is the number of pairs"
   METHOD <-"McNemar paired comparison of proportions\n     approximate power calculation"
 
   # Print output as a power.htest object depending on which inputs were given

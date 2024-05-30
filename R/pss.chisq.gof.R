@@ -5,6 +5,7 @@
 #' @param N The number of total observations.
 #' @param alpha The significance level or type 1 error rate; defaults to 0.05.
 #' @param power The specified level of power.
+#' @param v Either TRUE for verbose output or FALSE to output computed argument only.
 #'
 #' @return A list of the arguments (including the computed one).
 #' @export
@@ -13,7 +14,8 @@
 #' pss.chisq.gof(p0vec = c(0.5, 0.3, 0.2), p1vec = c(0.7, 0.2, 0.1), N = 50)
 
 pss.chisq.gof <- function (p0vec = NULL, p1vec = NULL,
-                           N = NULL, alpha = 0.05, power = NULL) {
+                           N = NULL, alpha = 0.05, power = NULL,
+                           v = TRUE) {
 
   # Check if the arguments are specified correctly
   pss.check.many(list(N, alpha, power), "oneof")
@@ -22,6 +24,7 @@ pss.chisq.gof <- function (p0vec = NULL, p1vec = NULL,
   pss.check(N, "int"); pss.check(N, "min", min = 2)
   pss.check(alpha, "unit")
   pss.check(power, "unit")
+  pss.check(v, "req"); pss.check(v, "bool")
 
   if (length(p0vec) != length(p1vec))
     stop("the two proportion vectors must have the same lengths")
@@ -43,12 +46,18 @@ pss.chisq.gof <- function (p0vec = NULL, p1vec = NULL,
   })
 
   # Use stats::uniroot function to calculate missing argument
-  if (is.null(power))
+  if (is.null(power)) {
     power <- eval(p.body)
-  else if (is.null(N))
+    if (!v) return(power)
+  }
+  else if (is.null(N)) {
     N <- stats::uniroot(function(n) eval(p.body) - power, c(1 + 1e-10, 1e+09))$root
-  else if (is.null(alpha))
+    if (!v) return(N)
+  }
+  else if (is.null(alpha)) {
     alpha <- stats::uniroot(function(sig.level) eval(p.body) - power, c(1e-10, 1 - 1e-10))$root
+    if (!v) return(alpha)
+  }
   else stop("internal error")
 
   # Generate output text

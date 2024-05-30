@@ -8,6 +8,7 @@
 #' @param alpha The significance level or type 1 error rate; defaults to 0.05.
 #' @param power The specified level of power.
 #' @param sides Either 1 or 2 (default) to specify a one- or two- sided hypothesis test.
+#' @param v Either TRUE for verbose output or FALSE to output computed argument only.
 #'
 #' @return A list of the arguments (including the computed one).
 #' @export
@@ -18,7 +19,8 @@
 
 pss.slr <- function (N = NULL, beta10 = 0, beta1A = NULL,
                      sd.x.sq = NULL, sigma.e = NULL,
-                     alpha = 0.05, power = NULL, sides = 2) {
+                     alpha = 0.05, power = NULL, sides = 2,
+                     v = TRUE) {
 
   # Check if the arguments are specified correctly
   if (sides != 1 & sides != 2)
@@ -31,6 +33,7 @@ pss.slr <- function (N = NULL, beta10 = 0, beta1A = NULL,
     stop("please specify estimated standard deviations (see documentation)")
   if (!is.null(N) && any(N < 4))
     stop("number of observations must be at least 4")
+  pss.check(v, "req"); pss.check(v, "bool")
 
   # Calculate power
   p.body <- quote({

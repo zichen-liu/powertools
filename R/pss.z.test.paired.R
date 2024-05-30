@@ -51,7 +51,7 @@ pss.z.test.paired <- function (N = NULL, delta = NULL,
     })
 
   NOTE <- "N is the number of pairs"
-  if(!v) print(paste("NOTE:", NOTE))
+  if (!v) print(paste("NOTE:", NOTE))
 
   # Use stats::uniroot function to calculate missing argument
   if (is.null(power)) {

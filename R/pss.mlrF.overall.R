@@ -7,6 +7,7 @@
 #' @param alpha The significance level or type 1 error rate; defaults to 0.05.
 #' @param power The specified level of power.
 #' @param random Whether the values of the predictors are random; defaults to FALSE.
+#' @param v Either TRUE for verbose output or FALSE to output computed argument only.
 #'
 #' @return A list of the arguments (including the computed one).
 #' @export
@@ -21,7 +22,8 @@
 #' pss.mlrF.overall(N = 400, p = 2, Rsq = 0.02, random = TRUE)
 
 pss.mlrF.overall <- function (N = NULL, p = NULL, Rsq = NULL, fsq = NULL,
-                              alpha = 0.05, power = NULL, random = FALSE) {
+                              alpha = 0.05, power = NULL, random = FALSE,
+                              v = TRUE) {
 
   # Check if the arguments are specified correctly
   if (sum(sapply(list(N, power, alpha), is.null)) != 1)
@@ -36,6 +38,7 @@ pss.mlrF.overall <- function (N = NULL, p = NULL, Rsq = NULL, fsq = NULL,
     Rsq <- fsq / (1 + fsq)
   if (!is.null(Rsq))
     fsq <- Rsq / (1 - Rsq)
+  pss.check(v, "req"); pss.check(v, "bool")
 
   # Calculate power
   p.body <- quote({

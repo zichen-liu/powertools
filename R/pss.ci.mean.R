@@ -6,6 +6,7 @@
 #' @param alpha The significance level or type 1 error rate; defaults to 0.05.
 #' @param power The specified level of power.
 #' @param cond Specify using unconditional or conditional probability. Defaults to FALSE.
+#' @param v Either TRUE for verbose output or FALSE to output computed argument only.
 #'
 #' @return A list of the arguments (including the computed one).
 #' @import PowerTOST
@@ -17,7 +18,8 @@
 #' pss.ci.mean(N = 73, halfwidth = 0.25, cond = TRUE)
 
 pss.ci.mean <- function (N = NULL, halfwidth = NULL, sd = 1,
-                         alpha = 0.05, power = NULL, cond = FALSE) {
+                         alpha = 0.05, power = NULL, cond = FALSE,
+                         v = TRUE) {
 
   # Check if the arguments are specified correctly
   if (sum(sapply(list(N, power, alpha), is.null)) != 1)
@@ -39,12 +41,18 @@ pss.ci.mean <- function (N = NULL, halfwidth = NULL, sd = 1,
     }
   })
 
-  if (is.null(power))
+  if (is.null(power)) {
     power <- eval(p.body)
-  else if (is.null(N))
+    if (!v) return(power)
+  }
+  else if (is.null(N)) {
     N <- stats::uniroot(function(N) eval(p.body) - power, c(2, 1e+07))$root
-  else if (is.null(alpha))
+    if (!v) return(N)
+  }
+  else if (is.null(alpha)) {
     alpha <- stats::uniroot(function(alpha) eval(p.body) - power, c(1e-10, 1 - 1e-10))$root
+    if (!v) return(alpha)
+  }
   else stop("internal error")
 
   # Generate output text

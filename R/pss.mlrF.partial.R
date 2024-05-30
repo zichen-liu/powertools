@@ -8,6 +8,7 @@
 #' @param pc The partial correlation coefficient. Either both Rsq terms OR pc must be specified.
 #' @param alpha The significance level or type 1 error rate; defaults to 0.05.
 #' @param power The specified level of power.
+#' @param v Either TRUE for verbose output or FALSE to output computed argument only.
 #'
 #' @return A list of the arguments (including the computed one).
 #' @export
@@ -18,7 +19,7 @@
 
 pss.mlrF.partial <- function (N = NULL, p = NULL, q = NULL, pc = NULL,
                               Rsq.red = NULL, Rsq.full = NULL,
-                              alpha = 0.05, power = NULL) {
+                              alpha = 0.05, power = NULL, v = TRUE) {
 
   # Check if the arguments are specified correctly
   if (sum(sapply(list(N, power, alpha), is.null)) != 1)
@@ -29,6 +30,7 @@ pss.mlrF.partial <- function (N = NULL, p = NULL, q = NULL, pc = NULL,
     stop("please specify Rsq.red and Rsq.full OR pc")
   if (!is.null(N) && any(N < 7))
     stop("number of observations must be at least 7")
+  pss.check(v, "req"); pss.check(v, "bool")
 
   # Calculate power
   p.body <- quote({
