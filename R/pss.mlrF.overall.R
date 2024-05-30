@@ -43,10 +43,10 @@ pss.mlrF.overall <- function (N = NULL, p = NULL, Rsq = NULL, fsq = NULL,
   # Calculate power
   p.body <- quote({
     if (random) {
-      v <- N - p - 1
-      u <- (v * Rsq + p)^2 / (v * Rsq * (2 - Rsq) + p)
-      crit <- stats::qf(1 - alpha, p, v)
-      1 - stats::pf(crit * p * (1 - Rsq) / (v * Rsq + p), u, v)
+      V <- N - p - 1
+      U <- (V * Rsq + p)^2 / (V * Rsq * (2 - Rsq) + p)
+      crit <- stats::qf(1 - alpha, p, V)
+      1 - stats::pf(crit * p * (1 - Rsq) / (V * Rsq + p), U, V)
     } else {
       ncp <- N * Rsq / (1 - Rsq)
       df2 <- N - p - 1
@@ -55,12 +55,18 @@ pss.mlrF.overall <- function (N = NULL, p = NULL, Rsq = NULL, fsq = NULL,
   })
 
   # Use stats::uniroot function to calculate missing argument
-  if (is.null(power))
+  if (is.null(power)) {
     power <- eval(p.body)
-  else if (is.null(N))
+    if (!v) return(power)
+  }
+  else if (is.null(N)) {
     N <- stats::uniroot(function(N) eval(p.body) - power, c(4, 1e+09))$root
-  else if (is.null(alpha))
+    if (!v) return(N)
+  }
+  else if (is.null(alpha)) {
     alpha <- stats::uniroot(function(alpha) eval(p.body) - power, c(1e-10, 1 - 1e-10))$root
+    if (!v) return(alpha)
+  }
   else stop("internal error")
 
   # Generate output text

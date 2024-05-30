@@ -48,12 +48,18 @@ pss.mlrF.partial <- function (N = NULL, p = NULL, q = NULL, pc = NULL,
   })
 
   # Use stats::uniroot function to calculate missing argument
-  if (is.null(power))
+  if (is.null(power)) {
     power <- eval(p.body)
-  else if (is.null(N))
+    if (!v) return(power)
+  }
+  else if (is.null(N)) {
     N <- stats::uniroot(function(n) eval(p.body) - power, c(7, 1e+09))$root
-  else if (is.null(alpha))
+    if (!v) return(N)
+  }
+  else if (is.null(alpha)) {
     alpha <- stats::uniroot(function(alpha) eval(p.body) - power, c(1e-10, 1 - 1e-10))$root
+    if (!v) return(alpha)
+  }
   else stop("internal error")
 
   # Generate output text
