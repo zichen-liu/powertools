@@ -9,6 +9,7 @@
 #' @param alpha The significance level or type 1 error rate; defaults to 0.05.
 #' @param power The specified level of power.
 #' @param sides Either 1 or 2 (default) to specify a one- or two- sided hypothesis test.
+#' @param v Either TRUE for verbose output or FALSE to output computed argument only.
 #'
 #' @return A list of the arguments (including the computed one).
 #' @export
@@ -19,7 +20,8 @@
 
 pss.multisite.bin <- function (m = NULL, alloc.ratio = 1, J = NULL,
                                pc = NULL, pt = NULL, sigma.u = NULL,
-                               alpha = 0.05, power = NULL, sides = 2) {
+                               alpha = 0.05, power = NULL, sides = 2,
+                               v = TRUE) {
 
   # Check if the arguments are specified correctly
   pss.check.many(list(m, J, alpha, power), "oneof")
@@ -32,6 +34,7 @@ pss.multisite.bin <- function (m = NULL, alloc.ratio = 1, J = NULL,
   pss.check(alpha, "unit")
   pss.check(power, "unit")
   pss.check(sides, "req"); pss.check(sides, "vals", valslist = c(1, 2))
+  pss.check(v, "req"); pss.check(v, "bool")
 
   # Calculate power
   p.body <- quote({
@@ -45,20 +48,31 @@ pss.multisite.bin <- function (m = NULL, alloc.ratio = 1, J = NULL,
     stats::pnorm(gammaA / sqrt(var) - za)
   })
 
-  if (is.null(alpha))
+  NOTE <- "m1, m2 are the number of subjects within site in condition 1, condition 2\n      (total of m1 + m2 per site)"
+  if (!v) cat(paste("NOTE:", NOTE, "\n"))
+
+  if (is.null(alpha)) {
     alpha <- stats::uniroot(function(alpha) eval(p.body) - power, c(1e-10, 1 - 1e-10))$root
-  else if (is.null(power))
+    if (!v) return(alpha)
+  }
+  else if (is.null(power)) {
     power <- eval(p.body)
-  else if (is.null(J))
+    if (!v) return(power)
+  }
+  else if (is.null(J)) {
     J <- stats::uniroot(function(J) eval(p.body) - power, c(2 + 1e-10, 1e+07))$root
-  else if (is.null(m))
+    if (!v) return(J)
+  }
+  else if (is.null(m)) {
+
+  }
     m <- stats::uniroot(function(m) eval(p.body) - power, c(2 + 1e-10, 1e+07))$root
   #else if (is.null(alloc.ratio))
   #  alloc.ratio <- stats::uniroot(function(alloc.ratio) eval(p.body) - power, c(1 + 1e-10, 1e+07))$root
+  else stop("internal error")
 
   # Generate output text
   METHOD <-"Power for multisite trials with binary outcomes"
-  NOTE <- "m1, m2 are the number of subjects within site in condition 1, condition 2\n      (total of m1 + m2 per site)"
   p <- c(pc, pt)
   c <- m / (alloc.ratio + 1)
   t <- alloc.ratio * c
