@@ -53,6 +53,9 @@ pss.t.test.paired <- function (N = NULL, delta = NULL,
                 1, df2, ncp^2, lower.tail = FALSE)
     })
 
+  NOTE <- "N is the number of pairs"
+  if(!v) print(paste("NOTE:", NOTE))
+
   # Use stats::uniroot function to calculate missing argument
   if (is.null(power)) {
     power <- eval(p.body)
@@ -74,7 +77,6 @@ pss.t.test.paired <- function (N = NULL, delta = NULL,
 
   # Generate output text
   METHOD <- "Paired t test power calculation"
-  NOTE <- "N is the number of pairs"
   sd <- c(sd1, sd2)
 
   # Print output as a power.htest object

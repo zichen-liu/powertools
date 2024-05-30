@@ -78,21 +78,27 @@ pss.anova2way.F.bal <- function (n = NULL, mmatrix = NULL, sd = 1,
               df1, df2, LambdaAB, lower.tail = FALSE)
   })
 
+  NOTE <- "The 3rd value for f and power or n is for the interaction"
+  if(!v & intx) print(paste("NOTE:", NOTE))
+
   # Use stats::uniroot function to calculate missing argument
   if (is.null(power)) {
     powerA <- round(eval(p.body.A), 4)
     powerB <- round(eval(p.body.B), 4)
     if (intx) powerAB <- round(eval(p.body.AB), 4)
+    if (!v) return(c(powerA = powerA, powerB = powerB, powerAB = powerAB))
   }
   else if (is.null(n)){
     nA <- round(stats::uniroot(function(n) eval(p.body.A) - power, c(2, 1e+05))$root, 4)
     nB <- round(stats::uniroot(function(n) eval(p.body.B) - power, c(2, 1e+05))$root, 4)
     if (intx)
       nAB <- round(stats::uniroot(function(n) eval(p.body.AB) - power, c(2, 1e+05))$root, 4)
+    if (!v) return(c(nA = nA, nB = nB, nAB = nAB))
   }
-  else if (is.null(alpha))
+  else if (is.null(alpha)) {
     alpha <- stats::uniroot(function(alpha) eval(p.body.A) - power, c(1e-10, 1 - 1e-10))$root
     if (!v) return(alpha)
+  }
   else stop("internal error", domain = NA)
 
   # Generate output text
@@ -105,7 +111,6 @@ pss.anova2way.F.bal <- function (n = NULL, mmatrix = NULL, sd = 1,
   METHOD <- paste0("Balanced two-way analysis of ", ifelse(ncov < 1, "", "co"),
                    "variance\n     omnibus F test power calculation",
                    ifelse(intx, " with interaction", ""))
-  NOTE <- "The 3rd value for f and power or n is for the interaction"
   out <- list(n = n, mmatrix = pss.matrix.format(mmatrix),
               sd = sd, `f effect size` = f, ncov = ncov, Rsq = Rsq,
               alpha = alpha, power = power,

@@ -50,6 +50,9 @@ pss.z.test.paired <- function (N = NULL, delta = NULL,
         stats::pnorm(stats::qnorm(alpha / 2) - sqrt(N) * d)
     })
 
+  NOTE <- "N is the number of pairs"
+  if(!v) print(paste("NOTE:", NOTE))
+
   # Use stats::uniroot function to calculate missing argument
   if (is.null(power)) {
     power <- eval(p.body)
@@ -71,7 +74,6 @@ pss.z.test.paired <- function (N = NULL, delta = NULL,
 
   # Generate output text
   METHOD <- "Paired z test power calculation"
-  NOTE <- "N is the number of pairs"
   sd <- c(sd1, sd2)
 
   # Print output as a power.htest object

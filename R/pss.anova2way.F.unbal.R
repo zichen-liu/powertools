@@ -87,6 +87,9 @@ pss.anova2way.F.unbal <- function (nmatrix = NULL, mmatrix = NULL, sd = NULL,
   }
   LambdaAB <- LambdaAB / (1 - Rsq)
 
+  NOTE <- "The 3rd value for f and power or n is for the interaction"
+  if(!v & intx) print(paste("NOTE:", NOTE))
+
   # Calculate power
   N <- sum(nmatrix)
   df1A <- a - 1; df1B <- b - 1; df1AB <- (a - 1) * (b - 1)
@@ -98,8 +101,13 @@ pss.anova2way.F.unbal <- function (nmatrix = NULL, mmatrix = NULL, sd = NULL,
   if (intx) {
     powerAB <- round(stats::pf(stats::qf(alpha, df1AB, df2, lower.tail = FALSE),
                      df1AB, df2, LambdaAB, lower.tail = FALSE), 4)
+    if (!v) return(c(powerA = powerA, powerB = powerB, powerAB = powerAB))
   }
-  else { powerAB <- 0}
+  else {
+    powerAB <- 0
+    if (!v) return(c(powerA = powerA, powerB = powerB))
+  }
+
 
   # Generate output text
   if (intx) power <- c(powerA, powerB, powerAB) else power <- c(powerA, powerB)
@@ -107,7 +115,6 @@ pss.anova2way.F.unbal <- function (nmatrix = NULL, mmatrix = NULL, sd = NULL,
   else f <- c(round(fA, 4), round(fB, 4))
   METHOD <- paste0("Unalanced two-way analysis of ", ifelse(ncov < 1, "", "co"),
                    "variance\n     omnibus F test power calculation")
-  NOTE <- "The 3rd value for f and power is for the interaction"
   out <- list(nmatrix = pss.matrix.format(nmatrix),
               mmatrix = pss.matrix.format(mmatrix),
               sd = sd, `f effect size` = f, ncov = ncov, Rsq = Rsq,
