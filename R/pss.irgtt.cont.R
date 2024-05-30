@@ -10,6 +10,8 @@
 #' @param alpha The significance level or type 1 error rate; defaults to 0.05.
 #' @param power The specified level of power.
 #' @param sides Either 1 or 2 (default) to specify a one- or two- sided hypothesis test.
+#' @param v Either TRUE for verbose output or FALSE to output computed argument only.
+#'
 #' @return A list of the arguments (including the computed one).
 #' @export
 #'
@@ -19,7 +21,7 @@
 
 pss.irgtt.cont <- function (m = NULL, J = NULL, n = NULL, delta = NULL, sd = 1,
                             icc = 0, Theta = 1, alpha = 0.05, power = NULL, sides = 2,
-                            tol = .Machine$double.eps^0.25) {
+                            tol = .Machine$double.eps^0.25, v = TRUE) {
 
   # Check if the arguments are specified correctly
   pss.check.many(list(m, J, n, delta, alpha, power), "oneof")
@@ -33,6 +35,7 @@ pss.irgtt.cont <- function (m = NULL, J = NULL, n = NULL, delta = NULL, sd = 1,
   pss.check(alpha, "unit")
   pss.check(power, "unit")
   pss.check(sides, "req"); pss.check(sides, "vals", valslist = c(1, 2))
+  pss.check(v, "req"); pss.check(v, "bool")
 
   # Calculate power
   p.body <- quote({
@@ -55,22 +58,36 @@ pss.irgtt.cont <- function (m = NULL, J = NULL, n = NULL, delta = NULL, sd = 1,
     1 - stats::pf(crit, df1 = 1, df2 = df2, ncp = lambda^2)
   })
 
+  NOTE <- "Power is solved for using t/F distribution; other quantities solved\n      for using normal approximation."
+  if (!v) cat(paste("NOTE:", NOTE, "\n"))
+
   # Use uniroot to calculate missing argument
-  if (is.null(alpha))
+  if (is.null(alpha)) {
     alpha <- stats::uniroot(function(alpha) eval(p.body2) - power, interval = c(1e-10, 1 - 1e-10), tol = tol)$root
-  else if (is.null(power))
+    if (!v) return(alpha)
+  }
+  else if (is.null(power)) {
     power <- eval(p.body)
-  else if (is.null(J))
+    if (!v) return(power)
+  }
+  else if (is.null(J)) {
     J <- stats::uniroot(function(J) eval(p.body2) - power, interval = c(2 + 1e-10, 1e+07), tol = tol)$root
-  else if (is.null(m))
+    if (!v) return(J)
+  }
+  else if (is.null(m)) {
     m <- stats::uniroot(function(m) eval(p.body2) - power, interval = c(2 + 1e-10, 1e+07), tol = tol)$root
-  else if (is.null(n))
+    if (!v) return(m)
+  }
+  else if (is.null(n)) {
     n <- stats::uniroot(function(n) eval(p.body2) - power, interval = c(2 + 1e-10, 1e+07), tol = tol)$root
-  else if (is.null(delta))
+    if (!v) return(n)
+  }
+  else if (is.null(delta)) {
     delta <- stats::uniroot(function(delta) eval(p.body2) - power, interval = c(1e-07, 1e+07), tol = tol)$root
+    if (!v) return(delta)
+  }
 
   mjn <- c(m, J, n)
-  NOTE <- "Power is solved for using t/F distribution; other quantities solved for using normal approximation."
 
   # Print output as a power.htest object
   METHOD <- "Power for individually randomized group treatment trial with continuous outcome"

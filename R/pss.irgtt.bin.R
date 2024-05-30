@@ -9,6 +9,8 @@
 #' @param alpha The significance level or type 1 error rate; defaults to 0.05.
 #' @param power The specified level of power.
 #' @param sides Either 1 or 2 (default) to specify a one- or two- sided hypothesis test.
+#' @param v Either TRUE for verbose output or FALSE to output computed argument only.
+#'
 #' @return A list of the arguments (including the computed one).
 #' @export
 #'
@@ -17,7 +19,8 @@
 #' pss.irgtt.bin(m = 20, J = 6, n = 120, p1 = 0.8, p2 = 0.6, icc = 0.04, sides = 2)
 
 pss.irgtt.bin <- function (m = NULL, J = NULL, n = NULL, p1 = NULL, p2 = NULL,
-                            icc = 0, alpha = 0.05, power = NULL, sides = 2) {
+                           icc = 0, alpha = 0.05, power = NULL, sides = 2,
+                           v = TRUE) {
 
   # Check if the arguments are specified correctly
   pss.check.many(list(m, J, n, alpha, power), "oneof")
@@ -30,6 +33,7 @@ pss.irgtt.bin <- function (m = NULL, J = NULL, n = NULL, p1 = NULL, p2 = NULL,
   pss.check(alpha, "unit")
   pss.check(power, "unit")
   pss.check(sides, "req"); pss.check(sides, "vals", valslist = c(1, 2))
+  pss.check(v, "req"); pss.check(v, "bool")
 
   # Calculate power
   p.body <- quote({
@@ -41,16 +45,26 @@ pss.irgtt.bin <- function (m = NULL, J = NULL, n = NULL, p1 = NULL, p2 = NULL,
   })
 
   # Use uniroot to calculate missing argument
-  if (is.null(alpha))
+  if (is.null(alpha)) {
     alpha <- stats::uniroot(function(alpha) eval(p.body) - power, c(1e-10, 1 - 1e-10))$root
-  else if (is.null(power))
+    if (!v) return(alpha)
+  }
+  else if (is.null(power)) {
     power <- eval(p.body)
-  else if (is.null(J))
+    if (!v) return(power)
+  }
+  else if (is.null(J)) {
     J <- stats::uniroot(function(J) eval(p.body) - power, c(2 + 1e-10, 1e+07))$root
-  else if (is.null(m))
+    if (!v) return(J)
+  }
+  else if (is.null(m)) {
     m <- stats::uniroot(function(m) eval(p.body) - power, c(2 + 1e-10, 1e+07))$root
-  else if (is.null(n))
+    if (!v) return(m)
+  }
+  else if (is.null(n)) {
     n <- stats::uniroot(function(n) eval(p.body) - power, c(4 + 1e-10, 1e+07))$root
+    if (!v) return(n)
+  }
 
   mjn <- c(m, J, n)
   p <- c(p1, p2)
