@@ -11,6 +11,7 @@
 #' @param alpha The significance level or type 1 error rate; defaults to 0.05.
 #' @param power The specified level of power.
 #' @param sides Either 1 or 2 (default) to specify a one- or two- sided hypothesis test.
+#' @param v Either TRUE for verbose output or FALSE to output computed argument only.
 #' @return A list of the arguments (including the computed one).
 #' @export
 #'
@@ -20,7 +21,8 @@
 
 pss.crt.long.cont <- function (m = NULL, J1 = NULL, J.ratio = 1, delta = NULL, sd = 1,
                                icc = 0, cac = 0, sac = 0,
-                               alpha = 0.05, power = NULL, sides = 2) {
+                               alpha = 0.05, power = NULL, sides = 2,
+                               v = TRUE) {
 
   # Check if the arguments are specified correctly
   pss.check.many(list(m, J1, delta, alpha, power), "oneof")
@@ -37,6 +39,7 @@ pss.crt.long.cont <- function (m = NULL, J1 = NULL, J.ratio = 1, delta = NULL, s
   pss.check(alpha, "unit")
   pss.check(power, "unit")
   pss.check(sides, "req"); pss.check(sides, "vals", valslist = c(1, 2))
+  pss.check(v, "req"); pss.check(v, "bool")
 
   # Calculate power
   p.body <- quote({
@@ -53,16 +56,26 @@ pss.crt.long.cont <- function (m = NULL, J1 = NULL, J.ratio = 1, delta = NULL, s
   })
 
   # Use uniroot to calculate missing argument
-  if (is.null(alpha))
+  if (is.null(alpha)) {
     alpha <- stats::uniroot(function(alpha) eval(p.body) - power, c(1e-10, 1 - 1e-10))$root
-  else if (is.null(power))
+    if (!v) return(alpha)
+  }
+  else if (is.null(power)) {
     power <- eval(p.body)
-  else if (is.null(J1))
+    if (!v) return(power)
+  }
+  else if (is.null(J1)) {
     J1 <- stats::uniroot(function(J1) eval(p.body) - power, c(2 + 1e-10, 1e+07))$root
-  else if (is.null(m))
+    if (!v) return(J1)
+  }
+  else if (is.null(m)) {
     m <- stats::uniroot(function(m) eval(p.body) - power, c(2 + 1e-10, 1e+07))$root
-  else if (is.null(delta))
+    if (!v) return(m)
+  }
+  else if (is.null(delta)) {
     delta <- stats::uniroot(function(delta) eval(p.body) - power, c(1e-07, 1e+07))$root
+    if (!v) return(delta)
+  }
 
   # Generate output text
   METHOD <- "Power for test of treatment effect in a longitudinal cluster randomized trial with baseline measurement"

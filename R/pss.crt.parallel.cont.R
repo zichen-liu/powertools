@@ -14,6 +14,8 @@
 #' @param alpha The significance level or type 1 error rate; defaults to 0.05.
 #' @param power The specified level of power.
 #' @param sides Either 1 or 2 (default) to specify a one- or two- sided hypothesis test.
+#' @param v Either TRUE for verbose output or FALSE to output computed argument only.
+#'
 #' @return A list of the arguments (including the computed one).
 #' @export
 #'
@@ -29,8 +31,9 @@
 #' pss.crt.parallel.cont(m = NULL, J1 = 6, delta = 0.5, icc1 = 0.05, icc2 = 0.05, power = 0.8)
 
 pss.crt.parallel.cont <- function (m = NULL, m.sd = 0, J1 = NULL, J.ratio = 1, delta = NULL, sd = 1,
-                              icc1 = 0, icc2 = 0, ncov = 0, RsqB = 0, RsqW = 0,
-                              alpha = 0.05, power = NULL, sides = 2) {
+                                   icc1 = 0, icc2 = 0, ncov = 0, RsqB = 0, RsqW = 0,
+                                   alpha = 0.05, power = NULL, sides = 2,
+                                   v = TRUE) {
 
   # Check if the arguments are specified correctly
   pss.check.many(list(m, J1, delta, alpha, power), "oneof")
@@ -50,6 +53,7 @@ pss.crt.parallel.cont <- function (m = NULL, m.sd = 0, J1 = NULL, J.ratio = 1, d
   pss.check(alpha, "unit")
   pss.check(power, "unit")
   pss.check(sides, "req"); pss.check(sides, "vals", valslist = c(1, 2))
+  pss.check(v, "req"); pss.check(v, "bool")
 
   if ((RsqB > 0 | RsqW > 0) & ncov == 0)
     stop("please specify ncov or set RsqB & RsqW to 0")
@@ -84,16 +88,26 @@ pss.crt.parallel.cont <- function (m = NULL, m.sd = 0, J1 = NULL, J.ratio = 1, d
   })
 
   # Use uniroot to calculate missing argument
-  if (is.null(alpha))
+  if (is.null(alpha)) {
     alpha <- stats::uniroot(function(alpha) eval(p.body) - power, c(1e-10, 1 - 1e-10))$root
-  else if (is.null(power))
+    if (!v) return(alpha)
+  }
+  else if (is.null(power)) {
     power <- eval(p.body)
-  else if (is.null(J1))
+    if (!v) return(power)
+  }
+  else if (is.null(J1)) {
     J1 <- stats::uniroot(function(J1) eval(p.body) - power, c(2 + 1e-10, 1e+07))$root
-  else if (is.null(m))
+    if (!v) return(J1)
+  }
+  else if (is.null(m)) {
     m <- stats::uniroot(function(m) eval(p.body) - power, c(2 + 1e-10, 1e+07))$root
-  else if (is.null(delta))
+    if (!v) return(m)
+  }
+  else if (is.null(delta)) {
     delta <- stats::uniroot(function(delta) eval(p.body) - power, c(1e-07, 1e+07))$root
+    if (!v) return(delta)
+  }
 
   # Generate output text
   METHOD <- "Power for a cluster randomized trial with a continuous outcome"
