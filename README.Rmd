@@ -28,7 +28,7 @@ You can install the development version of powertools like so:
 
 ``` r
 # install.packages("devtools")
-devtools::install_github("kristenmcgreevy/PSSTools")
+devtools::install_github("zichen-liu/powertoools")
 ```
 
 ## Example

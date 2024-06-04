@@ -1,12 +1,12 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
-# PSSTools
+# powertools
 
 <!-- badges: start -->
 <!-- badges: end -->
 
-The goal of PSSTools is to provide Power and Sample Size Tools in R for researchers. This package accompanies the text "Power and Sample Size in R" by Catherine M. Crespi. 
+The goal of powertools is to provide Power and Sample Size Tools in R for researchers. This package accompanies the text "Power and Sample Size in R" by Catherine M. Crespi. 
 
 This package loads all R packages that are used in the textbook and provides new functions for sample size and power calculations that did not previously exist.
 
@@ -16,7 +16,7 @@ You can install the development version of PSSTools like so:
 
 ``` r
 # install.packages("devtools")
-devtools::install_github("kristenmcgreevy/PSSTools")
+devtools::install_github("zichen-liu/powertools")
 ```
 
 ## Example
@@ -26,7 +26,7 @@ This is a basic example which calculates the sample size needed to adequately po
 This example follows Example 5.1 in the textbook. 
 
 ``` r
-library(PSSTools)
+library(powertools)
 oneprop_ss(p0 = 0.2, pA = 0.3, alpha = 0.05, power = 0.8,
            method = "conditional", one.or.two.sided = "one")
 #> [1] 109
