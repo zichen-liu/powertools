@@ -1,5 +1,5 @@
 
-### Beginning of R Package PSStools #
+### Beginning of R Package powertools #
 ### https://r-pkgs.org/Whole-game.html
 library(devtools)
 
@@ -45,7 +45,7 @@ check()
 
 # now we can install the package like any other package!!
 install()
-library(PSSTools)
+library(powertools)
 x <- "alfa,bravo,charlie,delta"
 strsplit1(x, split = ",")
 
@@ -169,9 +169,9 @@ use_test("anova4_ss_wrapper")
 
 library(available)
 
-available("PSStools")
+available("powertools")
 
-available("PSStools")
+available("powertools")
 
 ## R CMD check is the same as
 devtools::check()
@@ -372,7 +372,7 @@ check()
 
 load_all()
 
-data("PSSTools")
+data("powertools")
 
 use_data("multisite.data")
 use_r("data")

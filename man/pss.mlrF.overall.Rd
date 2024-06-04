@@ -11,7 +11,8 @@ pss.mlrF.overall(
   fsq = NULL,
   alpha = 0.05,
   power = NULL,
-  random = FALSE
+  random = FALSE,
+  v = TRUE
 )
 }
 \arguments{
@@ -28,6 +29,8 @@ pss.mlrF.overall(
 \item{power}{The specified level of power.}
 
 \item{random}{Whether the values of the predictors are random; defaults to FALSE.}
+
+\item{v}{Either TRUE for verbose output or FALSE to output computed argument only.}
 }
 \value{
 A list of the arguments (including the computed one).

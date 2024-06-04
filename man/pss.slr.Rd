@@ -12,7 +12,8 @@ pss.slr(
   sigma.e = NULL,
   alpha = 0.05,
   power = NULL,
-  sides = 2
+  sides = 2,
+  v = TRUE
 )
 }
 \arguments{
@@ -31,6 +32,8 @@ pss.slr(
 \item{power}{The specified level of power.}
 
 \item{sides}{Either 1 or 2 (default) to specify a one- or two- sided hypothesis test.}
+
+\item{v}{Either TRUE for verbose output or FALSE to output computed argument only.}
 }
 \value{
 A list of the arguments (including the computed one).

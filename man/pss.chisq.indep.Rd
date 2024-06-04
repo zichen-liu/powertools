@@ -4,7 +4,7 @@
 \alias{pss.chisq.indep}
 \title{Power calculations for chi-square test of independence}
 \usage{
-pss.chisq.indep(pmatrix = NULL, N = NULL, alpha = 0.05, power = NULL)
+pss.chisq.indep(pmatrix = NULL, N = NULL, alpha = 0.05, power = NULL, v = TRUE)
 }
 \arguments{
 \item{pmatrix}{The two-way probability table under the alternative hypothesis.}
@@ -14,6 +14,8 @@ pss.chisq.indep(pmatrix = NULL, N = NULL, alpha = 0.05, power = NULL)
 \item{alpha}{The significance level or type 1 error rate; defaults to 0.05.}
 
 \item{power}{The specified level of power.}
+
+\item{v}{Either TRUE for verbose output or FALSE to output computed argument only.}
 }
 \value{
 A list of the arguments (including the computed one).

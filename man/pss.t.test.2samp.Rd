@@ -14,7 +14,7 @@ pss.t.test.2samp(
   alpha = 0.05,
   power = NULL,
   sides = 2,
-  strict = TRUE
+  v = TRUE
 )
 }
 \arguments{
@@ -36,7 +36,7 @@ pss.t.test.2samp(
 
 \item{sides}{Either 1 or 2 (default) to specify a one- or two- sided hypothesis test.}
 
-\item{strict}{Use strict interpretation in two-sided case; defaults to TRUE.}
+\item{v}{Either TRUE for verbose output or FALSE to output computed argument only.}
 }
 \value{
 A list of the arguments (including the computed one).

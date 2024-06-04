@@ -22,16 +22,16 @@ pss.t.test.paired <- function (N = NULL, delta = NULL,
                                v = TRUE) {
 
   # Check if the arguments are specified correctly
-  pss.check.many(list(N, delta, alpha, power), "oneof")
-  pss.check(N, "int")
-  pss.check(sd1, "req"); pss.check(sd1, "pos")
-  pss.check(sd2, "req"); pss.check(sd2, "pos")
-  pss.check(rho, "req"); pss.check(rho, "uniti")
-  pss.check(delta, "num")
-  pss.check(alpha, "unit")
-  pss.check(power, "unit")
-  pss.check(sides, "req"); pss.check(sides, "vals", valslist = c(1, 2))
-  pss.check(v, "req"); pss.check(v, "bool")
+  # pss.check.many(list(N, delta, alpha, power), "oneof")
+  # pss.check(N, "int")
+  # pss.check(sd1, "req"); pss.check(sd1, "pos")
+  # pss.check(sd2, "req"); pss.check(sd2, "pos")
+  # pss.check(rho, "req"); pss.check(rho, "uniti")
+  # pss.check(delta, "num")
+  # pss.check(alpha, "unit")
+  # pss.check(power, "unit")
+  # pss.check(sides, "req"); pss.check(sides, "vals", valslist = c(1, 2))
+  # pss.check(v, "req"); pss.check(v, "bool")
 
   # Calculate the standard deviation of differences within pairs
   sigmad <- sqrt(sd1^2 + sd2^2 - 2 * rho * sd1 * sd2)

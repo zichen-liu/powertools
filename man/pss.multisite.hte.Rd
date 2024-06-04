@@ -4,7 +4,14 @@
 \alias{pss.multisite.hte}
 \title{Power for test of heterogeneity of treatment effect in multisite trials}
 \usage{
-pss.multisite.hte(m = NULL, alloc.ratio = 1, J = NULL, VR = NULL, alpha = 0.05)
+pss.multisite.hte(
+  m = NULL,
+  alloc.ratio = 1,
+  J = NULL,
+  VR = NULL,
+  alpha = 0.05,
+  v = TRUE
+)
 }
 \arguments{
 \item{m}{The total number of subjects per site.}
@@ -16,6 +23,8 @@ pss.multisite.hte(m = NULL, alloc.ratio = 1, J = NULL, VR = NULL, alpha = 0.05)
 \item{VR}{The variance ratio (site-level treatment effects / observations within sites) the under the alternative.}
 
 \item{alpha}{The significance level or type 1 error rate; defaults to 0.05.}
+
+\item{v}{Either TRUE for verbose output or FALSE to output computed argument only.}
 }
 \value{
 A list of the arguments (including the computed power).

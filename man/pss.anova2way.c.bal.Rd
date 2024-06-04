@@ -13,7 +13,8 @@ pss.anova2way.c.bal(
   Rsq = 0,
   ncov = 0,
   alpha = 0.05,
-  power = NULL
+  power = NULL,
+  v = TRUE
 )
 }
 \arguments{
@@ -34,6 +35,8 @@ pss.anova2way.c.bal(
 \item{alpha}{The significance level or type 1 error rate; defaults to 0.05.}
 
 \item{power}{The specified level of power.}
+
+\item{v}{Either TRUE for verbose output or FALSE to output computed argument only.}
 }
 \value{
 A list of the arguments (including the computed one).

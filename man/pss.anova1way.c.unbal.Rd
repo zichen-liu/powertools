@@ -11,7 +11,8 @@ pss.anova1way.c.unbal(
   sd = NULL,
   Rsq = 0,
   ncov = 0,
-  alpha = 0.05
+  alpha = 0.05,
+  v = TRUE
 )
 }
 \arguments{
@@ -28,6 +29,8 @@ pss.anova1way.c.unbal(
 \item{ncov}{The number of covariates adjusted for in the model; defaults to 0.}
 
 \item{alpha}{The significance level or type 1 error rate; defaults to 0.05.}
+
+\item{v}{Either TRUE for verbose output or FALSE to output computed argument only.}
 }
 \value{
 A list of the arguments (including the computed power).

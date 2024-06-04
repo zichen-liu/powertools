@@ -4,12 +4,14 @@
 \alias{pss.es.anova.f}
 \title{Cohen's f effect size calculation for one- or two- way analysis of variance}
 \usage{
-pss.es.anova.f(means = NULL, sd = NULL)
+pss.es.anova.f(means = NULL, sd = NULL, v = TRUE)
 }
 \arguments{
 \item{means}{A vector or matrix of group means.}
 
 \item{sd}{The estimated standard deviation within each group.}
+
+\item{v}{Either TRUE for verbose output or FALSE to output computed argument only.}
 }
 \value{
 Various calculated f effect sizes.

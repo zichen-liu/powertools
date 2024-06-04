@@ -1,6 +1,6 @@
-Package: PSSTools
+Package: powertools
 Type: Package
-Title: PSSTools: Power and Sample Size Tools
+Title: powertools: Power and Sample Size Tools
 Version: 0.1.0
 Authors@R: c(
     person("Catherine", "Crespi", "M", "ccrespi@ucla.edu", role = "cre"),

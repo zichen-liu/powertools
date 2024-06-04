@@ -10,7 +10,8 @@ pss.ci.mean(
   sd = 1,
   alpha = 0.05,
   power = NULL,
-  cond = FALSE
+  cond = FALSE,
+  v = TRUE
 )
 }
 \arguments{
@@ -25,6 +26,8 @@ pss.ci.mean(
 \item{power}{The specified level of power.}
 
 \item{cond}{Specify using unconditional or conditional probability. Defaults to FALSE.}
+
+\item{v}{Either TRUE for verbose output or FALSE to output computed argument only.}
 }
 \value{
 A list of the arguments (including the computed one).

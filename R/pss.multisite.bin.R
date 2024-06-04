@@ -64,9 +64,9 @@ pss.multisite.bin <- function (m = NULL, alloc.ratio = 1, J = NULL,
     if (!v) return(J)
   }
   else if (is.null(m)) {
-
-  }
     m <- stats::uniroot(function(m) eval(p.body) - power, c(2 + 1e-10, 1e+07))$root
+    if (!v) return(m)
+  }
   #else if (is.null(alloc.ratio))
   #  alloc.ratio <- stats::uniroot(function(alloc.ratio) eval(p.body) - power, c(1 + 1e-10, 1e+07))$root
   else stop("internal error")
