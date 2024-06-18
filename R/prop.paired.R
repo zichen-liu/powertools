@@ -15,10 +15,10 @@
 #' @export
 #'
 #' @examples
-#' mcnemar.test(N = NULL, p1 = 0.8, p2 = 0.9, phi = 0, power = 0.9, sides = 2)
-#' mcnemar.test(N = NULL, paid = 0.08, dpr = 0.18 / 0.08, power = 0.9, sides = 2)
+#' prop.paired(N = NULL, p1 = 0.8, p2 = 0.9, phi = 0, power = 0.9, sides = 2)
+#' prop.paired(N = NULL, paid = 0.08, dpr = 0.18 / 0.08, power = 0.9, sides = 2)
 
-mcnemar.test <- function (N = NULL, p1 = NULL, p2 = NULL, phi = NULL,
+prop.paired <- function (N = NULL, p1 = NULL, p2 = NULL, phi = NULL,
                               paid = NULL, dpr = NULL, alpha = 0.05,
                               power = NULL, sides = 2, v = TRUE) {
 
