@@ -19,9 +19,9 @@
 #' crt.parallel.bin(m = 60, m.sd = 1, J = NULL, pc = 0.25, pt = 0.15, sigma.u = 0.3, power = 0.8)
 
 crt.parallel.bin <- function (m = NULL, m.sd = 0, J = NULL,
-                                  pc = NULL, pt = NULL, sigma.u = NULL,
-                                  alpha = 0.05, power = NULL, sides = 2,
-                                  v = TRUE) {
+                              pc = NULL, pt = NULL, sigma.u = NULL,
+                              alpha = 0.05, power = NULL, sides = 2,
+                              v = FALSE) {
 
   # Check if the arguments are specified correctly
   if (sides != 1 & sides != 2)

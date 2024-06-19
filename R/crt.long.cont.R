@@ -20,13 +20,13 @@
 
 
 crt.long.cont <- function (m = NULL, J1 = NULL, J.ratio = 1, delta = NULL, sd = 1,
-                               icc = 0, cac = 0, sac = 0,
-                               alpha = 0.05, power = NULL, sides = 2,
-                               v = TRUE) {
+                           icc = 0, cac = 0, sac = 0,
+                           alpha = 0.05, power = NULL, sides = 2,
+                           v = FALSE) {
 
   # Check if the arguments are specified correctly
   check.many(list(m, J1, delta, alpha, power), "oneof")
-  check(m, "int")
+  check(m, "pos")
   check(J.ratio, "req"); check(J.ratio, "pos")
   check(J1, "min", min = 2)
   if (!is.null(J1))

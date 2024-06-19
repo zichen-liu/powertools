@@ -31,13 +31,13 @@
 #' crt.parallel.cont(m = NULL, J1 = 6, delta = 0.5, icc1 = 0.05, icc2 = 0.05, power = 0.8)
 
 crt.parallel.cont <- function (m = NULL, m.sd = 0, J1 = NULL, J.ratio = 1, delta = NULL, sd = 1,
-                                   icc1 = 0, icc2 = 0, ncov = 0, RsqB = 0, RsqW = 0,
-                                   alpha = 0.05, power = NULL, sides = 2,
-                                   v = TRUE) {
+                               icc1 = 0, icc2 = 0, ncov = 0, RsqB = 0, RsqW = 0,
+                               alpha = 0.05, power = NULL, sides = 2,
+                               v = FALSE) {
 
   # Check if the arguments are specified correctly
   check.many(list(m, J1, delta, alpha, power), "oneof")
-  check(m, "int")
+  check(m, "pos")
   check(m.sd, "req"); check(m.sd, "min", min = 0)
   check(J.ratio, "req"); check(J.ratio, "pos")
   check(J1, "min", min = 2)

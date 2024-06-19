@@ -25,12 +25,12 @@
 crt.xo.cont <- function (m = NULL, J.arm = NULL, delta = NULL, sd = 1,
                              icc = 0, icca = 0, iccb = NULL, cac = NULL, sac = 0,
                              alpha = 0.05, power = NULL, sides = 2,
-                             v = TRUE) {
+                             v = FALSE) {
 
   # Check if the arguments are specified correctly
   check.many(list(iccb, cac), "oneof")
   check.many(list(m, J.arm, delta, alpha, power), "oneof")
-  check(m, "int")
+  check(m, "pos")
   check(J.arm, "min", min = 2)
   check(delta, "num")
   check(sd, "req"); check(sd, "pos")
