@@ -18,11 +18,11 @@
 #' sides = 1)
 
 prop.test.equiv <- function (n1 = NULL, n.ratio = 1, p1 = NULL, p2 = NULL, margin = NULL,
-                                 alpha = 0.05, power = NULL, sides = 2, v = TRUE) {
+                             alpha = 0.05, power = NULL, sides = 2, v = FALSE) {
 
   # Check if the arguments are specified correctly
   check.many(list(n1, n.ratio, alpha, power), "oneof")
-  check(n1, "int")
+  check(n1, "pos")
   check(n.ratio, "pos")
   check(p1, "req"); check(p1, "unit")
   check(p2, "req"); check(p2, "unit")

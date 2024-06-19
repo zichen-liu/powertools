@@ -18,9 +18,9 @@
 #' slr(N = 100, beta10 = 1, beta1A = 1.5, sd.x.sq = 25, sigma.e = 10, sides = 1)
 
 slr <- function (N = NULL, beta10 = 0, beta1A = NULL,
-                     sd.x.sq = NULL, sigma.e = NULL,
-                     alpha = 0.05, power = NULL, sides = 2,
-                     v = TRUE) {
+                 sd.x.sq = NULL, sigma.e = NULL,
+                 alpha = 0.05, power = NULL, sides = 2,
+                 v = FALSE) {
 
   # Check if the arguments are specified correctly
   if (sides != 1 & sides != 2)

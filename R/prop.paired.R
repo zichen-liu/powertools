@@ -19,14 +19,14 @@
 #' prop.paired(N = NULL, paid = 0.08, dpr = 0.18 / 0.08, power = 0.9, sides = 2)
 
 prop.paired <- function (N = NULL, p1 = NULL, p2 = NULL, phi = NULL,
-                              paid = NULL, dpr = NULL, alpha = 0.05,
-                              power = NULL, sides = 2, v = TRUE) {
+                         paid = NULL, dpr = NULL, alpha = 0.05,
+                         power = NULL, sides = 2, v = FALSE) {
 
   # Check if the arguments are specified correctly
   if ((is.null(p1) | is.null(p2) | is.null(phi)) & (is.null(dpr) | is.null(paid)))
     stop("p1, p2, and phi OR dpr and paid must be specified")
   check.many(list(N, alpha, power), "oneof")
-  check(N, "int")
+  check(N, "pos")
   check(p1, "unit")
   check(p2, "unit")
   check(paid, "unit")

@@ -18,11 +18,11 @@
 #' prop.2samp(n1 = NULL, p1 = 0.25, p2 = 0.25, margin = 0.1, alpha = 0.025, power = 0.8, sides = 1)
 
 prop.2samp <- function (n1 = NULL, n.ratio = 1, p1 = NULL, p2 = NULL, margin = 0,
-                            alpha = 0.05, power = NULL, sides = 2, v = TRUE) {
+                        alpha = 0.05, power = NULL, sides = 2, v = FALSE) {
 
   # Check if the arguments are specified correctly
   check.many(list(n1, n.ratio, alpha, power), "oneof")
-  check(n1, "int")
+  check(n1, "pos")
   check(n.ratio, "pos")
   check(p1, "req"); check(p1, "unit")
   check(p2, "req"); check(p2, "unit")

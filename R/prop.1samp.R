@@ -17,11 +17,11 @@
 #'
 
 prop.1samp <- function (N = NULL, p0 = NULL, pA = NULL, alpha = 0.05,
-                            power = NULL, sides = 2, v = TRUE) {
+                        power = NULL, sides = 2, v = FALSE) {
 
   # Check if the arguments are specified correctly
   check.many(list(N, alpha, power), "oneof")
-  check(N, "int")
+  check(N, "pos")
   check(p0, "req"); check(p0, "unit")
   check(pA, "req"); check(pA, "unit")
   check(alpha, "unit")
