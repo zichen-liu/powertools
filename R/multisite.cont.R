@@ -27,14 +27,14 @@
 #' icc1 = 0.048, Rsq = 0.5^2)
 
 multisite.cont <- function (m = NULL, m.sd = 0, alloc.ratio = 1, J = NULL,
-                               delta = NULL, sd = 1,
-                               icc0 = NULL, icc1 = NULL, Rsq = 0,
-                               alpha = 0.05, power = NULL, sides = 2,
-                               v = TRUE) {
+                            delta = NULL, sd = 1,
+                            icc0 = NULL, icc1 = NULL, Rsq = 0,
+                            alpha = 0.05, power = NULL, sides = 2,
+                            v = FALSE) {
 
   # Check if the arguments are specified correctly
   check.many(list(m, J, delta, alpha, power), "oneof")
-  check(m, "int")
+  check(m, "pos")
   check(m.sd, "req"); check(m.sd, "min", min = 0)
   check(alloc.ratio, "req"); check(alloc.ratio, "pos")
   check(J, "min", min = 2)

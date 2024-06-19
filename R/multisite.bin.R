@@ -19,13 +19,13 @@
 #' multisite.bin(m = 30, J = NULL, pc = 0.1, pt = 0.2, sigma.u = 0.4, power = 0.9)
 
 multisite.bin <- function (m = NULL, alloc.ratio = 1, J = NULL,
-                               pc = NULL, pt = NULL, sigma.u = NULL,
-                               alpha = 0.05, power = NULL, sides = 2,
-                               v = TRUE) {
+                           pc = NULL, pt = NULL, sigma.u = NULL,
+                           alpha = 0.05, power = NULL, sides = 2,
+                           v = FALSE) {
 
   # Check if the arguments are specified correctly
   check.many(list(m, J, alpha, power), "oneof")
-  check(m, "int")
+  check(m, "pos")
   check(alloc.ratio, "req"); check(alloc.ratio, "pos")
   check(J, "min", min = 2)
   check(pc, "req"); check(pc, "unit")

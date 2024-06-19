@@ -14,10 +14,10 @@
 #' multisite.hte(m = 10, J = 30, VR = 8 / 36)
 
 multisite.hte <- function (m = NULL, alloc.ratio = 1, J = NULL, VR = NULL,
-                               alpha = 0.05, v = TRUE) {
+                           alpha = 0.05, v = FALSE) {
 
   # Check if the arguments are specified correctly
-  check(m, "req"); check(m, "int")
+  check(m, "req"); check(m, "pos")
   check(alloc.ratio, "req"); check(alloc.ratio, "pos")
   check(J, "req"); check(J, "min", min = 2)
   check(VR, "req"); check(VR, "pos")

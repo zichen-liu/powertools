@@ -22,8 +22,8 @@
 #' mlrF.overall(N = 400, p = 2, Rsq = 0.02, random = TRUE)
 
 mlrF.overall <- function (N = NULL, p = NULL, Rsq = NULL, fsq = NULL,
-                              alpha = 0.05, power = NULL, random = FALSE,
-                              v = TRUE) {
+                          alpha = 0.05, power = NULL, random = FALSE,
+                          v = FALSE) {
 
   # Check if the arguments are specified correctly
   if (sum(sapply(list(N, power, alpha), is.null)) != 1)

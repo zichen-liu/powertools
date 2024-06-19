@@ -20,12 +20,12 @@
 #' irgtt.cont(m = 10, J = 12, n = NULL, delta = 0.4, icc = 0.05, Theta = 1, power = 0.8)
 
 irgtt.cont <- function (m = NULL, J = NULL, n = NULL, delta = NULL, sd = 1,
-                            icc = 0, Theta = 1, alpha = 0.05, power = NULL, sides = 2,
-                            tol = .Machine$double.eps^0.25, v = TRUE) {
+                        icc = 0, Theta = 1, alpha = 0.05, power = NULL, sides = 2,
+                        tol = .Machine$double.eps^0.25, v = FALSE) {
 
   # Check if the arguments are specified correctly
   check.many(list(m, J, n, delta, alpha, power), "oneof")
-  check(m, "int")
+  check(m, "pos")
   check(J, "min", min = 2)
   check(n, "int")
   check(delta, "num")

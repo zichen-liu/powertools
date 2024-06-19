@@ -19,12 +19,12 @@
 #' irgtt.bin(m = 20, J = 6, n = 120, p1 = 0.8, p2 = 0.6, icc = 0.04, sides = 2)
 
 irgtt.bin <- function (m = NULL, J = NULL, n = NULL, p1 = NULL, p2 = NULL,
-                           icc = 0, alpha = 0.05, power = NULL, sides = 2,
-                           v = TRUE) {
+                       icc = 0, alpha = 0.05, power = NULL, sides = 2,
+                       v = FALSE) {
 
   # Check if the arguments are specified correctly
   check.many(list(m, J, n, alpha, power), "oneof")
-  check(m, "int")
+  check(m, "pos")
   check(J, "min", min = 2)
   check(n, "int")
   check(p1, "req"); check(p1, "unit")

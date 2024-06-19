@@ -18,8 +18,8 @@
 #' mlrF.partial(N = 150, p = 4, pc = 0.2)
 
 mlrF.partial <- function (N = NULL, p = NULL, q = NULL, pc = NULL,
-                              Rsq.red = NULL, Rsq.full = NULL,
-                              alpha = 0.05, power = NULL, v = TRUE) {
+                          Rsq.red = NULL, Rsq.full = NULL,
+                          alpha = 0.05, power = NULL, v = FALSE) {
 
   # Check if the arguments are specified correctly
   if (sum(sapply(list(N, power, alpha), is.null)) != 1)
