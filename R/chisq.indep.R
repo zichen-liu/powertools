@@ -15,12 +15,12 @@
 #' chisq.indep(pmatrix = matrix(c(0.3, 0.2, 0.4, 0.1), nrow = 2, byrow = TRUE), N = 200)
 
 chisq.indep <- function (pmatrix = NULL, N = NULL, alpha = 0.05, power = NULL,
-                             v = TRUE) {
+                         v = FALSE) {
 
   # Check if the arguments are specified correctly
   check.many(list(N, alpha, power), "oneof")
   check(pmatrix, "req"); check(pmatrix, "mat"); check(pmatrix, "sum")
-  check(N, "int"); check(N, "min", min = 2)
+  check(N, "pos"); check(N, "min", min = 2)
   check(alpha, "unit")
   check(power, "unit")
   check(v, "req"); check(v, "bool")

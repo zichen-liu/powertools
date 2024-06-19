@@ -16,8 +16,8 @@
 #' corr.2samp(n1 = 300, rho1 = 0.3, rho2 = 0.1, sides = 1)
 
 corr.2samp <- function (n1 = NULL, n.ratio = 1, rho1 = NULL, rho2 = NULL,
-                            alpha = 0.05, power = NULL, sides = 2,
-                            v = TRUE) {
+                        alpha = 0.05, power = NULL, sides = 2,
+                        v = FALSE) {
 
   # Check if the arguments are specified correctly
   if (sides != 1 & sides != 2)

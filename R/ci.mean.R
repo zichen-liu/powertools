@@ -18,8 +18,8 @@
 #' ci.mean(N = 73, halfwidth = 0.25, cond = TRUE)
 
 ci.mean <- function (N = NULL, halfwidth = NULL, sd = 1,
-                         alpha = 0.05, power = NULL, cond = FALSE,
-                         v = TRUE) {
+                     alpha = 0.05, power = NULL, cond = FALSE,
+                     v = FALSE) {
 
   # Check if the arguments are specified correctly
   if (sum(sapply(list(N, power, alpha), is.null)) != 1)

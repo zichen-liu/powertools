@@ -14,14 +14,14 @@
 #' chisq.gof(p0vec = c(0.5, 0.3, 0.2), p1vec = c(0.7, 0.2, 0.1), N = 50)
 
 chisq.gof <- function (p0vec = NULL, p1vec = NULL,
-                           N = NULL, alpha = 0.05, power = NULL,
-                           v = TRUE) {
+                       N = NULL, alpha = 0.05, power = NULL,
+                       v = FALSE) {
 
   # Check if the arguments are specified correctly
   check.many(list(N, alpha, power), "oneof")
   check(p0vec, "req"); check(p0vec, "vec"); check(p0vec, "sum")
   check(p1vec, "req"); check(p1vec, "vec"); check(p1vec, "sum")
-  check(N, "int"); check(N, "min", min = 2)
+  check(N, "pos"); check(N, "min", min = 2)
   check(alpha, "unit")
   check(power, "unit")
   check(v, "req"); check(v, "bool")

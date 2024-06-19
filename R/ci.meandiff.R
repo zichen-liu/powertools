@@ -18,8 +18,8 @@
 #' ci.meandiff(n1 = 134, halfwidth = 0.25, cond = TRUE)
 
 ci.meandiff <- function (n1 = NULL, n.ratio = 1, halfwidth = NULL, sd = 1,
-                             alpha = 0.05, power = NULL, cond = FALSE,
-                             v = TRUE) {
+                         alpha = 0.05, power = NULL, cond = FALSE,
+                         v = FALSE) {
 
   # Check if the arguments are specified correctly
   if (sum(sapply(list(n1, n.ratio, power, alpha), is.null)) != 1)
