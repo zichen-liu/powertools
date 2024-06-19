@@ -21,11 +21,11 @@
 
 anova2way.c.bal <- function (n = NULL, mmatrix = NULL, cvec = NULL,
                                 factor = c("a", "b"), sd = 1, Rsq = 0, ncov = 0,
-                                alpha = 0.05, power = NULL, v = TRUE) {
+                                alpha = 0.05, power = NULL, v = FALSE) {
 
   # Check if the arguments are specified correctly
   check.many(list(n, alpha, power), "oneof")
-  check(n, "int"); check(n, "min", min = 2)
+  check(n, "pos"); check(n, "min", min = 2)
   check(mmatrix, "req"); check(mmatrix, "mat")
   check(cvec, "req"); check(cvec, "vec")
   check(factor, "req"); check(factor, "vals", valslist = c("a", "b"))

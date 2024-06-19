@@ -21,12 +21,12 @@
 #' anova2way.F.bal(n = 30, mmatrix = mmatrix, sd = 2, Rsq = 0.4, ncov = 1, alpha = 0.05)
 
 anova2way.F.bal <- function (n = NULL, mmatrix = NULL, sd = 1,
-                                 Rsq = 0, ncov = 0, alpha = 0.05, power = NULL,
-                                 v = TRUE) {
+                             Rsq = 0, ncov = 0, alpha = 0.05, power = NULL,
+                             v = FALSE) {
 
   # Check if the arguments are specified correctly
   check.many(list(n, alpha, power), "oneof")
-  check(n, "int"); check(n, "min", min = 2)
+  check(n, "pos"); check(n, "min", min = 2)
   check(mmatrix, "req"); check(mmatrix, "mat")
   check(sd, "req"); check(sd, "pos")
   check(Rsq, "req"); check(Rsq, "uniti")

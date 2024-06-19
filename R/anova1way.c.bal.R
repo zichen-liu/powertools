@@ -18,12 +18,12 @@
 #' anova1way.c.bal(n = 20, mvec = c(5, 10, 12), cvec = c(1, 0, -1), sd = 10, alpha = 0.025)
 
 anova1way.c.bal <- function (n = NULL, mvec = NULL, cvec = NULL, sd = 1,
-                                 Rsq = 0, ncov = 0, alpha = 0.05, power = NULL,
-                                 v = TRUE) {
+                             Rsq = 0, ncov = 0, alpha = 0.05, power = NULL,
+                             v = FALSE) {
 
   # Check if the arguments are specified correctly
   check.many(list(n, alpha, power), "oneof")
-  check(n, "int"); check(n, "min", min = 2)
+  check(n, "pos"); check(n, "min", min = 2)
   check(mvec, "req"); check(mvec, "vec")
   check(cvec, "req"); check(cvec, "vec")
   check(sd, "req"); check(sd, "pos")

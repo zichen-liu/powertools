@@ -20,8 +20,8 @@
 #' factor = "b", sd = 2, alpha = 0.05)
 
 anova2way.c.unbal <- function (nmatrix = nmatrix, mmatrix = NULL, cvec = NULL,
-                            factor = c("a", "b"), sd = NULL, Rsq = 0, ncov = 0,
-                            alpha = 0.05, v = TRUE) {
+                               factor = c("a", "b"), sd = NULL, Rsq = 0, ncov = 0,
+                               alpha = 0.05, v = FALSE) {
 
   # Check if the arguments are specified correctly
   check(nmatrix, "req"); check(nmatrix, "mat")

@@ -24,7 +24,7 @@
 #' ncov = 1, alpha = 0.05)
 
 anova2way.F.unbal <- function (nmatrix = NULL, mmatrix = NULL, sd = NULL,
-                                   Rsq = 0, ncov = 0, alpha = 0.05, v = TRUE) {
+                               Rsq = 0, ncov = 0, alpha = 0.05, v = FALSE) {
 
   # Check if the arguments are specified correctly
   check(nmatrix, "req"); check(nmatrix, "mat")

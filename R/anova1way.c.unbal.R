@@ -19,8 +19,8 @@
 #' sd = 10, alpha = 0.025)
 
 anova1way.c.unbal <- function (nvec = NULL, mvec = NULL, cvec = NULL,
-                                   sd = NULL, Rsq = 0, ncov = 0, alpha = 0.05,
-                                   v = TRUE) {
+                               sd = NULL, Rsq = 0, ncov = 0, alpha = 0.05,
+                               v = FALSE) {
 
   # Check if the arguments are specified correctly
   check(nvec, "req"); check(nvec, "vec")
