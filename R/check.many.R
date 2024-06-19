@@ -1,5 +1,5 @@
 check.many <- function(paramlist = NULL,
-                      type = c("oneof")) {
+                       type = c("oneof")) {
 
   names <- lapply(substitute(paramlist), deparse)
   names <- paste(names[-1], collapse = ", ")

@@ -1,18 +1,18 @@
 check <- function(param = NULL,
-                      type = c("req",   # required
-                               "num",   # numerical
-                               "unit",  # (0, 1)
-                               "uniti", # [0, 1)
-                               "pos",   # positive values
-                               "int",   # positive integers
-                               "bool",  # T or F
-                               "vals",  # certain values (specify valslist)
-                               "min",   # minimum value (specify min)
-                               "vec",   # numerical vector
-                               "mat",   # numerical matrix
-                               "sum"    # sum to one
-                               ),
-                      valslist = NULL, min = NULL) {
+                  type = c("req",   # required
+                           "num",   # numerical
+                           "unit",  # (0, 1)
+                           "uniti", # [0, 1)
+                           "pos",   # positive values
+                           "int",   # positive integers
+                           "bool",  # T or F
+                           "vals",  # certain values (specify valslist)
+                           "min",   # minimum value (specify min)
+                           "vec",   # numerical vector
+                           "mat",   # numerical matrix
+                           "sum"    # sum to one
+                           ),
+                  valslist = NULL, min = NULL) {
 
   name <- deparse(substitute(param))
 

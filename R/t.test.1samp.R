@@ -18,12 +18,12 @@
 #' t.test.1samp(delta = 0.6, sd = 1, power = 0.8, sides = 1)
 
 t.test.1samp <- function (N = NULL, delta = NULL, sd = 1,
-                              alpha = 0.05, power = NULL, sides = 2,
-                              v = TRUE) {
+                          alpha = 0.05, power = NULL, sides = 2,
+                          v = FALSE) {
 
   # Check if the arguments are specified correctly
   check.many(list(N, delta, sd, alpha, power), "oneof")
-  check(N, "int")
+  check(N, "pos")
   check(delta, "num")
   check(sd, "pos")
   check(alpha, "unit")

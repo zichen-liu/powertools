@@ -17,21 +17,21 @@
 #' t.test.paired(N = NULL, delta = 4, sd1 = 10, sd2 = 10, rho = 0.4, power = 0.8, sides = 2)
 
 t.test.paired <- function (N = NULL, delta = NULL,
-                               sd1 = 1, sd2 = 1, rho = NULL,
-                               alpha = 0.05, power = NULL, sides = 2,
-                               v = TRUE) {
+                           sd1 = 1, sd2 = 1, rho = NULL,
+                           alpha = 0.05, power = NULL, sides = 2,
+                           v = FALSE) {
 
   # Check if the arguments are specified correctly
-  # check.many(list(N, delta, alpha, power), "oneof")
-  # check(N, "int")
-  # check(sd1, "req"); check(sd1, "pos")
-  # check(sd2, "req"); check(sd2, "pos")
-  # check(rho, "req"); check(rho, "uniti")
-  # check(delta, "num")
-  # check(alpha, "unit")
-  # check(power, "unit")
-  # check(sides, "req"); check(sides, "vals", valslist = c(1, 2))
-  # check(v, "req"); check(v, "bool")
+  check.many(list(N, delta, alpha, power), "oneof")
+  check(N, "pos")
+  check(sd1, "req"); check(sd1, "pos")
+  check(sd2, "req"); check(sd2, "pos")
+  check(rho, "req"); check(rho, "uniti")
+  check(delta, "num")
+  check(alpha, "unit")
+  check(power, "unit")
+  check(sides, "req"); check(sides, "vals", valslist = c(1, 2))
+  check(v, "req"); check(v, "bool")
 
   # Calculate the standard deviation of differences within pairs
   sigmad <- sqrt(sd1^2 + sd2^2 - 2 * rho * sd1 * sd2)

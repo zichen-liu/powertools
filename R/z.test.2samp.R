@@ -17,13 +17,13 @@
 #' z.test.2samp(n1 = NULL, n.ratio = 1, delta = 0.5, sd1 = 1, power = 0.8, sides = 2)
 
 z.test.2samp <- function (n1 = NULL, n.ratio = 1, delta = NULL,
-                              sd1 = 1, sd.ratio = 1,
-                              alpha = 0.05, power = NULL, sides = 2,
-                              v = TRUE) {
+                          sd1 = 1, sd.ratio = 1,
+                          alpha = 0.05, power = NULL, sides = 2,
+                          v = FALSE) {
 
   # Check if the arguments are specified correctly
   check.many(list(n1, n.ratio, delta, sd1, sd.ratio, alpha, power), "oneof")
-  check(n1, "int")
+  check(n1, "pos")
   check(n.ratio, "pos")
   check(sd1, "pos")
   check(sd.ratio, "pos")
