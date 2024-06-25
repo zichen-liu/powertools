@@ -8,10 +8,10 @@
 #' @export
 #'
 #' @examples
-#' varym.re(m = 25, m.sd = 15, icc = 0.05)
+#' re.clustsize.cont(m = 25, m.sd = 15, icc = 0.05)
 
 
-varym.re <- function (m, m.sd, icc) {
+re.clustsize.cont <- function (m, m.sd, icc) {
   check(m, "req"); check(m, "pos")
   check(m.sd, "req"); check(m.sd, "min", min = 0)
   check(icc, "req"); check(icc, "uniti")

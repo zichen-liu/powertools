@@ -8,10 +8,10 @@
 #' @export
 #'
 #' @examples
-#' crt.r(m = 30, icc = 0.05, cac = 0.4, sac = 0.5)
+#' crt.means.r(m = 30, icc = 0.05, cac = 0.4, sac = 0.5)
 
 
-crt.r <- function (m, icc, cac, sac) {
+crt.means.r <- function (m, icc, cac, sac) {
   check(m, "req"); check(m, "pos")
   check(icc, "req"); check(icc, "uniti")
   check(cac, "req"); check(cac, "uniti")

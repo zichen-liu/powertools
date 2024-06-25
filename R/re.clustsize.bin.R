@@ -1,5 +1,5 @@
 #' Relative efficiency for cluster randomized trials with binary outcomes
-#' Relative efficiency of varying to equal cluster sizes
+#' due to varying cluster sizes
 #'
 #' @param m The number of subjects per cluster or the mean cluster size (if unequal number of participants per cluster).
 #' @param m.sd The standard deviation of cluster sizes (provide if unequal number of participants per cluster).
@@ -10,9 +10,9 @@
 #' @export
 #'
 #' @examples
-#' re.crt.bin(m = 60, m.sd = 45, pc = 0.25, pt = 0.15, sigma.u = 0.3)
+#' re.clustsize.bin(m = 60, m.sd = 45, pc = 0.25, pt = 0.15, sigma.u = 0.3)
 
-re.crt.bin <- function(m, m.sd, pc, pt, sigma.u){
+re.clustsize.bin <- function(m, m.sd, pc, pt, sigma.u){
   check(m, "req"); check(m, "pos")
   check(m.sd, "req"); check(m.sd, "min", min = 0)
   check(pc, "req"); check(pc, "unit")
