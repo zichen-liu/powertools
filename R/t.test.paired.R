@@ -11,7 +11,7 @@
 #' @param v Either TRUE for verbose output or FALSE to output computed argument only.
 #'
 #' @return A list of the arguments (including the computed one).
-#' @export
+#' @export t.test.paired
 #'
 #' @examples
 #' t.test.paired(N = NULL, delta = 4, sd1 = 10, sd2 = 10, rho = 0.4, power = 0.8, sides = 2)

@@ -12,7 +12,7 @@
 #' @param v Either TRUE for verbose output or FALSE to output computed argument only.
 #'
 #' @return A list of the arguments (including the computed one).
-#' @export
+#' @export t.test.2samp
 #'
 #' @examples
 #' t.test.2samp(n1 = 50, delta = 2, sd1 = 5, sides = 1)
