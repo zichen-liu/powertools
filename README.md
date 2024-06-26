@@ -1,0 +1,42 @@
+
+<!-- README.md is generated from README.Rmd. Please edit that file -->
+
+# powertools
+
+<!-- badges: start -->
+<!-- badges: end -->
+
+The goal of powertools is to provide Power and Sample Size Tools in R
+for researchers. This package accompanies the text “Power and Sample
+Size in R” by Catherine M. Crespi.
+
+This package loads all R packages that are used in the textbook and
+provides new functions for sample size and power calculations that did
+not previously exist.
+
+## Installation
+
+You can install the development version of `powertools` like so:
+
+``` r
+# install.packages("devtools")
+devtools::install_github("zichen-liu/powertools")
+```
+
+## Example
+
+A study hopes to show whether or not a new experimental therapy is
+promising. A treatment is considered promising if at least 20% of
+participants respond well, and the researchers believe that the true
+response proportion is 30%. This is a basic example that show how to
+calculate the sample size needed for this study to achieve 80% power,
+following Example 6.1 in the textbook.
+
+``` r
+library(powertools)
+prop.1samp(N = NULL, p0 = 0.2, pA = 0.3, power = 0.8, sides = 1)
+#> [1] 129.8337
+```
+
+`prop.1samp` returns n, the required sample size for a one proportion
+test.
