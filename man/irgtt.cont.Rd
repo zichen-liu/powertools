@@ -16,7 +16,7 @@ irgtt.cont(
   power = NULL,
   sides = 2,
   tol = .Machine$double.eps^0.25,
-  v = TRUE
+  v = FALSE
 )
 }
 \arguments{

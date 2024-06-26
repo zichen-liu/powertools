@@ -48,8 +48,8 @@ t.test.2samp <- function (n1 = NULL, n.ratio = 1, delta = NULL,
       d <- abs(delta)
       nu <- switch(df.method,
                    welch = (sd1^2 / n1 + (sd1 * sd.ratio)^2 / (n1 * n.ratio))^2 /
-                   ((sd1^2 / n1)^2 / (n1 - 1) +
-                   ((sd1 * sd.ratio)^2 / (n.ratio * n1))^2 / (n1 * n.ratio - 1)),
+                     ((sd1^2 / n1)^2 / (n1 - 1) +
+                        ((sd1 * sd.ratio)^2 / (n.ratio * n1))^2 / (n1 * n.ratio - 1)),
                    classical = (1 + n.ratio) * n1 - 2)
       stats::pt(stats::qt(alpha, nu, lower = FALSE), nu,
                 sqrt(n1 / (1 + sd.ratio^2 / n.ratio)) * d / sd1, lower = FALSE)
@@ -59,8 +59,8 @@ t.test.2samp <- function (n1 = NULL, n.ratio = 1, delta = NULL,
       d <- abs(delta)
       nu <- switch(df.method,
                    welch = (sd1^2 / n1 + (sd1 * sd.ratio)^2 / (n1 * n.ratio))^2 /
-                   ((sd1^2 / n1)^2 / (n1 - 1) +
-                   ((sd1 * sd.ratio)^2 / (n.ratio * n1))^2 / (n1 * n.ratio - 1)),
+                     ((sd1^2 / n1)^2 / (n1 - 1) +
+                        ((sd1 * sd.ratio)^2 / (n.ratio * n1))^2 / (n1 * n.ratio - 1)),
                    classical = (1 + n.ratio) * n1 - 2)
       qu <- stats::qt(alpha / 2, nu, lower = FALSE)
       ncp <- sqrt(n1 / (1 + sd.ratio^2 / n.ratio)) * d / sd1

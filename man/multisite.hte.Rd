@@ -10,7 +10,7 @@ multisite.hte(
   J = NULL,
   VR = NULL,
   alpha = 0.05,
-  v = TRUE
+  v = FALSE
 )
 }
 \arguments{

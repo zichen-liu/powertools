@@ -34,7 +34,7 @@ crt.parallel.bin <- function (m = NULL, m.sd = 0, J = NULL,
     gammaA <- abs(log(or))
     ssq.e <- (1 / 2) * (1 / (pc * (1 - pc)) + 1 / (pt * (1 - pt)))
 
-    RE <- re.crt.bin(m = m, m.sd = m.sd, pc = pc, pt = pt, sigma.u = sigma.u)
+    RE <- re.clustsize.bin(m = m, m.sd = m.sd, pc = pc, pt = pt, sigma.u = sigma.u)
 
     var <- 1.2 * (4 * (ssq.e  + m * sigma.u^2)) / (m *J) / RE
     za <- stats::qnorm(1 - alpha / sides)

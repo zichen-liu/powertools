@@ -10,7 +10,7 @@ chisq.gof(
   N = NULL,
   alpha = 0.05,
   power = NULL,
-  v = TRUE
+  v = FALSE
 )
 }
 \arguments{

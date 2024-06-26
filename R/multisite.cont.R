@@ -54,7 +54,7 @@ multisite.cont <- function (m = NULL, m.sd = 0, alloc.ratio = 1, J = NULL,
     df <- J - 1
     d <- delta / (sd * sqrt((1 - Rsq)))
 
-    RE <- varym.re(m = m, m.sd = m.sd, icc = icc1)
+    RE <- re.clustsize.cont(m = m, m.sd = m.sd, icc = icc1)
 
     c <- (1 + alloc.ratio)^2 / alloc.ratio
     ncp <- d / sqrt(c * (1 - icc0 + (4 * m / c - 1) * icc1) / N / RE)

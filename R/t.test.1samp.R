@@ -38,7 +38,7 @@ t.test.1samp <- function (N = NULL, delta = NULL, sd = 1,
       df <- N - 1
       stats::pt(stats::qt(alpha, df, lower.tail = FALSE), df,
                 sqrt(N) * d, lower.tail = FALSE)
-  })
+    })
   else if (sides == 2)
     p.body <- quote({
       d <- abs(delta) / sd

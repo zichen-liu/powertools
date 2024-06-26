@@ -10,14 +10,14 @@ crt.xo.cont(
   delta = NULL,
   sd = 1,
   icc = 0,
+  icca = 0,
   iccb = NULL,
-  xi = 0,
   cac = NULL,
   sac = 0,
   alpha = 0.05,
   power = NULL,
   sides = 2,
-  v = TRUE
+  v = FALSE
 )
 }
 \arguments{
@@ -31,9 +31,9 @@ crt.xo.cont(
 
 \item{icc}{The within-cluster, within-period intraclass correlation coefficient; defaults to 0.}
 
-\item{iccb}{The within-cluster, between-period intraclass correlation coefficient. Either iccb OR cac must be specified.}
+\item{icca}{The  within-cluster, within-subject correlation (correlation between two measurements within the same subject); defaults to 0.}
 
-\item{xi}{The  within-cluster, within-subject correlation (correlation between two measurements within the same subject); defaults to 0.}
+\item{iccb}{The within-cluster, between-period intraclass correlation coefficient. Either iccb OR cac must be specified.}
 
 \item{cac}{The cluster autocorrelation. Either iccb OR cac must be specified.}
 
@@ -55,6 +55,6 @@ Power for test of treatment effect in 2x2 crossover cluster randomized trial
 }
 \examples{
 crt.xo.cont(m = 30, J.arm = 4, delta = 0.3, icc = 0.05, cac = 0.8, sac = 0.4)
-crt.xo.cont(m = 30, J.arm = 4, delta = 0.3, icc = 0.05, iccb = 0.04, xi = 0.42)
+crt.xo.cont(m = 30, J.arm = 4, delta = 0.3, icc = 0.05, icca = 0.42, iccb = 0.04)
 crt.xo.cont(m = 30, J.arm = 4, delta = 0.3, icc = 0.05, cac = 0.5)
 }

@@ -4,7 +4,7 @@
 \alias{chisq.indep}
 \title{Power calculations for chi-square test of independence}
 \usage{
-chisq.indep(pmatrix = NULL, N = NULL, alpha = 0.05, power = NULL, v = TRUE)
+chisq.indep(pmatrix = NULL, N = NULL, alpha = 0.05, power = NULL, v = FALSE)
 }
 \arguments{
 \item{pmatrix}{The two-way probability table under the alternative hypothesis.}

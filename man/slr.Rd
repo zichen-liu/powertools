@@ -13,7 +13,7 @@ slr(
   alpha = 0.05,
   power = NULL,
   sides = 2,
-  v = TRUE
+  v = FALSE
 )
 }
 \arguments{

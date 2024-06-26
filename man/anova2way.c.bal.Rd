@@ -14,7 +14,7 @@ anova2way.c.bal(
   ncov = 0,
   alpha = 0.05,
   power = NULL,
-  v = TRUE
+  v = FALSE
 )
 }
 \arguments{

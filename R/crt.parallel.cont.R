@@ -60,7 +60,8 @@ crt.parallel.cont <- function (m = NULL, m.sd = 0, J1 = NULL, J.ratio = 1, delta
 
   # feasability check J > rho * Nindep
   if (is.null(m)) {
-    out <- t.test.2samp(n1 = NULL, delta = delta, sd1 = sd, power = power, sides = sides)
+    out <- t.test.2samp(n1 = NULL, delta = delta, sd1 = sd, power = power,
+                        sides = sides, v = TRUE)
     Nindep <- out[[1]][1] + out[[1]][2]
     iccavg <- mean(icc1, icc2)
     if (J1 + J1 * J.ratio <= iccavg * Nindep)
@@ -74,7 +75,7 @@ crt.parallel.cont <- function (m = NULL, m.sd = 0, J1 = NULL, J.ratio = 1, delta
     df <- J - 2 - ncov
     d <- delta / sd
 
-    RE <- varym.re(m = m, m.sd = m.sd, icc = (icc1 + icc2)/2)
+    RE <- re.clustsize.cont(m = m, m.sd = m.sd, icc = (icc1 + icc2)/2)
 
     w <- 1 / (1 + J.ratio)
     de1 <- 1 + (m - 1) * (1 - RsqB) * icc1 -

@@ -11,7 +11,7 @@ anova2way.F.unbal(
   Rsq = 0,
   ncov = 0,
   alpha = 0.05,
-  v = TRUE
+  v = FALSE
 )
 }
 \arguments{

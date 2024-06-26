@@ -11,7 +11,7 @@ ci.mean(
   alpha = 0.05,
   power = NULL,
   cond = FALSE,
-  v = TRUE
+  v = FALSE
 )
 }
 \arguments{
