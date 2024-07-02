@@ -11,6 +11,7 @@
 #' @param power The specified level of power.
 #'
 #' @return A list of the arguments (including the computed one).
+#' @import mvtnorm
 #' @export
 #'
 #' @examples
@@ -18,7 +19,7 @@
 #' alpha = 0.025, power = NULL)
 
 altprimary <- function(K, n1 = NULL, n.ratio = 1, delta = NULL, Sigma, sd, rho, alpha = 0.025,
-                             power = NULL, tol = .Machine$double.eps^0.25){
+                       power = NULL, tol = .Machine$double.eps^0.25, v = FALSE){
   ## check of input
 
   if(missing(K))
@@ -84,18 +85,20 @@ altprimary <- function(K, n1 = NULL, n.ratio = 1, delta = NULL, Sigma, sd, rho, 
 
   if(alpha <= 0 | alpha >= 1)
     stop("significance level must be in (0, 1)")
+  check(v, "req"); check(v, "bool")
 
   ## calculations
 
   if(is.null(power)){
     std.effect <- delta/sqrt(diag(Sigma))
-    z.alpha <- qnorm(1-alpha)
+    z.alpha <- stats::qnorm(1-alpha)
     crit.vals <- z.alpha - sqrt(n1*(n.ratio/(1+n.ratio)))*std.effect
     power <- 1-mvtnorm::pmvnorm(lower = -crit.vals, sigma = Sigma.cor)
+    if (!v) return(power[1])
   }
   if(is.null(n1)){
     std.effect <- delta/sqrt(diag(Sigma))
-    z.alpha <- qnorm(1-alpha)
+    z.alpha <- stats::qnorm(1-alpha)
     ssize.fct <- function(n1, n.ratio, std.effect, z.alpha, Sigma.cor, power){
       crit.vals <- z.alpha - sqrt(n1*(n.ratio/(1+n.ratio)))*std.effect
 
@@ -104,6 +107,7 @@ altprimary <- function(K, n1 = NULL, n.ratio = 1, delta = NULL, Sigma, sd, rho, 
     n1 <- stats::uniroot(ssize.fct, c(2, 1e+05), tol = tol, extendInt = "yes",
                          n.ratio = n.ratio, std.effect = std.effect, z.alpha = z.alpha, Sigma.cor = Sigma.cor,
                          power = power)$root
+    if (!v) return(n1)
   }
   n <- c(n1, n1*n.ratio)
   METHOD <- "Power calculation for alternative (at least one) primary endpoints"

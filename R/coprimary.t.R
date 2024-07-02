@@ -112,6 +112,7 @@ coprimary.t <- function(K, n1 = NULL, n.ratio = 1, delta = NULL, Sigma, sd, rho,
     if(min.n >= max.n)
       stop("'min.n' must be < 'max.n'")
   }
+  check(v, "req"); check(v, "bool")
   ## calculations
 
   if(is.null(power)){

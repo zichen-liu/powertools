@@ -86,6 +86,7 @@ coprimary.z <- function(K, n1 = NULL, n.ratio = 1, delta = NULL, Sigma, sd, rho,
 
   if(alpha <= 0 | alpha >= 1)
     stop("significance level must be in (0, 1)")
+  check(v, "req"); check(v, "bool")
 
   ## calculations
   if(is.null(power)){
