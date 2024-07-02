@@ -11,14 +11,16 @@
 #' @param power The specified level of power.
 #'
 #' @return A list of the arguments (including the computed one).
+#' @import mvtnorm
 #' @export
 #'
 #' @examples
 #' coprimary.z(K = 2, n1 = 100, delta = c(0.4, 0.5), sd = c(1, 1), rho = 0.3,
 #' alpha = 0.025, power = NULL)
 
-coprimary.z <- function(K, n1 = NULL, n.ratio = 1, delta = NULL, Sigma, sd, rho, alpha = 0.025,
-                            power = NULL, tol = .Machine$double.eps^0.25){
+coprimary.z <- function(K, n1 = NULL, n.ratio = 1, delta = NULL, Sigma, sd, rho,
+                        alpha = 0.025, power = NULL, tol = .Machine$double.eps^0.25,
+                        v = FALSE) {
   ## check of input
   if(missing(K))
     stop("specify the number of co-primary endpoints")
@@ -88,20 +90,22 @@ coprimary.z <- function(K, n1 = NULL, n.ratio = 1, delta = NULL, Sigma, sd, rho,
   ## calculations
   if(is.null(power)){
     std.effect <- delta/sqrt(diag(Sigma))
-    z.alpha <- qnorm(1-alpha)
+    z.alpha <- stats::qnorm(1-alpha)
     crit.vals <- z.alpha - sqrt(n1*(n.ratio/(1+n.ratio)))*std.effect
     power <- mvtnorm::pmvnorm(upper = -crit.vals, sigma = Sigma.cor)
+    if (!v) return(power[1])
   }
   if(is.null(n1)){
     std.effect <- delta/sqrt(diag(Sigma))
-    z.alpha <- qnorm(1-alpha)
+    z.alpha <- stats::qnorm(1-alpha)
     ssize.fct <- function(n1, n.ratio, std.effect, z.alpha, Sigma.cor, power){
       crit.vals <- z.alpha - sqrt(n1*(n.ratio/(1+n.ratio)))*std.effect
       mvtnorm::pmvnorm(upper = -crit.vals, sigma = Sigma.cor) - power
     }
     n1 <- stats::uniroot(ssize.fct, c(2, 1e+05), tol = tol, extendInt = "yes",
-                  n.ratio = n.ratio, std.effect = std.effect, z.alpha = z.alpha, Sigma.cor = Sigma.cor,
-                  power = power)$root
+                  n.ratio = n.ratio, std.effect = std.effect, z.alpha = z.alpha,
+                  Sigma.cor = Sigma.cor, power = power)$root
+    if (!v) return(n1)
   }
   n <- c(n1, n1*n.ratio)
   METHOD <- "Power calculation for multiple co-primary endpoints (covariance matrix known)"

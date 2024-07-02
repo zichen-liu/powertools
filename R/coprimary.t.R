@@ -14,16 +14,16 @@
 #' @param max.n Maximum value of n1; used in search for n1 to achieve desired power.
 #'
 #' @return A list of the arguments (including the computed one).
+#' @import mvtnorm
 #' @export
 #'
 #' @examples
 #' coprimary.t(K = 2, n1 = 100, delta = c(0.4, 0.5), sd = c(1, 1), rho = 0.3,
 #' alpha = 0.025, power = NULL)
 
-coprimary.t <- function(K, n1 = NULL, n.ratio = 1, delta = NULL, Sigma, sd, rho, alpha = 0.025,
-                            power = NULL, M = 10000, min.n = NULL, max.n = NULL,
-                            tol = .Machine$double.eps^0.25, use.uniroot = TRUE)
-{
+coprimary.t <- function(K, n1 = NULL, n.ratio = 1, delta = NULL, Sigma, sd, rho,
+                        alpha = 0.025, power = NULL, M = 10000, min.n = NULL, max.n = NULL,
+                        tol = .Machine$double.eps^0.25, use.uniroot = TRUE, v = FALSE) {
 
   ## check of input
 
@@ -32,7 +32,6 @@ coprimary.t <- function(K, n1 = NULL, n.ratio = 1, delta = NULL, Sigma, sd, rho,
   if(!is.numeric(K))
     stop("'K' must be a natural number > 1")
   K <- as.integer(K)
-
   if(is.null(n1) & is.null(power))
     stop("either 'n1' or 'power' must be specified")
   if(!is.null(n1) & !is.null(power))
@@ -118,20 +117,21 @@ coprimary.t <- function(K, n1 = NULL, n.ratio = 1, delta = NULL, Sigma, sd, rho,
   if(is.null(power)){
     std.effect <- delta/sqrt(diag(Sigma))
     probs <- numeric(M)
-    Ws <- rWishart(M, df = n1*(n.ratio+1)-2, Sigma = Sigma.cor)
+    Ws <- stats::rWishart(M, df = n1*(n.ratio+1)-2, Sigma = Sigma.cor)
     for(i in 1:M){
       Wi <- diag(Ws[,,i])
       ci <- qt(1-alpha, df = n1*(n.ratio+1)-2)*sqrt(Wi/(n1*(n.ratio+1)-2)) - sqrt(n1*(n.ratio/(1+n.ratio)))*std.effect
       probs[i] <- mvtnorm::pmvnorm(upper = -ci, sigma = Sigma.cor)
     }
     power <- mean(probs)
+    if (!v) return(power)
   }
 
   if(is.null(n1)){
     std.effect <- delta/sqrt(diag(Sigma))
     ssize.fct <- function(n1, n.ratio, std.effect, Sigma.cor, power, M, verbose = FALSE){
       probs <- numeric(M)
-      Ws <- rWishart(M, df = n1*(n.ratio+1)-2, Sigma = Sigma.cor)
+      Ws <- stats::rWishart(M, df = n1*(n.ratio+1)-2, Sigma = Sigma.cor)
       for(i in 1:M){
         Wi <- diag(Ws[,,i])
         ci <- qt(1-alpha, df = n1*(n.ratio+1)-2)*sqrt(Wi/(n1*(n.ratio+1)-2)) - sqrt(n1*(n.ratio/(1+n.ratio)))*std.effect
@@ -151,8 +151,10 @@ coprimary.t <- function(K, n1 = NULL, n.ratio = 1, delta = NULL, Sigma, sd, rho,
       ns.pos <- ns[res > 0]
       res.pos <- res[res > 0]
       cat("Precision:\t", min(res.pos), "\n")
-      n <- ns.pos[which.min(res.pos)]
+      n1 <- ns.pos[which.min(res.pos)]
     }
+
+    if (!v) return(n1)
   }
   n <- c(n1, n1/n.ratio)
   METHOD <- "Power calculation for multiple co-primary endpoints (covariance matrix unknown)"
