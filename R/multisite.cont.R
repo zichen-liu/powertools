@@ -62,9 +62,6 @@ multisite.cont <- function (m = NULL, m.sd = 0, alloc.ratio = 1, J = NULL,
     1 - stats::pt(crit, df, ncp)
   })
 
-  NOTE <- "m1, m2 are the number of subjects within site in condition 1, condition 2\n      (total of m1 + m2 per site)"
-  if (!v) cat(paste("NOTE:", NOTE, "\n"))
-
   # Use uniroot to calculate missing argument
   if (is.null(alpha)) {
     alpha <- stats::uniroot(function(alpha) eval(p.body) - power, c(1e-10, 1 - 1e-10))$root
@@ -93,6 +90,7 @@ multisite.cont <- function (m = NULL, m.sd = 0, alloc.ratio = 1, J = NULL,
 
   # Generate output text
   METHOD <- "Power for test of average treatment effect in multisite trials"
+  NOTE <- "m1, m2 are the number of subjects within site in condition 1, condition 2\n      (total of m1 + m2 per site)"
   icc <- c(icc0, icc1)
   c <- m / (alloc.ratio + 1)
   t <- alloc.ratio * c

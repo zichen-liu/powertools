@@ -48,9 +48,6 @@ multisite.bin <- function (m = NULL, alloc.ratio = 1, J = NULL,
     stats::pnorm(gammaA / sqrt(var) - za)
   })
 
-  NOTE <- "m1, m2 are the number of subjects within site in condition 1, condition 2\n      (total of m1 + m2 per site)"
-  if (!v) cat(paste("NOTE:", NOTE, "\n"))
-
   if (is.null(alpha)) {
     alpha <- stats::uniroot(function(alpha) eval(p.body) - power, c(1e-10, 1 - 1e-10))$root
     if (!v) return(alpha)
@@ -73,6 +70,7 @@ multisite.bin <- function (m = NULL, alloc.ratio = 1, J = NULL,
 
   # Generate output text
   METHOD <-"Power for multisite trials with binary outcomes"
+  NOTE <- "m1, m2 are the number of subjects within site in condition 1, condition 2\n      (total of m1 + m2 per site)"
   p <- c(pc, pt)
   c <- m / (alloc.ratio + 1)
   t <- alloc.ratio * c
