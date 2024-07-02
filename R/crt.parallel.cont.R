@@ -78,9 +78,9 @@ crt.parallel.cont <- function (m = NULL, m.sd = 0, J1 = NULL, J.ratio = 1, delta
     RE <- re.clustsize.cont(m = m, m.sd = m.sd, icc = (icc1 + icc2)/2)
 
     w <- 1 / (1 + J.ratio)
-    de1 <- 1 + (m - 1) * (1 - RsqB) * icc1 -
+    de1 <- 1 + (m * (1 - RsqB) - 1) * icc1 -
            m * RsqW * (1 - 2 * icc1) / (m - 1)
-    de2 <- 1 + (m - 1) * (1 - RsqB) * icc2 -
+    de2 <- 1 + (m * (1 - RsqB) - 1) * icc2 -
            m * RsqW * (1 - 2 * icc2) / (m - 1)
     detot <- de1 / w + de2 / (1 - w)
     ncp <- d / sqrt(detot / N / RE)
