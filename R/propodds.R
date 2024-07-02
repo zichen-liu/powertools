@@ -15,12 +15,14 @@
 #' pC <- c(0.2, 0.5, 0.2, 0.1)
 #' propodds(pC = pC, OR = 2.5, n1 = 65, n.ratio = 1, alpha = 0.05)
 
-propodds <- function(pC, OR, n1, n.ratio = 1, alpha = 0.05, power = NULL){
+propodds <- function(pC, OR, n1, n.ratio = 1, alpha = 0.05,
+                     power = NULL, v = FALSE){
 
   if (sum(sapply(list(n1, power), is.null)) != 1)
     stop("exactly one of n1 and power must be NULL")
   if (OR<=1)
     stop("OR must be greater than 1")
+  check(v, "req"); check(v, "bool")
 
   pC <- pC[!is.na(pC)]
   if (abs(sum(pC) - 1) > 1e-05)
@@ -35,12 +37,14 @@ propodds <- function(pC, OR, n1, n.ratio = 1, alpha = 0.05, power = NULL){
     n2 <- n1 * n.ratio
     V <- n1 * n2 * N/3/((N + 1)^2) * ps
     power <- stats::pnorm(abs(log(OR)) * sqrt(V) - za)
+    if (!v) return(power)
   }
   else if (is.null(n1)){
     zb <- stats::qnorm(power)
     N <- (3 * (n.ratio + 1)^2 * (zb + za)^2) / (n.ratio * (log(OR))^2 * ps)
     n1 <- N / (1 + n.ratio)
     n2 <- n.ratio * n1
+    if (!v) return(n1)
   }
   else stop("internal error")
 
