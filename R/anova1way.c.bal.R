@@ -1,4 +1,8 @@
 #' Power calculations for one-way balanced analysis of variance contrast test
+#' 
+#' @description
+#' This is a test description.
+#' 
 #'
 #' @param n The sample size per group.
 #' @param mvec A vector of group means c(mu1, mu2, ...).
