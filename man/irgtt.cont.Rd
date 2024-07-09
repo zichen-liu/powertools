@@ -40,6 +40,8 @@ irgtt.cont(
 
 \item{sides}{Either 1 or 2 (default) to specify a one- or two- sided hypothesis test.}
 
+\item{tol}{The desired accuracy (convergence tolerance) for uniroot.}
+
 \item{v}{Either TRUE for verbose output or FALSE to output computed argument only.}
 }
 \value{

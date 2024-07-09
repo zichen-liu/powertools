@@ -9,6 +9,8 @@
 #' @param rho A vector of length 0.5*K*(K-1) of the correlations among the K outcomes.
 #' @param alpha The significance level or type 1 error rate; defaults to 0.025. A one-sided test is assumed.
 #' @param power The specified level of power.
+#' @param tol The desired accuracy (convergence tolerance) for uniroot.
+#' @param v Either TRUE for verbose output or FALSE to output computed argument only.
 #'
 #' @return A list of the arguments (including the computed one).
 #' @import mvtnorm
@@ -82,7 +84,7 @@ coprimary.z <- function(K, n1 = NULL, n.ratio = 1, delta = NULL, Sigma, sd, rho,
   }
   if(!all(eigen(Sigma)$values > 0))
     stop("matrix 'Sigma' must be positive definite")
-  Sigma.cor <- cov2cor(Sigma)
+  Sigma.cor <- stats::cov2cor(Sigma)
 
   if(alpha <= 0 | alpha >= 1)
     stop("significance level must be in (0, 1)")

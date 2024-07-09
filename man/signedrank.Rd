@@ -4,7 +4,14 @@
 \alias{signedrank}
 \title{Power calculations for signed-rank test}
 \usage{
-signedrank(N = NULL, ps = NULL, alpha = 0.05, power = NULL, sides = 2)
+signedrank(
+  N = NULL,
+  ps = NULL,
+  alpha = 0.05,
+  power = NULL,
+  sides = 2,
+  v = FALSE
+)
 }
 \arguments{
 \item{N}{The sample size; number of observations or paired differences.}
@@ -16,6 +23,8 @@ signedrank(N = NULL, ps = NULL, alpha = 0.05, power = NULL, sides = 2)
 \item{power}{The specified level of power.}
 
 \item{sides}{Either 1 or 2 (default) to specify a one- or two-sided hypothesis test.}
+
+\item{v}{Either TRUE for verbose output or FALSE to output computed argument only.}
 }
 \value{
 A list of the arguments (including the computed one).

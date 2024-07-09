@@ -12,6 +12,9 @@
 #' @param M The number of simulation.
 #' @param min.n Minimum value of n1; used in search for n1 to achieve desired power.
 #' @param max.n Maximum value of n1; used in search for n1 to achieve desired power.
+#' @param tol The desired accuracy (convergence tolerance) for uniroot.
+#' @param use.uniroot Whether to use the uniroot function to calculate n1; defaults to TRUE.
+#' @param v Either TRUE for verbose output or FALSE to output computed argument only.
 #'
 #' @return A list of the arguments (including the computed one).
 #' @import mvtnorm
@@ -86,7 +89,7 @@ coprimary.t <- function(K, n1 = NULL, n.ratio = 1, delta = NULL, Sigma, sd, rho,
   }
   if(!all(eigen(Sigma)$values > 0))
     stop("matrix 'Sigma' must be positive definite")
-  Sigma.cor <- cov2cor(Sigma)
+  Sigma.cor <- stats::cov2cor(Sigma)
 
   if(alpha <= 0 | alpha >= 1)
     stop("significance level must be in (0, 1)")
@@ -121,7 +124,7 @@ coprimary.t <- function(K, n1 = NULL, n.ratio = 1, delta = NULL, Sigma, sd, rho,
     Ws <- stats::rWishart(M, df = n1*(n.ratio+1)-2, Sigma = Sigma.cor)
     for(i in 1:M){
       Wi <- diag(Ws[,,i])
-      ci <- qt(1-alpha, df = n1*(n.ratio+1)-2)*sqrt(Wi/(n1*(n.ratio+1)-2)) - sqrt(n1*(n.ratio/(1+n.ratio)))*std.effect
+      ci <- stats::qt(1-alpha, df = n1*(n.ratio+1)-2)*sqrt(Wi/(n1*(n.ratio+1)-2)) - sqrt(n1*(n.ratio/(1+n.ratio)))*std.effect
       probs[i] <- mvtnorm::pmvnorm(upper = -ci, sigma = Sigma.cor)
     }
     power <- mean(probs)
@@ -135,7 +138,7 @@ coprimary.t <- function(K, n1 = NULL, n.ratio = 1, delta = NULL, Sigma, sd, rho,
       Ws <- stats::rWishart(M, df = n1*(n.ratio+1)-2, Sigma = Sigma.cor)
       for(i in 1:M){
         Wi <- diag(Ws[,,i])
-        ci <- qt(1-alpha, df = n1*(n.ratio+1)-2)*sqrt(Wi/(n1*(n.ratio+1)-2)) - sqrt(n1*(n.ratio/(1+n.ratio)))*std.effect
+        ci <- stats::qt(1-alpha, df = n1*(n.ratio+1)-2)*sqrt(Wi/(n1*(n.ratio+1)-2)) - sqrt(n1*(n.ratio/(1+n.ratio)))*std.effect
         probs[i] <- mvtnorm::pmvnorm(upper = -ci, sigma = Sigma.cor) - power
       }
       if(verbose) cat("Current precision:\t", mean(probs), "\n")

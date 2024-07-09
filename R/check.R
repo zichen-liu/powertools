@@ -7,7 +7,8 @@ check <- function(param = NULL,
                            "int",   # positive integers
                            "bool",  # T or F
                            "vals",  # certain values (specify valslist)
-                           "min",   # minimum value (specify min)
+                           "min",   # < minimum (specify min)
+                           "mini",  # <= minimum (specify min)
                            "vec",   # numerical vector
                            "mat",   # numerical matrix
                            "sum"    # sum to one
@@ -99,6 +100,16 @@ check <- function(param = NULL,
         if (!is.numeric(param))
           stop(paste(name, "should be a numeric value"))
         if (param < min)
+          stop(paste(name, "should be greater than or equal to", min))
+      }
+
+      # value has a minimum but includes it
+      else if (type == "mini") {
+        if (length(param) != 1)
+          stop(paste(name, "should have single value (length 1)"))
+        if (!is.numeric(param))
+          stop(paste(name, "should be a numeric value"))
+        if (param <= min)
           stop(paste(name, "should be greater than", min))
       }
 

@@ -18,7 +18,8 @@ coprimary.t(
   min.n = NULL,
   max.n = NULL,
   tol = .Machine$double.eps^0.25,
-  use.uniroot = TRUE
+  use.uniroot = TRUE,
+  v = FALSE
 )
 }
 \arguments{
@@ -45,6 +46,12 @@ coprimary.t(
 \item{min.n}{Minimum value of n1; used in search for n1 to achieve desired power.}
 
 \item{max.n}{Maximum value of n1; used in search for n1 to achieve desired power.}
+
+\item{tol}{The desired accuracy (convergence tolerance) for uniroot.}
+
+\item{use.uniroot}{Whether to use the uniroot function to calculate n1; defaults to TRUE.}
+
+\item{v}{Either TRUE for verbose output or FALSE to output computed argument only.}
 }
 \value{
 A list of the arguments (including the computed one).

@@ -6,6 +6,7 @@
 #' @param alpha The significance level or type 1 error rate; defaults to 0.05.
 #' @param power The specified level of power.
 #' @param sides Either 1 or 2 (default) to specify a one- or two-sided hypothesis test.
+#' @param v Either TRUE for verbose output or FALSE to output computed argument only.
 #'
 #' @return A list of the arguments (including the computed one).
 #' @export
@@ -18,10 +19,13 @@ ranksum <- function (n1 = NULL, n.ratio = 1, p = NULL, alpha = 0.05,
                      power = NULL, sides = 2, v = FALSE) {
 
   # Check if the arguments are specified correctly
-  if (sides != 1 & sides != 2)
-    stop("please specify 1 or 2 sides")
-  if (sum(sapply(list(n1, n.ratio, power, alpha), is.null)) != 1)
-    stop("exactly one of n1, n.ratio, alpha and power must be NULL")
+  check.many(list(n1, n.ratio, alpha, power), "oneof")
+  check(n1, "pos"); check(n1, "min", min = 2)
+  check(n.ratio, "pos")
+  check(alpha, "unit")
+  check(power, "unit")
+  check(p, "req"); check(p, "uniti")
+  check(sides, "req"); check(sides, "vals", valslist = c(1, 2))
   check(v, "req"); check(v, "bool")
 
   # power equation

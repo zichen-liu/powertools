@@ -39,7 +39,7 @@ anova1way.c.bal(
 A list of the arguments (including the computed one).
 }
 \description{
-Power calculations for one-way balanced analysis of variance contrast test
+This is a test description.
 }
 \examples{
 anova1way.c.bal(n = 20, mvec = c(5, 10, 12), cvec = c(1, -1, 0), sd = 10, alpha = 0.025)

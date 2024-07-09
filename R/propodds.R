@@ -6,6 +6,7 @@
 #' @param n.ratio The ratio n2/n1 between the sample sizes of two groups; defaults to 1 (equal group sizes).
 #' @param alpha The significance level or type 1 error rate; defaults to 0.05.
 #' @param power The specified level of power; defaults to 0.8.
+#' @param v Either TRUE for verbose output or FALSE to output computed argument only.
 #' @import Hmisc
 #' @return A list of the arguments (including the computed one).
 #' @export
@@ -18,10 +19,14 @@
 propodds <- function(pC, OR, n1, n.ratio = 1, alpha = 0.05,
                      power = NULL, v = FALSE){
 
-  if (sum(sapply(list(n1, power), is.null)) != 1)
-    stop("exactly one of n1 and power must be NULL")
-  if (OR<=1)
-    stop("OR must be greater than 1")
+  # Check if the arguments are specified correctly
+  check.many(list(n1, power), "oneof")
+  check(n1, "pos"); check(n1, "min", min = 2)
+  check(power, "unit")
+  check(n.ratio, "req"); check(n.ratio, "pos")
+  check(alpha, "req"); check(alpha, "unit")
+  check(pC, "req"); check(pC, "sum")
+  check(OR, "req"); check(OR, "mini", min = 1)
   check(v, "req"); check(v, "bool")
 
   pC <- pC[!is.na(pC)]

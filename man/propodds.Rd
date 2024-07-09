@@ -4,7 +4,7 @@
 \alias{propodds}
 \title{Power calculations for ordinal categorical variable under proportional odds assumption}
 \usage{
-propodds(pC, OR, n1, n.ratio = 1, alpha = 0.05, power = NULL)
+propodds(pC, OR, n1, n.ratio = 1, alpha = 0.05, power = NULL, v = FALSE)
 }
 \arguments{
 \item{pC}{Vector of response probabilities in control group (group 1). Must sum to 1. Categories are ordered from best to worst.}
@@ -18,6 +18,8 @@ propodds(pC, OR, n1, n.ratio = 1, alpha = 0.05, power = NULL)
 \item{alpha}{The significance level or type 1 error rate; defaults to 0.05.}
 
 \item{power}{The specified level of power; defaults to 0.8.}
+
+\item{v}{Either TRUE for verbose output or FALSE to output computed argument only.}
 }
 \value{
 A list of the arguments (including the computed one).
