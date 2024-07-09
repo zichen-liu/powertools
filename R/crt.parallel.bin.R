@@ -24,8 +24,16 @@ crt.parallel.bin <- function (m = NULL, m.sd = 0, J = NULL,
                               v = FALSE) {
 
   # Check if the arguments are specified correctly
-  if (sides != 1 & sides != 2)
-    stop("please specify 1 or 2 sides")
+  check.many(list(m, J, alpha, power), "oneof")
+  check(m, "pos")
+  check(J, "pos")
+  check(alpha, "unit")
+  check(power, "unit")
+  check(m.sd, "req"); check(m.sd, "min", min = 0)
+  check(pc, "req"); check(pc, "unit")
+  check(pt, "req"); check(pt, "unit")
+  check(sigma.u, "req"); check(sigma.u, "pos")
+  check(sides, "req"); check(sides, "vals", valslist = c(1, 2))
   check(v, "req"); check(v, "bool")
 
   # Calculate power
