@@ -22,10 +22,15 @@ ci.mean <- function (N = NULL, halfwidth = NULL, sd = 1,
                      v = FALSE) {
 
   # Check if the arguments are specified correctly
-  if (sum(sapply(list(N, power, alpha), is.null)) != 1)
-    stop("exactly one of N, alpha, and power must be NULL")
-  if (is.null(halfwidth))
-    stop("halfwidth must be specified")
+  check.many(list(N, alpha, power), "oneof")
+  check(N, "pos")
+  check(alpha, "unit")
+  check(power, "unit")
+  check(halfwidth, "req"); check(halfwidth, "num")
+  check(sd, "req"); check(sd, "pos")
+  check(cond, "req"); check(cond, "bool")
+  check(v, "req"); check(v, "bool")
+
   d <- halfwidth / sd
 
   p.body <- quote({

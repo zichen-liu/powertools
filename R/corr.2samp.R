@@ -20,14 +20,14 @@ corr.2samp <- function (n1 = NULL, n.ratio = 1, rho1 = NULL, rho2 = NULL,
                         v = FALSE) {
 
   # Check if the arguments are specified correctly
-  if (sides != 1 & sides != 2)
-    stop("please specify 1 or 2 sides")
-  if (sum(sapply(list(n1, n.ratio, power, alpha), is.null)) != 1)
-    stop("exactly one of n1, n.ratio, alpha, and power must be NULL")
-  if (is.null(rho1) | is.null(rho2))
-    stop("please specify rho1 and rho2")
-  if (!is.null(n1) && any(n1 < 4))
-    stop("number of observations must be at least 4")
+  check.many(list(n1, n.ratio, alpha, power), "oneof")
+  check(n1, "pos"); check(n1, "min", min = 4)
+  check(n.ratio, "pos")
+  check(alpha, "unit")
+  check(power, "unit")
+  check(rho1, "req"); check(rho1, "uniti")
+  check(rho2, "req"); check(rho2, "uniti")
+  check(sides, "req"); check(sides, "vals", valslist = c(1, 2))
   check(v, "req"); check(v, "bool")
 
   fisherz <- function(rho){

@@ -20,14 +20,13 @@ corr.1samp <- function (N = NULL, rho0 = 0, rhoA = NULL,
                         v = FALSE) {
 
   # Check if the arguments are specified correctly
-  if (sides != 1 & sides != 2)
-    stop("please specify 1 or 2 sides")
-  if (sum(sapply(list(N, power, alpha), is.null)) != 1)
-    stop("exactly one of N, alpha, and power must be NULL")
-  if (is.null(rhoA))
-    stop("please specify rhoA")
-  if (!is.null(N) && any(N < 4))
-    stop("number of observations must be at least 4")
+  check.many(list(N, alpha, power), "oneof")
+  check(N, "pos"); check(N, "min", min = 4)
+  check(alpha, "unit")
+  check(power, "unit")
+  check(rho0, "req"); check(rho0, "uniti")
+  check(rhoA, "req"); check(rhoA, "uniti")
+  check(sides, "req"); check(sides, "vals", valslist = c(1, 2))
   check(v, "req"); check(v, "bool")
 
   # Calculate power
