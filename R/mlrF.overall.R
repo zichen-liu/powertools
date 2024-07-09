@@ -26,19 +26,21 @@ mlrF.overall <- function (N = NULL, p = NULL, Rsq = NULL, fsq = NULL,
                           v = FALSE) {
 
   # Check if the arguments are specified correctly
-  if (sum(sapply(list(N, power, alpha), is.null)) != 1)
-    stop("exactly one of N, alpha, and power must be NULL")
-  if (is.null(p))
-    stop("please specify the number of predictors p")
-  if (is.null(Rsq) & is.null(fsq))
-    stop("please specify Rsq or fsq")
-  if (!is.null(N) && any(N < 4))
-    stop("number of observations must be at least 4")
+  check.many(list(N, alpha, power), "oneof")
+  check.many(list(Rsq, fsq), "oneof")
+  check(N, "pos"); check(N, "min", min = 4)
+  check(alpha, "unit")
+  check(power, "unit")
+  check(p, "req"); check(p, "int")
+  check(Rsq, "unit")
+  check(fsq, "unit")
+  check(random, "req"); check(random, "bool")
+  check(v, "req"); check(v, "bool")
+
   if (!is.null(fsq))
     Rsq <- fsq / (1 + fsq)
-  if (!is.null(Rsq))
+  else if (!is.null(Rsq))
     fsq <- Rsq / (1 - Rsq)
-  check(v, "req"); check(v, "bool")
 
   # Calculate power
   p.body <- quote({

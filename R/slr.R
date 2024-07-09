@@ -1,7 +1,7 @@
 #' Power calculations for a simple linear regression
 #'
 #' @param N The sample size.
-#' @param beta10 The slope regression coefficient under the null hypothesis.
+#' @param beta10 The slope regression coefficient under the null hypothesis; defaults to 0.
 #' @param beta1A The slope regression coefficient under the alternative hypothesis.
 #' @param sd.x.sq The sample variance of the covariate X.
 #' @param sigma.e The estimated standard deviation of the error terms.
@@ -23,16 +23,15 @@ slr <- function (N = NULL, beta10 = 0, beta1A = NULL,
                  v = FALSE) {
 
   # Check if the arguments are specified correctly
-  if (sides != 1 & sides != 2)
-    stop("please specify 1 or 2 sides")
-  if (sum(sapply(list(N, power, alpha), is.null)) != 1)
-    stop("exactly one of N, alpha, and power must be NULL")
-  if (is.null(beta1A))
-    stop("please specify beta1A")
-  if (is.null(sd.x.sq) | is.null(sigma.e))
-    stop("please specify estimated standard deviations (see documentation)")
-  if (!is.null(N) && any(N < 4))
-    stop("number of observations must be at least 4")
+  check.many(list(N, alpha, power), "oneof")
+  check(N, "pos"); check(N, "min", min = 4)
+  check(alpha, "unit")
+  check(power, "unit")
+  check(beta10, "req"); check(beta10, "num")
+  check(beta1A, "req"); check(beta1A, "num")
+  check(sd.x.sq, "req"); check(sd.x.sq, "pos")
+  check(sigma.e, "req"); check(sigma.e, "pos")
+  check(sides, "req"); check(sides, "vals", valslist = c(1, 2))
   check(v, "req"); check(v, "bool")
 
   # Calculate power

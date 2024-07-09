@@ -3,8 +3,8 @@
 #' @param N The sample size.
 #' @param p The number of control predictors.
 #' @param q The number of test predictors.
-#' @param Rsq.red The squared sample multiple correlation coefficient in the reduced model.
-#' @param Rsq.full The squared sample multiple correlation coefficient in the full model.
+#' @param Rsq.red The squared sample multiple correlation coefficient in the reduced model. Either both Rsq terms OR pc must be specified.
+#' @param Rsq.full The squared sample multiple correlation coefficient in the full model. Either both Rsq terms OR pc must be specified.
 #' @param pc The partial correlation coefficient. Either both Rsq terms OR pc must be specified.
 #' @param alpha The significance level or type 1 error rate; defaults to 0.05.
 #' @param power The specified level of power.
@@ -22,14 +22,20 @@ mlrF.partial <- function (N = NULL, p = NULL, q = NULL, pc = NULL,
                           alpha = 0.05, power = NULL, v = FALSE) {
 
   # Check if the arguments are specified correctly
-  if (sum(sapply(list(N, power, alpha), is.null)) != 1)
-    stop("exactly one of N, alpha, and power must be NULL")
   if ((is.null(pc) & (is.null(p) | is.null(q))) | (!is.null(pc) & is.null(p)))
     stop("please specify the number of predictors")
   if ((is.null(Rsq.red) | is.null(Rsq.full)) & is.null(pc))
     stop("please specify Rsq.red and Rsq.full OR pc")
-  if (!is.null(N) && any(N < 7))
-    stop("number of observations must be at least 7")
+
+  check.many(list(N, alpha, power), "oneof")
+  check(N, "pos"); check(N, "min", min = 7)
+  check(alpha, "unit")
+  check(power, "unit")
+  check(p, "int")
+  check(q, "int")
+  check(Rsq.red, "unit")
+  check(Rsq.full, "unit")
+  check(pc, "uniti")
   check(v, "req"); check(v, "bool")
 
   # Calculate power
