@@ -25,9 +25,9 @@ mlrF.partial(
 
 \item{pc}{The partial correlation coefficient. Either both Rsq terms OR pc must be specified.}
 
-\item{Rsq.red}{The squared sample multiple correlation coefficient in the reduced model.}
+\item{Rsq.red}{The squared sample multiple correlation coefficient in the reduced model. Either both Rsq terms OR pc must be specified.}
 
-\item{Rsq.full}{The squared sample multiple correlation coefficient in the full model.}
+\item{Rsq.full}{The squared sample multiple correlation coefficient in the full model. Either both Rsq terms OR pc must be specified.}
 
 \item{alpha}{The significance level or type 1 error rate; defaults to 0.05.}
 

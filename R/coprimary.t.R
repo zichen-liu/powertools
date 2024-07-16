@@ -28,40 +28,24 @@ coprimary.t <- function(K, n1 = NULL, n.ratio = 1, delta = NULL, Sigma, sd, rho,
                         alpha = 0.025, power = NULL, M = 10000, min.n = NULL, max.n = NULL,
                         tol = .Machine$double.eps^0.25, use.uniroot = TRUE, v = FALSE) {
 
-  ## check of input
+  # Check if the arguments are specified correctly
+  check.many(list(n1, power), "oneof")
+  check(n1, "pos")
+  check(power, "unit")
+  check(alpha, "req"); check(alpha, "unit")
+  check(K, "req"); check(K, "min", min = 1); check(K, "int")
+  check(M, "req"); check(M, "min", min = 1); check(M, "int")
+  check(n.ratio, "req"); check(n.ratio, "pos")
+  check(v, "req"); check(v, "bool")
 
-  if(missing(K))
-    stop("specify the number of co-primary endpoints")
-  if(!is.numeric(K))
-    stop("'K' must be a natural number > 1")
-  K <- as.integer(K)
-  if(is.null(n1) & is.null(power))
-    stop("either 'n1' or 'power' must be specified")
-  if(!is.null(n1) & !is.null(power))
-    stop("either 'n1' or 'power' must be NULL")
-  if(!is.null(n1)){
-    if(length(n1) > 1){
-      warning("length of 'n1' is greater than 1, only the first entry is used")
-      n1 <- n1[1]
-    }
-    n1 <- as.integer(n1)
-  }
-  if(is.null(n.ratio)){
-    stop("n.ratio cannot be NULL")}
-  if(!n.ratio > 0){
-    stop("n.ratio must be positive")
-  }
-  if(!is.null(power)){
-    if(power <= 0 | power >= 1)
-      stop("power must be in (0, 1)")
-  }
-  if(is.null(delta))
-    stop("expected effect size 'delta' is missing")
-  if(length(delta) < 2)
-    stop("length of 'delta' < 2: effect for at least two co-primary endpoints is required")
+  check(delta, "req"); check(delta, "vec")
+  if(length(delta) != K)
+    stop("length of 'delta' must be equal to 'K'")
   if(!all(delta > 0))
     stop("all effect sizes need to be positive")
+
   if(!missing(Sigma)){
+    check(Sigma, "mat")
     if(nrow(Sigma) != ncol(Sigma))
       stop("covariance matrix 'Sigma' must be square")
     if(nrow(Sigma) != K)
@@ -74,8 +58,12 @@ coprimary.t <- function(K, n1 = NULL, n.ratio = 1, delta = NULL, Sigma, sd, rho,
       stop("if 'Sigma' is missing 'sd' and 'rho' must be given.")
     if(length(sd) != K)
       stop("length of 'sd' must be equal to 'K'")
+    if(!all(sd > 0))
+      stop("all standard deviations need to be positive")
     if(length(rho) != 0.5*K*(K-1))
       stop("length of 'rho' must be equal to '0.5*K*(K-1)'")
+    if(!all(rho >= 0 & rho < 1))
+      stop("all correlations need to be between 0 and 1")
     Sigma <- matrix(0, nrow = K, ncol = K)
     iter <- 0
     for(i in 1:(K-1)){
@@ -91,31 +79,11 @@ coprimary.t <- function(K, n1 = NULL, n.ratio = 1, delta = NULL, Sigma, sd, rho,
     stop("matrix 'Sigma' must be positive definite")
   Sigma.cor <- stats::cov2cor(Sigma)
 
-  if(alpha <= 0 | alpha >= 1)
-    stop("significance level must be in (0, 1)")
-
-  if(length(M) > 1){
-    warning("length of 'M' is greater than 1, only the first entry is used")
-    M <- M[1]
-  }
-  M <- as.integer(M)
   if(is.null(n1)){
-    if(length(min.n) > 1){
-      warning("length of 'min.n' is greater than 1, only the first entry is used")
-      min.n <- min.n[1]
-    }
-    min.n <- as.integer(min.n)
-    if(length(max.n) > 1){
-      warning("length of 'max.n' is greater than 1, only the first entry is used")
-      max.n <- max.n[1]
-    }
-    max.n <- as.integer(max.n)
-    if(min.n < 4)
-      stop("'min.n' must be >= 4")
-    if(min.n >= max.n)
-      stop("'min.n' must be < 'max.n'")
+    check(min.n, "req"); check(min.n, "min", min = 4)
+    check(max.n, "req"); check(max.n, "min", min = min.n)
   }
-  check(v, "req"); check(v, "bool")
+
   ## calculations
 
   if(is.null(power)){

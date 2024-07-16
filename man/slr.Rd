@@ -19,7 +19,7 @@ slr(
 \arguments{
 \item{N}{The sample size.}
 
-\item{beta10}{The slope regression coefficient under the null hypothesis.}
+\item{beta10}{The slope regression coefficient under the null hypothesis; defaults to 0.}
 
 \item{beta1A}{The slope regression coefficient under the alternative hypothesis.}
 

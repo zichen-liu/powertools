@@ -33,5 +33,5 @@ A list of the arguments (including the computed one).
 Power calculations for signed-rank test
 }
 \examples{
-signedrank(N = 20, p = 0.87, power = NULL, sides = 2)
+signedrank(N = 20, ps = 0.87, power = NULL, sides = 2)
 }

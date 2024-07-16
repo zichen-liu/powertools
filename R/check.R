@@ -7,8 +7,8 @@ check <- function(param = NULL,
                            "int",   # positive integers
                            "bool",  # T or F
                            "vals",  # certain values (specify valslist)
-                           "min",   # < minimum (specify min)
-                           "mini",  # <= minimum (specify min)
+                           "min",   # can't be < minimum (specify min)
+                           "mini",  # can't be <= minimum (specify min)
                            "vec",   # numerical vector
                            "mat",   # numerical matrix
                            "sum"    # sum to one

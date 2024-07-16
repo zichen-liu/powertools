@@ -24,7 +24,7 @@ ranksum <- function (n1 = NULL, n.ratio = 1, p = NULL, alpha = 0.05,
   check(n.ratio, "pos")
   check(alpha, "unit")
   check(power, "unit")
-  check(p, "req"); check(p, "uniti")
+  check(p, "req"); check(p, "unit")
   check(sides, "req"); check(sides, "vals", valslist = c(1, 2))
   check(v, "req"); check(v, "bool")
 

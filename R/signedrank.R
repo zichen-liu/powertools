@@ -11,7 +11,7 @@
 #' @export
 #'
 #' @examples
-#' signedrank(N = 20, p = 0.87, power = NULL, sides = 2)
+#' signedrank(N = 20, ps = 0.87, power = NULL, sides = 2)
 
 
 signedrank <- function (N = NULL, ps = NULL, alpha = 0.05, power = NULL,
@@ -22,7 +22,7 @@ signedrank <- function (N = NULL, ps = NULL, alpha = 0.05, power = NULL,
   check(N, "pos"); check(N, "min", min = 2)
   check(alpha, "unit")
   check(power, "unit")
-  check(ps, "req"); check(ps, "uniti")
+  check(ps, "req"); check(ps, "unit")
   check(sides, "req"); check(sides, "vals", valslist = c(1, 2))
   check(v, "req"); check(v, "bool")
 

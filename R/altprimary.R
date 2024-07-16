@@ -20,42 +20,27 @@
 #' altprimary(K = 2, n1 = 100, delta = c(0.4, 0.5), sd = c(1, 1), rho = 0.3,
 #' alpha = 0.025, power = NULL)
 
-altprimary <- function(K, n1 = NULL, n.ratio = 1, delta = NULL, Sigma, sd, rho, alpha = 0.025,
-                       power = NULL, tol = .Machine$double.eps^0.25, v = FALSE){
-  ## check of input
+altprimary <- function(K, n1 = NULL, n.ratio = 1, delta = NULL, Sigma, sd, rho,
+                       alpha = 0.025, power = NULL,
+                       tol = .Machine$double.eps^0.25, v = FALSE){
 
-  if(missing(K))
-    stop("specify the number of co-primary endpoints")
-  if(!is.numeric(K))
-    stop("'K' must be a natural number > 1")
-  K <- as.integer(K)
-  if(is.null(n1) & is.null(power))
-    stop("either 'n1' or 'power' must be specified")
-  if(!is.null(n1) & !is.null(power))
-    stop("either 'n1' or 'power' must be NULL")
-  if(!is.null(n1)){
-    if(length(n1) > 1){
-      warning("length of 'n1' is greater than 1, only the first entry is used")
-      n1 <- n1[1]
-    }
-    n1 <- as.integer(n1)
-  }
-  if(is.null(n.ratio)){
-    stop("n.ratio cannot be NULL")}
-  if(!n.ratio > 0){
-    stop("n.ratio must be positive")
-  }
-  if(!is.null(power)){
-    if(power <= 0 | power >= 1)
-      stop("power must be in (0, 1)")
-  }
-  if(is.null(delta))
-    stop("expected effect size 'delta' is missing")
-  if(length(delta) < 2)
-    stop("length of 'delta' < 2: effect for at least two co-primary endpoints is required")
+  # Check if the arguments are specified correctly
+  check.many(list(n1, power), "oneof")
+  check(n1, "pos")
+  check(power, "unit")
+  check(alpha, "req"); check(alpha, "unit")
+  check(K, "req"); check(K, "min", min = 1); check(K, "int")
+  check(n.ratio, "req"); check(n.ratio, "pos")
+  check(v, "req"); check(v, "bool")
+
+  check(delta, "req"); check(delta, "vec")
+  if(length(delta) != K)
+    stop("length of 'delta' must be equal to 'K'")
   if(!all(delta > 0))
     stop("all effect sizes need to be positive")
-  if(!missing(Sigma)){
+
+  if(!missing(Sigma)){ # Sigma is given
+    check(Sigma, "mat")
     if(nrow(Sigma) != ncol(Sigma))
       stop("covariance matrix 'Sigma' must be quadratic")
     if(nrow(Sigma) != K)
@@ -63,13 +48,18 @@ altprimary <- function(K, n1 = NULL, n.ratio = 1, delta = NULL, Sigma, sd, rho, 
     if(max(abs(Sigma - t(Sigma))) > 1e-10)
       stop("matrix 'Sigma' must be symmetric")
   }
-  if(missing(Sigma)){
+  if(missing(Sigma)){ # make Sigma with sd & rho
+    check(sd, "vec")
     if(missing(sd) || missing(rho))
       stop("if 'Sigma' is missing 'sd' and 'rho' must be given.")
     if(length(sd) != K)
       stop("length of 'sd' must be equal to 'K'")
+    if(!all(sd > 0))
+      stop("all standard deviations need to be positive")
     if(length(rho) != 0.5*K*(K-1))
       stop("length of 'rho' must be equal to '0.5*K*(K-1)'")
+    if(!all(rho >= 0 & rho < 1))
+      stop("all correlations need to be between 0 and 1")
     Sigma <- matrix(0, nrow = K, ncol = K)
     iter <- 0
     for(i in 1:(K-1)){
@@ -84,10 +74,6 @@ altprimary <- function(K, n1 = NULL, n.ratio = 1, delta = NULL, Sigma, sd, rho, 
   if(!all(eigen(Sigma)$values > 0))
     stop("matrix 'Sigma' must be positive definite")
   Sigma.cor <- stats::cov2cor(Sigma)
-
-  if(alpha <= 0 | alpha >= 1)
-    stop("significance level must be in (0, 1)")
-  check(v, "req"); check(v, "bool")
 
   ## calculations
 

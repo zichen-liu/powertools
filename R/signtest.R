@@ -22,7 +22,7 @@ signtest <- function (N = NULL, p = NULL, alpha = 0.05, power = NULL,
   check(N, "pos"); check(N, "min", min = 2)
   check(alpha, "unit")
   check(power, "unit")
-  check(p, "req"); check(p, "uniti")
+  check(p, "req"); check(p, "unit")
   check(sides, "req"); check(sides, "vals", valslist = c(1, 2))
   check(v, "req"); check(v, "bool")
 
