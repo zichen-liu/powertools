@@ -26,7 +26,7 @@ irgtt.bin <- function (m = NULL, J = NULL, n = NULL, p1 = NULL, p2 = NULL,
   check.many(list(m, J, n, alpha, power), "oneof")
   check(m, "pos")
   check(J, "min", min = 2)
-  check(n, "int")
+  check(n, "pos")
   check(p1, "req"); check(p1, "unit")
   check(p2, "req"); check(p2, "unit")
   check(icc, "req"); check(icc, "uniti")

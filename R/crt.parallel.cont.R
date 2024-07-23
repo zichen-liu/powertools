@@ -69,24 +69,44 @@ crt.parallel.cont <- function (m = NULL, m.sd = 0, J1 = NULL, J.ratio = 1, delta
   }
 
   # Calculate power
-  p.body <- quote({
-    J <- J1 + J1 * J.ratio
-    N <- m * J
-    df <- J - 2 - ncov
-    d <- delta / sd
+  if (sides == 1)
+    p.body <- quote({
+      J <- J1 + J1 * J.ratio
+      N <- m * J
+      df <- J - 2 - ncov
+      d <- delta / sd
 
-    RE <- re.clustsize.cont(m = m, m.sd = m.sd, icc = (icc1 + icc2)/2)
+      RE <- re.clustsize.cont(m = m, m.sd = m.sd, icc = (icc1 + icc2)/2)
 
-    w <- 1 / (1 + J.ratio)
-    de1 <- 1 + (m * (1 - RsqB) - 1) * icc1 -
-           m * RsqW * (1 - 2 * icc1) / (m - 1)
-    de2 <- 1 + (m * (1 - RsqB) - 1) * icc2 -
-           m * RsqW * (1 - 2 * icc2) / (m - 1)
-    detot <- de1 / w + de2 / (1 - w)
-    ncp <- d / sqrt(detot / N / RE)
-    crit <- stats::qt(1 - alpha / sides, df)
-    1 - stats::pt(crit, df, ncp)
-  })
+      w <- 1 / (1 + J.ratio)
+      de1 <- 1 + (m * (1 - RsqB) - 1) * icc1 -
+             m * RsqW * (1 - 2 * icc1) / (m - 1)
+      de2 <- 1 + (m * (1 - RsqB) - 1) * icc2 -
+             m * RsqW * (1 - 2 * icc2) / (m - 1)
+      detot <- de1 / w + de2 / (1 - w)
+      ncp <- d / sqrt(detot / N / RE)
+      crit <- stats::qt(1 - alpha, df)
+      1 - stats::pt(crit, df, ncp)
+    })
+  else if (sides == 2)
+    p.body <- quote({
+      J <- J1 + J1 * J.ratio
+      N <- m * J
+      df2 <- J - 2 - ncov
+      d <- delta / sd
+
+      RE <- re.clustsize.cont(m = m, m.sd = m.sd, icc = (icc1 + icc2)/2)
+
+      w <- 1 / (1 + J.ratio)
+      de1 <- 1 + (m * (1 - RsqB) - 1) * icc1 -
+        m * RsqW * (1 - 2 * icc1) / (m - 1)
+      de2 <- 1 + (m * (1 - RsqB) - 1) * icc2 -
+        m * RsqW * (1 - 2 * icc2) / (m - 1)
+      detot <- de1 / w + de2 / (1 - w)
+      ncp <- d / sqrt(detot / N / RE)
+      crit <- stats::qf(1 - alpha, 1, df2)
+      1 - stats::pf(crit, 1, df2, ncp^2)
+    })
 
   # Use uniroot to calculate missing argument
   if (is.null(alpha)) {

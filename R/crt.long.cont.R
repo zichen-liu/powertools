@@ -42,18 +42,32 @@ crt.long.cont <- function (m = NULL, J1 = NULL, J.ratio = 1, delta = NULL, sd = 
   check(v, "req"); check(v, "bool")
 
   # Calculate power
-  p.body <- quote({
-    J <- J1 + J1 * J.ratio
-    N <- m * J
-    df <- J - 2
-    d <- delta / sd
-    de.pa <- 1 + (m - 1) * icc
-    r <- m * icc * cac / de.pa + (1 - icc) * sac / de.pa
-    de <- 4 * (1 - r^2) * de.pa
-    ncp <- d / sqrt(de / N)
-    crit <- stats::qt(1 - alpha / sides, df)
-    1 - stats::pt(crit, df, ncp)
-  })
+  if (sides == 1)
+    p.body <- quote({
+      J <- J1 + J1 * J.ratio
+      N <- m * J
+      df <- J - 2
+      d <- delta / sd
+      de.pa <- 1 + (m - 1) * icc
+      r <- m * icc * cac / de.pa + (1 - icc) * sac / de.pa
+      de <- 4 * (1 - r^2) * de.pa
+      ncp <- d / sqrt(de / N)
+      crit <- stats::qt(1 - alpha, df)
+      1 - stats::pt(crit, df, ncp)
+    })
+  else if (sides == 2)
+    p.body <- quote({
+      J <- J1 + J1 * J.ratio
+      N <- m * J
+      df2 <- J - 2
+      d <- delta / sd
+      de.pa <- 1 + (m - 1) * icc
+      r <- m * icc * cac / de.pa + (1 - icc) * sac / de.pa
+      de <- 4 * (1 - r^2) * de.pa
+      ncp <- d / sqrt(de / N)
+      crit <- stats::qf(1 - alpha, 1, df2)
+      1 - stats::pf(crit, 1, df2, ncp^2)
+    })
 
   # Use uniroot to calculate missing argument
   if (is.null(alpha)) {

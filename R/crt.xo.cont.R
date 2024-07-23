@@ -52,17 +52,30 @@ crt.xo.cont <- function (m = NULL, J.arm = NULL, delta = NULL, sd = 1,
     icca <- ifelse(sac == 0, 0, (1 - icc) * sac + icc * cac)
 
   # Calculate power
-  p.body <- quote({
-    J <- 2 * J.arm
-    N <- m * J
-    df <- 2 * J - 3
-    d <- delta / sd
+  if (sides == 1)
+    p.body <- quote({
+      J <- 2 * J.arm
+      N <- m * J
+      df <- 2 * J - 3
+      d <- delta / sd
 
-    de <- ifelse(sac == 0, 2 * (1 + (m - 1) * icc - m * iccb) , 2 * (1 - icca + (m - 1) * (icc - iccb)))
-    ncp <- d / sqrt(de / N)
-    crit <- stats::qt(1 - alpha / sides, df)
-    1 - stats::pt(crit, df, ncp)
-  })
+      de <- ifelse(sac == 0, 2 * (1 + (m - 1) * icc - m * iccb) , 2 * (1 - icca + (m - 1) * (icc - iccb)))
+      ncp <- d / sqrt(de / N)
+      crit <- stats::qt(1 - alpha, df)
+      1 - stats::pt(crit, df, ncp)
+    })
+  else if (sides == 2)
+    p.body <- quote({
+      J <- 2 * J.arm
+      N <- m * J
+      df2 <- 2 * J - 3
+      d <- delta / sd
+
+      de <- ifelse(sac == 0, 2 * (1 + (m - 1) * icc - m * iccb) , 2 * (1 - icca + (m - 1) * (icc - iccb)))
+      ncp <- d / sqrt(de / N)
+      crit <- stats::qf(1 - alpha, 1, df2)
+      1 - stats::pf(crit, 1, df2, ncp^2)
+    })
 
   # Use uniroot to calculate missing argument
   if (is.null(alpha)) {

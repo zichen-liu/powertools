@@ -28,7 +28,7 @@ irgtt.cont <- function (m = NULL, J = NULL, n = NULL, delta = NULL, sd = 1,
   check.many(list(m, J, n, delta, alpha, power), "oneof")
   check(m, "pos")
   check(J, "min", min = 2)
-  check(n, "int")
+  check(n, "pos")
   check(delta, "num")
   check(sd, "req"); check(sd, "pos")
   check(icc, "req"); check(icc, "uniti")
@@ -39,25 +39,48 @@ irgtt.cont <- function (m = NULL, J = NULL, n = NULL, delta = NULL, sd = 1,
   check(v, "req"); check(v, "bool")
 
   # Calculate power
-  p.body <- quote({
-    de <- 1 + (m - 1) * icc
-    Uc <- sd^2 / n
-    Ue <- Theta * sd^2 * de / (m * J)
-    df2 <- (Ue^2 * (J + 1)/(J - 1) + Uc^2 * (n+1)/(n-1)) / (Ue^2 * (J+1)/(J-1)^2 + Uc^2 * (n+1)/(n-1)^2)
-    d <- delta / sd
-    lambda <- d / sqrt(Theta * de / (m * J) + 1 / n)
-    crit <- stats::qf(1 - alpha, df1 = 1, df2 = df2)
-    1 - stats::pf(crit, df1 = 1, df2 = df2, ncp = lambda^2)
-  })
+  if (sides == 1)
+    p.body <- quote({
+      de <- 1 + (m - 1) * icc
+      Uc <- sd^2 / n
+      Ue <- Theta * sd^2 * de / (m * J)
+      df <- (Ue^2 * (J + 1)/(J - 1) + Uc^2 * (n+1)/(n-1)) / (Ue^2 * (J+1)/(J-1)^2 + Uc^2 * (n+1)/(n-1)^2)
+      d <- delta / sd
+      lambda <- d / sqrt(Theta * de / (m * J) + 1 / n)
+      crit <- stats::qt(1 - alpha, df = df)
+      1 - stats::pt(crit, df = df, ncp = lambda)
+    })
+  else if (sides == 2)
+    p.body <- quote({
+      de <- 1 + (m - 1) * icc
+      Uc <- sd^2 / n
+      Ue <- Theta * sd^2 * de / (m * J)
+      df2 <- (Ue^2 * (J + 1)/(J - 1) + Uc^2 * (n+1)/(n-1)) / (Ue^2 * (J+1)/(J-1)^2 + Uc^2 * (n+1)/(n-1)^2)
+      d <- delta / sd
+      lambda <- d / sqrt(Theta * de / (m * J) + 1 / n)
+      crit <- stats::qf(1 - alpha, df1 = 1, df2 = df2)
+      1 - stats::pf(crit, df1 = 1, df2 = df2, ncp = lambda^2)
+    })
+
   # use this function (normal approx) if solving for anything other than power
-  p.body2 <- quote({
-    de <- 1 + (m - 1) * icc
-    df2 <- 10000
-    d <- delta / sd
-    lambda <- d / sqrt(Theta * de / (m * J) + 1 / n)
-    crit <- stats::qf(1 - alpha, df1 = 1, df2 = df2)
-    1 - stats::pf(crit, df1 = 1, df2 = df2, ncp = lambda^2)
-  })
+  if (sides == 1)
+    p.body2 <- quote({
+      de <- 1 + (m - 1) * icc
+      df <- 10000
+      d <- delta / sd
+      lambda <- d / sqrt(Theta * de / (m * J) + 1 / n)
+      crit <- stats::qt(1 - alpha, df = df)
+      1 - stats::pt(crit, df = df, ncp = lambda)
+    })
+  else if (sides == 2)
+    p.body2 <- quote({
+      de <- 1 + (m - 1) * icc
+      df2 <- 10000
+      d <- delta / sd
+      lambda <- d / sqrt(Theta * de / (m * J) + 1 / n)
+      crit <- stats::qf(1 - alpha, df1 = 1, df2 = df2)
+      1 - stats::pf(crit, df1 = 1, df2 = df2, ncp = lambda^2)
+    })
 
   NOTE <- "Power is solved for using t/F distribution; other quantities solved\n      for using normal approximation."
   if (!v) cat(paste("NOTE:", NOTE, "\n"))

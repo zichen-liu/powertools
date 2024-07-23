@@ -35,12 +35,20 @@ slr <- function (N = NULL, beta10 = 0, beta1A = NULL,
   check(v, "req"); check(v, "bool")
 
   # Calculate power
-  p.body <- quote({
-    sxx <- (N - 1) * sd.x.sq
-    ncp <- abs(beta1A - beta10) * sqrt(sxx) / sigma.e
-    df <- N - 2
-    1 - stats::pt(stats::qt(1 - alpha / sides, df), df, ncp)
-  })
+  if (sides == 1)
+    p.body <- quote({
+      sxx <- (N - 1) * sd.x.sq
+      ncp <- abs(beta1A - beta10) * sqrt(sxx) / sigma.e
+      df <- N - 2
+      1 - stats::pt(stats::qt(1 - alpha, df), df, ncp)
+    })
+  else if (sides == 2)
+    p.body <- quote({
+      sxx <- (N - 1) * sd.x.sq
+      ncp <- abs(beta1A - beta10) * sqrt(sxx) / sigma.e
+      df2 <- N - 2
+      1 - stats::pf(stats::qf(1 - alpha, 1, df2), 1, df2, ncp^2)
+    })
 
   # Use stats::uniroot function to calculate missing argument
   if (is.null(power)) {

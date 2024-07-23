@@ -49,18 +49,32 @@ multisite.cont <- function (m = NULL, m.sd = 0, alloc.ratio = 1, J = NULL,
   check(v, "req"); check(v, "bool")
 
   # Calculate power
-  p.body <- quote({
-    N <- m * J
-    df <- J - 1
-    d <- delta / (sd * sqrt((1 - Rsq)))
+  if (sides == 1)
+    p.body <- quote({
+      N <- m * J
+      df <- J - 1
+      d <- delta / (sd * sqrt((1 - Rsq)))
 
-    RE <- re.clustsize.cont(m = m, m.sd = m.sd, icc = icc1)
+      RE <- re.clustsize.cont(m = m, m.sd = m.sd, icc = icc1)
 
-    c <- (1 + alloc.ratio)^2 / alloc.ratio
-    ncp <- d / sqrt(c * (1 - icc0 + (4 * m / c - 1) * icc1) / N / RE)
-    crit <- stats::qt(1 - alpha / sides, df)
-    1 - stats::pt(crit, df, ncp)
-  })
+      c <- (1 + alloc.ratio)^2 / alloc.ratio
+      ncp <- d / sqrt(c * (1 - icc0 + (4 * m / c - 1) * icc1) / N / RE)
+      crit <- stats::qt(1 - alpha, df)
+      1 - stats::pt(crit, df, ncp)
+    })
+  else if (sides == 2)
+    p.body <- quote({
+      N <- m * J
+      df2 <- J - 1
+      d <- delta / (sd * sqrt((1 - Rsq)))
+
+      RE <- re.clustsize.cont(m = m, m.sd = m.sd, icc = icc1)
+
+      c <- (1 + alloc.ratio)^2 / alloc.ratio
+      ncp <- d / sqrt(c * (1 - icc0 + (4 * m / c - 1) * icc1) / N / RE)
+      crit <- stats::qf(1 - alpha, 1, df2)
+      1 - stats::pf(crit, 1, df2, ncp^2)
+    })
 
   # Use uniroot to calculate missing argument
   if (is.null(alpha)) {

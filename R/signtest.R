@@ -18,11 +18,11 @@ signtest <- function (N = NULL, p = NULL, alpha = 0.05, power = NULL,
                       sides = 2, v = FALSE) {
 
   # Check if the arguments are specified correctly
-  check.many(list(N, alpha, power), "oneof")
+  check.many(list(N, alpha, power, p), "oneof")
   check(N, "pos"); check(N, "min", min = 2)
   check(alpha, "unit")
   check(power, "unit")
-  check(p, "req"); check(p, "unit")
+  check(p, "unit")
   check(sides, "req"); check(sides, "vals", valslist = c(1, 2))
   check(v, "req"); check(v, "bool")
 
@@ -39,6 +39,10 @@ signtest <- function (N = NULL, p = NULL, alpha = 0.05, power = NULL,
   else if (is.null(N)) {
     N <- stats::uniroot(function(N) eval(p.body) - power, c(2, 1e+07))$root
     if (!v) return(N)
+  }
+  else if (is.null(p)) {
+    p <- stats::uniroot(function(p) eval(p.body) - power, c(0, 1))$root
+    if (!v) return(p)
   }
   else if (is.null(alpha)) {
     alpha <- stats::uniroot(function(alpha) eval(p.body) - power, c(1e-10, 1 - 1e-10))$root
