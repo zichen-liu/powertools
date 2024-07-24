@@ -3,7 +3,7 @@
 #' @description
 #' A short description... THIS IS A TEST DESCRIPTION.
 #'
-#' @param K The number of endpoints.
+#' @param K The number of endpoints. TEST.
 #' @param n1 The sample size for group 1.
 #' @param n.ratio The ratio n2/n1 between the sample sizes of two groups; defaults to 1 (equal group sizes).
 #' @param delta A vector of length K of the true mean differences mu1k - mu2k; must all be positive.
