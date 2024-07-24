@@ -1,4 +1,8 @@
-#' Power calculations for one sample z tests
+#' Power calculation for one sample z tests
+#'
+#' @description
+#' This function performs power and sample size calculations for a one-sample z test,
+#' which is analogous to a one-sample t test with the variance assumed to be known.
 #'
 #' @param N The sample size.
 #' @param delta muA (the true mean) - mu0 (the mean under the null).

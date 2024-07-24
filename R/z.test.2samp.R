@@ -1,4 +1,9 @@
-#' Power calculations for two sample z tests allowing for unequal sample sizes and/or variances
+#' Power calculation for two-sample z test
+#'
+#' @description
+#' This function performs power and sample size calculations for a two-sample z test, which is
+#' analogous to a two-sample t test but with the variances assumed to be known.
+#' The function allows for unequal sample sizes and/or variances in the two groups.
 #'
 #' @param n1 The sample size for group 1.
 #' @param n.ratio The ratio n2/n1 between the sample sizes of two groups; defaults to 1 (equal group sizes).
