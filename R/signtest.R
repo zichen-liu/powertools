@@ -41,7 +41,8 @@ signtest <- function (N = NULL, p = NULL, alpha = 0.05, power = NULL,
     if (!v) return(N)
   }
   else if (is.null(p)) {
-    p <- stats::uniroot(function(p) eval(p.body) - power, c(0, 1))$root
+    p <- stats::uniroot(function(p) eval(p.body) - power, c(0.5, 1 - 1e-10))$root
+    p <- c(p, 1 - p)
     if (!v) return(p)
   }
   else if (is.null(alpha)) {

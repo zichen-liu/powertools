@@ -39,19 +39,21 @@ mlrF.partial <- function (N = NULL, p = NULL, q = NULL, pc = NULL,
   check(v, "req"); check(v, "bool")
 
   # Calculate power
-  p.body <- quote({
-    if (is.null(pc)) {
+  if (is.null(pc)) {
+    p.body <- quote({
       ncp <- N * (Rsq.full - Rsq.red) / (1 - Rsq.full)
       df2 <- N - p - q - 1
       crit <- stats::qf(1 - alpha, q, df2)
       1 - stats::pf(crit, q, df2, ncp)
-    } else {
+    })
+  } else {
+    p.body <- quote({
       ncp <- N * pc^2 / (1 - pc^2)
       df2 <- N - p - 2
       crit <- stats::qf(1 - alpha, 1, df2)
       1 - stats::pf(crit, 1, df2, ncp)
-    }
-  })
+    })
+  }
 
   # Use stats::uniroot function to calculate missing argument
   if (is.null(power)) {

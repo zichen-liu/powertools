@@ -19,12 +19,12 @@ ranksum <- function (n1 = NULL, n.ratio = 1, p = NULL, alpha = 0.05,
                      power = NULL, sides = 2, v = FALSE) {
 
   # Check if the arguments are specified correctly
-  check.many(list(n1, n.ratio, alpha, power), "oneof")
+  check.many(list(n1, n.ratio, alpha, power, p), "oneof")
   check(n1, "pos"); check(n1, "min", min = 2)
   check(n.ratio, "pos")
   check(alpha, "unit")
   check(power, "unit")
-  check(p, "req"); check(p, "unit")
+  check(p, "unit")
   check(sides, "req"); check(sides, "vals", valslist = c(1, 2))
   check(v, "req"); check(v, "bool")
 
@@ -45,6 +45,11 @@ ranksum <- function (n1 = NULL, n.ratio = 1, p = NULL, alpha = 0.05,
   else if (is.null(n.ratio)) {
     n.ratio <- stats::uniroot(function(n.ratio) eval(p.body) - power, c(2/n1, 1e+07))$root
     if (!v) return(n.ratio)
+  }
+  else if (is.null(p)) {
+    p <- stats::uniroot(function(p) eval(p.body) - power, c(0.5, 1 - 1e-10))$root
+    p <- c(p, 1 - p)
+    if (!v) return(p)
   }
   else if (is.null(alpha)) {
     alpha <- stats::uniroot(function(alpha) eval(p.body) - power, c(1e-10, 1 - 1e-10))$root

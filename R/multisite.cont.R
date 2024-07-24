@@ -33,10 +33,10 @@ multisite.cont <- function (m = NULL, m.sd = 0, alloc.ratio = 1, J = NULL,
                             v = FALSE) {
 
   # Check if the arguments are specified correctly
-  check.many(list(m, J, delta, alpha, power), "oneof")
+  check.many(list(m, J, delta, alpha, power, alloc.ratio), "oneof")
   check(m, "pos")
   check(m.sd, "req"); check(m.sd, "min", min = 0)
-  check(alloc.ratio, "req"); check(alloc.ratio, "pos")
+  check(alloc.ratio, "pos")
   check(J, "min", min = 2)
   check(delta, "num")
   check(sd, "req"); check(sd, "pos")
@@ -93,9 +93,10 @@ multisite.cont <- function (m = NULL, m.sd = 0, alloc.ratio = 1, J = NULL,
     m <- stats::uniroot(function(m) eval(p.body) - power, c(2 + 1e-10, 1e+07))$root
     if (!v) return(m)
   }
-  # else if (is.null(alloc.ratio)) {
-  #  alloc.ratio <- stats::uniroot(function(alloc.ratio) eval(p.body) - power, c(1 + 1e-10, 1e+07))$root
-  # }
+  else if (is.null(alloc.ratio)) {
+    alloc.ratio <- stats::uniroot(function(alloc.ratio) eval(p.body) - power + 1e-5, c(1 + 1e-10, 1e+07))$root
+    if (!v) return(alloc.ratio)
+  }
   else if (is.null(delta)) {
     delta <- stats::uniroot(function(delta) eval(p.body) - power, c(1e-07, 1e+07))$root
     if (!v) return(delta)

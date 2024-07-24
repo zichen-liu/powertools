@@ -18,11 +18,11 @@ signedrank <- function (N = NULL, ps = NULL, alpha = 0.05, power = NULL,
                         sides = 2, v = FALSE) {
 
   # Check if the arguments are specified correctly
-  check.many(list(N, alpha, power), "oneof")
+  check.many(list(N, alpha, power, ps), "oneof")
   check(N, "pos"); check(N, "min", min = 2)
   check(alpha, "unit")
   check(power, "unit")
-  check(ps, "req"); check(ps, "unit")
+  check(ps, "unit")
   check(sides, "req"); check(sides, "vals", valslist = c(1, 2))
   check(v, "req"); check(v, "bool")
 
@@ -39,6 +39,11 @@ signedrank <- function (N = NULL, ps = NULL, alpha = 0.05, power = NULL,
   else if (is.null(N)) {
     N <- stats::uniroot(function(N) eval(p.body) - power, c(2, 1e+07))$root
     if (!v) return(N)
+  }
+  else if (is.null(ps)) {
+    ps <- stats::uniroot(function(ps) eval(p.body) - power, c(0.5, 1 - 1e-10))$root
+    ps <- c(ps, 1 - ps)
+    if (!v) return(ps)
   }
   else if (is.null(alpha)) {
     alpha <- stats::uniroot(function(alpha) eval(p.body) - power, c(1e-10, 1 - 1e-10))$root
