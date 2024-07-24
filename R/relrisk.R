@@ -17,7 +17,7 @@
 #' relrisk(n1 = NULL, n.ratio = 1/6, p1 = 0.1, p2 = 0.1 * 2, power = 0.8)
 
 relrisk <- function (n1 = NULL, n.ratio = 1, p1 = NULL, p2 = NULL, RR0 = 1,
-                alpha = 0.05, power = NULL, sides = 2, v = FALSE) {
+                     alpha = 0.05, power = NULL, sides = 2, v = FALSE) {
 
   # Check if the arguments are specified correctly
   check.many(list(n1, n.ratio, alpha, power), "oneof")
