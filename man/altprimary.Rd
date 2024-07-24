@@ -19,7 +19,7 @@ altprimary(
 )
 }
 \arguments{
-\item{K}{The number of endpoints. TEST.}
+\item{K}{The number of endpoints.}
 
 \item{n1}{The sample size for group 1.}
 
