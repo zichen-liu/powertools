@@ -2,7 +2,7 @@
 % Please edit documentation in R/signedrank.R
 \name{signedrank}
 \alias{signedrank}
-\title{Power calculations for signed-rank test}
+\title{Power calculation for signed-rank test}
 \usage{
 signedrank(
   N = NULL,
@@ -30,7 +30,9 @@ signedrank(
 A list of the arguments (including the computed one).
 }
 \description{
-Power calculations for signed-rank test
+The signed-rank test is a nonparametric alternative to a one-sample or paired t test. This function
+performs power and sample size calculations for the signed-rank test using Noether's approximation;
+see Noether (1987) Sample size determination for some common nonparametric tests. JASA 82(398):645-647.
 }
 \examples{
 signedrank(N = 20, ps = 0.87, power = NULL, sides = 2)
