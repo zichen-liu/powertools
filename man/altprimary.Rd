@@ -2,7 +2,7 @@
 % Please edit documentation in R/altprimary.R
 \name{altprimary}
 \alias{altprimary}
-\title{Power calculations for multiple alternative (at least one) primary continuous endpoints assuming known covariance matrix}
+\title{Power calculation for multiple alternative (at least one) primary continuous endpoints assuming known covariance matrix}
 \usage{
 altprimary(
   K,
