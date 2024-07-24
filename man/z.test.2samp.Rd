@@ -2,7 +2,7 @@
 % Please edit documentation in R/z.test.2samp.R
 \name{z.test.2samp}
 \alias{z.test.2samp}
-\title{Power calculations for two sample z tests allowing for unequal sample sizes and/or variances}
+\title{Power calculation for two-sample z test}
 \usage{
 z.test.2samp(
   n1 = NULL,
@@ -39,7 +39,9 @@ z.test.2samp(
 A list of the arguments (including the computed one).
 }
 \description{
-Power calculations for two sample z tests allowing for unequal sample sizes and/or variances
+This function performs power and sample size calculations for a two-sample z test, which is
+analogous to a two-sample t test but with the variances assumed to be known.
+The function allows for unequal sample sizes and/or variances in the two groups.
 }
 \examples{
 z.test.2samp(n1 = NULL, n.ratio = 1, delta = 0.5, sd1 = 1, power = 0.8, sides = 2)

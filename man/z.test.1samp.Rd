@@ -2,7 +2,7 @@
 % Please edit documentation in R/z.test.1samp.R
 \name{z.test.1samp}
 \alias{z.test.1samp}
-\title{Power calculations for one sample z tests}
+\title{Power calculation for one sample z tests}
 \usage{
 z.test.1samp(
   N = NULL,
@@ -33,7 +33,8 @@ z.test.1samp(
 A list of the arguments (including the computed one).
 }
 \description{
-Power calculations for one sample z tests
+This function performs power and sample size calculations for a one-sample z test,
+which is analogous to a one-sample t test with the variance assumed to be known.
 }
 \examples{
 z.test.1samp(N = NULL, delta = 6.5 - 5.7, sd = 2, power = 0.8, sides = 2)

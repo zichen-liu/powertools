@@ -1,4 +1,4 @@
-#' Power calculation for one sample z tests
+#' Power calculation for one sample z test
 #'
 #' @description
 #' This function performs power and sample size calculations for a one-sample z test,

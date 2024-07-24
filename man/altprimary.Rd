@@ -19,7 +19,7 @@ altprimary(
 )
 }
 \arguments{
-\item{K}{The number of endpoints.}
+\item{K}{The number of endpoints. TEST.}
 
 \item{n1}{The sample size for group 1.}
 
@@ -45,7 +45,7 @@ altprimary(
 A list of the arguments (including the computed one).
 }
 \description{
-Power calculations for multiple alternative (at least one) primary continuous endpoints assuming known covariance matrix
+A short description... THIS IS A TEST DESCRIPTION.
 }
 \examples{
 altprimary(K = 2, n1 = 100, delta = c(0.4, 0.5), sd = c(1, 1), rho = 0.3,
