@@ -1,4 +1,10 @@
-#' Power calculations for sign test (one sample median)
+#' Power calculation for sign test (one-sample test for a median)
+#'
+#' @description
+#' The sign test is a one-sample test of location. specifically, a test of whether the median
+#' equals zero. It is used in place of a one-sample or paired t test. This function performs
+#' power and sample size calculations for a sign test.
+#'
 #'
 #' @param N The sample size.
 #' @param p The probability of a positive difference when the alternative hypothesis is true.
