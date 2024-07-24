@@ -2,7 +2,7 @@
 % Please edit documentation in R/anova1way.F.bal.R
 \name{anova1way.F.bal}
 \alias{anova1way.F.bal}
-\title{Power calculations for one-way balanced analysis of variance omnibus F test}
+\title{Power calculation for balanced one-way ANOVA omnibus F test}
 \usage{
 anova1way.F.bal(
   n = NULL,
@@ -36,7 +36,10 @@ anova1way.F.bal(
 A list of the arguments (including the computed one).
 }
 \description{
-Power calculations for one-way balanced analysis of variance omnibus F test
+This function performs power and sample size calculations for the overall (omnibus) F test
+in a balanced (equal-sized groups) one-way analysis of variance (ANOVA). For an unbalanced one-way
+ANOVA F test (that is, unequal group sample sizes), use 'anova1way.F.unbal'.
+For contrast tests in a one-way ANOVA, see 'anova1way.c.bal' and 'anova1way.c.unbal'.
 }
 \examples{
 anova1way.F.bal(n = 20, mvec = c(5, 10, 12), sd = 10)

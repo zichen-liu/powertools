@@ -9,7 +9,7 @@ Authors@R: c(
     person("Sundin", "Phillip", role = "aut"),
     person("Zichen", "Liu", "", "zichenliu@ucla.edu", role = "aut"))
 Description: This package accompanies the book Power and Sample Size in R by 
-    Catherine M. Crespi for calculating power and sample size requirements for designing studies.
+    Catherine M. Crespi.
 License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
