@@ -2,7 +2,7 @@
 % Please edit documentation in R/z.test.1samp.R
 \name{z.test.1samp}
 \alias{z.test.1samp}
-\title{Power calculation for one sample z tests}
+\title{Power calculation for one sample z test}
 \usage{
 z.test.1samp(
   N = NULL,

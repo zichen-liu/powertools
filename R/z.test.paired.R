@@ -1,4 +1,9 @@
-#' Power calculations for paired z tests
+#' Power calculation for paired z test
+#'
+#' @description
+#' This function performs power and sample size calculations for a paired z test, which is
+#' analogous to a paired t tes with variance assumed to be known.
+#'
 #'
 #' @param N The sample size; the number of pairs.
 #' @param delta DeltaA (the true mean difference) - Delta0 (the mean difference under the null).
