@@ -2,7 +2,7 @@
 #'
 #' @description
 #' This function performs power and sample size calculations for a paired z test, which is
-#' analogous to a paired t tes with variance assumed to be known.
+#' analogous to a paired t test with variance assumed to be known.
 #'
 #'
 #' @param N The sample size; the number of pairs.
