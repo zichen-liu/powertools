@@ -2,7 +2,7 @@
 % Please edit documentation in R/signtest.R
 \name{signtest}
 \alias{signtest}
-\title{Power calculations for sign test (one sample median)}
+\title{Power calculation for sign test (one-sample test for a median)}
 \usage{
 signtest(N = NULL, p = NULL, alpha = 0.05, power = NULL, sides = 2, v = FALSE)
 }
@@ -23,7 +23,9 @@ signtest(N = NULL, p = NULL, alpha = 0.05, power = NULL, sides = 2, v = FALSE)
 A list of the arguments (including the computed one).
 }
 \description{
-Power calculations for sign test (one sample median)
+The sign test is a one-sample test of location. specifically, a test of whether the median
+equals zero. It is used in place of a one-sample or paired t test. This function performs
+power and sample size calculations for a sign test.
 }
 \examples{
 signtest(N = 40, p = 0.7, power = NULL, alpha = 0.05, sides = 1)
