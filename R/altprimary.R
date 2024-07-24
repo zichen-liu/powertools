@@ -1,6 +1,6 @@
 #' Power calculations for multiple alternative (at least one) primary continuous endpoints assuming known covariance matrix
 #'
-#' @description THIS IS A TEST DESCRIPTION.
+#' THIS IS A TEST DESCRIPTION.
 #'
 #' @param K The number of endpoints.
 #' @param n1 The sample size for group 1.
