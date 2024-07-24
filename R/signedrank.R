@@ -1,4 +1,10 @@
-#' Power calculations for signed-rank test
+#' Power calculation for signed-rank test
+#'
+#' @description
+#' The signed-rank test is a nonparametric alternative to a one-sample or paired t test. This function
+#' performs power and sample size calculations for the signed-rank test using Noether's approximation;
+#' see Noether (1987) Sample size determination for some common nonparametric tests. JASA 82(398):645-647.
+#'
 #'
 #' @param N The sample size; number of observations or paired differences.
 #' @param ps The probability that the sum of two values exceeds zero when the alternative hypothesis is true.
