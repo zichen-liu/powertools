@@ -2,7 +2,7 @@
 #'
 #' @description
 #' This function performs power and sample size calculations for a one-sample z test,
-#' which is a one-sample t test with the variance assumed to be known.
+#' which is analogous to a one-sample t test with the variance assumed to be known.
 #'
 #' @param N The sample size.
 #' @param delta muA (the true mean) - mu0 (the mean under the null).
