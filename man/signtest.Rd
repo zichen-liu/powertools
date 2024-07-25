@@ -2,7 +2,7 @@
 % Please edit documentation in R/signtest.R
 \name{signtest}
 \alias{signtest}
-\title{Power calculation for sign test (one-sample test for a median)}
+\title{Power calculation for sign test}
 \usage{
 signtest(N = NULL, p = NULL, alpha = 0.05, power = NULL, sides = 2, v = FALSE)
 }
