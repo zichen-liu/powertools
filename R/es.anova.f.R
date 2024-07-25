@@ -1,4 +1,13 @@
-#' Cohen's f effect size calculation for one- or two- way analysis of variance
+#' Cohen f effect size calculation for one- or two- way analysis of variance
+#'
+#' @description
+#' Takes as input the cell or group means for a one- or two-way ANOVA and the common
+#' standard deviation and outputs the f effect size, as defined by Cohen (1988).
+#'
+#' @details
+#' Cohen J (1988) Statistical Power Analysis for the Behavioral Sciences, 2nd edition.
+#' Lawrence Erlbaum Associates, Hillsdale, New Jersey
+#'
 #'
 #' @param means A vector or matrix of group means.
 #' @param sd The estimated standard deviation within each group.
