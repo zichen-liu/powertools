@@ -34,6 +34,10 @@ The signed-rank test is a nonparametric alternative to a one-sample or paired t 
 performs power and sample size calculations for the signed-rank test using Noether's approximation;
 see Noether (1987) Sample size determination for some common nonparametric tests. JASA 82(398):645-647.
 }
+\details{
+Due to symmetry, the power for p is equal to the power for 1 - p. Therefore,
+when solving for p, two values, p and 1 - p, are returned.
+}
 \examples{
 signedrank(N = 20, ps = 0.87, power = NULL, sides = 2)
 }

@@ -1,4 +1,4 @@
-#' Power calculation for sign test (one-sample test for a median)
+#' Power calculation for sign test
 #'
 #' @description
 #' The sign test is a nonparametric one-sample test of location, specifically,
