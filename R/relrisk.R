@@ -1,10 +1,10 @@
-#' Power calculations for relative risk
+#' Power calculation for relative risk
 #'
 #' @param n1 The sample size for group 1.
 #' @param n.ratio The ratio n2/n1 between the sample sizes of two groups; defaults to 1 (equal group sizes).
 #' @param p1 The proportion in group 1.
 #' @param p2 The proportion in group 2.
-#' @param RR0 The relative risk under the null; defaults to 1.
+#' @param RR0 The relative risk under the null (p2/p1); defaults to 1.
 #' @param alpha The significance level or type 1 error rate; defaults to 0.05.
 #' @param power The specified level of power.
 #' @param sides Either 1 or 2 (default) to specify a one- or two- sided hypothesis test.
@@ -38,7 +38,7 @@ relrisk <- function (n1 = NULL, n.ratio = 1, p1 = NULL, p2 = NULL, RR0 = 1,
     q1 <- 1 - p1
     q2 <- 1 - p2
     denom <- (1 / n1) * (q1 / p1 + q2 / (n.ratio * p2))
-    (stats::qnorm(alpha / sides) + d / sqrt(denom))
+    (stats:: pnorm(qnorm(alpha / sides) + d / sqrt(denom)))
   })
 
   # Use stats::uniroot function to calculate missing argument
