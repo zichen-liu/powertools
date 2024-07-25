@@ -6,7 +6,10 @@
 #' equals (or is less than or greater than) zero. Its typical use is in place of
 #' a one-sample or paired t test when the normality assumption is violated.
 #' This function performs power and sample size calculations for a sign test
-#' using the normal approximation to the binomial distribution. Power calculation
+#' using the normal approximation to the binomial distribution, based on
+#' Noether (1987) Sample size determination for some common nonparametric tests. JASA 82(398):645-647.
+#'
+#' Power calculation
 #' for an exact sign test using the exact binomial test can be performed
 #' using the power_binom_test function from the MESS package;
 #' see Crespi CM (2025) Power and Sample Size in R. Routledge, New York, NY.
