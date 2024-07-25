@@ -1,7 +1,16 @@
-#' Cohen's h effect size calculation for two proportions
+#' Cohen h effect size calculation for two proportions
 #'
-#' @param p1 The proportion in group 1.
-#' @param p2 The proportion in group 2.
+#' @description
+#' Takes as input the outcome proportions in two groups and returns the h effect size
+#' as defined by Cohen (1988).
+#'
+#' @details
+#' Cohen J (1988) Statistical Power Analysis for the Behavioral Sciences, 2nd edition.
+#' Lawrence Erlbaum Associates, Hillsdale, New Jersey
+#'
+#'
+#' @param p1 The outcome proportion in group 1.
+#' @param p2 The outcome proportion in group 2.
 #'
 #' @return A list of the arguments and the h effect size.
 #' @export
@@ -19,7 +28,7 @@ es.h <- function (p1 = NULL, p2 = NULL) {
   h <- 2 * asin(sqrt(p1)) - 2 * asin(sqrt(p2))
 
   # Print output as a power.htest object
-  METHOD <- "Cohen's h effect size calculation for two proportions"
+  METHOD <- "Cohen h effect size calculation for two proportions"
   structure(list(p1 = p1, p2 = p2, h = h,
                  method = METHOD), class = "power.htest")
 

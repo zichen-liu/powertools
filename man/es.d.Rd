@@ -2,7 +2,7 @@
 % Please edit documentation in R/es.d.R
 \name{es.d}
 \alias{es.d}
-\title{Cohen's d effect size calculation for one or two means}
+\title{Cohen d effect size calculation for one or two means}
 \usage{
 es.d(delta = NULL, sd = 1)
 }
@@ -15,7 +15,13 @@ es.d(delta = NULL, sd = 1)
 A list of the arguments and the d effect size.
 }
 \description{
-Cohen's d effect size calculation for one or two means
+This function takes as inputs a difference between two means and a standard deviation
+and outputs the d effect size as defined by Cohen (1988),
+also called the standardized mean difference.
+}
+\details{
+Cohen J (1988) Statistical Power Analysis for the Behavioral Sciences, 2nd edition.
+Lawrence Erlbaum Associates, Hillsdale, New Jersey
 }
 \examples{
 es.d(delta = 6.5 - 5.7, sd = 0.4)
