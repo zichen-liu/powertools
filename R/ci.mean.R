@@ -10,7 +10,7 @@
 #' (i.e., that the observed halfwidth does not exceed the desired halfwidth)
 #' regardless of whether or not the confidence interval includes the true parameter value.
 #' The conditional probability is the probability of both obtaining the desired precision and having
-#' the interval includes the true parameter value.
+#' the interval include the true parameter value.
 #'
 #'
 #'
