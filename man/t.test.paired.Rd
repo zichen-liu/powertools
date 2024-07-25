@@ -2,7 +2,7 @@
 % Please edit documentation in R/t.test.paired.R
 \name{t.test.paired}
 \alias{t.test.paired}
-\title{Power calculations for paired t tests}
+\title{Power calculation for paired t test}
 \usage{
 \method{t}{test.paired}(
   N = NULL,
@@ -17,7 +17,7 @@
 )
 }
 \arguments{
-\item{N}{The sample size; the number of pairs.}
+\item{N}{The sample size; if the observations are paired differences, this is the number of pairs.}
 
 \item{delta}{DeltaA (the true mean difference) - Delta0 (the mean difference under the null).}
 
@@ -27,19 +27,19 @@
 
 \item{rho}{The estimated correlation between pre and post measurements on the same individual.}
 
-\item{alpha}{The significance level or type 1 error rate; defaults to 0.05.}
+\item{alpha}{The significance level (type 1 error rate); defaults to 0.05.}
 
 \item{power}{The specified level of power.}
 
 \item{sides}{Either 1 or 2 (default) to specify a one- or two- sided hypothesis test.}
 
-\item{v}{Either TRUE for verbose output or FALSE to output computed argument only.}
+\item{v}{Either TRUE for verbose output or FALSE (default) to output computed argument only.}
 }
 \value{
 A list of the arguments (including the computed one).
 }
 \description{
-Power calculations for paired t tests
+Power calculation for paired t test
 }
 \examples{
 t.test.paired(N = NULL, delta = 4, sd1 = 10, sd2 = 10, rho = 0.4, power = 0.8, sides = 2)

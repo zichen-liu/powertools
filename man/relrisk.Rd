@@ -2,7 +2,7 @@
 % Please edit documentation in R/relrisk.R
 \name{relrisk}
 \alias{relrisk}
-\title{Power calculations for relative risk}
+\title{Power calculation for relative risk}
 \usage{
 relrisk(
   n1 = NULL,
@@ -25,7 +25,7 @@ relrisk(
 
 \item{p2}{The proportion in group 2.}
 
-\item{RR0}{The relative risk under the null; defaults to 1.}
+\item{RR0}{The relative risk under the null (p2/p1); defaults to 1.}
 
 \item{alpha}{The significance level or type 1 error rate; defaults to 0.05.}
 
@@ -39,7 +39,7 @@ relrisk(
 A list of the arguments (including the computed one).
 }
 \description{
-Power calculations for relative risk
+Power calculation for relative risk
 }
 \examples{
 relrisk(n1 = NULL, n.ratio = 1/6, p1 = 0.1, p2 = 0.1 * 2, power = 0.8)
