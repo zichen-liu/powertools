@@ -10,10 +10,10 @@
 #' @param delta DeltaA (the true difference mu1 - mu2) - Delta0 (the difference under the null) - margin See margin.sign for guidance on the sign of the margin.
 #' @param sd1 The estimated standard deviation for group 1; defaults to 1 (equal standard deviations in the two groups).
 #' @param sd.ratio The ratio sd2/sd1 between the standard deviations of the two groups.
-#' @param alpha The significance level or type 1 error rate; defaults to 0.05.
+#' @param alpha The significance level (type 1 error rate); defaults to 0.05.
 #' @param power The specified level of power.
 #' @param sides Either 1 or 2 (default) to specify a one- or two- sided hypothesis test.
-#' @param v Either TRUE for verbose output or FALSE to output computed argument only.
+#' @param v Either TRUE for verbose output or FALSE (default) to output computed argument only.
 #'
 #' @return A list of the arguments (including the computed one).
 #' @export
