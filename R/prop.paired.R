@@ -4,17 +4,14 @@
 #' Performs power and sample size calculation for McNemar test of two correlated
 #' proportions using normal approximation.
 #'
-#' @details
-#' Either p1, p2 and phi OR paid and dpr must be specified.
-#'
 #'
 #'
 #' @param N The sample size; the number of pairs.
-#' @param p1 The proportion in condition 1.
-#' @param p2 The proportion in condition 2.
-#' @param phi The estimated correlation between the two conditions.
+#' @param p1 The outcome proportion under condition 1.
+#' @param p2 The outcome proportion under condition 2.
+#' @param phi The correlation between the two responses from an individual.
 #' @param paid The smaller of the two discordant probabilities. Either p1, p2 and phi, OR paid and dpr must be specified.
-#' @param dpr The discordant proportion ratio. Either p1, p2, and phi, OR paid and dpr must be specified.
+#' @param dpr The discordant proportion ratio. Must be greater than or equal to 1. Either p1, p2, and phi, OR paid and dpr must be specified.
 #' @param alpha The significance level (type 1 error rate); defaults to 0.05.
 #' @param power The specified level of power.
 #' @param sides Either 1 or 2 (default) to specify a one- or two- sided hypothesis test.
