@@ -1,12 +1,17 @@
-#' Power calculations for one correlation coefficient
+#' Power calculation for test of one correlation coefficient
+#'
+#' @description
+#' Calculates power and sample size for a test that the correlation coefficient in a single population
+#' is equal to (or less than or greater than) a specified value.
+#'
 #'
 #' @param N The sample size.
 #' @param rho0 The correlation coefficient under the null hypothesis; defaults to 0.
 #' @param rhoA The correlation coefficient under the alternative hypothesis.
-#' @param alpha The significance level or type 1 error rate; defaults to 0.05.
+#' @param alpha The significance level (type 1 error rate); defaults to 0.05.
 #' @param power The specified level of power.
 #' @param sides Either 1 or 2 (default) to specify a one- or two- sided hypothesis test.
-#' @param v Either TRUE for verbose output or FALSE to output computed argument only.
+#' @param v Either TRUE for verbose output or FALSE (default) to output computed argument only.
 #'
 #' @return A list of the arguments (including the computed one).
 #' @export
