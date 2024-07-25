@@ -8,14 +8,13 @@
 #' This function performs power and sample size calculations for a sign test
 #' using the normal approximation to the binomial distribution. Power calculation
 #' for an exact sign test using the exact binomial test can be performed
-#' using the power_binom_test function from the MESS package; see Crespi (2025).
+#' using the power_binom_test function from the MESS package;
+#' see Crespi CM (2025) Power and Sample Size in R. Routledge, New York, NY.
 #'
-#' Due to symmetry, the power for p is equal to the power for 1 - p. Therefore,
-#' when solving for p, two values, p and 1 - p, are returned.
 #'
 #' @details
-#' Crespi CM (2025) Power and Sample Size in R. Routledge, New York, NY.
-#'
+#' Due to symmetry, the power for p is equal to the power for 1 - p. Therefore,
+#' when solving for p, two values, p and 1 - p, are returned.
 #'
 #'
 #' @param N The sample size.
