@@ -8,7 +8,7 @@ Authors@R: c(
     person("Zichen", "Liu", "", "zichenliu@ucla.edu", role = "aut"))
 Description: This package contains functions for performing power and sample size calculations 
     for a wide variety of different study designs and outcomes.   
-    The package is a companion to the book Power and Sample Size in R (2025) by 
+    The package is a companion to the book "Power and Sample Size in R"" (2025) by 
     Catherine M. Crespi.
 License: MIT + file LICENSE
 Encoding: UTF-8
