@@ -1,17 +1,26 @@
 #' Power calculation for sign test (one-sample test for a median)
 #'
 #' @description
-#' The sign test is a one-sample test of location, specifically, a test of whether the median
-#' equals (or is less than or greater than) zero. It is used in place of a one-sample or paired t test.
-#' This function performs power and sample size calculations for a sign test.
+#' The sign test is a nonparametric one-sample test of location, specifically,
+#' a test of whether the median
+#' equals (or is less than or greater than) zero. Its typical use is in place of
+#' a one-sample or paired t test when the normality assumption is violated.
+#' This function performs power and sample size calculations for a sign test
+#' using the normal approximation to the binomial distribution. Power calculation
+#' for an exact sign test using the exact binomial test can be performed
+#' using the power_binom_test function from the MESS package; see Crespi (2025).
+#'
+#' @details
+#' Crespi CM (2025) Power and Sample Size in R. Routledge, New York, NY.
+#'
 #'
 #'
 #' @param N The sample size.
 #' @param p The probability of a positive difference when the alternative hypothesis is true.
-#' @param alpha The significance level or type 1 error rate; defaults to 0.05.
+#' @param alpha The significance level (type 1 error rate); defaults to 0.05.
 #' @param power The specified level of power.
 #' @param sides Either 1 or 2 (default) to specify a one- or two-sided hypothesis test.
-#' @param v Either TRUE for verbose output or FALSE to output computed argument only.
+#' @param v Either TRUE for verbose output or FALSE (default) to output computed argument only.
 #'
 #' @return A list of the arguments (including the computed one).
 #' @export
