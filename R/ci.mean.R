@@ -2,7 +2,7 @@
 #'
 #' @description
 #' Calculates the "power" of a confidence interval for one mean, that is, the probability
-#' of achieving a 100(1 - alpha)% confidence interval with halfwidth not greater
+#' of achieving a 100(1 - alpha) percent confidence interval with halfwidth not greater
 #' than a specified value.
 #'
 #' @details
