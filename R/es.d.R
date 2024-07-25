@@ -1,4 +1,10 @@
-#' Cohen's d effect size calculation for one or two means
+#' Cohen d effect size calculation for one or two means
+#'
+#' @description
+#' This function takes as inputs a difference between two means and a standard deviation
+#' and outputs the Cohen d effect size,
+#' also called the standardized mean difference.
+#'
 #'
 #' @param delta If one mean: muA (the true mean) - mu0 (the mean under the null). If two means: DeltaA (the true difference mu1 - mu2) - Delta0 (the difference under the null).
 #' @param sd The estimated standard deviation; defaults to 1.
