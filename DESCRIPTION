@@ -4,11 +4,16 @@ Title: powertools: Power and Sample Size Tools
 Version: 0.1.0
 Authors@R: c(
     person("Catherine", "Crespi", "M", "ccrespi@ucla.edu", role = "cre"),
-    person("Kristen", "McGreevy", "M", "kristenmae@ucla.edu", role = "aut"),
-    person("Yixuan", "Zhou", "", "jyixzhou@g.ucla.edu", role = "aut"),
+    person("Kristen", "McGreevy", "M", role = "aut"),
+    person("Yixuan", "Zhou", "", role = "aut"),
     person("Sundin", "Phillip", role = "aut"),
     person("Zichen", "Liu", "", "zichenliu@ucla.edu", role = "aut"))
-Description: This package accompanies the book Power and Sample Size in R by 
+Description: This package contains functions for performing power and sample size calculations 
+    for a wide variety of different study designs and outcomes, including t tests, ANOVA, ANCOVA, 
+    comparison of proportions using normal approximation and exact methods, categorical variables,
+    power for confidence intervals, linear, logistic and Poisson regression, crossover studies,
+    cluster randomized trials, multisite studies, time to event outcomes and mutliple primary outcomes.   
+    The package is a companion to the book Power and Sample Size in R (2025) by 
     Catherine M. Crespi.
 License: MIT + file LICENSE
 Encoding: UTF-8
