@@ -2,7 +2,7 @@
 % Please edit documentation in R/prop.2samp.R
 \name{prop.2samp}
 \alias{prop.2samp}
-\title{Power calculations for two sample proportion tests}
+\title{Power calculation for two-sample proportion test}
 \usage{
 prop.2samp(
   n1 = NULL,
@@ -27,19 +27,20 @@ prop.2samp(
 
 \item{margin}{The margin of noninferiority or superiority; defaults to 0. See margin.sign for guidance on the sign of margin.}
 
-\item{alpha}{The significance level or type 1 error rate; defaults to 0.05.}
+\item{alpha}{The significance level (type 1 error rate); defaults to 0.05.}
 
 \item{power}{The specified level of power.}
 
 \item{sides}{Either 1 or 2 (default) to specify a one- or two- sided hypothesis test.}
 
-\item{v}{Either TRUE for verbose output or FALSE to output computed argument only.}
+\item{v}{Either TRUE for verbose output or FALS (default)E to output computed argument only.}
 }
 \value{
 A list of the arguments (including the computed one).
 }
 \description{
-Power calculations for two sample proportion tests
+Performs power and sample size calculations for two-sample tests of proportions
+using normal approximation to the binomial.
 }
 \examples{
 prop.2samp(n1 = NULL, p1 = 0.6, p2 = 0.8, alpha = 0.025, power = 0.9, sides = 1)

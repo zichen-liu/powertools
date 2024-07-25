@@ -2,7 +2,7 @@
 % Please edit documentation in R/prop.1samp.R
 \name{prop.1samp}
 \alias{prop.1samp}
-\title{Power calculations for one sample proportion tests}
+\title{Power calculation for one-sample proportion test}
 \usage{
 prop.1samp(
   N = NULL,
@@ -21,19 +21,20 @@ prop.1samp(
 
 \item{pA}{The true proportion.}
 
-\item{alpha}{The significance level or type 1 error rate; defaults to 0.05.}
+\item{alpha}{The significance level (type 1 error rate); defaults to 0.05.}
 
 \item{power}{The specified level of power.}
 
 \item{sides}{Either 1 or 2 (default) to specify a one- or two- sided hypothesis test.}
 
-\item{v}{Either TRUE for verbose output or FALSE to output computed argument only.}
+\item{v}{Either TRUE for verbose output or FALSE (default) to output computed argument only.}
 }
 \value{
 A list of the arguments (including the computed one).
 }
 \description{
-Power calculations for one sample proportion tests
+Performs power and sample size calculations for a one-sample test of a proportion.
+Calculations use the normal approximation to the binomial.
 }
 \examples{
 prop.1samp(N = NULL, p0 = 0.2, pA = 0.3, power = 0.8, sides = 1)
