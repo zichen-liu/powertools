@@ -2,7 +2,7 @@
 % Please edit documentation in R/corr.1samp.R
 \name{corr.1samp}
 \alias{corr.1samp}
-\title{Power calculations for one correlation coefficient}
+\title{Power calculation for test of one correlation coefficient}
 \usage{
 corr.1samp(
   N = NULL,
@@ -21,19 +21,20 @@ corr.1samp(
 
 \item{rhoA}{The correlation coefficient under the alternative hypothesis.}
 
-\item{alpha}{The significance level or type 1 error rate; defaults to 0.05.}
+\item{alpha}{The significance level (type 1 error rate); defaults to 0.05.}
 
 \item{power}{The specified level of power.}
 
 \item{sides}{Either 1 or 2 (default) to specify a one- or two- sided hypothesis test.}
 
-\item{v}{Either TRUE for verbose output or FALSE to output computed argument only.}
+\item{v}{Either TRUE for verbose output or FALSE (default) to output computed argument only.}
 }
 \value{
 A list of the arguments (including the computed one).
 }
 \description{
-Power calculations for one correlation coefficient
+Calculates power and sample size for a test that the correlation coefficient in a single population
+is equal to (or less than or greater than) a specified value.
 }
 \examples{
 corr.1samp(N = 100, rhoA = 0.2, sides = 1)
