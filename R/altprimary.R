@@ -1,7 +1,25 @@
 #' Power calculation for multiple alternative (at least one) primary continuous endpoints assuming known covariance matrix
 #'
 #' @description
-#' A short description... THIS IS A TEST DESCRIPTION.
+#' Calculates power and sample size in the case of comparing two groups on the means of K
+#' continuous endpoints and concluding that the trial is a "success" if the
+#' null hypothesis is rejected for at least one of the K endpoints. Based on Sozu et al. (2015).
+#' All mean differences must be specified as positive; the scale for some outcomes may need to be reversed
+#' to meet this condition. All tests are assumed to be one-sided.
+#'
+#' To use a Bonferroni correction for multiple comparisons, specify alpha as
+#' the desired family-wise error rate (FWER) divided by K. For example, for one-sided FWER of 0.025
+#' and K = 2 endpoints, specify alpha as 0.0125.
+#'
+#' A known covariance matrix is assumed, which can result in a slight overestimate of power and
+#' underestimate of required sample size.
+#'
+#'
+#' @details
+#' Sozu T, Sugimoto T, Hamasaki T, Evans SR (2015)
+#' Sample Size Determination in Clinical Trials with Multiple Endpoints.
+#' Springer International Publishing, Switzerland.
+#'
 #'
 #' @param K The number of endpoints.
 #' @param n1 The sample size for group 1.
@@ -10,10 +28,10 @@
 #' @param Sigma The covariance matrix of the K outcomes, of dimension K x K.
 #' @param sd A vector of length K of the standard deviations of the K outcomes.
 #' @param rho A vector of length 0.5*K*(K-1) of the correlations among the K outcomes.
-#' @param alpha The significance level or type 1 error rate; defaults to 0.025. A one-sided test is assumed.
+#' @param alpha The significance level (type 1 error rate) for each test; defaults to 0.025. A one-sided test is assumed.
 #' @param power The specified level of power.
 #' @param tol The desired accuracy (convergence tolerance) for uniroot.
-#' @param v Either TRUE for verbose output or FALSE to output computed argument only.
+#' @param v Either TRUE for verbose output or FALSE (default) to output computed argument only.
 #'
 #' @return A list of the arguments (including the computed one).
 #' @import mvtnorm
@@ -93,7 +111,7 @@ altprimary <- function(K, n1 = NULL, n.ratio = 1, delta = NULL, Sigma, sd, rho,
     ssize.fct <- function(n1, n.ratio, std.effect, z.alpha, Sigma.cor, power){
       crit.vals <- z.alpha - sqrt(n1*(n.ratio/(1+n.ratio)))*std.effect
 
-      mvtnorm::pmvnorm(lower = -crit.vals, sigma = Sigma.cor) - (1- power)
+      mvtnorm::pmvnorm(lower = -crit.vals, sigma = Sigma.cor) - (1 - power)
     }
     n1 <- stats::uniroot(ssize.fct, c(2, 1e+05), tol = tol, extendInt = "yes",
                          n.ratio = n.ratio, std.effect = std.effect, z.alpha = z.alpha, Sigma.cor = Sigma.cor,
