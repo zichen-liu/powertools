@@ -2,7 +2,7 @@
 % Please edit documentation in R/crt.parallel.bin.R
 \name{crt.parallel.bin}
 \alias{crt.parallel.bin}
-\title{Power for a cluster randomized trial with a binary outcome}
+\title{Power calculation for cluster randomized trial with binary outcome}
 \usage{
 crt.parallel.bin(
   m = NULL,
@@ -22,15 +22,15 @@ crt.parallel.bin(
 
 \item{m.sd}{The standard deviation of cluster sizes (provide if unequal number of participants per cluster); defaults to 0.}
 
-\item{J}{The number of clusters.}
+\item{J}{The total number of clusters (over both arms).}
 
 \item{pc}{The probability of the outcome in control clusters.}
 
 \item{pt}{The probability of the outcome in treatment clusters.}
 
-\item{sigma.u}{Standard deviation of the cluster random effect.}
+\item{sigma.u}{Standard deviation of the cluster random effect (random intercept).}
 
-\item{alpha}{The significance level or type 1 error rate; defaults to 0.05.}
+\item{alpha}{The significance level (type 1 error rate); defaults to 0.05.}
 
 \item{power}{The specified level of power.}
 
@@ -42,7 +42,12 @@ crt.parallel.bin(
 A list of the arguments (including the computed one).
 }
 \description{
-Power for a cluster randomized trial with a binary outcome
+This function performs power and sample size calculations for a two-arm cluster randomized trial
+with a binary outcome. It assumes the outcome analysis will be conducted using a mixed effect logistic
+regression model that has a random intercept for cluster.
+}
+\details{
+For help selecting a reasonable value for sigma.u, use the crt.varexplore function.
 }
 \examples{
 crt.parallel.bin(m = 60, J = NULL, pc = 0.25, pt = 0.15, sigma.u = 0.3, power = 0.8)

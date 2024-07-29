@@ -33,19 +33,35 @@ altprimary(
 
 \item{rho}{A vector of length 0.5*K*(K-1) of the correlations among the K outcomes.}
 
-\item{alpha}{The significance level or type 1 error rate; defaults to 0.025. A one-sided test is assumed.}
+\item{alpha}{The significance level (type 1 error rate) for each test; defaults to 0.025. A one-sided test is assumed.}
 
 \item{power}{The specified level of power.}
 
 \item{tol}{The desired accuracy (convergence tolerance) for uniroot.}
 
-\item{v}{Either TRUE for verbose output or FALSE to output computed argument only.}
+\item{v}{Either TRUE for verbose output or FALSE (default) to output computed argument only.}
 }
 \value{
 A list of the arguments (including the computed one).
 }
 \description{
-A short description... THIS IS A TEST DESCRIPTION.
+Calculates power and sample size in the case of comparing two groups on the means of K
+continuous endpoints and concluding that the trial is a "success" if the
+null hypothesis is rejected for at least one of the K endpoints. Based on Sozu et al. (2015).
+All mean differences must be specified as positive; the scale for some outcomes may need to be reversed
+to meet this condition. All tests are assumed to be one-sided.
+
+To use a Bonferroni correction for multiple comparisons, specify alpha as
+the desired family-wise error rate (FWER) divided by K. For example, for one-sided FWER of 0.025
+and K = 2 endpoints, specify alpha as 0.0125.
+
+A known covariance matrix is assumed, which can result in a slight overestimate of power and
+underestimate of required sample size.
+}
+\details{
+Sozu T, Sugimoto T, Hamasaki T, Evans SR (2015)
+Sample Size Determination in Clinical Trials with Multiple Endpoints.
+Springer International Publishing, Switzerland.
 }
 \examples{
 altprimary(K = 2, n1 = 100, delta = c(0.4, 0.5), sd = c(1, 1), rho = 0.3,

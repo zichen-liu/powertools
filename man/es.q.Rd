@@ -2,7 +2,7 @@
 % Please edit documentation in R/es.q.R
 \name{es.q}
 \alias{es.q}
-\title{Cohen's q effect size calculation for two correlation coefficients}
+\title{Cohen q effect size calculation for two correlation coefficients}
 \usage{
 es.q(rho1 = NULL, rho2 = NULL)
 }
@@ -15,7 +15,11 @@ es.q(rho1 = NULL, rho2 = NULL)
 A list of the arguments and the q effect size.
 }
 \description{
-Cohen's q effect size calculation for two correlation coefficients
+Calculates the q effect size for comparing two correlation coefficients. Based on Cohen (1988).
+}
+\details{
+Cohen J (1988) Statistical Power Analysis for the Behavioral Sciences, 2nd edition.
+Lawrence Erlbaum Associates, Hillsdale, New Jersey
 }
 \examples{
 es.q(rho1 = 0.3, rho2 = 0.1)
