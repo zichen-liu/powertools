@@ -1,15 +1,21 @@
-#' Power for an individual randomized group treatment trial with binary outcomes
+#' Power for individual randomized group treatment trial with binary outcome
 #'
-#' @param m The number of subjects per cluster in the treatment group.
-#' @param J The number of clusters in the treatment group.
-#' @param n The number of total participants in the control group.
-#' @param p1 The probability of the outcome in the control group.
-#' @param p2 The probability of the outcome in the intervention group.
-#' @param icc The intraclass correlation coefficient in the treatment group; defaults to 0.
-#' @param alpha The significance level or type 1 error rate; defaults to 0.05.
+#' @description
+#' COmputes power and sample size for an individually randomized group treatment trial with
+#' a binary outcome, in which after individual randomization, individuals in the
+#' intervention/treatment arm are clustered.
+#'
+#'
+#' @param m The number of subjects per cluster in the intervention arm.
+#' @param J The total number of clusters in the intervention arm.
+#' @param n The total number of participants in the control arm.
+#' @param p1 The probability of the outcome in the control arm.
+#' @param p2 The probability of the outcome in the intervention arm.
+#' @param icc The intraclass correlation coefficient in the intervention arm; defaults to 0.
+#' @param alpha The significance level (type 1 error rate); defaults to 0.05.
 #' @param power The specified level of power.
-#' @param sides Either 1 or 2 (default) to specify a one- or two- sided hypothesis test.
-#' @param v Either TRUE for verbose output or FALSE to output computed argument only.
+#' @param sides Either 1 or 2 (default) to specify a one- or two-sided hypothesis test.
+#' @param v Either TRUE for verbose output or FALSE (default) to output computed argument only.
 #'
 #' @return A list of the arguments (including the computed one).
 #' @export
