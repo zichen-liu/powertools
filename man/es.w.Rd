@@ -2,7 +2,7 @@
 % Please edit documentation in R/es.w.R
 \name{es.w}
 \alias{es.w}
-\title{Cohen's w effect size calculation for chi-square tests}
+\title{Cohen w effect size calculation for chi-square tests}
 \usage{
 es.w(p0vec = NULL, p1vec = NULL, pmatrix = NULL)
 }
@@ -17,7 +17,13 @@ es.w(p0vec = NULL, p1vec = NULL, pmatrix = NULL)
 A list of the arguments and the w effect size.
 }
 \description{
-Cohen's w effect size calculation for chi-square tests
+Calculates the w effect size for chi-square tests. For chi-square goodness of fit tests, specify
+p0vec and p1vec. For chi-square tests of independence, provide a matrix of cell probabilities.
+Based on Cohen (1988).
+}
+\details{
+Cohen J (1988) Statistical Power Analysis for the Behavioral Sciences, 2nd edition.
+Lawrence Erlbaum Associates, Hillsdale, New Jersey
 }
 \examples{
 es.w(p0vec = c(0.5, 0.3, 0.2), p1vec = c(0.7, 0.2, 0.1))

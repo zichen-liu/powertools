@@ -1,4 +1,4 @@
-#' Power calculation for one sample z test
+#' Power calculation for one-sample z test
 #'
 #' @description
 #' This function performs power and sample size calculations for a one-sample z test,
@@ -7,10 +7,10 @@
 #' @param N The sample size.
 #' @param delta muA (the true mean) - mu0 (the mean under the null).
 #' @param sd The estimated standard deviation; defaults to 1.
-#' @param alpha The significance level or type 1 error rate; defaults to 0.05.
+#' @param alpha The significance level (type 1 error rate); defaults to 0.05.
 #' @param power The specified level of power.
 #' @param sides Either 1 or 2 (default) to specify a one- or two- sided hypothesis test.
-#' @param v Either TRUE for verbose output or FALSE to output computed argument only.
+#' @param v Either TRUE for verbose output or FALSE (default) to output computed argument only.
 #'
 #' @return A list of the arguments (including the computed one).
 #' @export

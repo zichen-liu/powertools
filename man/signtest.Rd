@@ -2,7 +2,7 @@
 % Please edit documentation in R/signtest.R
 \name{signtest}
 \alias{signtest}
-\title{Power calculation for sign test (one-sample test for a median)}
+\title{Power calculation for sign test}
 \usage{
 signtest(N = NULL, p = NULL, alpha = 0.05, power = NULL, sides = 2, v = FALSE)
 }
@@ -11,21 +11,34 @@ signtest(N = NULL, p = NULL, alpha = 0.05, power = NULL, sides = 2, v = FALSE)
 
 \item{p}{The probability of a positive difference when the alternative hypothesis is true.}
 
-\item{alpha}{The significance level or type 1 error rate; defaults to 0.05.}
+\item{alpha}{The significance level (type 1 error rate); defaults to 0.05.}
 
 \item{power}{The specified level of power.}
 
 \item{sides}{Either 1 or 2 (default) to specify a one- or two-sided hypothesis test.}
 
-\item{v}{Either TRUE for verbose output or FALSE to output computed argument only.}
+\item{v}{Either TRUE for verbose output or FALSE (default) to output computed argument only.}
 }
 \value{
 A list of the arguments (including the computed one).
 }
 \description{
-The sign test is a one-sample test of location, specifically, a test of whether the median
-equals (or is less than or greater than) zero. It is used in place of a one-sample or paired t test.
-This function performs power and sample size calculations for a sign test.
+The sign test is a nonparametric one-sample test of location, specifically,
+a test of whether the median
+equals (or is less than or greater than) zero. Its typical use is in place of
+a one-sample or paired t test when the normality assumption is violated.
+This function performs power and sample size calculations for a sign test
+using the normal approximation to the binomial distribution, based on
+Noether (1987) Sample size determination for some common nonparametric tests. JASA 82(398):645-647.
+
+Power calculation
+for an exact sign test using the exact binomial test can be performed
+using the power_binom_test function from the MESS package;
+see Crespi CM (2025) Power and Sample Size in R. Routledge, New York, NY.
+}
+\details{
+Due to symmetry, the power for p is equal to the power for 1 - p. Therefore,
+when solving for p, two values, p and 1 - p, are returned.
 }
 \examples{
 signtest(N = 40, p = 0.7, power = NULL, alpha = 0.05, sides = 1)

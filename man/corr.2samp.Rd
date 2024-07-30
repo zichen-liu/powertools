@@ -2,7 +2,7 @@
 % Please edit documentation in R/corr.2samp.R
 \name{corr.2samp}
 \alias{corr.2samp}
-\title{Power calculations for comparing two correlation coefficients}
+\title{Power calculation for comparing two correlation coefficients}
 \usage{
 corr.2samp(
   n1 = NULL,
@@ -24,19 +24,20 @@ corr.2samp(
 
 \item{rho2}{The correlation coefficient in group 2.}
 
-\item{alpha}{The significance level or type 1 error rate; defaults to 0.05.}
+\item{alpha}{The significance level (type 1 error rate); defaults to 0.05.}
 
 \item{power}{The specified level of power.}
 
 \item{sides}{Either 1 or 2 (default) to specify a one- or two- sided hypothesis test.}
 
-\item{v}{Either TRUE for verbose output or FALSE to output computed argument only.}
+\item{v}{Either TRUE for verbose output or FALSE (default) to output computed argument only.}
 }
 \value{
 A list of the arguments (including the computed one).
 }
 \description{
-Power calculations for comparing two correlation coefficients
+Calculates power and sample size for a test that the correlation coefficients in two groups/populations
+are equal.
 }
 \examples{
 corr.2samp(n1 = 300, rho1 = 0.3, rho2 = 0.1, sides = 1)

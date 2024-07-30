@@ -2,7 +2,7 @@
 % Please edit documentation in R/t.test.2samp.R
 \name{t.test.2samp}
 \alias{t.test.2samp}
-\title{Power calculations for two sample t tests allowing for unequal sample sizes and/or variances}
+\title{Power calculation for two-sample t test}
 \usage{
 \method{t}{test.2samp}(
   n1 = NULL,
@@ -30,19 +30,20 @@
 
 \item{df.method}{Method for calculating the degrees of freedom: "welch" (default) or "classical".}
 
-\item{alpha}{The significance level or type 1 error rate; defaults to 0.05.}
+\item{alpha}{The significance level (type 1 error rate); defaults to 0.05.}
 
 \item{power}{The specified level of power.}
 
 \item{sides}{Either 1 or 2 (default) to specify a one- or two- sided hypothesis test.}
 
-\item{v}{Either TRUE for verbose output or FALSE to output computed argument only.}
+\item{v}{Either TRUE for verbose output or FALSE (default) to output computed argument only.}
 }
 \value{
 A list of the arguments (including the computed one).
 }
 \description{
-Power calculations for two sample t tests allowing for unequal sample sizes and/or variances
+This function computes power and sample size for a two-sample t test.
+Unequal sample sizes and/or unequal variances in the two groups are allowed.
 }
 \examples{
 t.test.2samp(n1 = 50, delta = 2, sd1 = 5, sides = 1)

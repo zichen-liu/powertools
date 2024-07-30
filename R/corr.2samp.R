@@ -1,13 +1,18 @@
-#' Power calculations for comparing two correlation coefficients
+#' Power calculation for comparing two correlation coefficients
+#'
+#' @description
+#' Calculates power and sample size for a test that the correlation coefficients in two groups/populations
+#' are equal.
+#'
 #'
 #' @param n1 The sample size for group 1.
 #' @param n.ratio The ratio n2/n1 between the sample sizes of two groups; defaults to 1 (equal group sizes).
 #' @param rho1 The correlation coefficient in group 1.
 #' @param rho2 The correlation coefficient in group 2.
-#' @param alpha The significance level or type 1 error rate; defaults to 0.05.
+#' @param alpha The significance level (type 1 error rate); defaults to 0.05.
 #' @param power The specified level of power.
 #' @param sides Either 1 or 2 (default) to specify a one- or two- sided hypothesis test.
-#' @param v Either TRUE for verbose output or FALSE to output computed argument only.
+#' @param v Either TRUE for verbose output or FALSE (default) to output computed argument only.
 #'
 #' @return A list of the arguments (including the computed one).
 #' @export

@@ -1,5 +1,11 @@
 #' Correlation between a cluster mean at baseline and follow up
 #'
+#' @description
+#' For a cluster randomized trial with a continuous outcome, this function calculates the correlation
+#' between a cluster's mean at baseline and at follow up. For cross-sectional sampling of subjects,
+#' that is, different subjects are measured at baseline and follow up, specify sac = 0.
+#'
+#'
 #' @param m The number of measurements in each cluster at baseline and follow up.
 #' @param icc The intraclass correlation coefficient.
 #' @param cac The cluster autocorrelation.

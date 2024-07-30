@@ -1,4 +1,9 @@
-#' Power for a cluster randomized trial with a continuous outcome
+#' Power for cluster randomized trial with continuous outcome
+#'
+#' @description
+#' This function performs power and sample size calculations for a two-arm cluster randomized trial
+#' with a continuous, normal outcome.
+#'
 #'
 #' @param m The number of subjects per cluster or the mean cluster size (if unequal number of participants per cluster).
 #' @param m.sd The standard deviation of cluster sizes (provide if unequal number of participants per cluster); defaults to 0.
@@ -11,10 +16,10 @@
 #' @param RsqB The estimated proportion of total variance explained by cluster-level covariates; defaults to 0.
 #' @param RsqW The estimated proportion of total variance explained by individual-level covariates; defaults to 0.
 #' @param ncov The number of cluster-level and individual-level covariates; defaults to 0.
-#' @param alpha The significance level or type 1 error rate; defaults to 0.05.
+#' @param alpha The significance level (type 1 error rate); defaults to 0.05.
 #' @param power The specified level of power.
 #' @param sides Either 1 or 2 (default) to specify a one- or two- sided hypothesis test.
-#' @param v Either TRUE for verbose output or FALSE to output computed argument only.
+#' @param v Either TRUE for verbose output or FALSE (default) to output computed argument only.
 #'
 #' @return A list of the arguments (including the computed one).
 #' @export

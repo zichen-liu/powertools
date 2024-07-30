@@ -1,14 +1,19 @@
-#' Power calculations for two sample proportion tests
+#' Power calculation for two-sample proportion test
+#'
+#' @description
+#' Performs power and sample size calculations for two-sample tests of proportions
+#' using normal approximation to the binomial.
+#'
 #'
 #' @param n1 The sample size for group 1.
 #' @param n.ratio The ratio n2/n1 between the sample sizes of two groups; defaults to 1 (equal group sizes).
 #' @param p1 The proportion in group 1.
 #' @param p2 The proportion in group 2.
 #' @param margin The margin of noninferiority or superiority; defaults to 0. See margin.sign for guidance on the sign of margin.
-#' @param alpha The significance level or type 1 error rate; defaults to 0.05.
+#' @param alpha The significance level (type 1 error rate); defaults to 0.05.
 #' @param power The specified level of power.
 #' @param sides Either 1 or 2 (default) to specify a one- or two- sided hypothesis test.
-#' @param v Either TRUE for verbose output or FALSE to output computed argument only.
+#' @param v Either TRUE for verbose output or FALS (default)E to output computed argument only.
 #'
 #' @return A list of the arguments (including the computed one).
 #' @export

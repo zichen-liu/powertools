@@ -1,4 +1,12 @@
-#' Cohen's f^2 effect size calculation for overall F test
+#' Cohen f^2 effect size for overall F test in multiple linear regression
+#'
+#' @description
+#' Computes the f^2 effect size for an overall F test in a multiple lienar regression model
+#' based on the model R^2 (Rsq). Based on Cohen (1988).
+#'
+#' @details
+#' Cohen J (1988) Statistical Power Analysis for the Behavioral Sciences, 2nd edition.
+#' Lawrence Erlbaum Associates, Hillsdale, New Jersey
 #'
 #' @param Rsq The squared sample multiple correlation coefficient.
 #'
@@ -18,7 +26,7 @@ es.fsq <- function (Rsq = 0.02) {
   fsq <- Rsq / (1 - Rsq)
 
   # Print output as a power.htest object
-  METHOD <- "Cohen's f^2 effect size calculation for overall F test"
+  METHOD <- "Cohen f^2 effect size calculation for overall F test"
   structure(list(Rsq = Rsq, fsq = fsq,
                  method = METHOD), class = "power.htest")
 

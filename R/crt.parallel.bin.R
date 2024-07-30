@@ -1,15 +1,24 @@
-#' Power for a cluster randomized trial with a binary outcome
+#' Power calculation for cluster randomized trial with binary outcome
+#'
+#' @description
+#' This function performs power and sample size calculations for a two-arm cluster randomized trial
+#' with a binary outcome. It assumes the outcome analysis will be conducted using a mixed effect logistic
+#' regression model that has a random intercept for cluster.
+#'
+#' @details
+#' For help selecting a reasonable value for sigma.u, use the crt.varexplore function.
+#'
 #'
 #' @param m The number of subjects per cluster.
 #' @param m.sd The standard deviation of cluster sizes (provide if unequal number of participants per cluster); defaults to 0.
-#' @param J The number of clusters.
+#' @param J The total number of clusters (over both arms).
 #' @param pc The probability of the outcome in control clusters.
 #' @param pt The probability of the outcome in treatment clusters.
-#' @param sigma.u Standard deviation of the cluster random effect.
-#' @param alpha The significance level or type 1 error rate; defaults to 0.05.
+#' @param sigma.u Standard deviation of the cluster random effect (random intercept).
+#' @param alpha The significance level (type 1 error rate); defaults to 0.05.
 #' @param power The specified level of power.
 #' @param sides Either 1 or 2 (default) to specify a one- or two- sided hypothesis test.
-#' @param v Either TRUE for verbose output or FALSE to output computed argument only.
+#' @param v Either TRUE for verbose output or FALSE (default) to output computed argument only.
 #'
 #' @return A list of the arguments (including the computed one).
 #' @export

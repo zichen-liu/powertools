@@ -1,4 +1,8 @@
-#' Power calculations for two sample t tests allowing for unequal sample sizes and/or variances
+#' Power calculation for two-sample t test
+#'
+#' @description
+#' This function computes power and sample size for a two-sample t test.
+#' Unequal sample sizes and/or unequal variances in the two groups are allowed.
 #'
 #' @param n1 The sample size for group 1.
 #' @param n.ratio The ratio n2/n1 between the sample sizes of two groups; defaults to 1 (equal group sizes).
@@ -6,10 +10,10 @@
 #' @param sd1 The estimated standard deviation for group 1; defaults to 1 (equal standard deviations in the two groups).
 #' @param sd.ratio The ratio sd2/sd1 between the standard deviations of the two groups.
 #' @param df.method Method for calculating the degrees of freedom: "welch" (default) or "classical".
-#' @param alpha The significance level or type 1 error rate; defaults to 0.05.
+#' @param alpha The significance level (type 1 error rate); defaults to 0.05.
 #' @param power The specified level of power.
 #' @param sides Either 1 or 2 (default) to specify a one- or two- sided hypothesis test.
-#' @param v Either TRUE for verbose output or FALSE to output computed argument only.
+#' @param v Either TRUE for verbose output or FALSE (default) to output computed argument only.
 #'
 #' @return A list of the arguments (including the computed one).
 #' @export t.test.2samp

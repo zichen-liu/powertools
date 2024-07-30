@@ -10,8 +10,6 @@
 #' @return Ratio that can be multiplied to normal approximation based sample size calculations.
 #' @export
 #'
-#' @keywords internal
-#'
 #' @examples
 #' # Suppose we calculated we needed 80 people using a normal approximation for
 #' # 80% power at 0.05 alpha, then we can update the sample size calculation as:

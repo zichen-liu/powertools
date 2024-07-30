@@ -2,7 +2,7 @@
 % Please edit documentation in R/prop.paired.R
 \name{prop.paired}
 \alias{prop.paired}
-\title{Power approximation for McNemar's test for two correlated proportions}
+\title{Power calculation for McNemar test of two correlated proportions}
 \usage{
 prop.paired(
   N = NULL,
@@ -20,29 +20,30 @@ prop.paired(
 \arguments{
 \item{N}{The sample size; the number of pairs.}
 
-\item{p1}{The proportion in condition 1.}
+\item{p1}{The outcome proportion under condition 1.}
 
-\item{p2}{The proportion in condition 2.}
+\item{p2}{The outcome proportion under condition 2.}
 
-\item{phi}{The estimated correlation between the two conditions.}
+\item{phi}{The correlation between the two responses from an individual.}
 
-\item{paid}{The smaller of the two discordant probabilities. Either p1, p2, and phi, OR paid and dpr must be specified.}
+\item{paid}{The smaller of the two discordant probabilities. Either p1, p2 and phi, OR paid and dpr must be specified.}
 
-\item{dpr}{The discordant proportion ratio. Either p1, p2, and phi, OR paid and dpr must be specified.}
+\item{dpr}{The discordant proportion ratio. Must be greater than or equal to 1. Either p1, p2, and phi, OR paid and dpr must be specified.}
 
-\item{alpha}{The significance level or type 1 error rate; defaults to 0.05.}
+\item{alpha}{The significance level (type 1 error rate); defaults to 0.05.}
 
 \item{power}{The specified level of power.}
 
 \item{sides}{Either 1 or 2 (default) to specify a one- or two- sided hypothesis test.}
 
-\item{v}{Either TRUE for verbose output or FALSE to output computed argument only.}
+\item{v}{Either TRUE for verbose output or FALSE (default) to output computed argument only.}
 }
 \value{
 A list of the arguments (including the computed one).
 }
 \description{
-Power approximation for McNemar's test for two correlated proportions
+Performs power and sample size calculation for McNemar test of two correlated
+proportions using normal approximation.
 }
 \examples{
 prop.paired(N = NULL, p1 = 0.8, p2 = 0.9, phi = 0, power = 0.9, sides = 2)

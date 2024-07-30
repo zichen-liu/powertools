@@ -2,7 +2,7 @@
 % Please edit documentation in R/ci.meandiff.R
 \name{ci.meandiff}
 \alias{ci.meandiff}
-\title{Power calculations for precision analysis for a difference between means}
+\title{Power calculation for precision analysis (confidence interval) for a difference between two means}
 \usage{
 ci.meandiff(
   n1 = NULL,
@@ -24,19 +24,28 @@ ci.meandiff(
 
 \item{sd}{The estimated standard deviation; defaults to 1.}
 
-\item{alpha}{The significance level or type 1 error rate; defaults to 0.05.}
+\item{alpha}{The significance level (type 1 error rate); defaults to 0.05.}
 
 \item{power}{The specified level of power.}
 
 \item{cond}{Specify using unconditional or conditional probability. Defaults to FALSE.}
 
-\item{v}{Either TRUE for verbose output or FALSE to output computed argument only.}
+\item{v}{Either TRUE for verbose output or FALSE (default) to output computed argument only.}
 }
 \value{
 A list of the arguments (including the computed one).
 }
 \description{
-Power calculations for precision analysis for a difference between means
+Calculates the "power" of a confidence interval for a difference between two means, that is, the probability
+of achieving a 100(1 - alpha) percent confidence interval with halfwidth not greater
+than a specified value.
+}
+\details{
+The unconditional probability is the probability of obtaining the desired precision
+(i.e., that the observed halfwidth does not exceed the desired halfwidth)
+regardless of whether or not the confidence interval includes the true parameter value.
+The conditional probability is the probability of both obtaining the desired precision and having
+the interval include the true parameter value.
 }
 \examples{
 ci.meandiff(n1 = NULL, halfwidth = 0.25, power = 0.8)

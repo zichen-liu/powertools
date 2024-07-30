@@ -1,4 +1,12 @@
-#' Cohen's q effect size calculation for two correlation coefficients
+#' Cohen q effect size calculation for two correlation coefficients
+#'
+#' @description
+#' Calculates the q effect size for comparing two correlation coefficients. Based on Cohen (1988).
+#'
+#' @details
+#' Cohen J (1988) Statistical Power Analysis for the Behavioral Sciences, 2nd edition.
+#' Lawrence Erlbaum Associates, Hillsdale, New Jersey
+#'
 #'
 #' @param rho1 The correlation coefficient in group 1.
 #' @param rho2 The correlation coefficient in group 2.
@@ -21,7 +29,7 @@ es.q <- function (rho1 = NULL, rho2 = NULL) {
   q <- abs(rhoprime1 - rhoprime2)
 
   # Print output as a power.htest object
-  METHOD <- "Cohen's q effect size calculation for two correlation coefficients"
+  METHOD <- "Cohen q effect size calculation for two correlation coefficients"
   structure(list(rho1 = rho1, rho2 = rho2, q = q,
                  method = METHOD), class = "power.htest")
 

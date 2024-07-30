@@ -1,13 +1,26 @@
-#' Power calculations for precision analysis for a difference between means
+#' Power calculation for precision analysis (confidence interval) for a difference between two means
+#'
+#' @description
+#' Calculates the "power" of a confidence interval for a difference between two means, that is, the probability
+#' of achieving a 100(1 - alpha) percent confidence interval with halfwidth not greater
+#' than a specified value.
+#'
+#' @details
+#' The unconditional probability is the probability of obtaining the desired precision
+#' (i.e., that the observed halfwidth does not exceed the desired halfwidth)
+#' regardless of whether or not the confidence interval includes the true parameter value.
+#' The conditional probability is the probability of both obtaining the desired precision and having
+#' the interval include the true parameter value.
+#'
 #'
 #' @param n1 The sample size for group 1.
 #' @param n.ratio The ratio n2/n1 between the sample sizes of two groups; defaults to 1 (equal group sizes).
 #' @param halfwidth The desired halfwidth for the difference in means.
 #' @param sd The estimated standard deviation; defaults to 1.
-#' @param alpha The significance level or type 1 error rate; defaults to 0.05.
+#' @param alpha The significance level (type 1 error rate); defaults to 0.05.
 #' @param power The specified level of power.
 #' @param cond Specify using unconditional or conditional probability. Defaults to FALSE.
-#' @param v Either TRUE for verbose output or FALSE to output computed argument only.
+#' @param v Either TRUE for verbose output or FALSE (default) to output computed argument only.
 #'
 #' @return A list of the arguments (including the computed one).
 #' @import PowerTOST

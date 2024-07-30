@@ -1,17 +1,24 @@
 #' Power for individually randomized group treatment trial with continuous outcome
 #'
-#' @param m The number of subjects per cluster in the treatment group.
-#' @param J The number of clusters in the treatment group.
-#' @param n The number of total participants in the control group.
+#' @description
+#' COmputes power and sample size for an individually randomized group treatment trial with
+#' a continuous outcome, in which after individual randomization, individuals in the
+#' intervention/treatment arm are clustered.
+#'
+#'
+#'
+#' @param m The number of subjects per cluster in the intervention arm.
+#' @param J The total number of clusters in the intervention arm.
+#' @param n The total number of participants in the control arm.
 #' @param delta The difference between the intervention and control means under the alternative minus the difference under the null hypothesis.
-#' @param sd The total standard deviation of the outcome variable in the control group; defaults to 1.
-#' @param icc The intraclass correlation coefficient in the treatment group; defaults to 0.
-#' @param Theta The ratio of the total variance between intervention and control groups; defaults to 1.
-#' @param alpha The significance level or type 1 error rate; defaults to 0.05.
+#' @param sd The total standard deviation of the outcome variable in the control arm; defaults to 1.
+#' @param icc The intraclass correlation coefficient in the treatment arm; defaults to 0.
+#' @param Theta The ratio of the total variance in the intervention and control arms; defaults to 1.
+#' @param alpha The significance level (type 1 error rate); defaults to 0.05.
 #' @param power The specified level of power.
-#' @param sides Either 1 or 2 (default) to specify a one- or two- sided hypothesis test.
+#' @param sides Either 1 or 2 (default) to specify a one- or two-sided hypothesis test.
 #' @param tol The desired accuracy (convergence tolerance) for uniroot.
-#' @param v Either TRUE for verbose output or FALSE to output computed argument only.
+#' @param v Either TRUE for verbose output or FALSE (default) to output computed argument only.
 #'
 #' @return A list of the arguments (including the computed one).
 #' @export

@@ -2,7 +2,7 @@
 % Please edit documentation in R/z.test.1samp.R
 \name{z.test.1samp}
 \alias{z.test.1samp}
-\title{Power calculation for one sample z test}
+\title{Power calculation for one-sample z test}
 \usage{
 z.test.1samp(
   N = NULL,
@@ -21,13 +21,13 @@ z.test.1samp(
 
 \item{sd}{The estimated standard deviation; defaults to 1.}
 
-\item{alpha}{The significance level or type 1 error rate; defaults to 0.05.}
+\item{alpha}{The significance level (type 1 error rate); defaults to 0.05.}
 
 \item{power}{The specified level of power.}
 
 \item{sides}{Either 1 or 2 (default) to specify a one- or two- sided hypothesis test.}
 
-\item{v}{Either TRUE for verbose output or FALSE to output computed argument only.}
+\item{v}{Either TRUE for verbose output or FALSE (default) to output computed argument only.}
 }
 \value{
 A list of the arguments (including the computed one).

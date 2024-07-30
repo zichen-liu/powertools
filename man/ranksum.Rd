@@ -2,7 +2,7 @@
 % Please edit documentation in R/ranksum.R
 \name{ranksum}
 \alias{ranksum}
-\title{Power calculations for rank-sum test}
+\title{Power calculation for rank-sum test}
 \usage{
 ranksum(
   n1 = NULL,
@@ -21,19 +21,27 @@ ranksum(
 
 \item{p}{The probability that an observation in group 2 is greater than an observation in group 1 (P(Y>X).}
 
-\item{alpha}{The significance level or type 1 error rate; defaults to 0.05.}
+\item{alpha}{The significance level (type 1 error rate); defaults to 0.05.}
 
 \item{power}{The specified level of power.}
 
 \item{sides}{Either 1 or 2 (default) to specify a one- or two-sided hypothesis test.}
 
-\item{v}{Either TRUE for verbose output or FALSE to output computed argument only.}
+\item{v}{Either TRUE for verbose output or FALSE (default) to output computed argument only.}
 }
 \value{
 A list of the arguments (including the computed one).
 }
 \description{
-Power calculations for rank-sum test
+This funcion performs power and sample size calculations for the
+Wilcoxon-Mann-Whitney rank-sum test, also called the Mann-Whitney U test,
+which is the nonparametric analog of the two independent sample t test.
+Calculations are based on the approximation given by
+Noether (1987) Sample size determination for some common nonparametric tests. JASA 82(398):645-647.
+}
+\details{
+Due to symmetry, the power for p is equal to the power for 1 - p. Therefore,
+when solving for p, two values, p and 1 - p, are returned.
 }
 \examples{
 ranksum(n1 = 10, n.ratio = 1, p = 0.8, alpha = 0.05, power = NULL, sides = 2)

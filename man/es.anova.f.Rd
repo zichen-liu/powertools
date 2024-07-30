@@ -2,7 +2,7 @@
 % Please edit documentation in R/es.anova.f.R
 \name{es.anova.f}
 \alias{es.anova.f}
-\title{Cohen's f effect size calculation for one- or two- way analysis of variance}
+\title{Cohen f effect size calculation for one- or two- way analysis of variance}
 \usage{
 es.anova.f(means = NULL, sd = NULL, v = TRUE)
 }
@@ -17,7 +17,12 @@ es.anova.f(means = NULL, sd = NULL, v = TRUE)
 Various calculated f effect sizes.
 }
 \description{
-Cohen's f effect size calculation for one- or two- way analysis of variance
+Takes as input the cell or group means for a one- or two-way ANOVA and the common
+standard deviation and outputs the f effect size, as defined by Cohen (1988).
+}
+\details{
+Cohen J (1988) Statistical Power Analysis for the Behavioral Sciences, 2nd edition.
+Lawrence Erlbaum Associates, Hillsdale, New Jersey
 }
 \examples{
 es.anova.f(means = c(5, 10, 12), sd = 10)

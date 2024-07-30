@@ -1,8 +1,14 @@
-#' Relative efficiency for cluster randomized or multisite trials
-#' due to varying cluster sizes
+#' Relative efficiency of a cluster randomized trial with continuous outcome
+#' with varying cluster sizes
+#'
+#' @description
+#' For a continuous outcome, computes the relative efficiency (ratio of the variances) of a cluster randomized trial
+#' with varying cluster sizes to that of a cluster randomized trial with constant cluster sizes,
+#' assuming equal total number of subjects.
+#'
 #'
 #' @param m The number of subjects per cluster or the mean cluster size (if unequal number of participants per cluster).
-#' @param m.sd The standard deviation of cluster sizes (provide if unequal number of participants per cluster).
+#' @param m.sd The standard deviation of cluster sizes (in case of unequal number of participants per cluster).
 #' @param icc The intraclass correlation coefficient. For a multisite trial this is icc1. For a CRT this is the average of the 2 icc's.
 #' @return The computed RE.
 #' @export

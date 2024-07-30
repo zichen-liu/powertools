@@ -2,7 +2,7 @@
 % Please edit documentation in R/t.test.1samp.R
 \name{t.test.1samp}
 \alias{t.test.1samp}
-\title{Power calculations for one sample t tests}
+\title{Power calculation for one-sample t test}
 \usage{
 \method{t}{test.1samp}(
   N = NULL,
@@ -21,19 +21,19 @@
 
 \item{sd}{The estimated standard deviation; defaults to 1.}
 
-\item{alpha}{The significance level or type 1 error rate; defaults to 0.05.}
+\item{alpha}{The significance level (type 1 error rate); defaults to 0.05.}
 
 \item{power}{The specified level of power.}
 
-\item{sides}{Either 1 or 2 (default) to specify a one- or two- sided hypothesis test.}
+\item{sides}{Either 1 or 2 (default) to specify a one- or two-sided hypothesis test.}
 
-\item{v}{Either TRUE for verbose output or FALSE to output computed argument only.}
+\item{v}{Either TRUE for verbose output or FALSE (default) to output computed argument only.}
 }
 \value{
 A list of the arguments (including the computed one).
 }
 \description{
-Power calculations for one sample t tests
+This function computes power and sample size for a one-sample t test.
 }
 \examples{
 t.test.1samp(N = 36, delta = 4.9 - 5.7, sd = 2, sides = 1)

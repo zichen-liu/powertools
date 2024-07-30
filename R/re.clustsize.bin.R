@@ -1,8 +1,20 @@
-#' Relative efficiency for cluster randomized trials with binary outcomes
-#' due to varying cluster sizes
+#' Relative efficiency of a cluster randomized trial with binary outcome
+#' with varying cluster sizes
+#'
+#' @description
+#' For a binary outcome, computes the relative efficiency (ratio of the variances) of a cluster randomized trial
+#' with varying cluster sizes to that of a cluster randomized trial with constant cluster sizes,
+#' assuming equal total number of subjects.
+#'
+#' @details
+#' Candel MJJM and van Breukelen GJP (2010) Sample size adjustments for varying cluster sizes in
+#' cluster randomized trials with binary outcomes analyzed with second-order PQL mixed logistic regression.
+#' Statistics in Medicine 29(14):1488-1501.
+#'
+#'
 #'
 #' @param m The number of subjects per cluster or the mean cluster size (if unequal number of participants per cluster).
-#' @param m.sd The standard deviation of cluster sizes (provide if unequal number of participants per cluster).
+#' @param m.sd The standard deviation of cluster sizes (in case of unequal number of participants per cluster).
 #' @param pc The probability of the outcome in control clusters.
 #' @param pt The probability of the outcome in treatment clusters.
 #' @param sigma.u Standard deviation of the cluster random effect.
