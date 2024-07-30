@@ -24,22 +24,20 @@
 es.anova.f <- function (means = NULL, sd = NULL, v = TRUE) {
 
   # Check if the arguments are specified correctly
-  if(is.null(sd))
-    stop("sd must be specified")
-  if (!is.vector(means) & !is.matrix(means))
-    stop("a vector or matrix of means must be specified (see examples)")
+  check(means, "req")
+  check(sd, "req"); check(sd, "pos")
+  check(v, "req"); check(v, "bool")
+
   if (is.vector(means)) {
     a <- length(means)
     b <- 1
-    if (a < 2)
-      stop("number of groups must be at least 2")
+    check(means, "vec")
     mmatrix <- matrix(means)
   }
   else if (is.matrix(means)) {
     a <- nrow(means)
     b <- ncol(means)
-    if (a < 2 | b < 2)
-      stop("number of groups per intervention must be at least 2")
+    check(means, "mat")
     mmatrix <- means
   }
 

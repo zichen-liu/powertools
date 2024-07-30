@@ -23,8 +23,8 @@
 es.d <- function (delta = NULL, sd = 1) {
 
   # Check if the arguments are specified correctly
-  if(is.null(delta) | is.null(sd))
-    stop("delta and sd must be specified")
+  check(delta, "req"); check(delta, "num")
+  check(sd, "req"); check(sd, "pos")
 
   # Calculate d
   d <- abs(delta) / sd

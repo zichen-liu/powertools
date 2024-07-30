@@ -21,8 +21,8 @@
 es.h <- function (p1 = NULL, p2 = NULL) {
 
   # Check if the arguments are specified correctly
-  if(is.null(p1) | is.null(p2))
-    stop("p1 and p2 must be specified")
+  check(p1, "req"); check(p1, "unit")
+  check(p2, "req"); check(p2, "unit")
 
   # Calculate h
   h <- 2 * asin(sqrt(p1)) - 2 * asin(sqrt(p2))

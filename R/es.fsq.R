@@ -19,8 +19,7 @@
 es.fsq <- function (Rsq = 0.02) {
 
   # Check if the arguments are specified correctly
-  if(is.null(Rsq))
-    stop("Rsq must be specified")
+  check(Rsq, "req"); check(Rsq, "uniti")
 
   # Calculate f^2
   fsq <- Rsq / (1 - Rsq)

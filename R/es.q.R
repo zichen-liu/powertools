@@ -20,8 +20,8 @@
 es.q <- function (rho1 = NULL, rho2 = NULL) {
 
   # Check if the arguments are specified correctly
-  if(is.null(rho1) | is.null(rho2))
-    stop("rho1 and rho2 must be specified")
+  check(rho1, "req"); check(rho1, "unit")
+  check(rho2, "req"); check(rho2, "unit")
 
   # Calculate q
   rhoprime1 <- 0.5 * log((1 + rho1)/(1 - rho1))
