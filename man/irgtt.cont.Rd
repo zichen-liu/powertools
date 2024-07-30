@@ -20,35 +20,37 @@ irgtt.cont(
 )
 }
 \arguments{
-\item{m}{The number of subjects per cluster in the treatment group.}
+\item{m}{The number of subjects per cluster in the intervention arm.}
 
-\item{J}{The number of clusters in the treatment group.}
+\item{J}{The total number of clusters in the intervention arm.}
 
-\item{n}{The number of total participants in the control group.}
+\item{n}{The total number of participants in the control arm.}
 
 \item{delta}{The difference between the intervention and control means under the alternative minus the difference under the null hypothesis.}
 
-\item{sd}{The total standard deviation of the outcome variable in the control group; defaults to 1.}
+\item{sd}{The total standard deviation of the outcome variable in the control arm; defaults to 1.}
 
-\item{icc}{The intraclass correlation coefficient in the treatment group; defaults to 0.}
+\item{icc}{The intraclass correlation coefficient in the treatment arm; defaults to 0.}
 
-\item{Theta}{The ratio of the total variance between intervention and control groups; defaults to 1.}
+\item{Theta}{The ratio of the total variance in the intervention and control arms; defaults to 1.}
 
-\item{alpha}{The significance level or type 1 error rate; defaults to 0.05.}
+\item{alpha}{The significance level (type 1 error rate); defaults to 0.05.}
 
 \item{power}{The specified level of power.}
 
-\item{sides}{Either 1 or 2 (default) to specify a one- or two- sided hypothesis test.}
+\item{sides}{Either 1 or 2 (default) to specify a one- or two-sided hypothesis test.}
 
 \item{tol}{The desired accuracy (convergence tolerance) for uniroot.}
 
-\item{v}{Either TRUE for verbose output or FALSE to output computed argument only.}
+\item{v}{Either TRUE for verbose output or FALSE (default) to output computed argument only.}
 }
 \value{
 A list of the arguments (including the computed one).
 }
 \description{
-Power for individually randomized group treatment trial with continuous outcome
+COmputes power and sample size for an individually randomized group treatment trial with
+a continuous outcome, in which after individual randomization, individuals in the
+intervention/treatment arm are clustered.
 }
 \examples{
 irgtt.cont(m = 10, J = 12, n = 120, delta = 0.4, icc = 0.05, Theta = 1, power = NULL)

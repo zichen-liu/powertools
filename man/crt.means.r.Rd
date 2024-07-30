@@ -19,7 +19,9 @@ crt.means.r(m, icc, cac, sac)
 The computed correlation.
 }
 \description{
-Correlation between a cluster mean at baseline and follow up
+For a cluster randomized trial with a continuous outcome, this function calculates the correlation
+between a cluster's mean at baseline and at follow up. For cross-sectional sampling of subjects,
+that is, different subjects are measured at baseline and follow up, specify sac = 0.
 }
 \examples{
 crt.means.r(m = 30, icc = 0.05, cac = 0.4, sac = 0.5)

@@ -2,7 +2,7 @@
 % Please edit documentation in R/irgtt.bin.R
 \name{irgtt.bin}
 \alias{irgtt.bin}
-\title{Power for an individual randomized group treatment trial with binary outcomes}
+\title{Power for individual randomized group treatment trial with binary outcome}
 \usage{
 irgtt.bin(
   m = NULL,
@@ -18,31 +18,33 @@ irgtt.bin(
 )
 }
 \arguments{
-\item{m}{The number of subjects per cluster in the treatment group.}
+\item{m}{The number of subjects per cluster in the intervention arm.}
 
-\item{J}{The number of clusters in the treatment group.}
+\item{J}{The total number of clusters in the intervention arm.}
 
-\item{n}{The number of total participants in the control group.}
+\item{n}{The total number of participants in the control arm.}
 
-\item{p1}{The probability of the outcome in the control group.}
+\item{p1}{The probability of the outcome in the control arm.}
 
-\item{p2}{The probability of the outcome in the intervention group.}
+\item{p2}{The probability of the outcome in the intervention arm.}
 
-\item{icc}{The intraclass correlation coefficient in the treatment group; defaults to 0.}
+\item{icc}{The intraclass correlation coefficient in the intervention arm; defaults to 0.}
 
-\item{alpha}{The significance level or type 1 error rate; defaults to 0.05.}
+\item{alpha}{The significance level (type 1 error rate); defaults to 0.05.}
 
 \item{power}{The specified level of power.}
 
-\item{sides}{Either 1 or 2 (default) to specify a one- or two- sided hypothesis test.}
+\item{sides}{Either 1 or 2 (default) to specify a one- or two-sided hypothesis test.}
 
-\item{v}{Either TRUE for verbose output or FALSE to output computed argument only.}
+\item{v}{Either TRUE for verbose output or FALSE (default) to output computed argument only.}
 }
 \value{
 A list of the arguments (including the computed one).
 }
 \description{
-Power for an individual randomized group treatment trial with binary outcomes
+COmputes power and sample size for an individually randomized group treatment trial with
+a binary outcome, in which after individual randomization, individuals in the
+intervention/treatment arm are clustered.
 }
 \examples{
 irgtt.bin(m = 20, J = 5, n = 100, p1 = 0.8, p2 = 0.6, icc = 0.04, sides = 2)

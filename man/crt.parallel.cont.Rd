@@ -2,7 +2,7 @@
 % Please edit documentation in R/crt.parallel.cont.R
 \name{crt.parallel.cont}
 \alias{crt.parallel.cont}
-\title{Power for a cluster randomized trial with a continuous outcome}
+\title{Power for cluster randomized trial with continuous outcome}
 \usage{
 crt.parallel.cont(
   m = NULL,
@@ -45,19 +45,20 @@ crt.parallel.cont(
 
 \item{RsqW}{The estimated proportion of total variance explained by individual-level covariates; defaults to 0.}
 
-\item{alpha}{The significance level or type 1 error rate; defaults to 0.05.}
+\item{alpha}{The significance level (type 1 error rate); defaults to 0.05.}
 
 \item{power}{The specified level of power.}
 
 \item{sides}{Either 1 or 2 (default) to specify a one- or two- sided hypothesis test.}
 
-\item{v}{Either TRUE for verbose output or FALSE to output computed argument only.}
+\item{v}{Either TRUE for verbose output or FALSE (default) to output computed argument only.}
 }
 \value{
 A list of the arguments (including the computed one).
 }
 \description{
-Power for a cluster randomized trial with a continuous outcome
+This function performs power and sample size calculations for a two-arm cluster randomized trial
+with a continuous, normal outcome.
 }
 \examples{
 crt.parallel.cont(m = 30, J1 = 8, delta = 0.4, icc1 = 0.05, icc2 = 0.05)
