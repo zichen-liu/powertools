@@ -95,6 +95,7 @@ multisite.cont <- function (m = NULL, m.sd = 0, alloc.ratio = 1, J = NULL,
   }
   else if (is.null(alloc.ratio)) {
     alloc.ratio <- stats::uniroot(function(alloc.ratio) eval(p.body) - power + 1e-5, c(1 + 1e-10, 1e+07))$root
+    alloc.ratio <- c(alloc.ratio, 1 / alloc.ratio)
     if (!v) return(alloc.ratio)
   }
   else if (is.null(delta)) {
@@ -105,7 +106,7 @@ multisite.cont <- function (m = NULL, m.sd = 0, alloc.ratio = 1, J = NULL,
 
   # Generate output text
   METHOD <- "Power for test of average treatment effect in multisite trials"
-  NOTE <- "m1, m2 are the number of subjects within site in condition 1, condition 2\n      (total of m1 + m2 per site)"
+  NOTE <- "m1, m2 are the number of subjects within site in condition 1, condition 2\n      (total of m1 + m2 per site). m1, m2 or m2, m1 produce equivalent results."
   icc <- c(icc0, icc1)
   c <- m / (alloc.ratio + 1)
   t <- alloc.ratio * c
