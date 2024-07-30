@@ -1,4 +1,14 @@
-#' Power calculations for two-way unbalanced analysis of variance omnibus F test
+#' Power calculation for two-way unbalanced analysis of variance F tests
+#'
+#' @description
+#' Performs sample size and power calculations for F tests in a two-way
+#' ANOVA with unbalanced data (that is, unequal sized groups). For given
+#' matrix of cell means and matrix of cell sample sizes, computes power
+#' for each factor and for their interaction, if an interaction is present.
+#' This function does not solve for group sizes.
+#' For balanced data (equal group sizes),
+#' see anova2way.F.unbal, which does solve for group size.
+#'
 #'
 #' @param nmatrix A matrix of group sample sizes (see example).
 #' @param mmatrix A matrix of group means (see example).
