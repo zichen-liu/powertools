@@ -23,9 +23,9 @@
 #' crt.xo.cont(m = 30, J.arm = 4, delta = 0.3, icc = 0.05, cac = 0.5)
 
 crt.xo.cont <- function (m = NULL, J.arm = NULL, delta = NULL, sd = 1,
-                             icc = 0, icca = 0, iccb = NULL, cac = NULL, sac = 0,
-                             alpha = 0.05, power = NULL, sides = 2,
-                             v = FALSE) {
+                         icc = 0, icca = 0, iccb = NULL, cac = NULL, sac = 0,
+                         alpha = 0.05, power = NULL, sides = 2,
+                         v = FALSE) {
 
   # Check if the arguments are specified correctly
   check.many(list(iccb, cac), "oneof")

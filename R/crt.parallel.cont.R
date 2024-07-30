@@ -41,12 +41,12 @@ crt.parallel.cont <- function (m = NULL, m.sd = 0, J1 = NULL, J.ratio = 1, delta
                                v = FALSE) {
 
   # Check if the arguments are specified correctly
-  check.many(list(m, J1, delta, alpha, power), "oneof")
+  check.many(list(m, J1, J.ratio, delta, alpha, power), "oneof")
   check(m, "pos")
   check(m.sd, "req"); check(m.sd, "min", min = 0)
-  check(J.ratio, "req"); check(J.ratio, "pos")
+  check(J.ratio, "pos")
   check(J1, "min", min = 2)
-  if (!is.null(J1))
+  if (!is.null(J1) & !is.null(J.ratio))
     check(J1 * J.ratio, "min", min = 2)
   check(delta, "num")
   check(sd, "req"); check(sd, "pos")
@@ -125,6 +125,10 @@ crt.parallel.cont <- function (m = NULL, m.sd = 0, J1 = NULL, J.ratio = 1, delta
   else if (is.null(J1)) {
     J1 <- stats::uniroot(function(J1) eval(p.body) - power, c(2 + 1e-10, 1e+07))$root
     if (!v) return(J1)
+  }
+  else if (is.null(J.ratio)) {
+    J.ratio <- stats::uniroot(function(J.ratio) eval(p.body) - power, c(1e-10, 1e+07))$root
+    if (!v) return(J.ratio)
   }
   else if (is.null(m)) {
     m <- stats::uniroot(function(m) eval(p.body) - power, c(2 + 1e-10, 1e+07))$root
