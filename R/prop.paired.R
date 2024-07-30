@@ -36,7 +36,7 @@ prop.paired <- function (N = NULL, p1 = NULL, p2 = NULL, phi = NULL,
   check(p1, "unit")
   check(p2, "unit")
   check(paid, "unit")
-  check(dpr, "pos")
+  check(dpr, "min", min = 1)
   check(alpha, "unit")
   check(power, "unit")
   check(sides, "req"); check(sides, "vals", valslist = c(1, 2))
