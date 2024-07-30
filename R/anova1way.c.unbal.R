@@ -1,4 +1,10 @@
-#' Power calculations for one-way unbalanced analysis of variance contrast test
+#' Power calculation for one-way unbalanced analysis of variance contrast test
+#'
+#' @description
+#' Performs sample size and power calculations for a test of a contrast in a one-way
+#' ANOVA with unbalanced data (that is, unequal sized groups). For balanced data
+#' (equal group sizes), anova1way.c.bal can also be used.
+#'
 #'
 #' @param nvec A vector of group sample sizes c(n1, n2, ...).
 #' @param mvec A vector of group mvec c(mu1, mu2, ...).
@@ -6,8 +12,8 @@
 #' @param sd The estimated standard deviation within each group.
 #' @param Rsq The estimated R^2 for regressing the outcome on the covariates; defaults to 0.
 #' @param ncov The number of covariates adjusted for in the model; defaults to 0.
-#' @param alpha The significance level or type 1 error rate; defaults to 0.05.
-#' @param v Either TRUE for verbose output or FALSE to output computed argument only.
+#' @param alpha The significance level (type 1 error rate); defaults to 0.05.
+#' @param v Either TRUE for verbose output or FALSE (default) to output computed argument only.
 #'
 #' @return A list of the arguments (including the computed power).
 #' @export
