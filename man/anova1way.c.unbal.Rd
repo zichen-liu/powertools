@@ -2,7 +2,7 @@
 % Please edit documentation in R/anova1way.c.unbal.R
 \name{anova1way.c.unbal}
 \alias{anova1way.c.unbal}
-\title{Power calculations for one-way unbalanced analysis of variance contrast test}
+\title{Power calculation for one-way unbalanced analysis of variance contrast test}
 \usage{
 anova1way.c.unbal(
   nvec = NULL,
@@ -28,15 +28,17 @@ anova1way.c.unbal(
 
 \item{ncov}{The number of covariates adjusted for in the model; defaults to 0.}
 
-\item{alpha}{The significance level or type 1 error rate; defaults to 0.05.}
+\item{alpha}{The significance level (type 1 error rate); defaults to 0.05.}
 
-\item{v}{Either TRUE for verbose output or FALSE to output computed argument only.}
+\item{v}{Either TRUE for verbose output or FALSE (default) to output computed argument only.}
 }
 \value{
 A list of the arguments (including the computed power).
 }
 \description{
-Power calculations for one-way unbalanced analysis of variance contrast test
+Performs sample size and power calculations for a test of a contrast in a one-way
+ANOVA with unbalanced data (that is, unequal sized groups). For balanced data
+(equal group sizes), anova1way.c.bal can also be used.
 }
 \examples{
 anova1way.c.unbal(nvec = c(20, 20, 20), mvec = c(5, 10, 12), cvec = c(1, -1, 0),

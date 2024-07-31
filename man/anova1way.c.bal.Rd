@@ -2,7 +2,7 @@
 % Please edit documentation in R/anova1way.c.bal.R
 \name{anova1way.c.bal}
 \alias{anova1way.c.bal}
-\title{Power calculations for one-way balanced analysis of variance contrast test}
+\title{Power calculation for one-way balanced analysis of variance contrast test}
 \usage{
 anova1way.c.bal(
   n = NULL,
@@ -29,17 +29,19 @@ anova1way.c.bal(
 
 \item{ncov}{The number of covariates adjusted for in the model; defaults to 0.}
 
-\item{alpha}{The significance level or type 1 error rate; defaults to 0.05.}
+\item{alpha}{The significance level (type 1 error rate); defaults to 0.05.}
 
 \item{power}{The specified level of power.}
 
-\item{v}{Either TRUE for verbose output or FALSE to output computed argument only.}
+\item{v}{Either TRUE for verbose output or FALSE (default) to output computed argument only.}
 }
 \value{
 A list of the arguments (including the computed one).
 }
 \description{
-This is a test description.
+Performs sample size and power calculations for a test of a contrast in a one-way
+ANOVA with balanced data (that is, equal sized groups). For unbalanced data, see
+anova1way.c.unbal.
 }
 \examples{
 anova1way.c.bal(n = 20, mvec = c(5, 10, 12), cvec = c(1, -1, 0), sd = 10, alpha = 0.025)

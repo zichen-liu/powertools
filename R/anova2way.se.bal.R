@@ -1,4 +1,10 @@
-#' Power calculations for two-way balanced analysis of variance simple effects test
+#' Power calculation for test of simple effect for two-way balanced analysis of variance
+#'
+#' @description
+#' Conducts power and sample size calculations for a test of a simple effect in a two-way
+#' balanced (equal cell sizes) ANOVA. For a test of a contrast in an unbalanced (unequal
+#' cell sizes) two-way ANOVA, see anova2way.se.unbal.
+#'
 #'
 #' @param n The sample size per group.
 #' @param mmatrix A matrix of group means (see example).
