@@ -2,7 +2,7 @@
 % Please edit documentation in R/anova2way.se.unbal.R
 \name{anova2way.se.unbal}
 \alias{anova2way.se.unbal}
-\title{Power calculations for two-way unbalanced analysis of variance simple effects test}
+\title{Power calculation for test of simple effect for two-way unbalanced analysis of variance}
 \usage{
 anova2way.se.unbal(
   nmatrix = NULL,
@@ -28,15 +28,19 @@ anova2way.se.unbal(
 
 \item{ncov}{The number of covariates adjusted for in the model; defaults to 0.}
 
-\item{alpha}{The significance level or type 1 error rate; defaults to 0.05.}
+\item{alpha}{The significance level (type 1 error rate); defaults to 0.05.}
 
-\item{v}{Either TRUE for verbose output or FALSE to output computed argument only.}
+\item{v}{Either TRUE for verbose output or FALSE (default) to output computed argument only.}
 }
 \value{
 A list of the arguments (including the computed power).
 }
 \description{
-Power calculations for two-way unbalanced analysis of variance simple effects test
+Conducts power calculations for a test of a simple effect in a two-way
+unbalanced (unequal cell sizes) ANOVA. Does not solve for sample size.
+For a test of a contrast in a balanced (equal
+cell sizes) two-way ANOVA, anova2way.se.bal can also be used and can
+solve for sample size.
 }
 \examples{
 nmatrix <- matrix(c(30, 30, 30, 30, 30, 30), nrow = 2, byrow = TRUE)
