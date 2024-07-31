@@ -2,7 +2,7 @@
 % Please edit documentation in R/anova2way.F.unbal.R
 \name{anova2way.F.unbal}
 \alias{anova2way.F.unbal}
-\title{Power calculations for two-way unbalanced analysis of variance omnibus F test}
+\title{Power calculation for two-way unbalanced analysis of variance F tests}
 \usage{
 anova2way.F.unbal(
   nmatrix = NULL,
@@ -33,7 +33,13 @@ anova2way.F.unbal(
 A list of the arguments (including the computed power).
 }
 \description{
-Power calculations for two-way unbalanced analysis of variance omnibus F test
+Performs sample size and power calculations for F tests in a two-way
+ANOVA with unbalanced data (that is, unequal sized groups). For given
+matrix of cell means and matrix of cell sample sizes, computes power
+for each factor and for their interaction, if an interaction is present.
+This function does not solve for group sizes.
+For balanced data (equal group sizes),
+see anova2way.F.unbal, which does solve for group size.
 }
 \examples{
 nmatrix <- matrix(c(30, 30, 30, 30, 30, 30), nrow = 2, byrow = TRUE)
