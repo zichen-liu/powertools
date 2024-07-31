@@ -1,5 +1,8 @@
 #' Power for test of average treatment effect in a multisite trial
 #'
+#' @description
+#' ADD COMMENTS ABOUT NOT SOLVING FOR ALLOC.RATIO
+#'
 #' @param m The total number of subjects per site or the mean cluster size (if unequal number of participants per site).
 #' @param m.sd The standard deviation of cluster sizes (provide if unequal number of participants per site); defaults to 0.
 #' @param alloc.ratio The allocation ratio of intervention/control per site; defaults to 1.
