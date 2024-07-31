@@ -1,4 +1,12 @@
-#' Power calculations for two-way unbalanced analysis of variance simple effects test
+#' Power calculation for test of simple effect for two-way unbalanced analysis of variance
+#'
+#' @description
+#' Conducts power calculations for a test of a simple effect in a two-way
+#' unbalanced (unequal cell sizes) ANOVA. Does not solve for sample size.
+#' For a test of a contrast in a balanced (equal
+#' cell sizes) two-way ANOVA, anova2way.se.bal can also be used and can
+#' solve for sample size.
+#'
 #'
 #' @param nmatrix A matrix of sample sizes (see example).
 #' @param mmatrix A matrix of group means (see example).
@@ -6,8 +14,8 @@
 #' @param sd The estimated standard deviation within each group.
 #' @param Rsq The estimated R^2 for regressing the outcome on the covariates; defaults to 0.
 #' @param ncov The number of covariates adjusted for in the model; defaults to 0.
-#' @param alpha The significance level or type 1 error rate; defaults to 0.05.
-#' @param v Either TRUE for verbose output or FALSE to output computed argument only.
+#' @param alpha The significance level (type 1 error rate); defaults to 0.05.
+#' @param v Either TRUE for verbose output or FALSE (default) to output computed argument only.
 #'
 #' @return A list of the arguments (including the computed power).
 #' @export
