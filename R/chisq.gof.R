@@ -1,11 +1,15 @@
-#' Power calculations for chi-square goodness-of-fit test
+#' Power calculation for chi-square goodness-of-fit test
 #'
-#' @param p0vec The first vector of probabilities (under the null).
-#' @param p1vec The second vector of probabilities (under the alternative hypothesis).
-#' @param N The number of total observations.
-#' @param alpha The significance level or type 1 error rate; defaults to 0.05.
+#' @description
+#' Performs sample size and power calculations for chi-square goodness-of-fit test.
+#'
+#'
+#' @param p0vec Vector of probabilities under the null hypothesis. Must sum to 1.
+#' @param p1vec Vector of probabilities under the alternative hypothesis. Must sum to 1.
+#' @param N The total number of observations.
+#' @param alpha The significance level (type 1 error rate); defaults to 0.05.
 #' @param power The specified level of power.
-#' @param v Either TRUE for verbose output or FALSE to output computed argument only.
+#' @param v Either TRUE for verbose output or FALSE (default) to output computed argument only.
 #'
 #' @return A list of the arguments (including the computed one).
 #' @export
