@@ -2,26 +2,28 @@
 % Please edit documentation in R/chisq.indep.R
 \name{chisq.indep}
 \alias{chisq.indep}
-\title{Power calculations for chi-square test of independence}
+\title{Power calculation for chi-square test of independence}
 \usage{
 chisq.indep(pmatrix = NULL, N = NULL, alpha = 0.05, power = NULL, v = FALSE)
 }
 \arguments{
-\item{pmatrix}{The two-way probability table under the alternative hypothesis.}
+\item{pmatrix}{The two-way probability table under the alternative hypothesis. The probabilities must sum to 1.}
 
-\item{N}{The number of total observations.}
+\item{N}{The total number of observations.}
 
-\item{alpha}{The significance level or type 1 error rate; defaults to 0.05.}
+\item{alpha}{The significance level (type 1 error rate); defaults to 0.05.}
 
 \item{power}{The specified level of power.}
 
-\item{v}{Either TRUE for verbose output or FALSE to output computed argument only.}
+\item{v}{Either TRUE for verbose output or FALSE (default) to output computed argument only.}
 }
 \value{
 A list of the arguments (including the computed one).
 }
 \description{
-Power calculations for chi-square test of independence
+Performs power and sample size calculations for a chi-square test of independence.
+The user inputs a matrix of cell probabilities for a two-way table. The function computes
+the power (or required total sample size) for a test of no association between the two factors.
 }
 \examples{
 chisq.indep(pmatrix = matrix(c(0.050, 0.350, 0.100, 0.075, 0.250, 0.175),

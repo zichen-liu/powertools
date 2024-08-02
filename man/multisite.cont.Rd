@@ -51,7 +51,7 @@ multisite.cont(
 A list of the arguments (including the computed one).
 }
 \description{
-Power for test of average treatment effect in a multisite trial
+ADD COMMENTS ABOUT NOT SOLVING FOR ALLOC.RATIO
 }
 \examples{
 multisite.cont(m = 20, J = 10, delta = 3, sd = sqrt(40), icc0 = 0.1, icc1 = 0)

@@ -1,10 +1,17 @@
-#' Power calculations for chi-square test of independence
+#' Power calculation for chi-square test of independence
 #'
-#' @param pmatrix The two-way probability table under the alternative hypothesis.
-#' @param N The number of total observations.
-#' @param alpha The significance level or type 1 error rate; defaults to 0.05.
+#' @description
+#' Performs power and sample size calculations for a chi-square test of independence.
+#' The user inputs a matrix of cell probabilities for a two-way table. The function computes
+#' the power (or required total sample size) for a test of no association between the two factors.
+#'
+#'
+#'
+#' @param pmatrix The two-way probability table under the alternative hypothesis. The probabilities must sum to 1.
+#' @param N The total number of observations.
+#' @param alpha The significance level (type 1 error rate); defaults to 0.05.
 #' @param power The specified level of power.
-#' @param v Either TRUE for verbose output or FALSE to output computed argument only.
+#' @param v Either TRUE for verbose output or FALSE (default) to output computed argument only.
 #'
 #' @return A list of the arguments (including the computed one).
 #' @export

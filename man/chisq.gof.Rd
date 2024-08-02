@@ -2,7 +2,7 @@
 % Please edit documentation in R/chisq.gof.R
 \name{chisq.gof}
 \alias{chisq.gof}
-\title{Power calculations for chi-square goodness-of-fit test}
+\title{Power calculation for chi-square goodness-of-fit test}
 \usage{
 chisq.gof(
   p0vec = NULL,
@@ -14,23 +14,23 @@ chisq.gof(
 )
 }
 \arguments{
-\item{p0vec}{The first vector of probabilities (under the null).}
+\item{p0vec}{Vector of probabilities under the null hypothesis. Must sum to 1.}
 
-\item{p1vec}{The second vector of probabilities (under the alternative hypothesis).}
+\item{p1vec}{Vector of probabilities under the alternative hypothesis. Must sum to 1.}
 
-\item{N}{The number of total observations.}
+\item{N}{The total number of observations.}
 
-\item{alpha}{The significance level or type 1 error rate; defaults to 0.05.}
+\item{alpha}{The significance level (type 1 error rate); defaults to 0.05.}
 
 \item{power}{The specified level of power.}
 
-\item{v}{Either TRUE for verbose output or FALSE to output computed argument only.}
+\item{v}{Either TRUE for verbose output or FALSE (default) to output computed argument only.}
 }
 \value{
 A list of the arguments (including the computed one).
 }
 \description{
-Power calculations for chi-square goodness-of-fit test
+Performs sample size and power calculations for chi-square goodness-of-fit test.
 }
 \examples{
 chisq.gof(p0vec = c(0.5, 0.3, 0.2), p1vec = c(0.7, 0.2, 0.1), N = 50)

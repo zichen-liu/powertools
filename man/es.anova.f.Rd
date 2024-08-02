@@ -18,7 +18,8 @@ Various calculated f effect sizes.
 }
 \description{
 Takes as input the cell or group means for a one- or two-way ANOVA and the common
-standard deviation and outputs the f effect size, as defined by Cohen (1988).
+standard deviation and outputs the f effect size, as defined by Cohen (1988). Note that
+this effect size calculation is only valid when cell/group sizes are equal.
 }
 \details{
 Cohen J (1988) Statistical Power Analysis for the Behavioral Sciences, 2nd edition.
