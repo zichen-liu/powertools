@@ -20,11 +20,11 @@ propodds <- function(pC, OR, n1, n.ratio = 1, alpha = 0.05,
                      power = NULL, v = FALSE){
 
   # Check if the arguments are specified correctly
-  check.many(list(n1, power), "oneof")
+  check.many(list(n1, n.ratio, power, alpha), "oneof")
   check(n1, "pos"); check(n1, "min", min = 2)
+  check(n.ratio, "pos")
   check(power, "unit")
-  check(n.ratio, "req"); check(n.ratio, "pos")
-  check(alpha, "req"); check(alpha, "unit")
+  check(alpha, "unit")
   check(pC, "req"); check(pC, "sum")
   check(OR, "req"); check(OR, "mini", min = 1)
   check(v, "req"); check(v, "bool")
@@ -35,26 +35,35 @@ propodds <- function(pC, OR, n1, n.ratio = 1, alpha = 0.05,
   pT <- Hmisc::pomodm(p = pC, odds.ratio = 1 / OR)
   pavg <- (pC + pT) / 2
   ps <- 1 - sum(pavg^3)
-  za <- stats::qnorm(1 - alpha/2)
 
-  if (is.null(power)){
+  p.body <- quote({
     N <- n1 * (1 + n.ratio)
     n2 <- n1 * n.ratio
     V <- n1 * n2 * N/3/((N + 1)^2) * ps
-    power <- stats::pnorm(abs(log(OR)) * sqrt(V) - za)
+    za <- stats::qnorm(1 - alpha/2)
+    stats::pnorm(abs(log(OR)) * sqrt(V) - za)
+  })
+
+  if (is.null(power)){
+    power <- eval(p.body)
     if (!v) return(power)
   }
   else if (is.null(n1)){
-    zb <- stats::qnorm(power)
-    N <- (3 * (n.ratio + 1)^2 * (zb + za)^2) / (n.ratio * (log(OR))^2 * ps)
-    n1 <- N / (1 + n.ratio)
-    n2 <- n.ratio * n1
+    n1 <- stats::uniroot(function(n1) eval(p.body) - power, c(2 + 1e-10, 1e+09))$root
     if (!v) return(n1)
+  }
+  else if (is.null(n.ratio)) {
+    n.ratio <- stats::uniroot(function(n.ratio) eval(p.body) - power, c(2/n1, 1e+07))$root
+    if (!v) return(n.ratio)
+  }
+  else if (is.null(alpha)) {
+    alpha <- stats::uniroot(function(alpha) eval(p.body) - power, c(1e-10, 1 - 1e-10))$root
+    if (!v) return(alpha)
   }
   else stop("internal error")
 
   METHOD = "Power calculation for ordinal categorical outcome under proportional odds"
-  n <- c(n1, n2)
+  n <- c(round(n1, 3), round(n1 * n.ratio, 3))
   structure(list(n = n, pC = pC, pT = round(pT, digits = 3),
                  OR = OR, alpha = alpha, power = power, method = METHOD),
             class = "power.htest")
