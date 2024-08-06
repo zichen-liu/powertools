@@ -1,7 +1,10 @@
 #' Power for multisite trials with binary outcomes
 #'
-#' @param m The total number of subjects per site.
-#' @param alloc.ratio The allocation ratio of intervention/control per site; defaults to 1.
+#' @description
+#' ADD COMMENTS ABOUT NOT SOLVING FOR ALLOC.RATIO
+#'
+#' @param m The total number of subjects in condition 1 + condition 2.
+#' @param alloc.ratio The allocation ratio of condition 1/condition 2 per site; defaults to 1.
 #' @param J The number of sites.
 #' @param pc The probability of the outcome in the control condition.
 #' @param pt The probability of the outcome in the treatment condition.
@@ -24,9 +27,9 @@ multisite.bin <- function (m = NULL, alloc.ratio = 1, J = NULL,
                            v = FALSE) {
 
   # Check if the arguments are specified correctly
-  check.many(list(m, J, alpha, power, alloc.ratio), "oneof")
+  check.many(list(m, J, alpha, power), "oneof")
   check(m, "pos")
-  check(alloc.ratio, "pos")
+  check(alloc.ratio, "req"); check(alloc.ratio, "pos")
   check(J, "min", min = 2)
   check(pc, "req"); check(pc, "unit")
   check(pt, "req"); check(pt, "unit")
@@ -64,18 +67,18 @@ multisite.bin <- function (m = NULL, alloc.ratio = 1, J = NULL,
     m <- stats::uniroot(function(m) eval(p.body) - power, c(2 + 1e-10, 1e+07))$root
     if (!v) return(m)
   }
-  else if (is.null(alloc.ratio)) {
-    alloc.ratio <- stats::uniroot(function(alloc.ratio) eval(p.body) - power + 1e-5, c(1 + 1e-10, 1e+07))$root
-    if (!v) return(alloc.ratio)
-  }
+  # else if (is.null(alloc.ratio)) {
+  #   alloc.ratio <- stats::uniroot(function(alloc.ratio) eval(p.body) - power + 1e-5, c(1 + 1e-10, 1e+07))$root
+  #   if (!v) return(alloc.ratio)
+  # }
   else stop("internal error")
 
   # Generate output text
   METHOD <-"Power for multisite trials with binary outcomes"
-  NOTE <- "m1, m2 are the number of subjects within site in condition 1, condition 2\n      (total of m1 + m2 per site)"
+  NOTE <- "m1, m2 are the number of subjects within site in condition 1, condition 2\n      (total of m1 + m2 per site). m1, m2 OR m2, m1 produce equivalent results."
   p <- c(pc, pt)
-  c <- m / (alloc.ratio + 1)
-  t <- alloc.ratio * c
+  c <- round(m / (alloc.ratio + 1), 3)
+  t <- round(alloc.ratio * c, 3)
   m <- c(t, c)
 
   # Print output as a power.htest object depending on which inputs were given

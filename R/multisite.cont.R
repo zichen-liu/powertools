@@ -3,11 +3,11 @@
 #' @description
 #' ADD COMMENTS ABOUT NOT SOLVING FOR ALLOC.RATIO
 #'
-#' @param m The total number of subjects per site or the mean cluster size (if unequal number of participants per site).
+#' @param m The total the number of subjects in condition 1 + condition 2, or the mean cluster size (if unequal number of participants per site).
 #' @param m.sd The standard deviation of cluster sizes (provide if unequal number of participants per site); defaults to 0.
-#' @param alloc.ratio The allocation ratio of intervention/control per site; defaults to 1.
+#' @param alloc.ratio The allocation ratio of condition 1/condition 2 per site; defaults to 1.
 #' @param J The number of sites.
-#' @param delta The difference between the intervention and control means under the alternative minus the difference under the null hypothesis.
+#' @param delta The difference between the condition 1 and condition 2 means under the alternative minus the difference under the null hypothesis.
 #' @param sd The total standard deviation of the outcome variable; defaults to 1.
 #' @param icc0 The proportion of total variance of the outcome attributable to variation in site-level means.
 #' @param icc1 The proportion of total variance of the outcome attributable to variation in the treatment effect across sites.
@@ -36,10 +36,10 @@ multisite.cont <- function (m = NULL, m.sd = 0, alloc.ratio = 1, J = NULL,
                             v = FALSE) {
 
   # Check if the arguments are specified correctly
-  check.many(list(m, J, delta, alpha, power, alloc.ratio), "oneof")
+  check.many(list(m, J, delta, alpha, power), "oneof")
   check(m, "pos")
   check(m.sd, "req"); check(m.sd, "min", min = 0)
-  check(alloc.ratio, "pos")
+  check(alloc.ratio, "req"); check(alloc.ratio, "pos")
   check(J, "min", min = 2)
   check(delta, "num")
   check(sd, "req"); check(sd, "pos")
@@ -96,11 +96,11 @@ multisite.cont <- function (m = NULL, m.sd = 0, alloc.ratio = 1, J = NULL,
     m <- stats::uniroot(function(m) eval(p.body) - power, c(2 + 1e-10, 1e+07))$root
     if (!v) return(m)
   }
-  else if (is.null(alloc.ratio)) {
-    alloc.ratio <- stats::uniroot(function(alloc.ratio) eval(p.body) - power + 1e-5, c(1 + 1e-10, 1e+07))$root
-    alloc.ratio <- c(alloc.ratio, 1 / alloc.ratio)
-    if (!v) return(alloc.ratio)
-  }
+  # else if (is.null(alloc.ratio)) {
+  #   alloc.ratio <- stats::uniroot(function(alloc.ratio) eval(p.body) - power + 1e-5, c(1 + 1e-10, 1e+07))$root
+  #   alloc.ratio <- c(alloc.ratio, 1 / alloc.ratio)
+  #   if (!v) return(alloc.ratio)
+  # }
   else if (is.null(delta)) {
     delta <- stats::uniroot(function(delta) eval(p.body) - power, c(1e-07, 1e+07))$root
     if (!v) return(delta)
@@ -109,10 +109,10 @@ multisite.cont <- function (m = NULL, m.sd = 0, alloc.ratio = 1, J = NULL,
 
   # Generate output text
   METHOD <- "Power for test of average treatment effect in multisite trials"
-  NOTE <- "m1, m2 are the number of subjects within site in condition 1, condition 2\n      (total of m1 + m2 per site). m1, m2 or m2, m1 produce equivalent results."
+  NOTE <- "m1, m2 are the number of subjects within site in condition 1, condition 2\n      (total of m1 + m2 per site). m1, m2 OR m2, m1 produce equivalent results."
   icc <- c(icc0, icc1)
-  c <- m / (alloc.ratio + 1)
-  t <- alloc.ratio * c
+  c <- round(m / (alloc.ratio + 1), 3)
+  t <- round(alloc.ratio * c, 3)
   m <- ifelse(m.sd == 0, paste0(t, ", ", c), paste0(t, ", ",  c, " (sd = ", m.sd, ")"))
 
   out <- list(`m1, m2` = m, J = J, delta = delta, sd = sd,
