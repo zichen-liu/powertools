@@ -30,7 +30,6 @@
 #' @param rho A vector of length 0.5*K*(K-1) of the correlations among the K outcomes.
 #' @param alpha The significance level (type 1 error rate) for each test; defaults to 0.025. A one-sided test is assumed.
 #' @param power The specified level of power.
-#' @param tol The desired accuracy (convergence tolerance) for uniroot.
 #' @param v Either TRUE for verbose output or FALSE (default) to output computed argument only.
 #'
 #' @return A list of the arguments (including the computed one).
@@ -42,18 +41,16 @@
 #' alpha = 0.025, power = NULL)
 
 altprimary <- function(K, n1 = NULL, n.ratio = 1, delta = NULL, Sigma, sd, rho,
-                       alpha = 0.025, power = NULL,
-                       tol = .Machine$double.eps^0.25, v = FALSE){
+                       alpha = 0.025, power = NULL, v = FALSE){
 
   # Check if the arguments are specified correctly
-  check.many(list(n1, power), "oneof")
+  check.many(list(n1, n.ratio, power, alpha), "oneof")
   check(n1, "pos")
   check(power, "unit")
-  check(alpha, "req"); check(alpha, "unit")
+  check(alpha, "unit")
   check(K, "req"); check(K, "min", min = 1); check(K, "int")
-  check(n.ratio, "req"); check(n.ratio, "pos")
+  check(n.ratio, "pos")
   check(v, "req"); check(v, "bool")
-
   check(delta, "req"); check(delta, "vec")
   if(length(delta) != K)
     stop("length of 'delta' must be equal to 'K'")
@@ -98,31 +95,34 @@ altprimary <- function(K, n1 = NULL, n.ratio = 1, delta = NULL, Sigma, sd, rho,
 
   ## calculations
 
-  if(is.null(power)){
+  p.body <- quote({
     std.effect <- delta/sqrt(diag(Sigma))
     z.alpha <- stats::qnorm(1-alpha)
     crit.vals <- z.alpha - sqrt(n1*(n.ratio/(1+n.ratio)))*std.effect
-    power <- 1-mvtnorm::pmvnorm(lower = -crit.vals, sigma = Sigma.cor)
+    1 - mvtnorm::pmvnorm(lower = -crit.vals, sigma = Sigma.cor)
+  })
+
+  if(is.null(power)){
+    power <- eval(p.body)
     if (!v) return(power[1])
   }
-  if(is.null(n1)){
-    std.effect <- delta/sqrt(diag(Sigma))
-    z.alpha <- stats::qnorm(1-alpha)
-    ssize.fct <- function(n1, n.ratio, std.effect, z.alpha, Sigma.cor, power){
-      crit.vals <- z.alpha - sqrt(n1*(n.ratio/(1+n.ratio)))*std.effect
-
-      mvtnorm::pmvnorm(lower = -crit.vals, sigma = Sigma.cor) - (1 - power)
-    }
-    n1 <- stats::uniroot(ssize.fct, c(2, 1e+05), tol = tol, extendInt = "yes",
-                         n.ratio = n.ratio, std.effect = std.effect, z.alpha = z.alpha, Sigma.cor = Sigma.cor,
-                         power = power)$root
+  else if (is.null(n1)) {
+    n1 <- stats::uniroot(function(n1) eval(p.body) - power, c(2, 1e+07))$root
     if (!v) return(n1)
   }
+  else if (is.null(n.ratio)) {
+    n.ratio <- stats::uniroot(function(n.ratio) eval(p.body) - power,c(2/n1, 1e+07))$root
+    if (!v) return(n.ratio)
+  }
+  else if (is.null(alpha)) {
+    alpha <- stats::uniroot(function(alpha) eval(p.body) - power, c(1e-10, 1 - 1e-10))$root
+    if (!v) return(alpha)
+  }
+  else stop("internal error")
+
   n <- c(n1, n1*n.ratio)
   METHOD <- "Power calculation for alternative (at least one) primary endpoints"
-  structure(list(n = n, n.ratio = n.ratio, delta = delta, sd = sqrt(diag(Sigma)),
-                 rho = Sigma.cor[lower.tri(Sigma.cor)], Sigma = Sigma,
-                 alpha = alpha, sides = 1,
-                 power = power, method = METHOD),
+  structure(list(n = n, delta = delta, Sigma = matrix.format(Sigma),
+                 alpha = alpha, power = power, method = METHOD),
             class = "power.htest")
 }

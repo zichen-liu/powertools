@@ -9,11 +9,6 @@
 #' @param rho A vector of length 0.5*K*(K-1) of the correlations among the K outcomes.
 #' @param alpha The significance level or type 1 error rate; defaults to 0.025. A one-sided test is assumed.
 #' @param power The specified level of power.
-#' @param M The number of simulation.
-#' @param min.n Minimum value of n1; used in search for n1 to achieve desired power.
-#' @param max.n Maximum value of n1; used in search for n1 to achieve desired power.
-#' @param tol The desired accuracy (convergence tolerance) for uniroot.
-#' @param use.uniroot Whether to use the uniroot function to calculate n1; defaults to TRUE.
 #' @param v Either TRUE for verbose output or FALSE to output computed argument only.
 #'
 #' @return A list of the arguments (including the computed one).
@@ -25,19 +20,16 @@
 #' alpha = 0.025, power = NULL)
 
 coprimary.t <- function(K, n1 = NULL, n.ratio = 1, delta = NULL, Sigma, sd, rho,
-                        alpha = 0.025, power = NULL, M = 10000, min.n = NULL, max.n = NULL,
-                        tol = .Machine$double.eps^0.25, use.uniroot = TRUE, v = FALSE) {
+                        alpha = 0.025, power = NULL, M = 10000, v = FALSE) {
 
   # Check if the arguments are specified correctly
-  check.many(list(n1, power), "oneof")
-  check(n1, "pos")
+  check.many(list(n1, n.ratio, power, alpha), "oneof")
+  check(n1, "min", min = 4)
   check(power, "unit")
-  check(alpha, "req"); check(alpha, "unit")
+  check(alpha, "unit")
   check(K, "req"); check(K, "min", min = 1); check(K, "int")
-  check(M, "req"); check(M, "min", min = 1); check(M, "int")
-  check(n.ratio, "req"); check(n.ratio, "pos")
+  check(n.ratio, "pos")
   check(v, "req"); check(v, "bool")
-
   check(delta, "req"); check(delta, "vec")
   if(length(delta) != K)
     stop("length of 'delta' must be equal to 'K'")
@@ -79,14 +71,9 @@ coprimary.t <- function(K, n1 = NULL, n.ratio = 1, delta = NULL, Sigma, sd, rho,
     stop("matrix 'Sigma' must be positive definite")
   Sigma.cor <- stats::cov2cor(Sigma)
 
-  if(is.null(n1)){
-    check(min.n, "req"); check(min.n, "min", min = 4)
-    check(max.n, "req"); check(max.n, "min", min = min.n)
-  }
-
   ## calculations
 
-  if(is.null(power)){
+  p.body <- quote({
     std.effect <- delta/sqrt(diag(Sigma))
     probs <- numeric(M)
     Ws <- stats::rWishart(M, df = n1*(n.ratio+1)-2, Sigma = Sigma.cor)
@@ -95,44 +82,30 @@ coprimary.t <- function(K, n1 = NULL, n.ratio = 1, delta = NULL, Sigma, sd, rho,
       ci <- stats::qt(1-alpha, df = n1*(n.ratio+1)-2)*sqrt(Wi/(n1*(n.ratio+1)-2)) - sqrt(n1*(n.ratio/(1+n.ratio)))*std.effect
       probs[i] <- mvtnorm::pmvnorm(upper = -ci, sigma = Sigma.cor)
     }
-    power <- mean(probs)
+    mean(probs)
+  })
+
+  if(is.null(power)){
+    power <- eval(p.body)
     if (!v) return(power)
   }
-
-  if(is.null(n1)){
-    std.effect <- delta/sqrt(diag(Sigma))
-    ssize.fct <- function(n1, n.ratio, std.effect, Sigma.cor, power, M, verbose = FALSE){
-      probs <- numeric(M)
-      Ws <- stats::rWishart(M, df = n1*(n.ratio+1)-2, Sigma = Sigma.cor)
-      for(i in 1:M){
-        Wi <- diag(Ws[,,i])
-        ci <- stats::qt(1-alpha, df = n1*(n.ratio+1)-2)*sqrt(Wi/(n1*(n.ratio+1)-2)) - sqrt(n1*(n.ratio/(1+n.ratio)))*std.effect
-        probs[i] <- mvtnorm::pmvnorm(upper = -ci, sigma = Sigma.cor) - power
-      }
-      if(verbose) cat("Current precision:\t", mean(probs), "\n")
-      mean(probs)
-    }
-    if(use.uniroot){
-      n1 <- stats::uniroot(ssize.fct, c(min.n, max.n), tol = tol, extendInt = "yes", n.ratio = n.ratio,
-                    std.effect = std.effect, Sigma.cor = Sigma.cor, power = power, M = M,
-                    verbose = TRUE)$root
-    }else{
-      ns <- min.n:max.n
-      res <- sapply(ns, ssize.fct, std.effect = std.effect, Sigma.cor = Sigma.cor,
-                    power = power, M = M)
-      ns.pos <- ns[res > 0]
-      res.pos <- res[res > 0]
-      cat("Precision:\t", min(res.pos), "\n")
-      n1 <- ns.pos[which.min(res.pos)]
-    }
-
+  else if (is.null(n1)) {
+    n1 <- stats::uniroot(function(n1) eval(p.body) - power, c(2, 1e+07))$root
     if (!v) return(n1)
   }
+  else if (is.null(n.ratio)) {
+    n.ratio <- stats::uniroot(function(n.ratio) eval(p.body) - power,c(2/n1, 1e+07))$root
+    if (!v) return(n.ratio)
+  }
+  else if (is.null(alpha)) {
+    alpha <- stats::uniroot(function(alpha) eval(p.body) - power, c(1e-10, 1 - 1e-10))$root
+    if (!v) return(alpha)
+  }
+  else stop("internal error")
+
   n <- c(n1, n1/n.ratio)
   METHOD <- "Power calculation for multiple co-primary endpoints (covariance matrix unknown)"
-  structure(list(n = n, n.ratio = n.ratio, delta = delta, sd = sqrt(diag(Sigma)),
-                 rho = Sigma.cor[lower.tri(Sigma.cor)], Sigma = Sigma,
-                 alpha = alpha, sides = 1,
-                 power = power, method = METHOD), class = "power.htest")
+  structure(list(n = n, delta = delta, Sigma = matrix.format(Sigma),
+                 alpha = alpha, power = power, method = METHOD), class = "power.htest")
 }
 
