@@ -1,7 +1,8 @@
 #' Power calculation for two-way balanced analysis of variance contrast test
 #'
 #' @description
-#' Performs sample size and power calculations for a test of a contrast in a two-way
+#' Performs sample size and power calculations for a test of a contrast
+#' between levels of a factor in a two-way
 #' ANOVA with balanced data (that is, equal sized cells). Can be used to solve for
 #' power, n (sample size per group), or alpha. For unbalanced data, see
 #' anova2way.c.unbal.
@@ -14,9 +15,9 @@
 #' @param sd The estimated standard deviation within each group; defaults to 1.
 #' @param Rsq The estimated R^2 for regressing the outcome on the covariates; defaults to 0.
 #' @param ncov The number of covariates adjusted for in the model; defaults to 0.
-#' @param alpha The significance level or type 1 error rate; defaults to 0.05.
+#' @param alpha The significance level (type 1 error rate); defaults to 0.05.
 #' @param power The specified level of power.
-#' @param v Either TRUE for verbose output or FALSE to output computed argument only.
+#' @param v Either TRUE for verbose output or FALSE (default) to output computed argument only.
 #'
 #' @return A list of the arguments (including the computed one).
 #' @export
