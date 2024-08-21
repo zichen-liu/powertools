@@ -2,14 +2,16 @@
 #'
 #' @description
 #' Conducts power and sample size calculations for a test of a simple effect in a two-way
-#' balanced (equal cell sizes) ANOVA. For a test of a contrast in an unbalanced (unequal
-#' cell sizes) two-way ANOVA, see anova2way.se.unbal.
+#' balanced (equal cell sizes) ANOVA. A "simple effect" is a contrast between cell means.
+#' For a test of a contrast in an unbalanced (unequal
+#' cell sizes) two-way ANOVA, see anova2way.se.unbal. For a test of contrast between
+#' factor levels, see anova2way.c.bal.
 #'
 #'
-#' @param n The sample size per group.
-#' @param mmatrix A matrix of group means (see example).
+#' @param n The sample size per cell.
+#' @param mmatrix A matrix of cell means (see example).
 #' @param cmatrix A matrix of contrast coefficients (see example).
-#' @param sd The estimated standard deviation within each group; defaults to 1.
+#' @param sd The estimated standard deviation within each cell; defaults to 1.
 #' @param Rsq The estimated R^2 for regressing the outcome on the covariates; defaults to 0.
 #' @param ncov The number of covariates adjusted for in the model; defaults to 0.
 #' @param alpha The significance level (type 1 error rate); defaults to 0.05.
@@ -43,7 +45,7 @@ anova2way.se.bal <- function (n = NULL, mmatrix = NULL, cmatrix = NULL,
   a <- nrow(mmatrix)
   b <- ncol(mmatrix)
   if (a != nrow(cmatrix) | b != ncol(cmatrix))
-    stop("number of contrast coefficients must be equal to the number of groups")
+    stop("number of contrast coefficients must be equal to the number of cells")
 
    if (Rsq > 0 & ncov == 0)
     stop("please specify ncov or set Rsq to 0")
