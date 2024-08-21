@@ -1,4 +1,13 @@
-#' Power calculations for two-way unbalanced analysis of variance contrast test
+#' Power calculation for two-way unbalanced analysis of variance contrast test
+#'
+#' @description
+#' Calculates power for a test of a contrast between levels of a factor in a two-way
+#' ANOVA with unbalanced data (that is, unequal cells sizes).
+#' This function
+#' only solves for power. For a two-way balanced ANOVA,
+#' (equal cell sizes), anova2way.c.bal can also be used, and will solve for
+#' quantities other than power.
+#'
 #'
 #' @param nmatrix A matrix of group sample sizes (see example).
 #' @param mmatrix A matrix of group means (see example).
@@ -7,8 +16,8 @@
 #' @param sd The estimated standard deviation within each group.
 #' @param Rsq The estimated R^2 for regressing the outcome on the covariates; defaults to 0.
 #' @param ncov The number of covariates adjusted for in the model; defaults to 0.
-#' @param alpha The significance level or type 1 error rate; defaults to 0.05.
-#' @param v Either TRUE for verbose output or FALSE to output computed argument only.
+#' @param alpha The significance level (type 1 error rate); defaults to 0.05.
+#' @param v Either TRUE for verbose output or FALSE (default) to output computed argument only.
 #'
 #' @return A list of the arguments (including the computed one).
 #' @export
@@ -38,10 +47,10 @@ anova2way.c.unbal <- function (nmatrix = nmatrix, mmatrix = NULL, cvec = NULL,
   b <- ncol(mmatrix)
   factor <- match.arg(factor)
   if (switch(factor, "a" = a, "b" = b) != length(cvec))
-    stop("number of contrast coefficients must be equal to the number of groups")
+    stop("number of contrast coefficients must be equal to the number of factor levels")
 
   if (any(nmatrix < 2))
-    stop("number of observations in each group must be at least 2")
+    stop("number of observations in each cell must be at least 2")
 
   if (Rsq > 0 & ncov == 0)
     stop("please specify ncov or set Rsq to 0")
