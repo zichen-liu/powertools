@@ -14,7 +14,6 @@ coprimary.z(
   rho,
   alpha = 0.025,
   power = NULL,
-  tol = .Machine$double.eps^0.25,
   v = FALSE
 )
 }
@@ -36,8 +35,6 @@ coprimary.z(
 \item{alpha}{The significance level or type 1 error rate; defaults to 0.025. A one-sided test is assumed.}
 
 \item{power}{The specified level of power.}
-
-\item{tol}{The desired accuracy (convergence tolerance) for uniroot.}
 
 \item{v}{Either TRUE for verbose output or FALSE to output computed argument only.}
 }
