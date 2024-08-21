@@ -6,7 +6,8 @@
 #' This function
 #' only solves for power. For a two-way balanced ANOVA,
 #' (equal cell sizes), anova2way.c.bal can also be used, and will solve for
-#' quantities other than power.
+#' quantities other than power. For a test of a contrast among cell means, see
+#' anova2way.se.unbal.
 #'
 #'
 #' @param nmatrix A matrix of cell sample sizes (see example).

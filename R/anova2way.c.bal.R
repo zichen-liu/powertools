@@ -5,7 +5,8 @@
 #' between levels of a factor in a two-way
 #' ANOVA with balanced data (that is, equal sized cells). Can be used to solve for
 #' power, n (sample size per cell), or alpha. For unbalanced data, see
-#' anova2way.c.unbal.
+#' anova2way.c.unbal. For a test of a contrast among cell means, see
+#' anova2way.se.bal.
 #'
 #'
 #' @param n The sample size per cell

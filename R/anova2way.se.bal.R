@@ -2,7 +2,7 @@
 #'
 #' @description
 #' Conducts power and sample size calculations for a test of a simple effect in a two-way
-#' balanced (equal cell sizes) ANOVA. A "simple effect" is a contrast between cell means.
+#' balanced (equal cell sizes) ANOVA. A "simple effect" is a contrast among the cell means.
 #' For a test of a contrast in an unbalanced (unequal
 #' cell sizes) two-way ANOVA, see anova2way.se.unbal. For a test of contrast between
 #' factor levels, see anova2way.c.bal.
