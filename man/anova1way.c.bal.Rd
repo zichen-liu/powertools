@@ -40,7 +40,8 @@ A list of the arguments (including the computed one).
 }
 \description{
 Performs sample size and power calculations for a test of a contrast in a one-way
-ANOVA with balanced data (that is, equal sized groups). For unbalanced data, see
+ANOVA with balanced data (that is, equal sized groups). Can be used to solve for
+power, n (sample size per group), or alpha. For unbalanced data, see
 anova1way.c.unbal.
 }
 \examples{
