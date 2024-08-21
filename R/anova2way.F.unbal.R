@@ -2,21 +2,21 @@
 #'
 #' @description
 #' Performs sample size and power calculations for F tests in a two-way
-#' ANOVA with unbalanced data (that is, unequal sized groups). For given
+#' ANOVA with unbalanced data (that is, unequal sized cells). For given
 #' matrix of cell means and matrix of cell sample sizes, computes power
 #' for each factor and for their interaction, if an interaction is present.
-#' This function does not solve for group sizes.
-#' For balanced data (equal group sizes),
-#' see anova2way.F.unbal, which does solve for group size.
+#' This function does not solve for cell sizes.
+#' For balanced data (equal cell sizes),
+#' see anova2way.F.unbal, which can solve for cell size.
 #'
 #'
-#' @param nmatrix A matrix of group sample sizes (see example).
-#' @param mmatrix A matrix of group means (see example).
-#' @param sd The estimated standard deviation within each group.
+#' @param nmatrix A matrix of cell sample sizes (see example).
+#' @param mmatrix A matrix of cell means (see example).
+#' @param sd The estimated standard deviation within each cell
 #' @param Rsq The estimated R^2 for regressing the outcome on the covariates; defaults to 0.
 #' @param ncov The number of covariates adjusted for in the model; defaults to 0.
-#' @param alpha The significance level or type 1 error rate; defaults to 0.05.
-#' @param v Either TRUE for verbose output or FALSE to output computed argument only.
+#' @param alpha The significance level (type 1 error rate); defaults to 0.05.
+#' @param v Either TRUE for verbose output or FALSE (default) to output computed argument only.
 #'
 #' @return A list of the arguments (including the computed power).
 #' @export
@@ -48,10 +48,10 @@ anova2way.F.unbal <- function (nmatrix = NULL, mmatrix = NULL, sd = NULL,
   a <- nrow(mmatrix)
   b <- ncol(mmatrix)
   if(nrow(nmatrix) != a | ncol(nmatrix) != b)
-    stop("number of sample sizes must equal to the number of groups")
+    stop("number of sample sizes must equal to the number of cells")
 
   if (any(nmatrix < 2))
-    stop("number of observations in each group must be at least 2")
+    stop("number of observations in each cell must be at least 2")
 
   if (Rsq > 0 & ncov == 0)
     stop("please specify ncov or set Rsq to 0")
