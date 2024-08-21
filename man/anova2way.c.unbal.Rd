@@ -17,15 +17,15 @@ anova2way.c.unbal(
 )
 }
 \arguments{
-\item{nmatrix}{A matrix of group sample sizes (see example).}
+\item{nmatrix}{A matrix of cell sample sizes (see example).}
 
-\item{mmatrix}{A matrix of group means (see example).}
+\item{mmatrix}{A matrix of cell means (see example).}
 
 \item{cvec}{A vector of contrast coefficients c(c1, c2, ...).}
 
 \item{factor}{Either "a" (rows) or "b" (columns) depending on which factor the contrast test is being made on.}
 
-\item{sd}{The estimated standard deviation within each group.}
+\item{sd}{The estimated standard deviation within each cell.}
 
 \item{Rsq}{The estimated R^2 for regressing the outcome on the covariates; defaults to 0.}
 
@@ -40,11 +40,12 @@ A list of the arguments (including the computed one).
 }
 \description{
 Calculates power for a test of a contrast between levels of a factor in a two-way
-ANOVA with unbalanced data (that is, unequal cells sizes).
+ANOVA with unbalanced data (that is, unequal cell sizes).
 This function
 only solves for power. For a two-way balanced ANOVA,
 (equal cell sizes), anova2way.c.bal can also be used, and will solve for
-quantities other than power.
+quantities other than power. For a test of a contrast among cell means, see
+anova2way.se.unbal.
 }
 \examples{
 nmatrix <- matrix(c(30, 30, 30, 30, 30, 30), nrow = 2, byrow = TRUE)

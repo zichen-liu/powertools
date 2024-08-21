@@ -1,7 +1,8 @@
 #' Power calculation for chi-square goodness-of-fit test
 #'
 #' @description
-#' Performs sample size and power calculations for chi-square goodness-of-fit test.
+#' Performs sample size and power calculations for chi-square goodness-of-fit test. This
+#' function can solve for power, total sample size or alpha
 #'
 #'
 #' @param p0vec Vector of probabilities under the null hypothesis. Must sum to 1.

@@ -37,10 +37,13 @@ A list of the arguments (including the computed power).
 }
 \description{
 Conducts power calculations for a test of a simple effect in a two-way
-unbalanced (unequal cell sizes) ANOVA. Does not solve for sample size.
+unbalanced (unequal cell sizes) ANOVA.
+A "simple effect" is a contrast among the cell means.
+This function does not solve for sample size.
 For a test of a contrast in a balanced (equal
 cell sizes) two-way ANOVA, anova2way.se.bal can also be used and can
-solve for sample size.
+solve for sample size. For a test of contrast among
+factor levels, see anova2way.c.unbal.
 }
 \examples{
 nmatrix <- matrix(c(30, 30, 30, 30, 30, 30), nrow = 2, byrow = TRUE)
