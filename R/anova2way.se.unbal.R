@@ -4,10 +4,10 @@
 #' Conducts power calculations for a test of a simple effect in a two-way
 #' unbalanced (unequal cell sizes) ANOVA.
 #' A "simple effect" is a contrast among the cell means.
-#' Does not solve for sample size.
+#' This function does not solve for sample size.
 #' For a test of a contrast in a balanced (equal
 #' cell sizes) two-way ANOVA, anova2way.se.bal can also be used and can
-#' solve for sample size. For a test of contrast between
+#' solve for sample size. For a test of contrast among
 #' factor levels, see anova2way.c.unbal.
 #'
 #'
