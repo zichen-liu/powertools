@@ -2,7 +2,7 @@
 % Please edit documentation in R/anova2way.c.unbal.R
 \name{anova2way.c.unbal}
 \alias{anova2way.c.unbal}
-\title{Power calculations for two-way unbalanced analysis of variance contrast test}
+\title{Power calculation for two-way unbalanced analysis of variance contrast test}
 \usage{
 anova2way.c.unbal(
   nmatrix = nmatrix,
@@ -31,15 +31,20 @@ anova2way.c.unbal(
 
 \item{ncov}{The number of covariates adjusted for in the model; defaults to 0.}
 
-\item{alpha}{The significance level or type 1 error rate; defaults to 0.05.}
+\item{alpha}{The significance level (type 1 error rate); defaults to 0.05.}
 
-\item{v}{Either TRUE for verbose output or FALSE to output computed argument only.}
+\item{v}{Either TRUE for verbose output or FALSE (default) to output computed argument only.}
 }
 \value{
 A list of the arguments (including the computed one).
 }
 \description{
-Power calculations for two-way unbalanced analysis of variance contrast test
+Calculates power for a test of a contrast between levels of a factor in a two-way
+ANOVA with unbalanced data (that is, unequal cells sizes).
+This function
+only solves for power. For a two-way balanced ANOVA,
+(equal cell sizes), anova2way.c.bal can also be used, and will solve for
+quantities other than power.
 }
 \examples{
 nmatrix <- matrix(c(30, 30, 30, 30, 30, 30), nrow = 2, byrow = TRUE)

@@ -4,15 +4,15 @@
 #' Performs sample size and power calculations for a test of a contrast
 #' between levels of a factor in a two-way
 #' ANOVA with balanced data (that is, equal sized cells). Can be used to solve for
-#' power, n (sample size per group), or alpha. For unbalanced data, see
+#' power, n (sample size per cell), or alpha. For unbalanced data, see
 #' anova2way.c.unbal.
 #'
 #'
-#' @param n The sample size per group.
-#' @param mmatrix A matrix of group means (see example).
+#' @param n The sample size per cell
+#' @param mmatrix A matrix of cell means (see example).
 #' @param cvec A vector of contrast coefficients c(c1, c2, ...).
 #' @param factor Either "a" for rows or "b" for columns depending on which factor the contrast test is being made on.
-#' @param sd The estimated standard deviation within each group; defaults to 1.
+#' @param sd The estimated standard deviation within each cell; defaults to 1.
 #' @param Rsq The estimated R^2 for regressing the outcome on the covariates; defaults to 0.
 #' @param ncov The number of covariates adjusted for in the model; defaults to 0.
 #' @param alpha The significance level (type 1 error rate); defaults to 0.05.
@@ -48,7 +48,7 @@ anova2way.c.bal <- function (n = NULL, mmatrix = NULL, cvec = NULL,
   b <- ncol(mmatrix)
   factor <- match.arg(factor)
   if (switch(factor, "a" = a, "b" = b) != length(cvec))
-    stop("number of contrast coefficients must be equal to the number of groups")
+    stop("number of contrast coefficients must be equal to the number of factor levels")
 
   if (Rsq > 0 & ncov == 0)
     stop("please specify ncov or set Rsq to 0")

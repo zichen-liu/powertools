@@ -2,7 +2,7 @@
 % Please edit documentation in R/anova2way.c.bal.R
 \name{anova2way.c.bal}
 \alias{anova2way.c.bal}
-\title{Power calculations for two-way balanced analysis of variance contrast test}
+\title{Power calculation for two-way balanced analysis of variance contrast test}
 \usage{
 anova2way.c.bal(
   n = NULL,
@@ -32,17 +32,21 @@ anova2way.c.bal(
 
 \item{ncov}{The number of covariates adjusted for in the model; defaults to 0.}
 
-\item{alpha}{The significance level or type 1 error rate; defaults to 0.05.}
+\item{alpha}{The significance level (type 1 error rate); defaults to 0.05.}
 
 \item{power}{The specified level of power.}
 
-\item{v}{Either TRUE for verbose output or FALSE to output computed argument only.}
+\item{v}{Either TRUE for verbose output or FALSE (default) to output computed argument only.}
 }
 \value{
 A list of the arguments (including the computed one).
 }
 \description{
-Power calculations for two-way balanced analysis of variance contrast test
+Performs sample size and power calculations for a test of a contrast
+between levels of a factor in a two-way
+ANOVA with balanced data (that is, equal sized cells). Can be used to solve for
+power, n (sample size per group), or alpha. For unbalanced data, see
+anova2way.c.unbal.
 }
 \examples{
 mmatrix <- matrix(c(9.3, 8.9, 8.5, 8.7, 8.3, 7.3), nrow = 2, byrow = TRUE)

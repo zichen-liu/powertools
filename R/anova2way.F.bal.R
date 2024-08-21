@@ -2,21 +2,21 @@
 #'
 #' @description
 #' Performs sample size and power calculations for F tests in a two-way
-#' ANOVA with balanced data (that is, equal sized groups). For a given
-#' matrix of cell means, computes power or required group size
+#' ANOVA with balanced data (that is, equal cell sizes). For a given
+#' matrix of cell means, computes power or required cell size
 #' for each factor and for their interaction, if an interaction is present.
-#' For unbalanced data (unequal group sizes),
+#' For unbalanced data (unequal cell sizes),
 #' see anova2way.F.unbal.
 #'
 #'
-#' @param n The sample size per group.
-#' @param mmatrix A matrix of group means (see example).
-#' @param sd The estimated standard deviation within each group; defaults to 1.
+#' @param n The sample size per cell
+#' @param mmatrix A matrix of cell means (see example).
+#' @param sd The estimated standard deviation within each cell; defaults to 1.
 #' @param Rsq The estimated R^2 for regressing the outcome on the covariates; defaults to 0.
 #' @param ncov The number of covariates adjusted for in the model; defaults to 0.
-#' @param alpha The significance level or type 1 error rate; defaults to 0.05.
+#' @param alpha The significance level (type 1 error rate); defaults to 0.05.
 #' @param power The specified level of power.
-#' @param v Either TRUE for verbose output or FALSE to output computed argument only.
+#' @param v Either TRUE for verbose output or FALSE (default) to output computed argument only.
 #'
 #' @return A list of the arguments (including the computed one).
 #' @export
