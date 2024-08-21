@@ -3,7 +3,7 @@
 #' @description
 #' Calculates the "power" of a confidence interval for a difference between two means, that is, the probability
 #' of achieving a 100(1 - alpha) percent confidence interval with halfwidth not greater
-#' than a specified value.
+#' than a specified value. This function can solve for power, n1, n.ratio or alpha.
 #'
 #' @details
 #' The unconditional probability is the probability of obtaining the desired precision
