@@ -3,6 +3,9 @@
 #' @description
 #' Performs power calculations for an unbalanced (unequal group sizes)
 #' one-way ANOVA omnibus F test, which tests for any differences among group means.
+#' This function solves for power given other parameters. For balanced data
+#' (equal-sized groups), anova1way.F.bal can be used and solves for more
+#' parameters.
 #'
 #'
 #'
