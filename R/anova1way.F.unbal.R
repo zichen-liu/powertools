@@ -1,4 +1,11 @@
-#' Power calculations for one-way unbalanced analysis of variance omnibus F test
+#' Power calculation for unbalanced one-way analysis of variance omnibus F test
+#'
+#' @description
+#' Performs power calculations for an unbalanced (unequal group sizes)
+#' one-way ANOVA omnibus F test, which tests for any differences among group means.
+#'
+#'
+#'
 #'
 #' @param nvec A vector of group sample sizes c(n1, n2, ...).
 #' @param mvec A vector of group mvec c(mu1, mu2, ...).
