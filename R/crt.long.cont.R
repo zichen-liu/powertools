@@ -24,6 +24,21 @@
 #' @return A list of the arguments (including the computed one).
 #' @export
 #'
+#' @details
+#' The intraclass correlation coefficient (icc) is the correlation between
+#' two observations from different subjects in the same cluster and same time period.
+#' Denote the correlation between observations from two
+#' different subjects in the same cluster but different time periods as iccb.
+#' The cluster autocorrelation (cac) is iccb/icc and is interpreted as the proportion of
+#' the cluster-level variance that is time-invariant.
+#' Denote the correlation between two observations from the same subject
+#' in different time periods as rhoa.
+#' The subject autocorrelation (sac) is (rhoa - icc)/(iccb - icc) and is interpreted as
+#' the proportion of the subject-level variance that is time-invariant.
+#' The sac is only relevant for design in which the same subjects are measured at both baseline and follow up.
+#' If different subjects are measured during different time periods, sac should be set to zero.
+#'
+#'
 #' @examples
 #' crt.long.cont(m = 30, J1 = 8, delta = 0.3, icc = 0.05, cac = 0.4, sac = 0.5)
 
@@ -105,7 +120,7 @@ crt.long.cont <- function (m = NULL, J1 = NULL, J.ratio = 1, delta = NULL, sd = 
   }
 
   # Generate output text
-  METHOD <- "Power for test of treatment effect in a longitudinal cluster randomized trial with baseline measurement"
+  METHOD <- "Power for test of treatment effect in a cluster randomized trial with baseline measurement"
   J <- c(J1, J1 * J.ratio)
   de.pa <- 1 + (m - 1) * icc
   r <- m * icc * cac / de.pa + (1 - icc) * sac / de.pa
