@@ -1,5 +1,14 @@
 #' Power for test of treatment effect in longitudinal cluster randomized trial with baseline measurement
 #'
+#' @description
+#' This function computes power and sample size for a cluster randomized trial in which a continuous
+#' outcome variable is measured during both baseline and follow-up periods among
+#' the cluster members, and it is planned that the outcome data will be analyzed using
+#' a linear mixed model in which the dependent variable vector includes both baseline and follow up
+#' measurements and there is a random intercept for cluster.
+#' This function can solve for power, J1, J.ratio, m or delta.
+#'
+#'
 #' @param m The number of subjects measured during each cluster-period.
 #' @param J1 The number of clusters in arm 1.
 #' @param J.ratio The ratio J2/J1 between the number of clusters in the two arms; defaults to 1 (equal clusters per arm).
@@ -8,10 +17,10 @@
 #' @param icc The within-cluster, within-period intraclass correlation coefficient; defaults to 0.
 #' @param cac The cluster autocorrelation; defaults to 0.
 #' @param sac The subject autocorrelation; defaults to 0.
-#' @param alpha The significance level or type 1 error rate; defaults to 0.05.
+#' @param alpha The significance level (type 1 error rate); defaults to 0.05.
 #' @param power The specified level of power.
 #' @param sides Either 1 or 2 (default) to specify a one- or two- sided hypothesis test.
-#' @param v Either TRUE for verbose output or FALSE to output computed argument only.
+#' @param v Either TRUE for verbose output or FALSE (default) to output computed argument only.
 #' @return A list of the arguments (including the computed one).
 #' @export
 #'

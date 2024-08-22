@@ -16,7 +16,7 @@
 #' @param n1 The sample size for group 1.
 #' @param n.ratio The ratio n2/n1 between the sample sizes of two groups; defaults to 1 (equal group sizes).
 #' @param halfwidth The desired halfwidth for the difference in means.
-#' @param sd The estimated standard deviation; defaults to 1.
+#' @param sd The estimated standard deviation; defaults to 1. Equal SDs in each group are assumed.
 #' @param alpha The significance level (type 1 error rate); defaults to 0.05.
 #' @param power The specified level of power.
 #' @param cond Specify using unconditional or conditional probability. Defaults to FALSE.
