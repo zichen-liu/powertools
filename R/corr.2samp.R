@@ -30,8 +30,8 @@ corr.2samp <- function (n1 = NULL, n.ratio = 1, rho1 = NULL, rho2 = NULL,
   check(n.ratio, "pos")
   check(alpha, "unit")
   check(power, "unit")
-  check(rho1, "req"); check(rho1, "uniti")
-  check(rho2, "req"); check(rho2, "uniti")
+  check(rho1, "req"); check(abs(rho1), "uniti")
+  check(rho2, "req"); check(abs(rho2), "uniti")
   check(sides, "req"); check(sides, "vals", valslist = c(1, 2))
   check(v, "req"); check(v, "bool")
 
@@ -47,7 +47,7 @@ corr.2samp <- function (n1 = NULL, n.ratio = 1, rho1 = NULL, rho2 = NULL,
     DeltaA <- abs(f1 - f2)
     lambda <- DeltaA / sqrt(1 / (n1 - 3) + 1 / (n1 * n.ratio - 3))
 
-    stats::pnorm(lambda - za)
+    stats::pnorm(abs(lambda) - za)
   })
 
   # Use stats::uniroot function to calculate missing argument

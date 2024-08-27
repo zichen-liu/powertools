@@ -29,8 +29,8 @@ corr.1samp <- function (N = NULL, rho0 = 0, rhoA = NULL,
   check(N, "pos"); check(N, "min", min = 4)
   check(alpha, "unit")
   check(power, "unit")
-  check(rho0, "req"); check(rho0, "uniti")
-  check(rhoA, "req"); check(rhoA, "uniti")
+  check(rho0, "req"); check(abs(rho0), "uniti")
+  check(rhoA, "req"); check(abs(rhoA), "uniti")
   check(sides, "req"); check(sides, "vals", valslist = c(1, 2))
   check(v, "req"); check(v, "bool")
 
@@ -50,7 +50,7 @@ corr.1samp <- function (N = NULL, rho0 = 0, rhoA = NULL,
     nu2 <- (22 - 6 * rhoA^2 - 3 * rhoA^4) / (6 * (N - 1)^2)
     nu <- ((N - 3) / (N - 1)) * (1 + nu1 + nu2)
 
-    stats::pnorm((omega - za) / sqrt(nu))
+    stats::pnorm((abs(omega) - za) / sqrt(nu))
   })
 
   # Use stats::uniroot function to calculate missing argument
