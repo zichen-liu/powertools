@@ -14,9 +14,9 @@ chisq.gof(
 )
 }
 \arguments{
-\item{p0vec}{Vector of probabilities under the null hypothesis. Must sum to 1.}
+\item{p0vec}{Vector of probabilities for the specified population distribution. Must sum to 1.}
 
-\item{p1vec}{Vector of probabilities under the alternative hypothesis. Must sum to 1.}
+\item{p1vec}{Vector of expected probabilities for the sample. Must sum to 1.}
 
 \item{N}{The total number of observations.}
 
@@ -30,7 +30,10 @@ chisq.gof(
 A list of the arguments (including the computed one).
 }
 \description{
-Performs sample size and power calculations for chi-square goodness-of-fit test.
+Performs sample size and power calculations for chi-square goodness-of-fit test,
+which is used to test whether a sample of data arises from a population with a specific
+discrete distribution.
+This function can solve for power, total sample size or alpha.
 }
 \examples{
 chisq.gof(p0vec = c(0.5, 0.3, 0.2), p1vec = c(0.7, 0.2, 0.1), N = 50)

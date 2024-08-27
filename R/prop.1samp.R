@@ -2,7 +2,7 @@
 #'
 #' @description
 #' Performs power and sample size calculations for a one-sample test of a proportion.
-#' Calculations use the normal approximation to the binomial.
+#' Calculations use the large-sample normal approximation to the binomial.
 #'
 #'
 #' @param N The sample size.

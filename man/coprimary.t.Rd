@@ -15,10 +15,6 @@ coprimary.t(
   alpha = 0.025,
   power = NULL,
   M = 10000,
-  min.n = NULL,
-  max.n = NULL,
-  tol = .Machine$double.eps^0.25,
-  use.uniroot = TRUE,
   v = FALSE
 )
 }
@@ -40,16 +36,6 @@ coprimary.t(
 \item{alpha}{The significance level or type 1 error rate; defaults to 0.025. A one-sided test is assumed.}
 
 \item{power}{The specified level of power.}
-
-\item{M}{The number of simulation.}
-
-\item{min.n}{Minimum value of n1; used in search for n1 to achieve desired power.}
-
-\item{max.n}{Maximum value of n1; used in search for n1 to achieve desired power.}
-
-\item{tol}{The desired accuracy (convergence tolerance) for uniroot.}
-
-\item{use.uniroot}{Whether to use the uniroot function to calculate n1; defaults to TRUE.}
 
 \item{v}{Either TRUE for verbose output or FALSE to output computed argument only.}
 }

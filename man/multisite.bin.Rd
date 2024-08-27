@@ -18,9 +18,9 @@ multisite.bin(
 )
 }
 \arguments{
-\item{m}{The total number of subjects per site.}
+\item{m}{The total number of subjects in condition 1 + condition 2.}
 
-\item{alloc.ratio}{The allocation ratio of intervention/control per site; defaults to 1.}
+\item{alloc.ratio}{The allocation ratio of condition 1/condition 2 per site; defaults to 1.}
 
 \item{J}{The number of sites.}
 
@@ -42,7 +42,7 @@ multisite.bin(
 A list of the arguments (including the computed one).
 }
 \description{
-Power for multisite trials with binary outcomes
+ADD COMMENTS ABOUT NOT SOLVING FOR ALLOC.RATIO
 }
 \examples{
 multisite.bin(m = 30, J = 25, pc = 0.1, pt = 0.2, sigma.u = 0.4, power = NULL)

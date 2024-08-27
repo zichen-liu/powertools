@@ -1,11 +1,14 @@
 #' Power calculation for chi-square goodness-of-fit test
 #'
 #' @description
-#' Performs sample size and power calculations for chi-square goodness-of-fit test.
+#' Performs sample size and power calculations for chi-square goodness-of-fit test,
+#' which is used to test whether a sample of data arises from a population with a specific
+#' discrete distribution.
+#' This function can solve for power, total sample size or alpha.
 #'
 #'
-#' @param p0vec Vector of probabilities under the null hypothesis. Must sum to 1.
-#' @param p1vec Vector of probabilities under the alternative hypothesis. Must sum to 1.
+#' @param p0vec Vector of probabilities for the specified population distribution. Must sum to 1.
+#' @param p1vec Vector of expected probabilities for the sample. Must sum to 1.
 #' @param N The total number of observations.
 #' @param alpha The significance level (type 1 error rate); defaults to 0.05.
 #' @param power The specified level of power.

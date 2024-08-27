@@ -2,7 +2,9 @@
 #'
 #' @description
 #' This function performs power and sample size calculations for the overall (omnibus) F test
-#' in a balanced (equal-sized groups) one-way analysis of variance (ANOVA). For an unbalanced one-way
+#' in a balanced (equal-sized groups) one-way analysis of variance (ANOVA). Can be used to solve for
+#' power, N (sample size per group), or alpha.
+#' For an unbalanced one-way
 #' ANOVA F test (that is, unequal group sample sizes), use 'anova1way.F.unbal'.
 #' For contrast tests in a one-way ANOVA, see 'anova1way.c.bal' and 'anova1way.c.unbal'.
 #'

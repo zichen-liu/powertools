@@ -1,9 +1,11 @@
 #' Power calculation for one-way unbalanced analysis of variance contrast test
 #'
 #' @description
-#' Performs sample size and power calculations for a test of a contrast in a one-way
-#' ANOVA with unbalanced data (that is, unequal sized groups). For balanced data
-#' (equal group sizes), anova1way.c.bal can also be used.
+#' Calculates power for a test of a contrast in a one-way
+#' ANOVA with unbalanced data (that is, unequal sized groups). This function
+#' only solves for power. For a one-way balanced ANOVA,
+#' (equal group sizes), anova1way.c.bal can also be used, and will solve for
+#' quantities other than power.
 #'
 #'
 #' @param nvec A vector of group sample sizes c(n1, n2, ...).

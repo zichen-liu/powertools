@@ -36,9 +36,11 @@ anova1way.c.unbal(
 A list of the arguments (including the computed power).
 }
 \description{
-Performs sample size and power calculations for a test of a contrast in a one-way
-ANOVA with unbalanced data (that is, unequal sized groups). For balanced data
-(equal group sizes), anova1way.c.bal can also be used.
+Calculates power for a test of a contrast in a one-way
+ANOVA with unbalanced data (that is, unequal sized groups). This function
+only solves for power. For a one-way balanced ANOVA,
+(equal group sizes), anova1way.c.bal can also be used, and will solve for
+quantities other than power.
 }
 \examples{
 anova1way.c.unbal(nvec = c(20, 20, 20), mvec = c(5, 10, 12), cvec = c(1, -1, 0),
