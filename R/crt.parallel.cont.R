@@ -28,7 +28,7 @@
 #' crt.parallel.cont(m = 30, J1 = 8, delta = 0.4, icc1 = 0.05, icc2 = 0.05)
 #' crt.parallel.cont(m = NULL, J1 = 6, delta = 0.5, icc1 = 0.05, icc2 = 0.05, power = 0.8)
 #' crt.parallel.cont(m = 25, m.sd = 15, J1 = NULL, delta = 0.3, icc1 = 0.05,
-#' icc2 = 0.05, power = 0.8) # this causes issues
+#' icc2 = 0.05, power = 0.8)
 #' crt.parallel.cont(m = 20, J1 = 15, delta = 0.3, icc1 = 0.05, icc2 = 0.05,
 #' RsqB = 0.1, ncov = 1, sides = 1)
 
