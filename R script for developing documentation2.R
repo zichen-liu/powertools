@@ -16,10 +16,6 @@ build_manual()
 
 
 
-ci.meandiff(n1 = 100, n.ratio = NULL, halfwidth = 0.25, power = 0.8)
-ci.meandiff(n1 = 150, n.ratio = 1, halfwidth = 0.25, power = NULL)
-ci.meandiff(n1 = 200, n.ratio = 0.5, halfwidth = 0.25, power = NULL)
-ci.meandiff(n1 = 50, n.ratio = 1, halfwidth = 0.25, power = NULL)
 
 
 
