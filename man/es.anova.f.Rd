@@ -17,6 +17,7 @@ es.anova.f(means = NULL, sd = NULL, v = TRUE)
 Various calculated f effect sizes.
 }
 \description{
+Calculates teh Cohen f effect size for a one- or two-way ANOVA.
 Takes as input the cell or group means for a one- or two-way ANOVA and the common
 standard deviation and outputs the f effect size, as defined by Cohen (1988). Note that
 this effect size calculation is only valid when cell/group sizes are equal.

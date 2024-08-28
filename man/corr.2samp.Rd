@@ -37,7 +37,7 @@ A list of the arguments (including the computed one).
 }
 \description{
 Calculates power and sample size for a test that the correlation coefficients in two groups/populations
-are equal.
+are equal. Can solve for power, n1, n.ratio or alpha.
 }
 \examples{
 corr.2samp(n1 = 300, rho1 = 0.3, rho2 = 0.1, sides = 1)

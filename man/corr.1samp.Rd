@@ -34,7 +34,7 @@ A list of the arguments (including the computed one).
 }
 \description{
 Calculates power and sample size for a test that the correlation coefficient in a single population
-is equal to (or less than or greater than) a specified value.
+is equal to (or less than or greater than) a specified value. Can solve for power, N or alpha.
 }
 \examples{
 corr.1samp(N = 100, rhoA = 0.2, sides = 1)
