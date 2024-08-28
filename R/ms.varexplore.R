@@ -10,6 +10,7 @@
 #'
 #' @details
 #' In a multisite trial design, participants are randomized to conditions within site.
+#'  The use of this function is illustrated in Crespi CM (2025) Power and Sample Size in R.
 #'
 #'
 #'

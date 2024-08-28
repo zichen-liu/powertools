@@ -8,6 +8,10 @@
 #' random intercept, the intervals within which we expect about 95% of the cluster-level
 #' proportions to lie in each arm.
 #'
+#' @details
+#' The use of this function is illustrated in Crespi CM (2025) Power and Sample Size in R.
+#'
+#'
 #'
 #' @param pc The probability of the outcome in control clusters.
 #' @param pt The probability of the outcome in treatment clusters.
