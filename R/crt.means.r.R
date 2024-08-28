@@ -2,7 +2,8 @@
 #'
 #' @description
 #' For a cluster randomized trial with a continuous outcome, this function calculates the correlation
-#' between a cluster's mean at baseline and at follow up. For cross-sectional sampling of subjects,
+#' between a cluster's mean at baseline and at follow up based on various inputs.
+#' For cross-sectional sampling of subjects,
 #' that is, different subjects are measured at baseline and follow up, specify sac = 0.
 #'
 #'
