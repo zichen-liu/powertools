@@ -2,7 +2,7 @@
 #'
 #' @description
 #' Calculates power and sample size for a test that the correlation coefficients in two groups/populations
-#' are equal.
+#' are equal. Can solve for power, n1, n.ratio or alpha.
 #'
 #'
 #' @param n1 The sample size for group 1.
