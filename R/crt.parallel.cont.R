@@ -31,9 +31,6 @@
 #' icc2 = 0.05, power = 0.8)
 #' crt.parallel.cont(m = 20, J1 = 15, delta = 0.3, icc1 = 0.05, icc2 = 0.05,
 #' RsqB = 0.1, ncov = 1, sides = 1)
-#' crt.parallel.cont(m = 20, J1 = 15, delta = 0.3, icc1 = 0.05, icc2 = 0.05,
-#' RsqW = 0.5^2, ncov = 1, sides = 1)
-#' crt.parallel.cont(m = NULL, J1 = 6, delta = 0.5, icc1 = 0.05, icc2 = 0.05, power = 0.8)
 
 crt.parallel.cont <- function (m = NULL, m.sd = 0, J1 = NULL, J.ratio = 1, delta = NULL, sd = 1,
                                icc1 = 0, icc2 = 0, ncov = 0, RsqB = 0, RsqW = 0,
@@ -131,7 +128,7 @@ crt.parallel.cont <- function (m = NULL, m.sd = 0, J1 = NULL, J.ratio = 1, delta
     if (!v) return(J.ratio)
   }
   else if (is.null(m)) {
-    m <- stats::uniroot(function(m) eval(p.body) - power, c(2 + 1e-10, 1e+07))$root
+    m <- stats::uniroot(function(m) eval(p.body) - power, c(7 + 1e-10, 1e+07))$root
     if (!v) return(m)
   }
   else if (is.null(delta)) {
