@@ -1,5 +1,11 @@
 #' Power for test of treatment effect in 2x2 crossover cluster randomized trial
 #'
+#' @description
+#' Power and sample size calculation for a 2x2 crossover cluster randomized trial.
+#' Can solve for power, number of clusters per arm (assumes equal number of
+#' cluster per arm), m, delta or alpha.
+#'
+#'
 #' @param m The number of subjects measured during each cluster-period.
 #' @param J.arm The number of clusters in each arm.
 #' @param delta The difference between the intervention and control means under the alternative minus the difference under the null hypothesis.
