@@ -1,7 +1,7 @@
-#' Cohen f^2 effect size for overall F test in multiple linear regression
+#' Cohen f-squared effect size for overall F test in multiple linear regression
 #'
 #' @description
-#' Computes the f^2 effect size for an overall F test in a multiple lienar regression model
+#' Computes the f-squared (r^2) effect size for an overall F test in a multiple linear regression model
 #' based on the model R^2 (Rsq). Based on Cohen (1988).
 #'
 #' @details
