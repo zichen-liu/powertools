@@ -1,9 +1,9 @@
 #' Power for individually randomized group treatment trial with continuous outcome
 #'
 #' @description
-#' COmputes power and sample size for an individually randomized group treatment trial with
+#' Computes power and sample size for an individually randomized group treatment trial with
 #' a continuous outcome, in which after individual randomization, individuals in the
-#' intervention/treatment arm are clustered.
+#' intervention/treatment arm are clustered. Can solve for power, J, m, n, delta or alpha.
 #'
 #'
 #'
