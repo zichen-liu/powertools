@@ -42,9 +42,9 @@ irgtt.bin(
 A list of the arguments (including the computed one).
 }
 \description{
-COmputes power and sample size for an individually randomized group treatment trial with
+Computes power and sample size for an individually randomized group treatment trial with
 a binary outcome, in which after individual randomization, individuals in the
-intervention/treatment arm are clustered.
+intervention/treatment arm are clustered. Can solve for power, J, m, n, or alpha.
 }
 \examples{
 irgtt.bin(m = 20, J = 5, n = 100, p1 = 0.8, p2 = 0.6, icc = 0.04, sides = 2)

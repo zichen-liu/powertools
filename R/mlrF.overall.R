@@ -7,7 +7,9 @@
 #' Can solve for power, N or alpha.
 #'
 #' @details
-#' Additional details...
+#' Either Rsq OR fsq must be specified. These are related as fsq = Rsq/(1-Rsq).
+#' Rsq is the proportion of the total variation in Y that is explained by
+#' linear relationship with the predictors.
 #'
 #'
 #'
