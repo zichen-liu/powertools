@@ -1,7 +1,7 @@
 #' Power calculation for rank-sum test
 #'
 #' @description
-#' This funcion performs power and sample size calculations for the
+#' This function performs power and sample size calculations for the
 #' Wilcoxon-Mann-Whitney rank-sum test, also called the Mann-Whitney U test,
 #' which is the nonparametric analog of the two independent sample t test.
 #' Calculations are based on the approximation given by

@@ -36,19 +36,38 @@ crt.long.cont(
 
 \item{sac}{The subject autocorrelation; defaults to 0.}
 
-\item{alpha}{The significance level or type 1 error rate; defaults to 0.05.}
+\item{alpha}{The significance level (type 1 error rate); defaults to 0.05.}
 
 \item{power}{The specified level of power.}
 
 \item{sides}{Either 1 or 2 (default) to specify a one- or two- sided hypothesis test.}
 
-\item{v}{Either TRUE for verbose output or FALSE to output computed argument only.}
+\item{v}{Either TRUE for verbose output or FALSE (default) to output computed argument only.}
 }
 \value{
 A list of the arguments (including the computed one).
 }
 \description{
-Power for test of treatment effect in longitudinal cluster randomized trial with baseline measurement
+This function computes power and sample size for a cluster randomized trial in which a continuous
+outcome variable is measured during both baseline and follow-up periods among
+the cluster members, and it is planned that the outcome data will be analyzed using
+a linear mixed model in which the dependent variable vector includes both baseline and follow up
+measurements and there is a random intercept for cluster.
+This function can solve for power, J1, J.ratio, m or delta.
+}
+\details{
+The intraclass correlation coefficient (icc) is the correlation between
+two observations from different subjects in the same cluster and same time period.
+Denote the correlation between observations from two
+different subjects in the same cluster but different time periods as iccb.
+The cluster autocorrelation (cac) is iccb/icc and is interpreted as the proportion of
+the cluster-level variance that is time-invariant.
+Denote the correlation between two observations from the same subject
+in different time periods as rhoa.
+The subject autocorrelation (sac) is (rhoa - icc)/(iccb - icc) and is interpreted as
+the proportion of the subject-level variance that is time-invariant.
+The sac is only relevant for design in which the same subjects are measured at both baseline and follow up.
+If different subjects are measured during different time periods, sac should be set to zero.
 }
 \examples{
 crt.long.cont(m = 30, J1 = 8, delta = 0.3, icc = 0.05, cac = 0.4, sac = 0.5)

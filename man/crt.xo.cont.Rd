@@ -51,7 +51,9 @@ crt.xo.cont(
 A list of the arguments (including the computed one).
 }
 \description{
-Power for test of treatment effect in 2x2 crossover cluster randomized trial
+Power and sample size calculation for a 2x2 crossover cluster randomized trial.
+Can solve for power, number of clusters per arm (assumes equal number of
+cluster per arm), m, delta or alpha.
 }
 \examples{
 crt.xo.cont(m = 30, J.arm = 4, delta = 0.3, icc = 0.05, cac = 0.8, sac = 0.4)

@@ -44,7 +44,8 @@ A list of the arguments (including the computed one).
 \description{
 This function performs power and sample size calculations for a two-arm cluster randomized trial
 with a binary outcome. It assumes the outcome analysis will be conducted using a mixed effect logistic
-regression model that has a random intercept for cluster.
+regression model that has a random intercept for cluster. Equal allocation of clusters to arms
+is assumed. Can solve for power, J, m or alpha.
 }
 \details{
 For help selecting a reasonable value for sigma.u, use the crt.varexplore function.

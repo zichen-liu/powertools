@@ -1,9 +1,20 @@
-#' Power calculations for a multiple linear regression overall F test
+#' Power calculation for a multiple linear regression overall F test
+#'
+#' @description
+#' Conducts power and sample size calculations for an overall (or omnibus) F test
+#' in a multiple linear regression model.
+#' This is a test that all coefficients other than the intercept are equal to zero.
+#' Can solve for power, N or alpha.
+#'
+#' @details
+#' Additional details...
+#'
+#'
 #'
 #' @param N The sample size.
 #' @param p The number of predictors.
-#' @param Rsq The squared sample multiple correlation coefficient.
-#' @param fsq The squared f effect size. Either Rsq OR fsq must be specified.
+#' @param Rsq The squared population multiple correlation coefficient.
+#' @param fsq The f-squared effect size. Either Rsq OR fsq must be specified.
 #' @param alpha The significance level or type 1 error rate; defaults to 0.05.
 #' @param power The specified level of power.
 #' @param random Whether the values of the predictors are random; defaults to FALSE.

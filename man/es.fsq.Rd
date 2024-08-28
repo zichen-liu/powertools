@@ -2,7 +2,7 @@
 % Please edit documentation in R/es.fsq.R
 \name{es.fsq}
 \alias{es.fsq}
-\title{Cohen f^2 effect size for overall F test in multiple linear regression}
+\title{Cohen f-squared effect size for overall F test in multiple linear regression}
 \usage{
 es.fsq(Rsq = 0.02)
 }
@@ -13,7 +13,7 @@ es.fsq(Rsq = 0.02)
 A list of the arguments and the f^2 effect size.
 }
 \description{
-Computes the f^2 effect size for an overall F test in a multiple lienar regression model
+Computes the f-squared (r^2) effect size for an overall F test in a multiple linear regression model
 based on the model R^2 (Rsq). Based on Cohen (1988).
 }
 \details{

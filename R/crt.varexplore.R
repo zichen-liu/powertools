@@ -1,5 +1,13 @@
 #' Variance exploration for cluster randomized trials with binary outcomes
 #'
+#' @description
+#' This function can be used to help select a plausible value for the variance of the
+#' random intercept for cluster in a cluster randomized trial with a binary outcome.
+#' Based on user-supplied values of the outcome proportions in the two arms,
+#' outputs the intervals within which we expect about 95% of the cluster-level
+#' proportions to lie in each arm.
+#'
+#'
 #' @param pc The probability of the outcome in control clusters.
 #' @param pt The probability of the outcome in treatment clusters.
 #'

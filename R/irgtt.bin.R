@@ -1,9 +1,9 @@
 #' Power for individual randomized group treatment trial with binary outcome
 #'
 #' @description
-#' COmputes power and sample size for an individually randomized group treatment trial with
+#' Computes power and sample size for an individually randomized group treatment trial with
 #' a binary outcome, in which after individual randomization, individuals in the
-#' intervention/treatment arm are clustered.
+#' intervention/treatment arm are clustered. Can solve for power, J, m, n, or alpha.
 #'
 #'
 #' @param m The number of subjects per cluster in the intervention arm.

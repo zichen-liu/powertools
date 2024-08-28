@@ -3,7 +3,7 @@
 #' @description
 #' Calculates the "power" of a confidence interval for one mean, that is, the probability
 #' of achieving a 100(1 - alpha) percent confidence interval with halfwidth not greater
-#' than a specified value.
+#' than a specified value. Can solve for power, N or alpha.
 #'
 #' @details
 #' The unconditional probability is the probability of obtaining the desired precision

@@ -2,7 +2,7 @@
 #'
 #' @description
 #' This function performs power and sample size calculations for a two-arm cluster randomized trial
-#' with a continuous, normal outcome.
+#' with a continuous, normal outcome. Can solve for power, J1, J.ratio, m or alpha.
 #'
 #'
 #' @param m The number of subjects per cluster or the mean cluster size (if unequal number of participants per cluster).
