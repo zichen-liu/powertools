@@ -34,6 +34,7 @@ A list of the arguments (including the computed one).
 }
 \description{
 This function computes power and sample size for a one-sample t test.
+Can solve for power, N, delta, sd or alpha.
 }
 \examples{
 t.test.1samp(N = 36, delta = 4.9 - 5.7, sd = 2, sides = 1)
