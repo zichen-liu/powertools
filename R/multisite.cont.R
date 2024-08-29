@@ -1,12 +1,17 @@
 #' Power for test of average treatment effect in a multisite trial
 #'
 #' @description
-#' ADD COMMENTS ABOUT NOT SOLVING FOR ALLOC.RATIO
+#' Performs power and sample size calculations for a multisite trial with a
+#' continuous (normal) outcome variable. Can solve for power, J, m or alpha.
 #'
-#' @param m The total the number of subjects in condition 1 + condition 2, or the mean cluster size (if unequal number of participants per site).
-#' @param m.sd The standard deviation of cluster sizes (provide if unequal number of participants per site); defaults to 0.
-#' @param alloc.ratio The allocation ratio of condition 1/condition 2 per site; defaults to 1.
-#' @param J The number of sites.
+#' @details
+#' In a multisite trial design, participants are randomized to conditions
+#' within site.
+#'
+#' @param m The mean cluster/site size (number of participants per site).
+#' @param m.sd The standard deviation of cluster/site sizes (provide if unequal number of participants per site); defaults to 0.
+#' @param alloc.ratio The allocation ratio of condition 1/condition 2 within site; defaults to 1.
+#' @param J The total number of sites.
 #' @param delta The difference between the condition 1 and condition 2 means under the alternative minus the difference under the null hypothesis.
 #' @param sd The total standard deviation of the outcome variable; defaults to 1.
 #' @param icc0 The proportion of total variance of the outcome attributable to variation in site-level means.
@@ -15,7 +20,7 @@
 #' @param alpha The significance level or type 1 error rate; defaults to 0.05.
 #' @param power The specified level of power.
 #' @param sides Either 1 or 2 (default) to specify a one- or two- sided hypothesis test.
-#' @param v Either TRUE for verbose output or FALSE to output computed argument only.
+#' @param v Either TRUE for verbose output or FALSE (default) to output computed argument only.
 #'
 #' @return A list of the arguments (including the computed one).
 #' @export
