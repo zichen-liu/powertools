@@ -15,7 +15,8 @@
 #' @param m The mean number of subjects per site.
 #' @param alloc.ratio The allocation ratio of intervention/control subjects per site; defaults to 1.
 #' @param J The total number of sites.
-#' @param VR The variance ratio (variance of the site-level treatment effects divided by variance of observations within sites) under the alternative.
+#' @param VR The variance ratio (variance of the site-level treatment effects divided by variance of
+#' observations within sites) under the alternative.
 #' @param alpha The significance level (type 1 error rate); defaults to 0.05.
 #' @param v Either TRUE for verbose output or FALSE (default) to output computed argument only.
 #'
