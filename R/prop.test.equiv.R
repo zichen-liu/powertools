@@ -1,10 +1,15 @@
-#' Power calculations for test of equivalence of two proportions
+#' Power calculation for test of equivalence of two proportions
+#'
+#' @description
+#' Performs power and sample size calculations for a test of equivalence for two
+#' proportions. Can solve for power, n1, n.ratio or alpha.
+#'
 #'
 #' @param n1 The sample size for group 1.
 #' @param n.ratio The ratio n2/n1 between the sample sizes of two groups; defaults to 1 (equal group sizes).
 #' @param p1 The outcome proportion in group 1.
 #' @param p2 The outcome proportion in group 2.
-#' @param margin The equivalence margin. See margin.sign for guidance on the sign of margin.
+#' @param margin The equivalence margin.
 #' @param alpha The significance level or type 1 error rate; defaults to 0.05.
 #' @param power The specified level of power.
 #' @param sides Either 1 or 2 (default) to specify a one- or two- sided hypothesis test.
