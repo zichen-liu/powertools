@@ -10,14 +10,14 @@
 #'
 #' @param m The mean cluster/site size (number of participants per site).
 #' @param m.sd The standard deviation of cluster/site sizes (provide if unequal number of participants per site); defaults to 0.
-#' @param alloc.ratio The allocation ratio of condition 1/condition 2 within site; defaults to 1.
+#' @param alloc.ratio The allocation ratio of condition 2/condition 1 within site; defaults to 1.
 #' @param J The total number of sites.
 #' @param delta The difference between the condition 1 and condition 2 means under the alternative minus the difference under the null hypothesis.
 #' @param sd The total standard deviation of the outcome variable; defaults to 1.
 #' @param icc0 The proportion of total variance of the outcome attributable to variation in site-level means.
 #' @param icc1 The proportion of total variance of the outcome attributable to variation in the treatment effect across sites.
 #' @param Rsq The estimated R^2 for regressing the outcome on the covariates; defaults to 0.
-#' @param alpha The significance level or type 1 error rate; defaults to 0.05.
+#' @param alpha The significance level (type 1 error rate); defaults to 0.05.
 #' @param power The specified level of power.
 #' @param sides Either 1 or 2 (default) to specify a one- or two- sided hypothesis test.
 #' @param v Either TRUE for verbose output or FALSE (default) to output computed argument only.
