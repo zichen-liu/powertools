@@ -25,7 +25,7 @@ prop.2samp(
 
 \item{p2}{The proportion in group 2.}
 
-\item{margin}{The margin of noninferiority or superiority; defaults to 0. See margin.sign for guidance on the sign of margin.}
+\item{margin}{The margin of noninferiority or superiority; defaults to 0.}
 
 \item{alpha}{The significance level (type 1 error rate); defaults to 0.05.}
 
@@ -33,7 +33,7 @@ prop.2samp(
 
 \item{sides}{Either 1 or 2 (default) to specify a one- or two- sided hypothesis test.}
 
-\item{v}{Either TRUE for verbose output or FALS (default)E to output computed argument only.}
+\item{v}{Either TRUE for verbose output or FALSE (default) to output computed argument only.}
 }
 \value{
 A list of the arguments (including the computed one).
@@ -42,6 +42,10 @@ A list of the arguments (including the computed one).
 Performs power and sample size calculations for two-sample tests of proportions
 using normal approximation to the binomial. Can solve for power, n1, n.ratio
 or alpha.
+}
+\details{
+For a noninferiority or superiority by a margin test, a one-sided test should be used. See Crespi (2025)
+for more guidance. For an equivalence test for two proportions, see the prop.test.equiv.
 }
 \examples{
 prop.2samp(n1 = NULL, p1 = 0.6, p2 = 0.8, alpha = 0.025, power = 0.9, sides = 1)

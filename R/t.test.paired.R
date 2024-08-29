@@ -1,5 +1,10 @@
 #' Power calculation for paired t test
 #'
+#' @description
+#' Performs power and sample size calculations for a paired t test. Can solve for power,
+#' N, delta or alpha.
+#'
+#'
 #' @param N The sample size; if the observations are paired differences, this is the number of pairs.
 #' @param delta DeltaA (the true mean difference) - Delta0 (the mean difference under the null).
 #' @param sd1 The estimated pre standard deviation; defaults to 1.

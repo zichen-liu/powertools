@@ -35,6 +35,8 @@ A list of the arguments (including the computed one).
 \description{
 This function performs power and sample size calculations for a one-sample z test,
 which is analogous to a one-sample t test with the variance assumed to be known.
+This function is provided largely for pedagogical purposes; in general,
+for real studies, the one-sample t test procedure should be used.
 }
 \examples{
 z.test.1samp(N = NULL, delta = 6.5 - 5.7, sd = 2, power = 0.8, sides = 2)

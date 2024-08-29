@@ -2,7 +2,7 @@
 % Please edit documentation in R/prop.test.equiv.R
 \name{prop.test.equiv}
 \alias{prop.test.equiv}
-\title{Power calculations for test of equivalence of two proportions}
+\title{Power calculation for test of equivalence of two proportions}
 \usage{
 prop.test.equiv(
   n1 = NULL,
@@ -25,7 +25,7 @@ prop.test.equiv(
 
 \item{p2}{The outcome proportion in group 2.}
 
-\item{margin}{The equivalence margin. See margin.sign for guidance on the sign of margin.}
+\item{margin}{The equivalence margin.}
 
 \item{alpha}{The significance level or type 1 error rate; defaults to 0.05.}
 
@@ -39,7 +39,8 @@ prop.test.equiv(
 A list of the arguments (including the computed one).
 }
 \description{
-Power calculations for test of equivalence of two proportions
+Performs power and sample size calculations for a test of equivalence for two
+proportions. Can solve for power, n1, n.ratio or alpha.
 }
 \examples{
 prop.test.equiv(n1 = NULL, p1 = 0.5, p2 = 0.5, margin = 0.1, alpha = 0.05, power = 0.8,

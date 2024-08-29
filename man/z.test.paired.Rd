@@ -41,6 +41,8 @@ A list of the arguments (including the computed one).
 \description{
 This function performs power and sample size calculations for a paired z test, which is
 analogous to a paired t test with variance assumed to be known.
+This function is provided largely for pedagogical purposes; in general,
+for real studies, the paired t test procedure should be used.
 }
 \examples{
 z.test.paired(N = NULL, delta = 4, sd1 = 10, sd2 = 10, rho = 0.4, power = 0.8, sides = 2)
