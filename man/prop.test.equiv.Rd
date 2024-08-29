@@ -12,7 +12,6 @@ prop.test.equiv(
   margin = NULL,
   alpha = 0.05,
   power = NULL,
-  sides = 2,
   v = FALSE
 )
 }
@@ -31,8 +30,6 @@ prop.test.equiv(
 
 \item{power}{The specified level of power.}
 
-\item{sides}{Either 1 or 2 (default) to specify a one- or two- sided hypothesis test.}
-
 \item{v}{Either TRUE for verbose output or FALSE to output computed argument only.}
 }
 \value{
@@ -43,6 +40,5 @@ Performs power and sample size calculations for a test of equivalence for two
 proportions. Can solve for power, n1, n.ratio or alpha.
 }
 \examples{
-prop.test.equiv(n1 = NULL, p1 = 0.5, p2 = 0.5, margin = 0.1, alpha = 0.05, power = 0.8,
-sides = 1)
+prop.test.equiv(n1 = NULL, p1 = 0.5, p2 = 0.5, margin = 0.1, alpha = 0.05, power = 0.8)
 }

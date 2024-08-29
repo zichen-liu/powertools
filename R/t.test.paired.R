@@ -7,9 +7,9 @@
 #'
 #' @param N The sample size; if the observations are paired differences, this is the number of pairs.
 #' @param delta DeltaA (the true mean difference) - Delta0 (the mean difference under the null).
-#' @param sd1 The estimated pre standard deviation; defaults to 1.
-#' @param sd2 The estimated post standard deviation; defaults to 1.
-#' @param rho The estimated correlation between pre and post measurements on the same individual.
+#' @param sd1 The pre standard deviation; defaults to 1.
+#' @param sd2 The post standard deviation; defaults to 1.
+#' @param rho The correlation between pre and post measurements on the same individual.
 #' @param alpha The significance level (type 1 error rate); defaults to 0.05.
 #' @param power The specified level of power.
 #' @param sides Either 1 or 2 (default) to specify a one- or two- sided hypothesis test.
