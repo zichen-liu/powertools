@@ -4,10 +4,19 @@
 #' This function performs power and sample size calculations for a two-sample z test, which is
 #' analogous to a two-sample t test but with the variances assumed to be known.
 #' The function allows for unequal sample sizes and/or variances in the two groups.
+#' This function is provided largely for pedagogical purposes; in general,
+#' for real studies, the two-sample t test procedure should be used.
+#'
+#' @details
+#' For a noninferiority or superiority by a margin test, the margin should be subtracted
+#' as part of the specification of delta and a one-sided test should be used. See Crespi (2025)
+#' for specific guidance.
 #'
 #' @param n1 The sample size for group 1.
 #' @param n.ratio The ratio n2/n1 between the sample sizes of two groups; defaults to 1 (equal group sizes).
-#' @param delta DeltaA (the true difference mu1 - mu2) - Delta0 (the difference under the null) - margin See margin.sign for guidance on the sign of the margin.
+#' @param delta DeltaA (true difference mu1 - mu2) - Delta0 (difference under the null). For a noninferiority
+#' or superiority by a margin test,
+#' the margin should be subtracted, that is, delta = DeltaA - Delta0 - margin.
 #' @param sd1 The estimated standard deviation for group 1; defaults to 1 (equal standard deviations in the two groups).
 #' @param sd.ratio The ratio sd2/sd1 between the standard deviations of the two groups.
 #' @param alpha The significance level (type 1 error rate); defaults to 0.05.
