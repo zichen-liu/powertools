@@ -17,7 +17,7 @@
 #' @param delta DeltaA (true difference mu1 - mu2) - Delta0 (difference under the null). For a noninferiority
 #' or superiority by a margin test,
 #' the margin should be subtracted, that is, delta = DeltaA - Delta0 - margin.
-#' @param sd1 The estimated standard deviation for group 1; defaults to 1 (equal standard deviations in the two groups).
+#' @param sd1 The standard deviation for group 1; defaults to 1 (equal standard deviations in the two groups).
 #' @param sd.ratio The ratio sd2/sd1 between the standard deviations of the two groups.
 #' @param df.method Method for calculating the degrees of freedom: "welch" (default) or "classical", which is n1+n2-2.
 #' @param alpha The significance level (type 1 error rate); defaults to 0.05.
