@@ -15,11 +15,15 @@ crt.varexplore(pc, pt)
 A list of the arguments and a dataframe of outputs.
 }
 \description{
-This function can be used to help select a plausible value for the variance of the
+This function can be used to help select a plausible value for the variance/SD of the
 random intercept for cluster in a cluster randomized trial with a binary outcome.
 Based on user-supplied values of the outcome proportions in the two arms,
-outputs the intervals within which we expect about 95% of the cluster-level
+the function outputs, for a range of possible values of the SD of the
+random intercept, the intervals within which we expect about 95% of the cluster-level
 proportions to lie in each arm.
+}
+\details{
+The use of this function is illustrated in Crespi CM (2025) Power and Sample Size in R.
 }
 \examples{
 crt.varexplore(pc = 0.25, pt = 0.15)
