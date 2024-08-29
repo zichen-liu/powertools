@@ -2,7 +2,8 @@
 #'
 #' @description
 #' Performs power and sample size calculations for two-sample tests of proportions
-#' using normal approximation to the binomial.
+#' using normal approximation to the binomial. Can solve for power, n1, n.ratio
+#' or alpha.
 #'
 #'
 #' @param n1 The sample size for group 1.
