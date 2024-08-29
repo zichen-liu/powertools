@@ -43,7 +43,10 @@ A list of the arguments (including the computed one).
 }
 \description{
 Performs power and sample size calculation for McNemar test of two correlated
-proportions using normal approximation.
+proportions using normal approximation. Can solve for power, N or alpha.
+}
+\details{
+Either p1, p2 and phi, OR paid and dpr must be specified.
 }
 \examples{
 prop.paired(N = NULL, p1 = 0.8, p2 = 0.9, phi = 0, power = 0.9, sides = 2)

@@ -2,6 +2,7 @@
 #'
 #' @description
 #' This function computes power and sample size for a one-sample t test.
+#' Can solve for power, N, delta, sd or alpha.
 #'
 #'
 #' @param N The sample size.

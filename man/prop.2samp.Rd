@@ -40,7 +40,8 @@ A list of the arguments (including the computed one).
 }
 \description{
 Performs power and sample size calculations for two-sample tests of proportions
-using normal approximation to the binomial.
+using normal approximation to the binomial. Can solve for power, n1, n.ratio
+or alpha.
 }
 \examples{
 prop.2samp(n1 = NULL, p1 = 0.6, p2 = 0.8, alpha = 0.025, power = 0.9, sides = 1)
