@@ -2,7 +2,8 @@
 #'
 #' @description
 #' Performs power and sample size calculations for a one-sample test of a proportion.
-#' Calculations use the large-sample normal approximation to the binomial.
+#' Calculations use the large-sample normal approximation to the binomial. Can solve
+#' for power, N or alpha.
 #'
 #'
 #' @param N The sample size.
