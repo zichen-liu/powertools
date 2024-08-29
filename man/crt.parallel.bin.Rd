@@ -48,7 +48,7 @@ regression model that has a random intercept for cluster. Equal allocation of cl
 is assumed. Can solve for power, J, m or alpha.
 }
 \details{
-For help selecting a reasonable value for sigma.u, use the crt.varexplore function.
+For help selecting a reasonable value for sigma.u, consider using the crt.varexplore function.
 }
 \examples{
 crt.parallel.bin(m = 60, J = NULL, pc = 0.25, pt = 0.15, sigma.u = 0.3, power = 0.8)

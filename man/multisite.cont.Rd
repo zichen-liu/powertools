@@ -21,13 +21,13 @@ multisite.cont(
 )
 }
 \arguments{
-\item{m}{The total the number of subjects in condition 1 + condition 2, or the mean cluster size (if unequal number of participants per site).}
+\item{m}{The mean cluster/site size (number of participants per site).}
 
-\item{m.sd}{The standard deviation of cluster sizes (provide if unequal number of participants per site); defaults to 0.}
+\item{m.sd}{The standard deviation of cluster/site sizes (provide if unequal number of participants per site); defaults to 0.}
 
-\item{alloc.ratio}{The allocation ratio of condition 1/condition 2 per site; defaults to 1.}
+\item{alloc.ratio}{The allocation ratio of condition 2/condition 1 within site; defaults to 1.}
 
-\item{J}{The number of sites.}
+\item{J}{The total number of sites.}
 
 \item{delta}{The difference between the condition 1 and condition 2 means under the alternative minus the difference under the null hypothesis.}
 
@@ -39,19 +39,24 @@ multisite.cont(
 
 \item{Rsq}{The estimated R^2 for regressing the outcome on the covariates; defaults to 0.}
 
-\item{alpha}{The significance level or type 1 error rate; defaults to 0.05.}
+\item{alpha}{The significance level (type 1 error rate); defaults to 0.05.}
 
 \item{power}{The specified level of power.}
 
 \item{sides}{Either 1 or 2 (default) to specify a one- or two- sided hypothesis test.}
 
-\item{v}{Either TRUE for verbose output or FALSE to output computed argument only.}
+\item{v}{Either TRUE for verbose output or FALSE (default) to output computed argument only.}
 }
 \value{
 A list of the arguments (including the computed one).
 }
 \description{
-ADD COMMENTS ABOUT NOT SOLVING FOR ALLOC.RATIO
+Performs power and sample size calculations for a multisite trial with a
+continuous (normal) outcome variable. Can solve for power, J, m or alpha.
+}
+\details{
+In a multisite trial design, participants are randomized to conditions
+within site.
 }
 \examples{
 multisite.cont(m = 20, J = 10, delta = 3, sd = sqrt(40), icc0 = 0.1, icc1 = 0)

@@ -9,10 +9,12 @@
 #' within site.
 #'
 #' @param m The mean cluster/site size (number of participants per site).
-#' @param m.sd The standard deviation of cluster/site sizes (provide if unequal number of participants per site); defaults to 0.
+#' @param m.sd The standard deviation of cluster/site sizes (provide if unequal number of participants per site);
+#' defaults to 0.
 #' @param alloc.ratio The allocation ratio of condition 2/condition 1 within site; defaults to 1.
 #' @param J The total number of sites.
-#' @param delta The difference between the condition 1 and condition 2 means under the alternative minus the difference under the null hypothesis.
+#' @param delta The difference between the condition 1 and condition 2 means under the alternative
+#'  minus the difference under the null hypothesis.
 #' @param sd The total standard deviation of the outcome variable; defaults to 1.
 #' @param icc0 The proportion of total variance of the outcome attributable to variation in site-level means.
 #' @param icc1 The proportion of total variance of the outcome attributable to variation in the treatment effect across sites.
