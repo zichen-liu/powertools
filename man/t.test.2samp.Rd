@@ -22,13 +22,15 @@
 
 \item{n.ratio}{The ratio n2/n1 between the sample sizes of two groups; defaults to 1 (equal group sizes).}
 
-\item{delta}{DeltaA (the true difference mu1 - mu2) - Delta0 (the difference under the null) - margin. See margin.sign for guidance on the sign of the margin.}
+\item{delta}{DeltaA (true difference mu1 - mu2) - Delta0 (difference under the null). For a noninferiority
+or superiority by a margin test,
+the margin should be subtracted, that is, delta = DeltaA - Delta0 - margin.}
 
 \item{sd1}{The estimated standard deviation for group 1; defaults to 1 (equal standard deviations in the two groups).}
 
 \item{sd.ratio}{The ratio sd2/sd1 between the standard deviations of the two groups.}
 
-\item{df.method}{Method for calculating the degrees of freedom: "welch" (default) or "classical".}
+\item{df.method}{Method for calculating the degrees of freedom: "welch" (default) or "classical", which is n1+n2-2.}
 
 \item{alpha}{The significance level (type 1 error rate); defaults to 0.05.}
 
@@ -44,6 +46,13 @@ A list of the arguments (including the computed one).
 \description{
 This function computes power and sample size for a two-sample t test.
 Unequal sample sizes and/or unequal variances in the two groups are allowed.
+Can solve for power, n1, n.ratio, sd1, sd.ratio, delta or alpha.
+}
+\details{
+For a noninferiority or superiority by a margin test, the margin should be subtracted
+as part of the specification of delta and a one-sided test should be used. See Crespi (2025)
+for specific guidance. For an equivalence test for two means, see the sampleN.TOST function from the
+PowerTOST package.
 }
 \examples{
 t.test.2samp(n1 = 50, delta = 2, sd1 = 5, sides = 1)

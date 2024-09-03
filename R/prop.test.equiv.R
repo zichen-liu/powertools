@@ -1,24 +1,27 @@
-#' Power calculations for test of equivalence of two proportions
+#' Power calculation for test of equivalence of two proportions
+#'
+#' @description
+#' Performs power and sample size calculations for a test of equivalence for two
+#' proportions. Can solve for power, n1, n.ratio or alpha.
+#'
 #'
 #' @param n1 The sample size for group 1.
 #' @param n.ratio The ratio n2/n1 between the sample sizes of two groups; defaults to 1 (equal group sizes).
 #' @param p1 The outcome proportion in group 1.
 #' @param p2 The outcome proportion in group 2.
-#' @param margin The equivalence margin. See margin.sign for guidance on the sign of margin.
+#' @param margin The equivalence margin.
 #' @param alpha The significance level or type 1 error rate; defaults to 0.05.
 #' @param power The specified level of power.
-#' @param sides Either 1 or 2 (default) to specify a one- or two- sided hypothesis test.
 #' @param v Either TRUE for verbose output or FALSE to output computed argument only.
 #'
 #' @return A list of the arguments (including the computed one).
 #' @export
 #'
 #' @examples
-#' prop.test.equiv(n1 = NULL, p1 = 0.5, p2 = 0.5, margin = 0.1, alpha = 0.05, power = 0.8,
-#' sides = 1)
+#' prop.test.equiv(n1 = NULL, p1 = 0.5, p2 = 0.5, margin = 0.1, alpha = 0.05, power = 0.8)
 
 prop.test.equiv <- function (n1 = NULL, n.ratio = 1, p1 = NULL, p2 = NULL, margin = NULL,
-                             alpha = 0.05, power = NULL, sides = 2, v = FALSE) {
+                             alpha = 0.05, power = NULL, v = FALSE) {
 
   # Check if the arguments are specified correctly
   check.many(list(n1, n.ratio, alpha, power), "oneof")
@@ -29,7 +32,6 @@ prop.test.equiv <- function (n1 = NULL, n.ratio = 1, p1 = NULL, p2 = NULL, margi
   check(margin, "req"); check(margin, "num")
   check(alpha, "unit")
   check(power, "unit")
-  check(sides, "req"); check(sides, "vals", valslist = c(1, 2))
   check(v, "req"); check(v, "bool")
 
   # Calculate test statistic
@@ -37,7 +39,7 @@ prop.test.equiv <- function (n1 = NULL, n.ratio = 1, p1 = NULL, p2 = NULL, margi
     d <- abs(p1 - p2)
     var <- p1 * (1 - p1) + p2 * (1 - p2)
     beta <- 1 - power
-    ((stats::qnorm(1 - alpha / sides) + stats::qnorm(1 - beta / 2))^2 *
+    ((stats::qnorm(1 - alpha) + stats::qnorm(1 - beta / 2))^2 *
     var / n.ratio / (margin - d)^2)
   })
 
@@ -68,7 +70,7 @@ prop.test.equiv <- function (n1 = NULL, n.ratio = 1, p1 = NULL, p2 = NULL, margi
   # Print output as a power.htest object
   structure(list(`n1, n2` = n, `p1, p2` = p,
                  margin = margin, alpha = alpha,
-                 power = power, sides = sides,
+                 power = power,
                  method = METHOD), class = "power.htest")
 }
 

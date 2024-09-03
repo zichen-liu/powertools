@@ -3,13 +3,23 @@
 #' @description
 #' This function computes power and sample size for a two-sample t test.
 #' Unequal sample sizes and/or unequal variances in the two groups are allowed.
+#' Can solve for power, n1, n.ratio, sd1, sd.ratio, delta or alpha.
+#'
+#' @details
+#' For a noninferiority or superiority by a margin test, the margin should be subtracted
+#' as part of the specification of delta and a one-sided test should be used. See Crespi (2025)
+#' for specific guidance. For an equivalence test for two means, see the sampleN.TOST function from the
+#' PowerTOST package.
+#'
 #'
 #' @param n1 The sample size for group 1.
 #' @param n.ratio The ratio n2/n1 between the sample sizes of two groups; defaults to 1 (equal group sizes).
-#' @param delta DeltaA (the true difference mu1 - mu2) - Delta0 (the difference under the null) - margin. See margin.sign for guidance on the sign of the margin.
-#' @param sd1 The estimated standard deviation for group 1; defaults to 1 (equal standard deviations in the two groups).
+#' @param delta DeltaA (true difference mu1 - mu2) - Delta0 (difference under the null). For a noninferiority
+#' or superiority by a margin test,
+#' the margin should be subtracted, that is, delta = DeltaA - Delta0 - margin.
+#' @param sd1 The standard deviation for group 1; defaults to 1 (equal standard deviations in the two groups).
 #' @param sd.ratio The ratio sd2/sd1 between the standard deviations of the two groups.
-#' @param df.method Method for calculating the degrees of freedom: "welch" (default) or "classical".
+#' @param df.method Method for calculating the degrees of freedom: "welch" (default) or "classical", which is n1+n2-2.
 #' @param alpha The significance level (type 1 error rate); defaults to 0.05.
 #' @param power The specified level of power.
 #' @param sides Either 1 or 2 (default) to specify a one- or two- sided hypothesis test.

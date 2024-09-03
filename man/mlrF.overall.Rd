@@ -2,7 +2,7 @@
 % Please edit documentation in R/mlrF.overall.R
 \name{mlrF.overall}
 \alias{mlrF.overall}
-\title{Power calculations for a multiple linear regression overall F test}
+\title{Power calculation for a multiple linear regression overall F test}
 \usage{
 mlrF.overall(
   N = NULL,
@@ -20,9 +20,9 @@ mlrF.overall(
 
 \item{p}{The number of predictors.}
 
-\item{Rsq}{The squared sample multiple correlation coefficient.}
+\item{Rsq}{The squared population multiple correlation coefficient.}
 
-\item{fsq}{The squared f effect size. Either Rsq OR fsq must be specified.}
+\item{fsq}{The f-squared effect size. Either Rsq OR fsq must be specified.}
 
 \item{alpha}{The significance level or type 1 error rate; defaults to 0.05.}
 
@@ -36,7 +36,17 @@ mlrF.overall(
 A list of the arguments (including the computed one).
 }
 \description{
-Power calculations for a multiple linear regression overall F test
+Conducts power and sample size calculations for an overall (or omnibus) F test
+in a multiple linear regression model.
+This is a test that all coefficients other than the intercept are equal to zero.
+Can solve for power, N or alpha.
+}
+\details{
+Either Rsq OR fsq must be specified. These are related as fsq = Rsq/(1-Rsq).
+Rsq is the proportion of the total variation in Y that is explained by
+linear relationship with the predictors. Specifying random = TRUE
+yields a calculation in which Y and the predictors are assumed to have
+a multivariate normal distribution; see Crespi (2025).
 }
 \examples{
 mlrF.overall(N = 400, p = 2, Rsq = 0.02)

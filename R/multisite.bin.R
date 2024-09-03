@@ -1,18 +1,25 @@
-#' Power for multisite trials with binary outcomes
+#' Power for a multisite trial with a binary outcome
 #'
 #' @description
-#' ADD COMMENTS ABOUT NOT SOLVING FOR ALLOC.RATIO
+#' Performs power and sample size calculations for a multisite trial with a
+#' binary outcome. Can solve for power, J, m or alpha.
+#'
+#' @details
+#' In a multisite trial design, participants are randomized to conditions
+#' within site. Consider using ms.varexplore to select plausible values
+#' for sigma.u.
+#'
 #'
 #' @param m The total number of subjects in condition 1 + condition 2.
-#' @param alloc.ratio The allocation ratio of condition 1/condition 2 per site; defaults to 1.
-#' @param J The number of sites.
+#' @param alloc.ratio The allocation ratio of condition 1/condition 2 within site; defaults to 1.
+#' @param J The total number of sites.
 #' @param pc The probability of the outcome in the control condition.
 #' @param pt The probability of the outcome in the treatment condition.
 #' @param sigma.u Standard deviation of the treatment effect across sites.
 #' @param alpha The significance level or type 1 error rate; defaults to 0.05.
 #' @param power The specified level of power.
 #' @param sides Either 1 or 2 (default) to specify a one- or two- sided hypothesis test.
-#' @param v Either TRUE for verbose output or FALSE to output computed argument only.
+#' @param v Either TRUE for verbose output or FALSE (default) to output computed argument only.
 #'
 #' @return A list of the arguments (including the computed one).
 #' @export

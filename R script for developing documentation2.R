@@ -19,9 +19,9 @@ build_manual()
 
 
 
-corr.1samp(N = 100, rhoA = 0.2)
-corr.1samp.test(N = 100, rhoA = 0.2)
-corr.1samp.test(N = 100, rhoA = -0.2)
+
+corr.1samp(N = 100, rhoA = 0)
+corr.1samp(N = 100, rhoA = -0.2)
 
 
 #relrisk(n1 = 40, n.ratio = 1, p1 = 0.5, p2 = 0.3, power = NULL)

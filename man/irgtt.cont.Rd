@@ -48,9 +48,9 @@ irgtt.cont(
 A list of the arguments (including the computed one).
 }
 \description{
-COmputes power and sample size for an individually randomized group treatment trial with
+Computes power and sample size for an individually randomized group treatment trial with
 a continuous outcome, in which after individual randomization, individuals in the
-intervention/treatment arm are clustered.
+intervention/treatment arm are clustered. Can solve for power, J, m, n, delta or alpha.
 }
 \examples{
 irgtt.cont(m = 10, J = 12, n = 120, delta = 0.4, icc = 0.05, Theta = 1, power = NULL)

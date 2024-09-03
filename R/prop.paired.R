@@ -2,7 +2,11 @@
 #'
 #' @description
 #' Performs power and sample size calculation for McNemar test of two correlated
-#' proportions using normal approximation.
+#' proportions using normal approximation. Can solve for power, N or alpha.
+#'
+#' @details
+#' Either p1, p2 and phi, OR paid and dpr must be specified.
+#'
 #'
 #'
 #'

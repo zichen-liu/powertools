@@ -2,7 +2,7 @@
 % Please edit documentation in R/mlrF.partial.R
 \name{mlrF.partial}
 \alias{mlrF.partial}
-\title{Power calculations for a multiple linear regression partial F test}
+\title{Power calculation for a multiple linear regression partial F test}
 \usage{
 mlrF.partial(
   N = NULL,
@@ -25,9 +25,9 @@ mlrF.partial(
 
 \item{pc}{The partial correlation coefficient. Either both Rsq terms OR pc must be specified.}
 
-\item{Rsq.red}{The squared sample multiple correlation coefficient in the reduced model. Either both Rsq terms OR pc must be specified.}
+\item{Rsq.red}{The squared population multiple correlation coefficient for the reduced model. Either both Rsq terms OR pc must be specified.}
 
-\item{Rsq.full}{The squared sample multiple correlation coefficient in the full model. Either both Rsq terms OR pc must be specified.}
+\item{Rsq.full}{The squared population multiple correlation coefficient for the full model. Either both Rsq terms OR pc must be specified.}
 
 \item{alpha}{The significance level or type 1 error rate; defaults to 0.05.}
 
@@ -39,7 +39,11 @@ mlrF.partial(
 A list of the arguments (including the computed one).
 }
 \description{
-Power calculations for a multiple linear regression partial F test
+Conducts power and sample size calculations for a partial F test
+in a multiple linear regression model.
+This is a test that one or more coefficients are equal to zero
+after controlling for a set of control predictors.
+Can solve for power, N or alpha.
 }
 \examples{
 mlrF.partial(N = 80, p = 3, q = 2, Rsq.red = 0.25, Rsq.full = 0.35)

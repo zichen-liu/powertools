@@ -1,10 +1,20 @@
-#' Power calculations for a multiple linear regression partial F test
+#' Power calculation for a multiple linear regression partial F test
+#'
+#' @description
+#' Conducts power and sample size calculations for a partial F test
+#' in a multiple linear regression model.
+#' This is a test that one or more coefficients are equal to zero
+#' after controlling for a set of control predictors.
+#' Can solve for power, N or alpha.
+#'
+#'
+#'
 #'
 #' @param N The sample size.
 #' @param p The number of control predictors.
 #' @param q The number of test predictors.
-#' @param Rsq.red The squared sample multiple correlation coefficient in the reduced model. Either both Rsq terms OR pc must be specified.
-#' @param Rsq.full The squared sample multiple correlation coefficient in the full model. Either both Rsq terms OR pc must be specified.
+#' @param Rsq.red The squared population multiple correlation coefficient for the reduced model. Either both Rsq terms OR pc must be specified.
+#' @param Rsq.full The squared population multiple correlation coefficient for the full model. Either both Rsq terms OR pc must be specified.
 #' @param pc The partial correlation coefficient. Either both Rsq terms OR pc must be specified.
 #' @param alpha The significance level or type 1 error rate; defaults to 0.05.
 #' @param power The specified level of power.

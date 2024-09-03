@@ -21,7 +21,9 @@ z.test.2samp(
 
 \item{n.ratio}{The ratio n2/n1 between the sample sizes of two groups; defaults to 1 (equal group sizes).}
 
-\item{delta}{DeltaA (the true difference mu1 - mu2) - Delta0 (the difference under the null) - margin See margin.sign for guidance on the sign of the margin.}
+\item{delta}{DeltaA (true difference mu1 - mu2) - Delta0 (difference under the null). For a noninferiority
+or superiority by a margin test,
+the margin should be subtracted, that is, delta = DeltaA - Delta0 - margin.}
 
 \item{sd1}{The estimated standard deviation for group 1; defaults to 1 (equal standard deviations in the two groups).}
 
@@ -42,6 +44,13 @@ A list of the arguments (including the computed one).
 This function performs power and sample size calculations for a two-sample z test, which is
 analogous to a two-sample t test but with the variances assumed to be known.
 The function allows for unequal sample sizes and/or variances in the two groups.
+This function is provided largely for pedagogical purposes; in general,
+for real studies, the two-sample t test procedure should be used.
+}
+\details{
+For a noninferiority or superiority by a margin test, the margin should be subtracted
+as part of the specification of delta and a one-sided test should be used. See Crespi (2025)
+for specific guidance.
 }
 \examples{
 z.test.2samp(n1 = NULL, n.ratio = 1, delta = 0.5, sd1 = 1, power = 0.8, sides = 2)

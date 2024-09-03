@@ -39,7 +39,8 @@
 A list of the arguments (including the computed one).
 }
 \description{
-Power calculation for paired t test
+Performs power and sample size calculations for a paired t test. Can solve for power,
+N, delta or alpha.
 }
 \examples{
 t.test.paired(N = NULL, delta = 4, sd1 = 10, sd2 = 10, rho = 0.4, power = 0.8, sides = 2)

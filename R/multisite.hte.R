@@ -1,11 +1,24 @@
-#' Power for test of heterogeneity of treatment effect in multisite trials
+#' Power for test of heterogeneity of treatment effect in a multisite trial
+#'
+#' @description
+#' Calculates power for a test of heterogeneity of the treatment effect
+#' in a multisite trial with a continuous outcome variable. In particular,
+#' let sigma.u1^2 be the variance of the site-level treatment effects.
+#' The test of heterogeneity tests the null hypothesis that sigma.u1^2 = 0
+#' versus the alternative that sigma.u1^2 > 0.
+#'
+#' @details
+#' See Crespi CM (2025) for details.
+#'
+#'
 
-#' @param m The total number of subjects per site.
-#' @param alloc.ratio The allocation ratio of intervention/control per site; defaults to 1.
-#' @param J The number of sites.
-#' @param VR The variance ratio (site-level treatment effects / observations within sites) the under the alternative.
-#' @param alpha The significance level or type 1 error rate; defaults to 0.05.
-#' @param v Either TRUE for verbose output or FALSE to output computed argument only.
+#' @param m The mean number of subjects per site.
+#' @param alloc.ratio The allocation ratio of intervention/control subjects per site; defaults to 1.
+#' @param J The total number of sites.
+#' @param VR The variance ratio (variance of the site-level treatment effects divided by variance of
+#' observations within sites) under the alternative.
+#' @param alpha The significance level (type 1 error rate); defaults to 0.05.
+#' @param v Either TRUE for verbose output or FALSE (default) to output computed argument only.
 #'
 #' @return A list of the arguments (including the computed power).
 #' @export
@@ -37,7 +50,7 @@ multisite.hte <- function (m = NULL, alloc.ratio = 1, J = NULL, VR = NULL,
   }
 
   # Generate output text
-  METHOD <-"Power for test of heterogeneity of treatment effect in multisite trials"
+  METHOD <-"Power for test of heterogeneity of treatment effect in a multisite trial"
   c <- m / (alloc.ratio + 1)
   t <- alloc.ratio * c
   m <- paste0(t, ", ", c)

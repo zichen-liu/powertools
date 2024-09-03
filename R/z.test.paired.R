@@ -3,13 +3,15 @@
 #' @description
 #' This function performs power and sample size calculations for a paired z test, which is
 #' analogous to a paired t test with variance assumed to be known.
+#' This function is provided largely for pedagogical purposes; in general,
+#' for real studies, the paired t test procedure should be used.
 #'
 #'
 #' @param N The sample size; the number of pairs.
 #' @param delta DeltaA (the true mean difference) - Delta0 (the mean difference under the null).
-#' @param sd1 The estimated pre standard deviation; defaults to 1.
-#' @param sd2 The estimated post standard deviation; defaults to 1.
-#' @param rho The estimated correlation between pre and post measurements on the same individual; defaults to 0.
+#' @param sd1 The pre standard deviation; defaults to 1.
+#' @param sd2 The post standard deviation; defaults to 1.
+#' @param rho The correlation between pre and post measurements on the same individual; defaults to 0.
 #' @param alpha The significance level (type 1 error rate); defaults to 0.05.
 #' @param power The specified level of power.
 #' @param sides Either 1 or 2 (default) to specify a one- or two- sided hypothesis test.

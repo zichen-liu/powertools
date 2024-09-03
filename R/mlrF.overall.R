@@ -7,7 +7,11 @@
 #' Can solve for power, N or alpha.
 #'
 #' @details
-#' Additional details...
+#' Either Rsq OR fsq must be specified. These are related as fsq = Rsq/(1-Rsq).
+#' Rsq is the proportion of the total variation in Y that is explained by
+#' linear relationship with the predictors. Specifying random = TRUE
+#' yields a calculation in which Y and the predictors are assumed to have
+#' a multivariate normal distribution; see Crespi (2025).
 #'
 #'
 #'

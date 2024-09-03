@@ -7,7 +7,7 @@
 #' is assumed. Can solve for power, J, m or alpha.
 #'
 #' @details
-#' For help selecting a reasonable value for sigma.u, use the crt.varexplore function.
+#' For help selecting a reasonable value for sigma.u, consider using the crt.varexplore function.
 #'
 #'
 #' @param m The number of subjects per cluster.
