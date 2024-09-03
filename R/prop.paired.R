@@ -39,6 +39,7 @@ prop.paired <- function (N = NULL, p1 = NULL, p2 = NULL, phi = NULL,
   check(N, "pos")
   check(p1, "unit")
   check(p2, "unit")
+  check(phi, "uniti")
   check(paid, "unit")
   check(dpr, "min", min = 1)
   check(alpha, "unit")
