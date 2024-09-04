@@ -128,7 +128,7 @@ crt.parallel.cont <- function (m = NULL, m.sd = 0, J1 = NULL, J.ratio = 1, delta
     if (!v) return(J.ratio)
   }
   else if (is.null(m)) {
-    m <- stats::uniroot(function(m) eval(p.body) - power, c(m.sd/2 + 1, 1e+07))$root
+    m <- stats::uniroot(function(m) eval(p.body) - power, c(m.sd/2 + 2, 1e+07))$root
     if (!v) return(m)
   }
   else if (is.null(delta)) {
