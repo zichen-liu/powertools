@@ -7,7 +7,7 @@
 #' (random intercept for cluster and fixed effect for the treatment-by-covariate interaction).
 #'
 #' @details
-#' Yang S, Li F, Starts MA, Hernandez AF, Mentz RJ, Choudhury KR (2020) Sample size requirements for detecting
+#' Yang S, Li F, Starks MA, Hernandez AF, Mentz RJ, Choudhury KR (2020) Sample size requirements for detecting
 #' treatment effect heterogeneity in cluster randomized trials. Statistics in Medicine 39:4218-4237.
 #'
 #'
@@ -15,9 +15,11 @@
 #' @param m The number of subjects per cluster.
 #' @param J1 The number of clusters in arm 1.
 #' @param J.ratio The ratio J2/J1 between the number of clusters in the two arms; defaults to 1 (equal clusters per arm).
-#' @param beta The difference between the intervention and control means under the alternative minus the difference under the null hypothesis.
-#' @param sd The total standard deviation of the outcome variable; defaults to 1.
-#' @param icc The intraclass correlation coefficient ....; defaults to 0.
+#' @param beta The regression coefficient for the treatment-by-covariate interaction term.
+#' @param sd.x The standard deviation of the covariate.
+#' @param sd.yx The standard deviation of the outcome variable adjusting for the covariate.
+#' @param icc.x The intraclass correlation coefficient for the covariate; defaults to 0.
+#' @param icc.yx The intraclass correlation coefficient for the outcome adjusting for the covariate; defaults to 0.
 #' @param alpha The significance level (type 1 error rate); defaults to 0.05.
 #' @param power The specified level of power.
 #' @param sides Either 1 or 2 (default) to specify a one- or two- sided hypothesis test.
@@ -27,7 +29,7 @@
 #' @export
 #'
 #' @examples
-#' hte.power(beta = 1, m = 27, J1 = 20, J.ratio = 1, sd.x = 12.7, sd.yx = 71, rho.x = 0.08, rho.yx = 0.04)
+#' crt.parallel.hte(beta = 1, m = 27, J1 = 20, J.ratio = 1, sd.x = 12.7, sd.yx = 71, icc.x = 0.08, icc.yx = 0.04)
 
 
 crt.parallel.hte <- function (m = NULL, J1 = NULL, J.ratio = 1, beta = NULL,
