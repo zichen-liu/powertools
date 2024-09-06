@@ -26,7 +26,7 @@
 #' @export
 #'
 #' @examples
-#' irt.hte(n1 = 100, n.ratio = 1, beta = 0.5, sd.x = 1, sd.yx = 1)
+#' irt.hte(n1 = 540, n.ratio = 1, beta = 1, sd.x = 12.7, sd.yx = 71)
 
 irt.hte <- function (n1 = NULL, n.ratio = 1, beta = NULL,
                           sd.x = NULL, sd.yx = NULL,
