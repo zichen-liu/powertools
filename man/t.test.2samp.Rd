@@ -26,7 +26,7 @@
 or superiority by a margin test,
 the margin should be subtracted, that is, delta = DeltaA - Delta0 - margin.}
 
-\item{sd1}{The estimated standard deviation for group 1; defaults to 1 (equal standard deviations in the two groups).}
+\item{sd1}{The standard deviation for group 1; defaults to 1 (equal standard deviations in the two groups).}
 
 \item{sd.ratio}{The ratio sd2/sd1 between the standard deviations of the two groups.}
 

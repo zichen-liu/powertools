@@ -19,7 +19,7 @@ z.test.1samp(
 
 \item{delta}{muA (the true mean) - mu0 (the mean under the null).}
 
-\item{sd}{The estimated standard deviation; defaults to 1.}
+\item{sd}{The standard deviation; defaults to 1.}
 
 \item{alpha}{The significance level (type 1 error rate); defaults to 0.05.}
 
