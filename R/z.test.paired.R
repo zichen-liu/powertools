@@ -43,7 +43,7 @@ z.test.paired <- function (N = NULL, delta = NULL,
   # Calculate the standard deviation of differences within pairs
   sigmad <- sqrt(sd1^2 + sd2^2 - 2 * rho * sd1 * sd2)
 
-  # Calculate test statistic
+  # Calculate power
   if (sides == 1)
     p.body <- quote({
       d <- abs(delta) / sigmad
