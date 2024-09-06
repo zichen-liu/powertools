@@ -9,6 +9,9 @@
 #'
 #'
 #' @details
+#' This function is based on Yang et al (2020). If the covariate is a cluster-level covariate,
+#' then icc.x should be set to 1 (the covariate does not vary within cluster).
+#'
 #' Yang S, Li F, Starks MA, Hernandez AF, Mentz RJ, Choudhury KR (2020) Sample size requirements for detecting
 #' treatment effect heterogeneity in cluster randomized trials. Statistics in Medicine 39:4218-4237.
 #'
@@ -31,7 +34,7 @@
 #' @export
 #'
 #' @examples
-#' crt.parallel.hte(beta = 1, m = 27, J1 = 20, J.ratio = 1, sd.x = 12.7, sd.yx = 71, icc.x = 0.08, icc.yx = 0.04)
+#' crt.parallel.hte(beta = 1, m = 27, J1 = 20, sd.x = 12.7, sd.yx = 71, icc.x = 0.08, icc.yx = 0.04)
 
 
 crt.parallel.hte <- function (m = NULL, J1 = NULL, J.ratio = 1, beta = NULL,
