@@ -7,7 +7,7 @@
 #'
 #' @details
 #' Shieh G (2009) Detecting interaction effects in moderated multiple regression with continuous variables:
-#' power and sample size considerations. Org Res Methods 12(3):510-528.
+#' power and sample size considerations. Organizational Research Methods 12(3):510-528.
 #'
 #' Yang S, Li F, Starks MA, Hernandez AF, Mentz RJ, Choudhury KR (2020) Sample size requirements for detecting
 #' treatment effect heterogeneity in cluster randomized trials. Statistics in Medicine 39:4218-4237.

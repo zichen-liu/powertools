@@ -51,5 +51,5 @@ Yang S, Li F, Starks MA, Hernandez AF, Mentz RJ, Choudhury KR (2020) Sample size
 treatment effect heterogeneity in cluster randomized trials. Statistics in Medicine 39:4218-4237.
 }
 \examples{
-irt.hte(n1 = 100, n.ratio = 1, beta = 0.5, sd.x = 1, sd.yx = 1)
+irt.hte(n1 = 540, n.ratio = 1, beta = 1, sd.x = 12.7, sd.yx = 71)
 }
