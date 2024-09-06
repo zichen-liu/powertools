@@ -47,7 +47,7 @@ z.test.2samp <- function (n1 = NULL, n.ratio = 1, delta = NULL,
   check(sides, "req"); check(sides, "vals", valslist = c(1, 2))
   check(v, "req"); check(v, "bool")
 
-  # Calculate test statistic
+  # Calculate power
   if (sides == 1)
     p.body <- quote({
       d <- abs(delta)
