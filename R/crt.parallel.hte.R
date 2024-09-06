@@ -5,6 +5,8 @@
 #' interaction effect in a two-arm cluster randomized trial
 #' with a continuous outcome when the data will be analyzed using a linear mixed effects model
 #' (random intercept for cluster and fixed effect for the treatment-by-covariate interaction).
+#' Can solve for power, beta, J1, J.ratio or m.
+#'
 #'
 #' @details
 #' Yang S, Li F, Starks MA, Hernandez AF, Mentz RJ, Choudhury KR (2020) Sample size requirements for detecting
