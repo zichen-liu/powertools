@@ -56,9 +56,9 @@ z.test.2samp <- function (n1 = NULL, n.ratio = 1, delta = NULL,
   else if (sides == 2)
     p.body <- quote({
       stats::pnorm(stats::qnorm(alpha / 2) +
-                   d / sqrt((sd1 * sd.ratio)^2 / (n1 * n.ratio) + sd1^2 / n1)) +
+                   delta / sqrt((sd1 * sd.ratio)^2 / (n1 * n.ratio) + sd1^2 / n1)) +
       stats::pnorm(stats::qnorm(alpha / 2) -
-                   d / sqrt((sd1 * sd.ratio)^2 / (n1 * n.ratio) + sd1^2 / n1))
+                   delta / sqrt((sd1 * sd.ratio)^2 / (n1 * n.ratio) + sd1^2 / n1))
     })
 
   # Use stats::uniroot function to calculate missing argument
