@@ -44,7 +44,7 @@ z.test.1samp <- function (N = NULL, delta = NULL, sd = 1,
     })
   else if (sides == 2)
     p.body <- quote({
-      d <- abs(delta) / sd
+      d <- delta / sd
       stats::pnorm(stats::qnorm(alpha / 2) + sqrt(N) * d) +
       stats::pnorm(stats::qnorm(alpha / 2) - sqrt(N) * d)
     })
