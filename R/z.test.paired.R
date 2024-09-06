@@ -52,7 +52,7 @@ z.test.paired <- function (N = NULL, delta = NULL,
 
   else if (sides == 2)
     p.body <- quote({
-      d <- abs(delta) / sigmad
+      d <- delta / sigmad
       stats::pnorm(stats::qnorm(alpha / 2) + sqrt(N) * d) +
         stats::pnorm(stats::qnorm(alpha / 2) - sqrt(N) * d)
     })
