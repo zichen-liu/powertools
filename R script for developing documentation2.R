@@ -4,6 +4,11 @@
 library(devtools)
 library(roxygen2)
 
+
+devtools::install_github("zichen-liu/powertools")
+library(powertools)
+
+
 # Check the package
 devtools::check()
 

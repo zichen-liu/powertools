@@ -16,7 +16,7 @@
 #' @param n.ratio The ratio n2/n1 between the sample sizes of two groups; defaults to 1 (equal group sizes).
 #' @param beta The regression coefficient for the treatment-by-covariate interaction term.
 #' @param sd.x The standard deviation of the covariate.
-#' @param sd.yx The standard deviation of the outcome variabe adjusting for the covariate.
+#' @param sd.yx The standard deviation of the outcome variable adjusting for the covariate.
 #' @param alpha The significance level (type 1 error rate); defaults to 0.05.
 #' @param power The specified level of power.
 #' @param sides Either 1 or 2 (default) to specify a one- or two- sided hypothesis test.
