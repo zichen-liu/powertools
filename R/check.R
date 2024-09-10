@@ -18,6 +18,7 @@ check <- function(param = NULL,
                            "num",   # numerical
                            "unit",  # (0, 1)
                            "uniti", # [0, 1)
+                           "unitii",# [0, 1]
                            "pos",   # positive values
                            "int",   # positive integers
                            "bool",  # T or F
@@ -60,7 +61,7 @@ check <- function(param = NULL,
           stop(paste(name, "should be between 0 and 1"))
       }
 
-      # variables between 0 and 1
+      # variables between 0 and 1 including 0
       else if (type == "uniti") {
         if (length(param) != 1)
           stop(paste(name, "should have single value (length 1)"))
@@ -68,6 +69,16 @@ check <- function(param = NULL,
           stop(paste(name, "should be a numeric value"))
         if (param >= 1 || param < 0)
           stop(paste(name, "should be between 0 and 1 (including 0)"))
+      }
+
+      # variables between 0 and 1 including 0 and 1
+      else if (type == "unitii") {
+        if (length(param) != 1)
+          stop(paste(name, "should have single value (length 1)"))
+        if (!is.numeric(param))
+          stop(paste(name, "should be a numeric value"))
+        if (param > 1 || param < 0)
+          stop(paste(name, "should be between 0 and 1 (including 0 and 1)"))
       }
 
       # positive values only

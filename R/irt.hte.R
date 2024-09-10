@@ -29,11 +29,21 @@
 #' irt.hte(n1 = 540, n.ratio = 1, beta = 1, sd.x = 12.7, sd.yx = 71)
 
 irt.hte <- function (n1 = NULL, n.ratio = 1, beta = NULL,
-                          sd.x = NULL, sd.yx = NULL,
-                          alpha = 0.05, power = NULL, sides = 2,
-                          v = FALSE) {
+                     sd.x = NULL, sd.yx = NULL,
+                     alpha = 0.05, power = NULL, sides = 2,
+                     v = FALSE) {
 
-
+  # Check if the arguments are specified correctly
+  check.many(list(n1, n.ratio, beta, alpha, power), "oneof")
+  check(n1, "pos")
+  check(n.ratio, "pos")
+  check(beta, "num")
+  check(sd.x, "req"); check(sd.x, "pos")
+  check(sd.yx, "req"); check(sd.yx, "pos")
+  check(alpha, "unit")
+  check(power, "unit")
+  check(sides, "req"); check(sides, "vals", valslist = c(1, 2))
+  check(v, "req"); check(v, "bool")
 
   # Calculate power
   p.body <- quote({

@@ -38,10 +38,27 @@
 
 
 crt.parallel.hte <- function (m = NULL, J1 = NULL, J.ratio = 1, beta = NULL,
-                               sd.x = NULL, sd.yx = NULL,
-                               icc.x = 0, icc.yx = 0,
-                               alpha = 0.05, power = NULL, sides = 2,
-                               v = FALSE) {
+                              sd.x = NULL, sd.yx = NULL,
+                              icc.x = 0, icc.yx = 0,
+                              alpha = 0.05, power = NULL, sides = 2,
+                              v = FALSE) {
+
+  # Check if the arguments are specified correctly
+  check.many(list(m, J1, J.ratio, beta, alpha, power), "oneof")
+  check(m, "pos")
+  check(J.ratio, "pos")
+  check(J1, "min", min = 2)
+  if (!is.null(J1) & !is.null(J.ratio))
+    check(J1 * J.ratio, "min", min = 2)
+  check(beta, "num")
+  check(sd.x, "req"); check(sd.x, "pos")
+  check(sd.yx, "req"); check(sd.yx, "pos")
+  check(icc.x, "req"); check(icc.x, "unitii")
+  check(icc.yx, "req"); check(icc.yx, "uniti")
+  check(alpha, "unit")
+  check(power, "unit")
+  check(sides, "req"); check(sides, "vals", valslist = c(1, 2))
+  check(v, "req"); check(v, "bool")
 
   # Calculate power
     p.body <- quote({
@@ -51,7 +68,6 @@ crt.parallel.hte <- function (m = NULL, J1 = NULL, J.ratio = 1, beta = NULL,
       B <- sd.yx * sqrt(((1 - icc.yx) * (1 + (m-1) * icc.yx)) / (J * m * (1 + (m-2) * icc.yx - (m-1) * icc.x * icc.yx)))
       stats::pnorm(stats::qnorm(alpha / sides) + A / B)
     })
-
 
   # Use uniroot to calculate missing argument
   if (is.null(alpha)) {
