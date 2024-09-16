@@ -1,11 +1,12 @@
-#' Power calculation for multiple alternative (at least one) primary continuous endpoints assuming known covariance matrix
+#' Power calculation for multiple alternative (at least one) primary continuous endpoints
+#' assuming known covariance matrix
 #'
 #' @description
 #' Calculates power and sample size in the case of comparing two groups on the means of K
 #' continuous endpoints and concluding that the trial is a "success" if the
-#' null hypothesis is rejected for at least one of the K endpoints. Based on Sozu et al. (2015).
+#' null hypothesis is rejected for at least one of the K endpoints.
 #' All mean differences must be specified as positive; the scale for some outcomes may need to be reversed
-#' to meet this condition. All tests are assumed to be one-sided.
+#' to meet this condition. All tests are assumed to be upper-tailed, one-sided tests.
 #'
 #' To use a Bonferroni correction for multiple comparisons, specify alpha as
 #' the desired family-wise error rate (FWER) divided by K. For example, for one-sided FWER of 0.025
@@ -28,7 +29,8 @@
 #' @param Sigma The covariance matrix of the K outcomes, of dimension K x K.
 #' @param sd A vector of length K of the standard deviations of the K outcomes.
 #' @param rho A vector of length 0.5*K*(K-1) of the correlations among the K outcomes.
-#' @param alpha The significance level (type 1 error rate) for each test; defaults to 0.025. A one-sided test is assumed.
+#' @param alpha The significance level (type 1 error rate) for each test; defaults to 0.025.
+#' A one-sided test is assumed.
 #' @param power The specified level of power.
 #' @param v Either TRUE for verbose output or FALSE (default) to output computed argument only.
 #'
@@ -38,7 +40,11 @@
 #'
 #' @examples
 #' altprimary(K = 2, n1 = 100, delta = c(0.4, 0.5), sd = c(1, 1), rho = 0.3,
-#' alpha = 0.025, power = NULL)
+#' alpha = 0.025 / 2, power = NULL)
+#'
+#' Sigma <- matrix(c(1, 0.3, 0.3, 0.3, 1, 0.3, 0.3, 0.3, 1), nrow = 3, ncol = 3)
+#' altprimary(K = 3, n1 = 100, delta = c(0.2, 0.2, 0.4), Sigma = Sigma,
+#'    alpha = 0.025 / 3, power = NULL)
 
 altprimary <- function(K, n1 = NULL, n.ratio = 1, delta = NULL, Sigma, sd, rho,
                        alpha = 0.025, power = NULL, v = FALSE){
