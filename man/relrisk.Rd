@@ -27,19 +27,20 @@ relrisk(
 
 \item{RR0}{The relative risk under the null (p2/p1); defaults to 1.}
 
-\item{alpha}{The significance level or type 1 error rate; defaults to 0.05.}
+\item{alpha}{The significance level (type 1 error rate); defaults to 0.05.}
 
 \item{power}{The specified level of power.}
 
 \item{sides}{Either 1 or 2 (default) to specify a one- or two- sided hypothesis test.}
 
-\item{v}{Either TRUE for verbose output or FALSE to output computed argument only.}
+\item{v}{Either TRUE for verbose output or FALSE (default) to output computed argument only.}
 }
 \value{
 A list of the arguments (including the computed one).
 }
 \description{
-Power calculation for relative risk
+Performs power and sample size calculations for a test of relative risk, p2/p1.
+Can solve for power, N1, n.ratio or alpha.
 }
 \examples{
 relrisk(n1 = NULL, n.ratio = 1/6, p1 = 0.1, p2 = 0.1 * 2, power = 0.8)

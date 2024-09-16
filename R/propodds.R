@@ -1,12 +1,22 @@
 #' Power calculations for ordinal categorical variable under proportional odds assumption
 #'
+#' @description
+#' Performs power and sample size calculation for a comparison of two groups on
+#' an ordinal categorical response variable.
+#' Assumes that response probabilities follow the proportional
+#' odds assumption. Can solve for power, n1, n.ratio and alpha.
+#'
+#' @details
+#' Whitehead J. (1993) Sample size calculations for ordered categorical data.
+#' Statistics in Medicine, 12(24):2257–2271
+#'
 #' @param pC Vector of response probabilities in control group (group 1). Must sum to 1. Categories are ordered from best to worst.
 #' @param OR Odds ratio when the alternative is true. Must be greater than 1.
 #' @param n1 Sample size for group 1 (control group).
 #' @param n.ratio The ratio n2/n1 between the sample sizes of two groups; defaults to 1 (equal group sizes).
-#' @param alpha The significance level or type 1 error rate; defaults to 0.05.
+#' @param alpha The significance level (type 1 error rate); defaults to 0.05.
 #' @param power The specified level of power; defaults to 0.8.
-#' @param v Either TRUE for verbose output or FALSE to output computed argument only.
+#' @param v Either TRUE for verbose output or FALSE (default) to output computed argument only.
 #' @import Hmisc
 #' @return A list of the arguments (including the computed one).
 #' @export
