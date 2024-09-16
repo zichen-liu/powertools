@@ -15,17 +15,24 @@ propodds(pC, OR, n1, n.ratio = 1, alpha = 0.05, power = NULL, v = FALSE)
 
 \item{n.ratio}{The ratio n2/n1 between the sample sizes of two groups; defaults to 1 (equal group sizes).}
 
-\item{alpha}{The significance level or type 1 error rate; defaults to 0.05.}
+\item{alpha}{The significance level (type 1 error rate); defaults to 0.05.}
 
 \item{power}{The specified level of power; defaults to 0.8.}
 
-\item{v}{Either TRUE for verbose output or FALSE to output computed argument only.}
+\item{v}{Either TRUE for verbose output or FALSE (default) to output computed argument only.}
 }
 \value{
 A list of the arguments (including the computed one).
 }
 \description{
-Power calculations for ordinal categorical variable under proportional odds assumption
+Performs power and sample size calculation for a comparison of two groups on
+an ordinal categorical response variable.
+Assumes that response probabilities follow the proportional
+odds assumption. Can solve for power, n1, n.ratio and alpha.
+}
+\details{
+Whitehead J. (1993) Sample size calculations for ordered categorical data.
+Statistics in Medicine, 12(24):2257–2271
 }
 \examples{
 library(Hmisc)

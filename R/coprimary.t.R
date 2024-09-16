@@ -16,6 +16,7 @@
 #' with Multiple Endpoints. Springer International Publishing, Switzerland.
 #'
 #' This function can be computationally intensive and slow when solving for sample size.
+#' Smaller M can descrease computation time.
 #' The function coprimary.z provides a close approximation and is much faster.
 #'
 #' @param K The number of endpoints.
@@ -27,6 +28,8 @@
 #' @param rho A vector of length 0.5*K*(K-1) of the correlations among the K outcomes.
 #' @param alpha The significance level or type 1 error rate; defaults to 0.025. A one-sided test is assumed.
 #' @param power The specified level of power.
+#' @param M Number of simulated values for the covariance matrix, simulated from Wishart distribution. Defaults
+#' to 10000.
 #' @param v Either TRUE for verbose output or FALSE to output computed argument only.
 #'
 #' @return A list of the arguments (including the computed one).
