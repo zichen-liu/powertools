@@ -14,6 +14,9 @@
 #' Sozu T, Sugimoto T, Hamasaki T, Evans SR. (2015) Sample Size Determination in Clinical Trials
 #' with Multiple Endpoints. Springer International Publishing, Switzerland.
 #'
+#' This function can be computationally intensive and slow when solving for sample size.
+#' The function coprimary.z provides a close approximation and is much faster.
+#'
 #' @param K The number of endpoints.
 #' @param n1 The sample size for group 1.
 #' @param n.ratio The ratio n2/n1 between the sample sizes of two groups; defaults to 1 (equal group sizes).
@@ -30,8 +33,11 @@
 #' @export
 #'
 #' @examples
-#' coprimary.t(K = 2, n1 = 100, delta = c(0.4, 0.5), sd = c(1, 1), rho = 0.3,
-#' alpha = 0.025, power = NULL)
+#' coprimary.t(K = 2, n1 = 100, delta = c(0.4, 0.5), sd = c(1, 1), rho = 0.3, alpha = 0.025,
+#'    power = NULL)
+#'
+#' Sigma <- matrix(c(1, 0.3, 0.3, 0.3, 1, 0.3, 0.3, 0.3, 1), nrow = 3, ncol = 3)
+#' coprimary.t(K = 3, n1 = 200, delta = c(0.2, 0.3, 0.4), Sigma = Sigma, alpha = 0.025, power = NULL)
 
 coprimary.t <- function(K, n1 = NULL, n.ratio = 1, delta = NULL, Sigma, sd, rho,
                         alpha = 0.025, power = NULL, M = 10000, v = FALSE) {
@@ -104,7 +110,7 @@ coprimary.t <- function(K, n1 = NULL, n.ratio = 1, delta = NULL, Sigma, sd, rho,
     if (!v) return(power)
   }
   else if (is.null(n1)) {
-    n1 <- stats::uniroot(function(n1) eval(p.body) - power, c(2, 1e+07))$root
+    n1 <- stats::uniroot(function(n1) eval(p.body) - power, c(K+2, 1e+07))$root
     if (!v) return(n1)
   }
   else if (is.null(n.ratio)) {

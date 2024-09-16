@@ -43,9 +43,26 @@ coprimary.t(
 A list of the arguments (including the computed one).
 }
 \description{
-Power calculations for multiple co-primary continuous endpoints assuming unknown covariance matrix
+Computes power for test involving multiple co-primary continuous endpoints, assuming that the
+covariance matrix (variances and covariances between endpoints) is unknown and therefore t-based test
+statistics will be used. Studies with co-primary endpoints use “all-or-none” testing procedures and
+only declare the trial to be a “success” if all endpoints are affirmed. All true mean differences
+must be positive and upper-tailed one-sided tests are assumed.
+For known covariance matrix, see coprimary.z.
+}
+\details{
+See Crespi et al. (2025) for more details.
+This function is based on the power.unknown.var function from the mpe R package and material from
+Sozu T, Sugimoto T, Hamasaki T, Evans SR. (2015) Sample Size Determination in Clinical Trials
+with Multiple Endpoints. Springer International Publishing, Switzerland.
+
+This function can be computationally intensive and slow when solving for sample size.
+The function coprimary.z provides a close approximation and is much faster.
 }
 \examples{
-coprimary.t(K = 2, n1 = 100, delta = c(0.4, 0.5), sd = c(1, 1), rho = 0.3,
-alpha = 0.025, power = NULL)
+coprimary.t(K = 2, n1 = 100, delta = c(0.4, 0.5), sd = c(1, 1), rho = 0.3, alpha = 0.025,
+   power = NULL)
+
+Sigma <- matrix(c(1, 0.3, 0.3, 0.3, 1, 0.3, 0.3, 0.3, 1), nrow = 3, ncol = 3)
+coprimary.t(K = 3, n1 = 200, delta = c(0.2, 0.3, 0.4), Sigma = Sigma, alpha = 0.025, power = NULL)
 }

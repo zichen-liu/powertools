@@ -42,9 +42,24 @@ coprimary.z(
 A list of the arguments (including the computed one).
 }
 \description{
-Power calculations for multiple co-primary continuous endpoints assuming known covariance matrix
+Computes power for test involving multiple co-primary continuous endpoints, assuming that the
+covariance matrix (variances and covariances between endpoints) is known and therefore z-based test
+statistics will be used. Studies with co-primary endpoints use “all-or-none” testing procedures and
+only declare the trial to be a “success” if all endpoints are affirmed. All true mean differences
+must be positive and upper-tailed one-sided tests are assumed.
+For the more realistic case that the covariance matrix is not known, see coprimary.t.
+}
+\details{
+See Crespi et al. (2025) for more details.
+This function is based on the power.known.var function from the mpe R package and material from
+Sozu T, Sugimoto T, Hamasaki T, Evans SR. (2015) Sample Size Determination in Clinical Trials
+with Multiple Endpoints. Springer International Publishing, Switzerland.
 }
 \examples{
 coprimary.z(K = 2, n1 = 100, delta = c(0.4, 0.5), sd = c(1, 1), rho = 0.3,
 alpha = 0.025, power = NULL)
+
+Sigma <- matrix(c(1, 0.3, 0.3, 0.3, 1, 0.3, 0.3, 0.3, 1), nrow = 3, ncol = 3)
+coprimary.z(K = 3, n1 = NULL, delta = c(0.2, 0.3, 0.4), Sigma = Sigma, alpha = 0.025, power = 0.8)
+
 }

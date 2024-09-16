@@ -37,8 +37,10 @@ using the power_binom_test function from the MESS package;
 see Crespi CM (2025) Power and Sample Size in R. Routledge, New York, NY.
 }
 \details{
-Due to symmetry, the power for p is equal to the power for 1 - p. Therefore,
-when solving for p, two values, p and 1 - p, are returned.
+When solving for p, two values, p and 1 - p, are returned.
+For a two-sided test, due to symmetry, the power for p is equal to the power for 1 - p.
+For a one-sided upper-tailed test (rejecting null hypothesis when median > 0), select the higher value.
+For a one-sided lower-tailed test (rejecting null hypothesis when median < 0), select the lower value.
 }
 \examples{
 signtest(N = 40, p = 0.7, power = NULL, alpha = 0.05, sides = 1)
