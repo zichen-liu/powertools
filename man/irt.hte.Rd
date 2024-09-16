@@ -25,7 +25,7 @@ irt.hte(
 
 \item{sd.x}{The standard deviation of the covariate.}
 
-\item{sd.yx}{The standard deviation of the outcome variabe adjusting for the covariate.}
+\item{sd.yx}{The standard deviation of the outcome variable adjusting for the covariate.}
 
 \item{alpha}{The significance level (type 1 error rate); defaults to 0.05.}
 
@@ -45,7 +45,7 @@ with a continuous outcome. Can solve for power, beta, n1 or n.ratio.
 }
 \details{
 Shieh G (2009) Detecting interaction effects in moderated multiple regression with continuous variables:
-power and sample size considerations. Org Res Methods 12(3):510-528.
+power and sample size considerations. Organizational Research Methods 12(3):510-528.
 
 Yang S, Li F, Starks MA, Hernandez AF, Mentz RJ, Choudhury KR (2020) Sample size requirements for detecting
 treatment effect heterogeneity in cluster randomized trials. Statistics in Medicine 39:4218-4237.

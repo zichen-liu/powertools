@@ -6,8 +6,8 @@
 \usage{
 check(
   param = NULL,
-  type = c("req", "num", "unit", "uniti", "pos", "int", "bool", "vals", "min", "mini",
-    "vec", "mat", "sum"),
+  type = c("req", "num", "unit", "uniti", "unitii", "pos", "int", "bool", "vals", "min",
+    "mini", "vec", "mat", "sum"),
   valslist = NULL,
   min = NULL
 )
