@@ -34,6 +34,10 @@
 #' @examples
 #' coprimary.z(K = 2, n1 = 100, delta = c(0.4, 0.5), sd = c(1, 1), rho = 0.3,
 #' alpha = 0.025, power = NULL)
+#'
+#' Sigma <- matrix(c(1, 0.3, 0.3, 0.3, 1, 0.3, 0.3, 0.3, 1), nrow = 3, ncol = 3)
+#' coprimary.z(K = 3, n1 = NULL, delta = c(0.2, 0.3, 0.4), Sigma = Sigma, alpha = 0.025, power = 0.8)
+#'
 
 coprimary.z <- function(K, n1 = NULL, n.ratio = 1, delta = NULL, Sigma, sd, rho,
                         alpha = 0.025, power = NULL, v = FALSE) {

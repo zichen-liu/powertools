@@ -1,5 +1,19 @@
 #' Power calculations for multiple co-primary continuous endpoints assuming unknown covariance matrix
 #'
+#' @description
+#' Computes power for test involving multiple co-primary continuous endpoints, assuming that the
+#' covariance matrix (variances and covariances between endpoints) is unknown and therefore t-based test
+#' statistics will be used. Studies with co-primary endpoints use “all-or-none” testing procedures and
+#' only declare the trial to be a “success” if all endpoints are affirmed. All true mean differences
+#' must be positive and upper-tailed one-sided tests are assumed.
+#' For known covariance matrix, see coprimary.z.
+#'
+#' @details
+#' See Crespi et al. (2025) for more details.
+#' This function is based on the power.unknown.var function from the mpe R package and material from
+#' Sozu T, Sugimoto T, Hamasaki T, Evans SR. (2015) Sample Size Determination in Clinical Trials
+#' with Multiple Endpoints. Springer International Publishing, Switzerland.
+#'
 #' @param K The number of endpoints.
 #' @param n1 The sample size for group 1.
 #' @param n.ratio The ratio n2/n1 between the sample sizes of two groups; defaults to 1 (equal group sizes).
