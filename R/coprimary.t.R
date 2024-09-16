@@ -5,7 +5,8 @@
 #' covariance matrix (variances and covariances between endpoints) is unknown and therefore t-based test
 #' statistics will be used. Studies with co-primary endpoints use “all-or-none” testing procedures and
 #' only declare the trial to be a “success” if all endpoints are affirmed. All true mean differences
-#' must be positive and upper-tailed one-sided tests are assumed.
+#' must be positive (the scale for some outcomes may need to be reversed
+#' to meet this condition) and upper-tailed one-sided tests are assumed.
 #' For known covariance matrix, see coprimary.z.
 #'
 #' @details
