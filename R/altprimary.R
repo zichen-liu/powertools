@@ -82,7 +82,7 @@ altprimary <- function(K, n1 = NULL, n.ratio = 1, delta = NULL, Sigma, sd, rho,
       stop("all standard deviations need to be positive")
     if(length(rho) != 0.5*K*(K-1))
       stop("length of 'rho' must be equal to '0.5*K*(K-1)'")
-    if(!all(rho >= 0 & rho < 1))
+    if(!all(rho >= -1 & rho < 1))
       stop("all correlations need to be between 0 and 1")
     Sigma <- matrix(0, nrow = K, ncol = K)
     iter <- 0

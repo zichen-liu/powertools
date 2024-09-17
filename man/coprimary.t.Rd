@@ -37,6 +37,9 @@ coprimary.t(
 
 \item{power}{The specified level of power.}
 
+\item{M}{Number of simulated values for the covariance matrix, simulated from Wishart distribution. Defaults
+to 10000.}
+
 \item{v}{Either TRUE for verbose output or FALSE to output computed argument only.}
 }
 \value{
@@ -58,6 +61,7 @@ Sozu T, Sugimoto T, Hamasaki T, Evans SR. (2015) Sample Size Determination in Cl
 with Multiple Endpoints. Springer International Publishing, Switzerland.
 
 This function can be computationally intensive and slow when solving for sample size.
+Smaller M can descrease computation time.
 The function coprimary.z provides a close approximation and is much faster.
 }
 \examples{
