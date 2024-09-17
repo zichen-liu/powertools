@@ -9,6 +9,8 @@
 #' to meet this condition) and upper-tailed one-sided tests are assumed.
 #' For known covariance matrix, see coprimary.z.
 #'
+#' Either sd and rho or Sigma must be specified.
+#'
 #' @details
 #' See Crespi et al. (2025) for more details.
 #' This function is based on the power.unknown.var function from the mpe R package and material from
