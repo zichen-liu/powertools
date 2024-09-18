@@ -42,7 +42,7 @@ prop.2samp <- function (n1 = NULL, n.ratio = 1, p1 = NULL, p2 = NULL, margin = 0
   check(sides, "req"); check(sides, "vals", valslist = c(1, 2))
   check(v, "req"); check(v, "bool")
 
-  # Calculate test statistic
+  # Calculate n1
   p.body <- quote({
     d <- abs(p1 - p2) - margin
     q1 <- 1 - p1
