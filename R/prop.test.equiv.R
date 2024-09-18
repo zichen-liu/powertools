@@ -37,10 +37,9 @@ prop.test.equiv <- function (n1 = NULL, n.ratio = 1, p1 = NULL, p2 = NULL, margi
   # Calculate n1
   p.body <- quote({
     d <- abs(p1 - p2)
-    var <- p1 * (1 - p1) + p2 * (1 - p2)
     beta <- 1 - power
     ((stats::qnorm(1 - alpha) + stats::qnorm(1 - beta / 2))^2 *
-    var / n.ratio / (margin - d)^2)
+    (p1 * (1 - p1) + p2 * (1 - p2) / n.ratio) / (margin - d)^2)
   })
 
   # Use stats::uniroot function to calculate missing argument
