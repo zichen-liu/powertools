@@ -34,7 +34,7 @@ prop.test.equiv <- function (n1 = NULL, n.ratio = 1, p1 = NULL, p2 = NULL, margi
   check(power, "unit")
   check(v, "req"); check(v, "bool")
 
-  # Calculate test statistic
+  # Calculate n1
   p.body <- quote({
     d <- abs(p1 - p2)
     var <- p1 * (1 - p1) + p2 * (1 - p2)
