@@ -112,8 +112,6 @@ crt.xo.cont <- function (m = NULL, J.arm = NULL, delta = NULL, sd = 1,
   iccs <- c(icc, icca, iccb)
   acs <- c(cac, sac) # outputs only SAC when CAC is NULL...how to generate CAC
 
-  # round power to 5 digits
-  power <- round(power, digits = 5)
 
   # Print output as a power.htest object
   out <- list(m = m, `J.arm1, J.arm2` = J, delta = delta, sd = sd,
