@@ -49,6 +49,8 @@ only declare the trial to be a “success” if all endpoints are affirmed. All 
 must be positive (the scale for some outcomes may need to be reversed
 to meet this condition) and upper-tailed one-sided tests are assumed.
 For the more realistic case that the covariance matrix is not known, see coprimary.t.
+
+Either sd and rho or Sigma must be specified.
 }
 \details{
 See Crespi et al. (2025) for more details.

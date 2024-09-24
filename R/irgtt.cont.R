@@ -5,6 +5,10 @@
 #' a continuous outcome, in which after individual randomization, individuals in the
 #' intervention/treatment arm are clustered. Can solve for power, J, m, n, delta or alpha.
 #'
+#' @details
+#' Power is solved for using noncentral t or F distribution; other quantities
+#' (for example, sample sizes) are solved
+#' for using normal approximation.
 #'
 #'
 #' @param m The number of subjects per cluster in the intervention arm.
@@ -89,9 +93,6 @@ irgtt.cont <- function (m = NULL, J = NULL, n = NULL, delta = NULL, sd = 1,
       1 - stats::pf(crit, df1 = 1, df2 = df2, ncp = lambda^2)
     })
 
-  NOTE <- "Power is solved for using t/F distribution; other quantities solved\n      for using normal approximation."
-  if (!v) cat(paste("NOTE:", NOTE, "\n"))
-
   # Use uniroot to calculate missing argument
   if (is.null(alpha)) {
     alpha <- stats::uniroot(function(alpha) eval(p.body2) - power, interval = c(1e-10, 1 - 1e-10), tol = tol)$root
@@ -124,7 +125,7 @@ irgtt.cont <- function (m = NULL, J = NULL, n = NULL, delta = NULL, sd = 1,
   METHOD <- "Power for individually randomized group treatment trial with continuous outcome"
   structure(list(`m, J, n` = mjn, delta = delta, sd = sd, icc = icc,
                  Theta = Theta, alpha = alpha, power = power, sides = sides,
-                 method = METHOD, note = NOTE), class = "power.htest")
+                 method = METHOD), class = "power.htest")
 
 }
 

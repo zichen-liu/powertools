@@ -44,15 +44,18 @@ A one-sided test is assumed.}
 A list of the arguments (including the computed one).
 }
 \description{
-Calculates power and sample size in the case of comparing two groups on the means of K
-continuous endpoints and concluding that the trial is a "success" if the
+Calculates power and sample size for the case of comparing two groups on the means of K
+continuous endpoints and concluding that the trial is a 'success' if the
 null hypothesis is rejected for at least one of the K endpoints.
 All mean differences must be specified as positive; the scale for some outcomes may need to be reversed
-to meet this condition. All tests are assumed to be upper-tailed, one-sided tests.
+to meet this condition. All tests are assumed to be upper-tailed, one-sided tests. Can
+solve for power, n1, n.ratio or alpha.
 
 To use a Bonferroni correction for multiple comparisons, specify alpha as
-the desired family-wise error rate (FWER) divided by K. For example, for one-sided FWER of 0.025
+the desired familywise error rate (FWER) divided by K. For example, for one-sided FWER of 0.025
 and K = 2 endpoints, specify alpha as 0.0125.
+
+Either sd and rho or Sigma must be specified.
 
 A known covariance matrix is assumed, which can result in a slight overestimate of power and
 underestimate of required sample size.
