@@ -52,6 +52,11 @@ Computes power and sample size for an individually randomized group treatment tr
 a continuous outcome, in which after individual randomization, individuals in the
 intervention/treatment arm are clustered. Can solve for power, J, m, n, delta or alpha.
 }
+\details{
+Power is solved for using noncentral t or F distribution; other quantities
+(for example, sample sizes) are solved
+for using normal approximation.
+}
 \examples{
 irgtt.cont(m = 10, J = 12, n = 120, delta = 0.4, icc = 0.05, Theta = 1, power = NULL)
 irgtt.cont(m = 10, J = 12, n = NULL, delta = 0.4, icc = 0.05, Theta = 1, power = 0.8)
