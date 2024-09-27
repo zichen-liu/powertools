@@ -33,6 +33,8 @@ anova1way.c.bal <- function (n = NULL, mvec = NULL, cvec = NULL, sd = 1,
   check(n, "pos"); check(n, "min", min = 2)
   check(mvec, "req"); check(mvec, "vec")
   check(cvec, "req"); check(cvec, "vec")
+  if (sum(cvec) != 0)
+    stop("sum of contrast coefficients must equal 0")
   check(sd, "req"); check(sd, "pos")
   check(Rsq, "req"); check(Rsq, "uniti")
   check(ncov, "req"); check(ncov, "int")

@@ -37,6 +37,8 @@ anova2way.c.bal <- function (n = NULL, mmatrix = NULL, cvec = NULL,
   check(n, "pos"); check(n, "min", min = 2)
   check(mmatrix, "req"); check(mmatrix, "mat")
   check(cvec, "req"); check(cvec, "vec")
+  if (sum(cvec) != 0)
+    stop("sum of contrast coefficients must equal 0")
   check(factor, "req"); check(factor, "vals", valslist = c("a", "b"))
   check(sd, "req"); check(sd, "pos")
   check(Rsq, "req"); check(Rsq, "uniti")
