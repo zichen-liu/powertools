@@ -38,6 +38,8 @@ anova2way.se.unbal <- function (nmatrix = NULL, mmatrix = NULL, cmatrix = NULL,
   check(nmatrix, "req"); check(nmatrix, "mat")
   check(mmatrix, "req"); check(mmatrix, "mat")
   check(cmatrix, "req"); check(cmatrix, "mat")
+  if (sum(cmatrix) != 0)
+    stop("sum of contrast coefficients must equal 0")
   check(sd, "req"); check(sd, "pos")
   check(Rsq, "req"); check(Rsq, "uniti")
   check(ncov, "req"); check(ncov, "int")
