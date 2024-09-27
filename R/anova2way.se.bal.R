@@ -16,6 +16,7 @@
 #' @param ncov The number of covariates adjusted for in the model; defaults to 0.
 #' @param alpha The significance level (type 1 error rate); defaults to 0.05.
 #' @param power The specified level of power.
+#' @param sides Either 1 or 2 (default) to specify a one- or two- sided hypothesis test.
 #' @param v Either TRUE for verbose output or FALSE (default) to output computed argument only.
 #'
 #' @return A list of the arguments (including the computed one).
@@ -28,7 +29,8 @@
 
 anova2way.se.bal <- function (n = NULL, mmatrix = NULL, cmatrix = NULL,
                               sd = 1, Rsq = 0, ncov = 0,
-                              alpha = 0.05, power = NULL, v = FALSE) {
+                              alpha = 0.05, power = NULL, sides = 2,
+                              v = FALSE) {
 
   # Check if the arguments are specified correctly
   check.many(list(n, alpha, power), "oneof")
@@ -42,6 +44,7 @@ anova2way.se.bal <- function (n = NULL, mmatrix = NULL, cmatrix = NULL,
   check(ncov, "req"); check(ncov, "int")
   check(alpha, "unit")
   check(power, "unit")
+  check(sides, "req"); check(sides, "vals", valslist = c(1, 2))
   check(v, "req"); check(v, "bool")
 
   a <- nrow(mmatrix)
@@ -57,13 +60,22 @@ anova2way.se.bal <- function (n = NULL, mmatrix = NULL, cmatrix = NULL,
   intx <- ifelse(fAB == 0, FALSE, TRUE)
 
   # Get test statistic
-  p.body <- quote({
-    lambda <- sum(cmatrix * mmatrix) / sd / sqrt(sum(cmatrix^2 / n)) /
-      sqrt(1 - Rsq)
-    N <- a * b * n
-    df <- ifelse(intx, N - a * b - ncov, N - a - b + 1 - ncov)
-    stats::pt(q = stats::qt(alpha, df), df, lambda)
-  })
+  if (sides == 1)
+    p.body <- quote({
+      lambda <- sum(cmatrix * mmatrix) / sd / sqrt(sum(cmatrix^2 / n)) /
+        sqrt(1 - Rsq)
+      N <- a * b * n
+      df <- ifelse(intx, N - a * b - ncov, N - a - b + 1 - ncov)
+      stats::pt(q = stats::qt(alpha, df), df, lambda)
+    })
+  else if (sides == 2)
+    p.body <- quote({
+      lambda <- sum(cmatrix * mmatrix) / sd / sqrt(sum(cmatrix^2 / n)) /
+        sqrt(1 - Rsq)
+      N <- a * b * n
+      df2 <- ifelse(intx, N - a * b - ncov, N - a - b + 1 - ncov)
+      stats::pf(q = stats::qf(alpha, 1, df2), 1, df2, lambda^2)
+    })
 
   # Use stats::uniroot function to calculate missing argument
   if (is.null(power)) {

@@ -18,6 +18,7 @@
 #' @param Rsq The estimated R^2 for regressing the outcome on the covariates; defaults to 0.
 #' @param ncov The number of covariates adjusted for in the model; defaults to 0.
 #' @param alpha The significance level (type 1 error rate); defaults to 0.05.
+#' @param sides Either 1 or 2 (default) to specify a one- or two- sided hypothesis test.
 #' @param v Either TRUE for verbose output or FALSE (default) to output computed argument only.
 #'
 #' @return A list of the arguments (including the computed power).
@@ -32,7 +33,7 @@
 
 anova2way.se.unbal <- function (nmatrix = NULL, mmatrix = NULL, cmatrix = NULL,
                                 sd = 0, Rsq = 0, ncov = 0, alpha = 0.05,
-                                v = FALSE) {
+                                sides = 2, v = FALSE) {
 
   # Check if the arguments are specified correctly
   check(nmatrix, "req"); check(nmatrix, "mat")
@@ -44,6 +45,7 @@ anova2way.se.unbal <- function (nmatrix = NULL, mmatrix = NULL, cmatrix = NULL,
   check(Rsq, "req"); check(Rsq, "uniti")
   check(ncov, "req"); check(ncov, "int")
   check(alpha, "req"); check(alpha, "unit")
+  check(sides, "req"); check(sides, "vals", valslist = c(1, 2))
   check(v, "req"); check(v, "bool")
 
   a <- nrow(mmatrix)
@@ -70,7 +72,12 @@ anova2way.se.unbal <- function (nmatrix = NULL, mmatrix = NULL, cmatrix = NULL,
   # Calculate power
   N <- sum(nmatrix)
   df <- ifelse(intx, N - a * b - ncov, N - a - b + 1 - ncov)
-  power <- stats::pt(q = stats::qt(alpha, df), df, lambda)
+
+  if (sides == 1)
+    power <- stats::pt(q = stats::qt(alpha, df), df, lambda)
+  else if (sides == 2)
+    power <- stats::pf(q = stats::qf(alpha, 1, df), 1, df, lambda^2)
+
   if (!v) return(power)
 
   # Generate output text
