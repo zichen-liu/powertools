@@ -6,6 +6,7 @@
 #' let sigma.u1^2 be the variance of the site-level treatment effects.
 #' The test of heterogeneity tests the null hypothesis that sigma.u1^2 = 0
 #' versus the alternative that sigma.u1^2 > 0.
+#' Can solve for power, J, or m.
 #'
 #' @details
 #' See Crespi CM (2025) for details.
@@ -27,30 +28,48 @@
 #' multisite.hte(m = 10, J = 30, VR = 8 / 36)
 
 multisite.hte <- function (m = NULL, alloc.ratio = 1, J = NULL, VR = NULL,
-                           alpha = 0.05, v = FALSE) {
+                           alpha = 0.05, power = NULL, v = FALSE) {
 
   # Check if the arguments are specified correctly
-  check(m, "req"); check(m, "pos")
+  check.many(list(m, J, alpha, power), "oneof")
+  check(m, "pos")
   check(alloc.ratio, "req"); check(alloc.ratio, "pos")
-  check(J, "req"); check(J, "min", min = 2)
+  check(J, "min", min = 2)
   check(VR, "req"); check(VR, "pos")
-  check(alpha, "req"); check(alpha, "unit")
+  check(alpha, "unit")
+  check(power, "unit")
   check(v, "req"); check(v, "bool")
 
-  omega <- 1 + m * VR / 4
-  df1 <- J - 1
-  df2 <- J * (m - 2)
-  crit <- stats::qf(1 - alpha, df1, df2)
-  power  <- 1 - stats::pf(crit / omega, df1, df2)
+  p.body <- quote({
+    omega <- 1 + m * VR / 4
+    df1 <- J - 1
+    df2 <- J * (m - 2)
+    crit <- stats::qf(1 - alpha, df1, df2)
+    1 - stats::pf(crit / omega, df1, df2)
+  })
 
-  NOTE <- "m1, m2 are the number of subjects within site in condition 1, condition 2\n      (total of m1 + m2 per site)"
-  if (!v) {
-    cat(paste("NOTE:", NOTE, "\n"))
-    return(power)
+  # Use uniroot to calculate missing argument
+  if (is.null(alpha)) {
+    alpha <- stats::uniroot(function(alpha) eval(p.body) - power, c(1e-10, 1 - 1e-10))$root
+    if (!v) return(alpha)
   }
+  else if (is.null(power)) {
+    power <- eval(p.body)
+    if (!v) return(power)
+  }
+  else if (is.null(J)) {
+    J <- stats::uniroot(function(J) eval(p.body) - power, c(2 + 1e-10, 1e+07))$root
+    if (!v) return(J)
+  }
+  else if (is.null(m)) {
+    m <- stats::uniroot(function(m) eval(p.body) - power, c(2 + 1e-10, 1e+07))$root
+    if (!v) return(m)
+  }
+  else stop("internal error")
 
   # Generate output text
   METHOD <-"Power for test of heterogeneity of treatment effect in a multisite trial"
+  NOTE <- "m1, m2 are the number of subjects within site in condition 1, condition 2\n      (total of m1 + m2 per site)"
   c <- m / (alloc.ratio + 1)
   t <- alloc.ratio * c
   m <- paste0(t, ", ", c)
