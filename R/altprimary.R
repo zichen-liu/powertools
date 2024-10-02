@@ -108,12 +108,13 @@ altprimary <- function(K, n1 = NULL, n.ratio = 1, delta = NULL, Sigma, sd, rho,
     std.effect <- delta/sqrt(diag(Sigma))
     z.alpha <- stats::qnorm(1-alpha)
     crit.vals <- z.alpha - sqrt(n1*(n.ratio/(1+n.ratio)))*std.effect
-    1 - mvtnorm::pmvnorm(lower = -crit.vals, sigma = Sigma.cor)
+    out <- 1 - mvtnorm::pmvnorm(lower = -crit.vals, sigma = Sigma.cor)
+    out[1]
   })
 
   if(is.null(power)){
     power <- eval(p.body)
-    if (!v) return(power[1])
+    if (!v) return(power)
   }
   else if (is.null(n1)) {
     n1 <- stats::uniroot(function(n1) eval(p.body) - power, c(2, 1e+07))$root
@@ -135,3 +136,4 @@ altprimary <- function(K, n1 = NULL, n.ratio = 1, delta = NULL, Sigma, sd, rho,
                  alpha = alpha, power = power, method = METHOD),
             class = "power.htest")
 }
+
