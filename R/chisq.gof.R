@@ -58,7 +58,7 @@ chisq.gof <- function (p0vec = NULL, p1vec = NULL,
     if (!v) return(power)
   }
   else if (is.null(N)) {
-    N <- stats::uniroot(function(n) eval(p.body) - power, c(1 + 1e-10, 1e+09))$root
+    N <- stats::uniroot(function(N) eval(p.body) - power, c(1 + 1e-10, 1e+09))$root
     if (!v) return(N)
   }
   else if (is.null(alpha)) {
