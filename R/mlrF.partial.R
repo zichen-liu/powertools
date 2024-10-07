@@ -38,15 +38,15 @@ mlrF.partial <- function (N = NULL, p = NULL, q = NULL, pc = NULL,
     stop("please specify Rsq.red and Rsq.full OR pc")
 
   check.many(list(N, alpha, power), "oneof")
-  check(N, "pos"); check(N, "min", min = 7)
-  check(alpha, "unit")
-  check(power, "unit")
-  check(p, "int")
-  check(q, "int")
-  check(Rsq.red, "unit")
-  check(Rsq.full, "unit")
-  check(pc, "uniti")
-  check(v, "req"); check(v, "bool")
+  check.param(N, "pos"); check.param(N, "min", min = 7)
+  check.param(alpha, "unit")
+  check.param(power, "unit")
+  check.param(p, "int")
+  check.param(q, "int")
+  check.param(Rsq.red, "unit")
+  check.param(Rsq.full, "unit")
+  check.param(pc, "uniti")
+  check.param(v, "req"); check.param(v, "bool")
 
   # Calculate power
   if (is.null(pc)) {

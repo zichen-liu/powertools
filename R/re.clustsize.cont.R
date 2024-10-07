@@ -18,9 +18,9 @@
 
 
 re.clustsize.cont <- function (m, m.sd, icc) {
-  check(m, "req"); check(m, "pos")
-  check(m.sd, "req"); check(m.sd, "min", min = 0)
-  check(icc, "req"); check(icc, "uniti")
+  check.param(m, "req"); check.param(m, "pos")
+  check.param(m.sd, "req"); check.param(m.sd, "min", min = 0)
+  check.param(icc, "req"); check.param(icc, "uniti")
 
   cv <- m.sd / m
   K <- (m * icc) / (1 + (m - 1) * icc)

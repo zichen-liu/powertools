@@ -19,10 +19,10 @@
 
 
 crt.means.r <- function (m, icc, cac, sac) {
-  check(m, "req"); check(m, "pos")
-  check(icc, "req"); check(icc, "uniti")
-  check(cac, "req"); check(cac, "uniti")
-  check(sac, "req"); check(sac, "uniti")
+  check.param(m, "req"); check.param(m, "pos")
+  check.param(icc, "req"); check.param(icc, "uniti")
+  check.param(cac, "req"); check.param(cac, "uniti")
+  check.param(sac, "req"); check.param(sac, "uniti")
 
   denom <- 1 + (m - 1) * icc
   num <- m * icc * cac + (1 - icc) * sac

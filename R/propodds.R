@@ -31,13 +31,13 @@ propodds <- function(pC, OR, n1, n.ratio = 1, alpha = 0.05,
 
   # Check if the arguments are specified correctly
   check.many(list(n1, n.ratio, power, alpha), "oneof")
-  check(n1, "pos"); check(n1, "min", min = 2)
-  check(n.ratio, "pos")
-  check(power, "unit")
-  check(alpha, "unit")
-  check(pC, "req"); check(pC, "sum")
-  check(OR, "req"); check(OR, "mini", min = 1)
-  check(v, "req"); check(v, "bool")
+  check.param(n1, "pos"); check.param(n1, "min", min = 2)
+  check.param(n.ratio, "pos")
+  check.param(power, "unit")
+  check.param(alpha, "unit")
+  check.param(pC, "req"); check.param(pC, "sum")
+  check.param(OR, "req"); check.param(OR, "mini", min = 1)
+  check.param(v, "req"); check.param(v, "bool")
 
   pC <- pC[!is.na(pC)]
   if (abs(sum(pC) - 1) > 1e-05)

@@ -25,11 +25,11 @@
 #' re.clustsize.bin(m = 60, m.sd = 45, pc = 0.25, pt = 0.15, sigma.u = 0.3)
 
 re.clustsize.bin <- function(m, m.sd, pc, pt, sigma.u){
-  check(m, "req"); check(m, "pos")
-  check(m.sd, "req"); check(m.sd, "min", min = 0)
-  check(pc, "req"); check(pc, "unit")
-  check(pt, "req"); check(pt, "unit")
-  check(sigma.u, "req"); check(sigma.u, "pos")
+  check.param(m, "req"); check.param(m, "pos")
+  check.param(m.sd, "req"); check.param(m.sd, "min", min = 0)
+  check.param(pc, "req"); check.param(pc, "unit")
+  check.param(pt, "req"); check.param(pt, "unit")
+  check.param(sigma.u, "req"); check.param(sigma.u, "pos")
 
   logoddsc <- log(pc / (1 - pc))
   logoddst <- log(pt / (1 - pt))

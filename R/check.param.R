@@ -1,7 +1,7 @@
 #' Internal-use function for quality checking individual parameters
 #'
 #' @param param The parameter being checked.
-#' @param type The expected type of parameter: one of "req", "num", "unit(i)", "uniti", "pos", "int", "bool", "vals", "min(i)", "vec", "mat", "sum".
+#' @param type The expected type of parameter: one of "req", "num", "unit(i)(i)", "pos", "int", "bool", "vals", "min(i)", "vec", "mat", "sum".
 #' @param valslist If the type is "vals", a list of allowed values.
 #' @param min If the type is "min" or "mini", a lower bound.
 #'
@@ -11,9 +11,9 @@
 #'
 #' @examples
 #' power <- 0.8
-#' check(power, "unit")
+#' check.param(power, "unit")
 
-check <- function(param = NULL,
+check.param <- function(param = NULL,
                   type = c("req",   # required
                            "num",   # numerical
                            "unit",  # (0, 1)

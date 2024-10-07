@@ -31,13 +31,13 @@ ranksum <- function (n1 = NULL, n.ratio = 1, p = NULL, alpha = 0.05,
 
   # Check if the arguments are specified correctly
   check.many(list(n1, n.ratio, alpha, power, p), "oneof")
-  check(n1, "pos"); check(n1, "min", min = 2)
-  check(n.ratio, "pos")
-  check(alpha, "unit")
-  check(power, "unit")
-  check(p, "unit")
-  check(sides, "req"); check(sides, "vals", valslist = c(1, 2))
-  check(v, "req"); check(v, "bool")
+  check.param(n1, "pos"); check.param(n1, "min", min = 2)
+  check.param(n.ratio, "pos")
+  check.param(alpha, "unit")
+  check.param(power, "unit")
+  check.param(p, "unit")
+  check.param(sides, "req"); check.param(sides, "vals", valslist = c(1, 2))
+  check.param(v, "req"); check.param(v, "bool")
 
   # power equation
   p.body <- quote({

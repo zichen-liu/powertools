@@ -35,16 +35,16 @@ multisite.bin <- function (m = NULL, alloc.ratio = 1, J = NULL,
 
   # Check if the arguments are specified correctly
   check.many(list(m, J, alpha, power), "oneof")
-  check(m, "pos")
-  check(alloc.ratio, "req"); check(alloc.ratio, "pos")
-  check(J, "min", min = 2)
-  check(pc, "req"); check(pc, "unit")
-  check(pt, "req"); check(pt, "unit")
-  check(sigma.u, "req"); check(sigma.u, "pos")
-  check(alpha, "unit")
-  check(power, "unit")
-  check(sides, "req"); check(sides, "vals", valslist = c(1, 2))
-  check(v, "req"); check(v, "bool")
+  check.param(m, "pos")
+  check.param(alloc.ratio, "req"); check.param(alloc.ratio, "pos")
+  check.param(J, "min", min = 2)
+  check.param(pc, "req"); check.param(pc, "unit")
+  check.param(pt, "req"); check.param(pt, "unit")
+  check.param(sigma.u, "req"); check.param(sigma.u, "pos")
+  check.param(alpha, "unit")
+  check.param(power, "unit")
+  check.param(sides, "req"); check.param(sides, "vals", valslist = c(1, 2))
+  check.param(v, "req"); check.param(v, "bool")
 
   # Calculate power
   p.body <- quote({

@@ -26,15 +26,15 @@ relrisk <- function (n1 = NULL, n.ratio = 1, p1 = NULL, p2 = NULL, RR0 = 1,
 
   # Check if the arguments are specified correctly
   check.many(list(n1, n.ratio, alpha, power), "oneof")
-  check(n1, "pos")
-  check(n.ratio, "pos")
-  check(p1, "req"); check(p1, "unit")
-  check(p2, "req"); check(p2, "unit")
-  check(RR0, "req"); check(RR0, "pos")
-  check(alpha, "unit")
-  check(power, "unit")
-  check(sides, "req"); check(sides, "vals", valslist = c(1, 2))
-  check(v, "req"); check(v, "bool")
+  check.param(n1, "pos")
+  check.param(n.ratio, "pos")
+  check.param(p1, "req"); check.param(p1, "unit")
+  check.param(p2, "req"); check.param(p2, "unit")
+  check.param(RR0, "req"); check.param(RR0, "pos")
+  check.param(alpha, "unit")
+  check.param(power, "unit")
+  check.param(sides, "req"); check.param(sides, "vals", valslist = c(1, 2))
+  check.param(v, "req"); check.param(v, "bool")
 
   # Calculate test statistic
   p.body <- quote({

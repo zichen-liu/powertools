@@ -28,15 +28,15 @@ t.test.paired <- function (N = NULL, delta = NULL,
 
   # Check if the arguments are specified correctly
   check.many(list(N, delta, alpha, power), "oneof")
-  check(N, "pos")
-  check(sd1, "req"); check(sd1, "pos")
-  check(sd2, "req"); check(sd2, "pos")
-  check(rho, "req"); check(rho, "uniti")
-  check(delta, "num")
-  check(alpha, "unit")
-  check(power, "unit")
-  check(sides, "req"); check(sides, "vals", valslist = c(1, 2))
-  check(v, "req"); check(v, "bool")
+  check.param(N, "pos")
+  check.param(sd1, "req"); check.param(sd1, "pos")
+  check.param(sd2, "req"); check.param(sd2, "pos")
+  check.param(rho, "req"); check.param(rho, "uniti")
+  check.param(delta, "num")
+  check.param(alpha, "unit")
+  check.param(power, "unit")
+  check.param(sides, "req"); check.param(sides, "vals", valslist = c(1, 2))
+  check.param(v, "req"); check.param(v, "bool")
 
   # Calculate the standard deviation of differences within pairs
   sigmad <- sqrt(sd1^2 + sd2^2 - 2 * rho * sd1 * sd2)

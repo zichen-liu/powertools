@@ -42,12 +42,12 @@ signtest <- function (N = NULL, p = NULL, alpha = 0.05, power = NULL,
 
   # Check if the arguments are specified correctly
   check.many(list(N, alpha, power, p), "oneof")
-  check(N, "pos"); check(N, "min", min = 2)
-  check(alpha, "unit")
-  check(power, "unit")
-  check(p, "unit")
-  check(sides, "req"); check(sides, "vals", valslist = c(1, 2))
-  check(v, "req"); check(v, "bool")
+  check.param(N, "pos"); check.param(N, "min", min = 2)
+  check.param(alpha, "unit")
+  check.param(power, "unit")
+  check.param(p, "unit")
+  check.param(sides, "req"); check.param(sides, "vals", valslist = c(1, 2))
+  check.param(v, "req"); check.param(v, "bool")
 
   # power equation
   p.body <- quote({

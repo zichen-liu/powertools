@@ -26,13 +26,13 @@ corr.1samp <- function (N = NULL, rho0 = 0, rhoA = NULL,
 
   # Check if the arguments are specified correctly
   check.many(list(N, alpha, power), "oneof")
-  check(N, "pos"); check(N, "min", min = 4)
-  check(alpha, "unit")
-  check(power, "unit")
-  check(rho0, "req"); check(abs(rho0), "uniti")
-  check(rhoA, "req"); check(abs(rhoA), "uniti")
-  check(sides, "req"); check(sides, "vals", valslist = c(1, 2))
-  check(v, "req"); check(v, "bool")
+  check.param(N, "pos"); check.param(N, "min", min = 4)
+  check.param(alpha, "unit")
+  check.param(power, "unit")
+  check.param(rho0, "req"); check.param(abs(rho0), "uniti")
+  check.param(rhoA, "req"); check.param(abs(rhoA), "uniti")
+  check.param(sides, "req"); check.param(sides, "vals", valslist = c(1, 2))
+  check.param(v, "req"); check.param(v, "bool")
 
   # Calculate power
   p.body <- quote({

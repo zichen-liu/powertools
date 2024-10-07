@@ -35,15 +35,15 @@ irt.hte <- function (n1 = NULL, n.ratio = 1, beta = NULL,
 
   # Check if the arguments are specified correctly
   check.many(list(n1, n.ratio, beta, alpha, power), "oneof")
-  check(n1, "pos")
-  check(n.ratio, "pos")
-  check(beta, "num")
-  check(sd.x, "req"); check(sd.x, "pos")
-  check(sd.yx, "req"); check(sd.yx, "pos")
-  check(alpha, "unit")
-  check(power, "unit")
-  check(sides, "req"); check(sides, "vals", valslist = c(1, 2))
-  check(v, "req"); check(v, "bool")
+  check.param(n1, "pos")
+  check.param(n.ratio, "pos")
+  check.param(beta, "num")
+  check.param(sd.x, "req"); check.param(sd.x, "pos")
+  check.param(sd.yx, "req"); check.param(sd.yx, "pos")
+  check.param(alpha, "unit")
+  check.param(power, "unit")
+  check.param(sides, "req"); check.param(sides, "vals", valslist = c(1, 2))
+  check.param(v, "req"); check.param(v, "bool")
 
   # Calculate power
   p.body <- quote({

@@ -31,16 +31,16 @@ anova1way.c.unbal <- function (nvec = NULL, mvec = NULL, cvec = NULL,
                                v = FALSE) {
 
   # Check if the arguments are specified correctly
-  check(nvec, "req"); check(nvec, "vec")
-  check(mvec, "req"); check(mvec, "vec")
-  check(cvec, "req"); check(cvec, "vec")
+  check.param(nvec, "req"); check.param(nvec, "vec")
+  check.param(mvec, "req"); check.param(mvec, "vec")
+  check.param(cvec, "req"); check.param(cvec, "vec")
   if (sum(cvec) != 0)
     stop("sum of contrast coefficients must equal 0")
-  check(sd, "req"); check(sd, "pos")
-  check(Rsq, "req"); check(Rsq, "uniti")
-  check(ncov, "req"); check(ncov, "int")
-  check(alpha, "req"); check(alpha, "unit")
-  check(v, "req"); check(v, "bool")
+  check.param(sd, "req"); check.param(sd, "pos")
+  check.param(Rsq, "req"); check.param(Rsq, "uniti")
+  check.param(ncov, "req"); check.param(ncov, "int")
+  check.param(alpha, "req"); check.param(alpha, "unit")
+  check.param(v, "req"); check.param(v, "bool")
 
   a <- length(mvec)
   if (a != length(nvec))

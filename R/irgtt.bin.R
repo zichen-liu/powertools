@@ -30,16 +30,16 @@ irgtt.bin <- function (m = NULL, J = NULL, n = NULL, p1 = NULL, p2 = NULL,
 
   # Check if the arguments are specified correctly
   check.many(list(m, J, n, alpha, power), "oneof")
-  check(m, "pos")
-  check(J, "min", min = 2)
-  check(n, "pos")
-  check(p1, "req"); check(p1, "unit")
-  check(p2, "req"); check(p2, "unit")
-  check(icc, "req"); check(icc, "uniti")
-  check(alpha, "unit")
-  check(power, "unit")
-  check(sides, "req"); check(sides, "vals", valslist = c(1, 2))
-  check(v, "req"); check(v, "bool")
+  check.param(m, "pos")
+  check.param(J, "min", min = 2)
+  check.param(n, "pos")
+  check.param(p1, "req"); check.param(p1, "unit")
+  check.param(p2, "req"); check.param(p2, "unit")
+  check.param(icc, "req"); check.param(icc, "uniti")
+  check.param(alpha, "unit")
+  check.param(power, "unit")
+  check.param(sides, "req"); check.param(sides, "vals", valslist = c(1, 2))
+  check.param(v, "req"); check.param(v, "bool")
 
   # Calculate power
   p.body <- quote({

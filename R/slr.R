@@ -32,15 +32,15 @@ slr <- function (N = NULL, beta10 = 0, beta1A = NULL,
 
   # Check if the arguments are specified correctly
   check.many(list(N, alpha, power), "oneof")
-  check(N, "pos"); check(N, "min", min = 4)
-  check(alpha, "unit")
-  check(power, "unit")
-  check(beta10, "req"); check(beta10, "num")
-  check(beta1A, "req"); check(beta1A, "num")
-  check(var.x, "req"); check(var.x, "pos")
-  check(sigma.e, "req"); check(sigma.e, "pos")
-  check(sides, "req"); check(sides, "vals", valslist = c(1, 2))
-  check(v, "req"); check(v, "bool")
+  check.param(N, "pos"); check.param(N, "min", min = 4)
+  check.param(alpha, "unit")
+  check.param(power, "unit")
+  check.param(beta10, "req"); check.param(beta10, "num")
+  check.param(beta1A, "req"); check.param(beta1A, "num")
+  check.param(var.x, "req"); check.param(var.x, "pos")
+  check.param(sigma.e, "req"); check.param(sigma.e, "pos")
+  check.param(sides, "req"); check.param(sides, "vals", valslist = c(1, 2))
+  check.param(v, "req"); check.param(v, "bool")
 
   # Calculate power
   if (sides == 1)

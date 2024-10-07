@@ -27,13 +27,13 @@ prop.1samp <- function (N = NULL, p0 = NULL, pA = NULL, alpha = 0.05,
 
   # Check if the arguments are specified correctly
   check.many(list(N, alpha, power), "oneof")
-  check(N, "pos")
-  check(p0, "req"); check(p0, "unit")
-  check(pA, "req"); check(pA, "unit")
-  check(alpha, "unit")
-  check(power, "unit")
-  check(sides, "req"); check(sides, "vals", valslist = c(1, 2))
-  check(v, "req"); check(v, "bool")
+  check.param(N, "pos")
+  check.param(p0, "req"); check.param(p0, "unit")
+  check.param(pA, "req"); check.param(pA, "unit")
+  check.param(alpha, "unit")
+  check.param(power, "unit")
+  check.param(sides, "req"); check.param(sides, "vals", valslist = c(1, 2))
+  check.param(v, "req"); check.param(v, "bool")
 
   # Calculate test statistic
   p.body <- quote({

@@ -32,13 +32,13 @@ multisite.hte <- function (m = NULL, alloc.ratio = 1, J = NULL, VR = NULL,
 
   # Check if the arguments are specified correctly
   check.many(list(m, J, alpha, power), "oneof")
-  check(m, "pos")
-  check(alloc.ratio, "req"); check(alloc.ratio, "pos")
-  check(J, "min", min = 2)
-  check(VR, "req"); check(VR, "pos")
-  check(alpha, "unit")
-  check(power, "unit")
-  check(v, "req"); check(v, "bool")
+  check.param(m, "pos")
+  check.param(alloc.ratio, "req"); check.param(alloc.ratio, "pos")
+  check.param(J, "min", min = 2)
+  check.param(VR, "req"); check.param(VR, "pos")
+  check.param(alpha, "unit")
+  check.param(power, "unit")
+  check.param(v, "req"); check.param(v, "bool")
 
   p.body <- quote({
     omega <- 1 + m * VR / 4

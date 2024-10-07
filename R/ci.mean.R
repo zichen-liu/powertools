@@ -37,13 +37,13 @@ ci.mean <- function (N = NULL, halfwidth = NULL, sd = 1,
 
   # Check if the arguments are specified correctly
   check.many(list(N, alpha, power), "oneof")
-  check(N, "pos")
-  check(alpha, "unit")
-  check(power, "unit")
-  check(halfwidth, "req"); check(halfwidth, "num")
-  check(sd, "req"); check(sd, "pos")
-  check(cond, "req"); check(cond, "bool")
-  check(v, "req"); check(v, "bool")
+  check.param(N, "pos")
+  check.param(alpha, "unit")
+  check.param(power, "unit")
+  check.param(halfwidth, "req"); check.param(halfwidth, "num")
+  check.param(sd, "req"); check.param(sd, "pos")
+  check.param(cond, "req"); check.param(cond, "bool")
+  check.param(v, "req"); check.param(v, "bool")
 
   d <- halfwidth / sd
 

@@ -45,20 +45,20 @@ crt.parallel.hte <- function (m = NULL, J1 = NULL, J.ratio = 1, beta = NULL,
 
   # Check if the arguments are specified correctly
   check.many(list(m, J1, J.ratio, beta, alpha, power), "oneof")
-  check(m, "pos")
-  check(J.ratio, "pos")
-  check(J1, "min", min = 2)
+  check.param(m, "pos")
+  check.param(J.ratio, "pos")
+  check.param(J1, "min", min = 2)
   if (!is.null(J1) & !is.null(J.ratio))
-    check(J1 * J.ratio, "min", min = 2)
-  check(beta, "num")
-  check(sd.x, "req"); check(sd.x, "pos")
-  check(sd.yx, "req"); check(sd.yx, "pos")
-  check(icc.x, "req"); check(icc.x, "unitii")
-  check(icc.yx, "req"); check(icc.yx, "uniti")
-  check(alpha, "unit")
-  check(power, "unit")
-  check(sides, "req"); check(sides, "vals", valslist = c(1, 2))
-  check(v, "req"); check(v, "bool")
+    check.param(J1 * J.ratio, "min", min = 2)
+  check.param(beta, "num")
+  check.param(sd.x, "req"); check.param(sd.x, "pos")
+  check.param(sd.yx, "req"); check.param(sd.yx, "pos")
+  check.param(icc.x, "req"); check.param(icc.x, "unitii")
+  check.param(icc.yx, "req"); check.param(icc.yx, "uniti")
+  check.param(alpha, "unit")
+  check.param(power, "unit")
+  check.param(sides, "req"); check.param(sides, "vals", valslist = c(1, 2))
+  check.param(v, "req"); check.param(v, "bool")
 
   # Calculate power
     p.body <- quote({

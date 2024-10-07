@@ -26,14 +26,14 @@ corr.2samp <- function (n1 = NULL, n.ratio = 1, rho1 = NULL, rho2 = NULL,
 
   # Check if the arguments are specified correctly
   check.many(list(n1, n.ratio, alpha, power), "oneof")
-  check(n1, "pos"); check(n1, "min", min = 4)
-  check(n.ratio, "pos")
-  check(alpha, "unit")
-  check(power, "unit")
-  check(rho1, "req"); check(abs(rho1), "uniti")
-  check(rho2, "req"); check(abs(rho2), "uniti")
-  check(sides, "req"); check(sides, "vals", valslist = c(1, 2))
-  check(v, "req"); check(v, "bool")
+  check.param(n1, "pos"); check.param(n1, "min", min = 4)
+  check.param(n.ratio, "pos")
+  check.param(alpha, "unit")
+  check.param(power, "unit")
+  check.param(rho1, "req"); check.param(abs(rho1), "uniti")
+  check.param(rho2, "req"); check.param(abs(rho2), "uniti")
+  check.param(sides, "req"); check.param(sides, "vals", valslist = c(1, 2))
+  check.param(v, "req"); check.param(v, "bool")
 
   fisherz <- function(rho){
     0.5 * log((1 + rho)/(1 - rho))

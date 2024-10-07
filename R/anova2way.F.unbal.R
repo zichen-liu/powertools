@@ -37,13 +37,13 @@ anova2way.F.unbal <- function (nmatrix = NULL, mmatrix = NULL, sd = NULL,
                                Rsq = 0, ncov = 0, alpha = 0.05, v = FALSE) {
 
   # Check if the arguments are specified correctly
-  check(nmatrix, "req"); check(nmatrix, "mat")
-  check(mmatrix, "req"); check(mmatrix, "mat")
-  check(sd, "req"); check(sd, "pos")
-  check(Rsq, "req"); check(Rsq, "uniti")
-  check(ncov, "req"); check(ncov, "int")
-  check(alpha, "req"); check(alpha, "unit")
-  check(v, "req"); check(v, "bool")
+  check.param(nmatrix, "req"); check.param(nmatrix, "mat")
+  check.param(mmatrix, "req"); check.param(mmatrix, "mat")
+  check.param(sd, "req"); check.param(sd, "pos")
+  check.param(Rsq, "req"); check.param(Rsq, "uniti")
+  check.param(ncov, "req"); check.param(ncov, "int")
+  check.param(alpha, "req"); check.param(alpha, "unit")
+  check.param(v, "req"); check.param(v, "bool")
 
   a <- nrow(mmatrix)
   b <- ncol(mmatrix)

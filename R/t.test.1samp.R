@@ -28,13 +28,13 @@ t.test.1samp <- function (N = NULL, delta = NULL, sd = 1,
 
   # Check if the arguments are specified correctly
   check.many(list(N, delta, sd, alpha, power), "oneof")
-  check(N, "pos")
-  check(delta, "num")
-  check(sd, "pos")
-  check(alpha, "unit")
-  check(power, "unit")
-  check(sides, "req"); check(sides, "vals", valslist = c(1, 2))
-  check(v, "req"); check(v, "bool")
+  check.param(N, "pos")
+  check.param(delta, "num")
+  check.param(sd, "pos")
+  check.param(alpha, "unit")
+  check.param(power, "unit")
+  check.param(sides, "req"); check.param(sides, "vals", valslist = c(1, 2))
+  check.param(v, "req"); check.param(v, "bool")
 
   # Calculate df and ncp
   if (sides == 1)

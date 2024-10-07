@@ -26,11 +26,11 @@ chisq.indep <- function (pmatrix = NULL, N = NULL, alpha = 0.05, power = NULL,
 
   # Check if the arguments are specified correctly
   check.many(list(N, alpha, power), "oneof")
-  check(pmatrix, "req"); check(pmatrix, "mat"); check(pmatrix, "sum")
-  check(N, "pos"); check(N, "min", min = 2)
-  check(alpha, "unit")
-  check(power, "unit")
-  check(v, "req"); check(v, "bool")
+  check.param(pmatrix, "req"); check.param(pmatrix, "mat"); check.param(pmatrix, "sum")
+  check.param(N, "pos"); check.param(N, "min", min = 2)
+  check.param(alpha, "unit")
+  check.param(power, "unit")
+  check.param(v, "req"); check.param(v, "bool")
 
   # Calculate effect size and df
   pi <- apply(pmatrix, 1, sum)

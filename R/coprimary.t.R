@@ -50,20 +50,20 @@ coprimary.t <- function(K, n1 = NULL, n.ratio = 1, delta = NULL, Sigma, sd, rho,
 
   # Check if the arguments are specified correctly
   check.many(list(n1, n.ratio, power, alpha), "oneof")
-  check(n1, "min", min = 4)
-  check(power, "unit")
-  check(alpha, "unit")
-  check(K, "req"); check(K, "min", min = 1); check(K, "int")
-  check(n.ratio, "pos")
-  check(v, "req"); check(v, "bool")
-  check(delta, "req"); check(delta, "vec")
+  check.param(n1, "min", min = 4)
+  check.param(power, "unit")
+  check.param(alpha, "unit")
+  check.param(K, "req"); check.param(K, "min", min = 1); check.param(K, "int")
+  check.param(n.ratio, "pos")
+  check.param(v, "req"); check.param(v, "bool")
+  check.param(delta, "req"); check.param(delta, "vec")
   if(length(delta) != K)
     stop("length of 'delta' must be equal to 'K'")
   if(!all(delta > 0))
     stop("all effect sizes need to be positive")
 
   if(!missing(Sigma)){
-    check(Sigma, "mat")
+    check.param(Sigma, "mat")
     if(nrow(Sigma) != ncol(Sigma))
       stop("covariance matrix 'Sigma' must be square")
     if(nrow(Sigma) != K)

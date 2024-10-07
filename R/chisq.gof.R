@@ -26,12 +26,12 @@ chisq.gof <- function (p0vec = NULL, p1vec = NULL,
 
   # Check if the arguments are specified correctly
   check.many(list(N, alpha, power), "oneof")
-  check(p0vec, "req"); check(p0vec, "vec"); check(p0vec, "sum")
-  check(p1vec, "req"); check(p1vec, "vec"); check(p1vec, "sum")
-  check(N, "pos"); check(N, "min", min = 2)
-  check(alpha, "unit")
-  check(power, "unit")
-  check(v, "req"); check(v, "bool")
+  check.param(p0vec, "req"); check.param(p0vec, "vec"); check.param(p0vec, "sum")
+  check.param(p1vec, "req"); check.param(p1vec, "vec"); check.param(p1vec, "sum")
+  check.param(N, "pos"); check.param(N, "min", min = 2)
+  check.param(alpha, "unit")
+  check.param(power, "unit")
+  check.param(v, "req"); check.param(v, "bool")
 
   if (length(p0vec) != length(p1vec))
     stop("the two proportion vectors must have the same lengths")

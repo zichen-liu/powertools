@@ -26,20 +26,20 @@
 es.anova.f <- function (means = NULL, sd = NULL, v = TRUE) {
 
   # Check if the arguments are specified correctly
-  check(means, "req")
-  check(sd, "req"); check(sd, "pos")
-  check(v, "req"); check(v, "bool")
+  check.param(means, "req")
+  check.param(sd, "req"); check.param(sd, "pos")
+  check.param(v, "req"); check.param(v, "bool")
 
   if (is.vector(means)) {
     a <- length(means)
     b <- 1
-    check(means, "vec")
+    check.param(means, "vec")
     mmatrix <- matrix(means)
   }
   else if (is.matrix(means)) {
     a <- nrow(means)
     b <- ncol(means)
-    check(means, "mat")
+    check.param(means, "mat")
     mmatrix <- means
   }
 
