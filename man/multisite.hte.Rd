@@ -10,6 +10,7 @@ multisite.hte(
   J = NULL,
   VR = NULL,
   alpha = 0.05,
+  power = NULL,
   v = FALSE
 )
 }
@@ -25,6 +26,8 @@ observations within sites) under the alternative.}
 
 \item{alpha}{The significance level (type 1 error rate); defaults to 0.05.}
 
+\item{power}{The specified level of power.}
+
 \item{v}{Either TRUE for verbose output or FALSE (default) to output computed argument only.}
 }
 \value{
@@ -36,6 +39,7 @@ in a multisite trial with a continuous outcome variable. In particular,
 let sigma.u1^2 be the variance of the site-level treatment effects.
 The test of heterogeneity tests the null hypothesis that sigma.u1^2 = 0
 versus the alternative that sigma.u1^2 > 0.
+Can solve for power, J, or m.
 }
 \details{
 See Crespi CM (2025) for details.

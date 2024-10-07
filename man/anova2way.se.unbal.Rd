@@ -12,6 +12,7 @@ anova2way.se.unbal(
   Rsq = 0,
   ncov = 0,
   alpha = 0.05,
+  sides = 2,
   v = FALSE
 )
 }
@@ -29,6 +30,8 @@ anova2way.se.unbal(
 \item{ncov}{The number of covariates adjusted for in the model; defaults to 0.}
 
 \item{alpha}{The significance level (type 1 error rate); defaults to 0.05.}
+
+\item{sides}{Either 1 or 2 (default) to specify a one- or two- sided hypothesis test.}
 
 \item{v}{Either TRUE for verbose output or FALSE (default) to output computed argument only.}
 }

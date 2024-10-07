@@ -19,6 +19,7 @@
 #' @param VR The variance ratio (variance of the site-level treatment effects divided by variance of
 #' observations within sites) under the alternative.
 #' @param alpha The significance level (type 1 error rate); defaults to 0.05.
+#' @param power The specified level of power.
 #' @param v Either TRUE for verbose output or FALSE (default) to output computed argument only.
 #'
 #' @return A list of the arguments (including the computed power).

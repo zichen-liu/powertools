@@ -13,6 +13,7 @@ anova2way.se.bal(
   ncov = 0,
   alpha = 0.05,
   power = NULL,
+  sides = 2,
   v = FALSE
 )
 }
@@ -32,6 +33,8 @@ anova2way.se.bal(
 \item{alpha}{The significance level (type 1 error rate); defaults to 0.05.}
 
 \item{power}{The specified level of power.}
+
+\item{sides}{Either 1 or 2 (default) to specify a one- or two- sided hypothesis test.}
 
 \item{v}{Either TRUE for verbose output or FALSE (default) to output computed argument only.}
 }
