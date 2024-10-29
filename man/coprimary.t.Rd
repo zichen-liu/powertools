@@ -67,9 +67,12 @@ Smaller M can descrease computation time.
 The function coprimary.z provides a close approximation and is much faster.
 }
 \examples{
+# M is set to 10 in these examples to reduce runtime;
+# please increase M or do not specify M (defaults to M = 10000) for optimal results
 coprimary.t(K = 2, n1 = 100, delta = c(0.4, 0.5), sd = c(1, 1), rho = 0.3, alpha = 0.025,
-   power = NULL)
+power = NULL, M = 10)
 
 Sigma <- matrix(c(1, 0.3, 0.3, 0.3, 1, 0.3, 0.3, 0.3, 1), nrow = 3, ncol = 3)
-coprimary.t(K = 3, n1 = 200, delta = c(0.2, 0.3, 0.4), Sigma = Sigma, alpha = 0.025, power = NULL)
+coprimary.t(K = 3, n1 = 200, delta = c(0.2, 0.3, 0.4), Sigma = Sigma, alpha = 0.025,
+power = NULL, M = 10)
 }
